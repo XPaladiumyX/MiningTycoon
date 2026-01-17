@@ -1,0 +1,5 @@
+command /afk:
+    trigger:
+        teleport player to location(9, 125, 19, world "mining_tycoon")
+        set yaw of player to -270
+        set pitch of player to 0

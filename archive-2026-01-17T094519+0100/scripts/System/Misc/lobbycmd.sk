@@ -1,0 +1,6 @@
+command /lobby:
+    trigger:
+        send "&aConnecting to lobby..." to player
+        wait 3 seconds
+        send "&aSending to lobby..." to player
+        connect player to "lobby"

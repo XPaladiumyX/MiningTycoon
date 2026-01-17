@@ -1,0 +1,21 @@
+every 1 seconds: # A Augmenter si lags avec plusieurs joueurs
+    loop all players:
+        # Initialiser l'EXP si elle n'est pas définie
+        if {exp::%loop-player%} is not set:
+            set {exp::%loop-player%} to 0  # Initialiser l'EXP à 0 si elle n'est pas encore définie
+        
+        # Accumuler l'EXP temporaire
+        set {_accumulated} to {_playerAccumulatedExp::%loop-player%}  # Récupérer l'EXP accumulée
+        
+        # Si l'EXP accumulée dépasse un certain seuil, level-up
+        if {_accumulated} > 100:  # Remplace 100 par ton seuil d'EXP pour un level-up
+            # Appeler la commande /checklevel pour level-up
+            execute loop-player command "checklevel"
+            # Réinitialiser l'accumulation d'EXP pour ce joueur
+            set {_playerAccumulatedExp::%loop-player%} to 0
+            # Afficher l'ActionBar mise à jour
+            updateActionBar(loop-player and {_accumulated}, loop-player's balance)
+            
+        # Si l'EXP est non nulle, vérifier et réexécuter checklevel
+        if {exp::%loop-player%} > 0:
+            execute loop-player command "checklevel"

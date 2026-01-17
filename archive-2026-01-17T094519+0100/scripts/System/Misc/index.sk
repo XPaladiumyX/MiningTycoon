@@ -1,0 +1,15 @@
+command /index:
+    trigger:
+        send "&8&m------&r &6&lCommand Index &8&m------"
+        send "&e/droptoggle &7- Toggle drop messages"
+        send "&e/shop &7- Open the server shop"
+        send "&e/pets &7- Open the server pets shop"
+        send "&e/reward &7- Claim your daily reward"
+        send "&e/level &7- Check your level and XP"
+        send "&e/hub &7- Return to the hub"
+        send "&e/spawn &7- Teleport to the spawn"
+        send "&e/lobby &7- Sends you to the lobby"
+        send "&e/afk &7- Teleport you to the afk area"
+        send "&e/playerhide &7- Toggle visibility of other players"
+        send "&e/booststatus &7- Show if a Global Boost is active"
+        send "&8&m-----------------------------"

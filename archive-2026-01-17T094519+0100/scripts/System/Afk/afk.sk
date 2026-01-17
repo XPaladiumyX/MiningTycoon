@@ -1,0 +1,59 @@
+every tick:
+    loop all players:
+        if loop-player is in world "mining_tycoon":
+            set {_loc} to location of loop-player
+            set {_x} to rounded x-coordinate of {_loc}
+            set {_y} to rounded y-coordinate of {_loc}
+            set {_z} to rounded z-coordinate of {_loc}
+    
+            if {_x} is between 8 and 11:
+                if {_z} is between 18 and 21:
+                    if {_y} is 108:
+                        # Vérifier si le joueur est déjà dans la zone AFK
+                        if {afk::%loop-player%} is not set:
+
+                            set {afk::position::%loop-player%} to {_loc}
+
+                            set {_yaw} to yaw of loop-player
+                            set {_pitch} to pitch of loop-player
+
+                            set {afk::%loop-player%} to true
+                            set {_exp} to 1
+                            set {_money} to 1
+
+                            set {_item} to tool of loop-player
+                            set {_bonus::*} to getToolBonus({_item})
+                            set {_petbonus::*} to getPetBonus(loop-player)
+                            set {_armorbonus::*} to getArmorBonus(loop-player)
+
+                            add {_petbonus::1} to {_bonus::1}
+                            add {_petbonus::2} to {_bonus::2}
+                            add {_armorbonus::1} to {_bonus::1}
+                            add {_armorbonus::2} to {_bonus::2}
+
+                            add {_bonus::1} to {_exp}
+                            add {_bonus::2} to {_money}
+                            
+                            add 1 to {afkTime::%loop-player%} # cumule 1 seconde AFK
+
+                            add {_exp} to {exp::%loop-player%}
+                            add {_money} to loop-player's balance
+                            send title "" to loop-player for 1 seconds
+                            send subtitle "&f[&6+%{_money}%⛁&f] &f[&3+%{_exp}%✦&f]" to loop-player for 1 seconds
+
+                            set {_lastPos} to {afk::position::%loop-player%}
+                            set {_x} to x-coordinate of {_lastPos}
+                            set {_z} to z-coordinate of {_lastPos}
+                            teleport loop-player to location({_x}, 125, {_z}, world "mining_tycoon")
+
+                            set yaw of loop-player to {_yaw}
+                            set pitch of loop-player to {_pitch}
+
+                            if uuid of loop-player contains "00000000":
+                                # Orienter la tête du joueur vers l'ouest (yaw = 270)
+                                set yaw of loop-player to 0
+                                set pitch of loop-player to 89.999  # Garde l'angle de vision horizontal
+
+                            wait 1 second
+
+                            delete {afk::%loop-player%}  # Réinitialiser la donnée après le tp

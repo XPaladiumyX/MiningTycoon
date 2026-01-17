@@ -1,0 +1,6 @@
+on player portal:
+    teleport player to location at -36.5, 124, 16.5
+    if player's gamemode is creative:
+        if player is op:
+            wait 0.8 seconds
+            set the player's gamemode to creative 

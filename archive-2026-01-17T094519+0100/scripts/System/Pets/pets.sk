@@ -1,0 +1,133 @@
+function getPetBonus(p: player) :: objects:
+    set {_exp} to 0
+    set {_money} to 0
+    set {_helmet} to helmet of {_p}
+
+    if {_helmet} is player head:
+        set {_name} to name of {_helmet}
+# ------- BASIC SECTION ------------------------------------------------------------------------
+        if {_name} is "&7&lRocky Mole":
+            set {_exp} to 7
+            set {_money} to 2
+
+        else if {_name} is "&7&lStone Crab":
+            set {_exp} to 14
+            set {_money} to 7
+
+        else if {_name} is "&7&lTiny Golem":
+            set {_exp} to 52
+            set {_money} to 16
+
+        else if {_name} is "&7&lCave Bat":
+            set {_exp} to 41
+            set {_money} to 39
+
+        else if {_name} is "&7&lDusty Rat":
+            set {_exp} to 126
+            set {_money} to 52
+
+        else if {_name} is "&7&lPebble Slime":
+            set {_exp} to 113
+            set {_money} to 111
+# ------- COMMON SECTION ------------------------------------------------------------------------
+        else if {_name} is "&a&lIron Snail":
+            set {_exp} to 2300
+            set {_money} to 1980
+
+        else if {_name} is "&a&lPickaxe Puppy":
+            set {_exp} to 2600
+            set {_money} to 2150
+
+        else if {_name} is "&a&lDrill Bee":
+            set {_exp} to 2800
+            set {_money} to 2300
+
+        else if {_name} is "&a&lMine Cat":
+            set {_exp} to 2750
+            set {_money} to 2400
+
+        else if {_name} is "&a&lRusty Guardian":
+            set {_exp} to 2920
+            set {_money} to 2500
+
+        else if {_name} is "&a&lGlow Worm":
+            set {_exp} to 3150
+            set {_money} to 2800
+# ------- RARE SECTION ------------------------------------------------------------------------
+        else if {_name} is "&e&lSilver Griffin":
+            set {_exp} to 4500
+            set {_money} to 4000
+
+        else if {_name} is "&e&lOre Hound":
+            set {_exp} to 4950
+            set {_money} to 4320
+
+        else if {_name} is "&e&lMagnet Crawler":
+            set {_exp} to 5300
+            set {_money} to 4890
+
+        else if {_name} is "&e&lSmelt Spirit":
+            set {_exp} to 5800
+            set {_money} to 5000
+
+        else if {_name} is "&e&lShimmer Beetle":
+            set {_exp} to 5565
+            set {_money} to 5498
+
+        else if {_name} is "&e&lEmerald Fox":
+            set {_exp} to 6000
+            set {_money} to 5880
+# ------- EPIC SECTION ------------------------------------------------------------------------
+        else if {_name} is "&5&lDrill Core":
+            set {_exp} to 8700
+            set {_money} to 7400
+
+        else if {_name} is "&5&lCrystallion":
+            set {_exp} to 9300
+            set {_money} to 7800
+
+        else if {_name} is "&5&lObsidian Beast":
+            set {_exp} to 9900
+            set {_money} to 8200
+
+        else if {_name} is "&5&lSparkling Phoenix":
+            set {_exp} to 10500
+            set {_money} to 8800
+
+        else if {_name} is "&5&lAncient Digger":
+            set {_exp} to 10200
+            set {_money} to 9600
+
+        else if {_name} is "&5&lLava Serpent":
+            set {_exp} to 10700
+            set {_money} to 10650
+# ------- LEGENDARY SECTION ------------------------------------------------------------------------
+        else if {_name} is "&c&lTitanium &6&lDragon":
+            set {_exp} to 15500
+            set {_money} to 12400
+
+        else if {_name} is "&c&lMythic &6&lCentipede":
+            set {_exp} to 16200
+            set {_money} to 13100
+
+        else if {_name} is "&c&lQuantum &6&lGhost":
+            set {_exp} to 17000
+            set {_money} to 13800
+
+        else if {_name} is "&c&lVoid &6&lHarvester":
+            set {_exp} to 17500
+            set {_money} to 14300
+
+        else if {_name} is "&c&lChrono &6&lMole":
+            set {_exp} to 18000
+            set {_money} to 14800
+
+        else if {_name} is "&c&lNuclear &6&lWyrm":
+            set {_exp} to 18500
+            set {_money} to 15400
+
+        else if {_name} is "&c&lGalactic &6&lGolem":
+            set {_exp} to 20000
+            set {_money} to 17900
+
+    return {_exp} and {_money}

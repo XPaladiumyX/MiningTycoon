@@ -1,0 +1,36 @@
+on drop:
+
+    # Récupère l'item que le joueur veut drop
+    set {_item} to event-item
+
+    # Empêche de drop la Nether Star du menu (même en cas de confirmation)
+    if type of {_item} is nether star:
+        if custom model data of {_item} is 1234:
+            cancel event
+            send "&7[&e!&7] &cYou can't drop this item: &r%name of {_item}%" to player
+            stop
+
+    # Si le joueur est temporairement autorisé à drop librement
+    if {dropconfirmed::%player%} is true:
+        # Ne rien faire : autoriser le drop
+        stop
+
+    # Si le joueur a déjà tenté de drop une fois
+    if {dropconfirm::%player%} is set:
+        delete {dropconfirm::%player%}
+        set {dropconfirmed::%player%} to true
+
+        send "&7[&e!&7] &aDrop confirmed! You can drop items freely for &e10 seconds." to player
+
+        wait 10 seconds
+        delete {dropconfirmed::%player%}
+        send "&7[&e!&7] &eSecure drop mode is now re-enabled." to player
+        stop
+
+    # Première tentative de drop : prévenir le joueur
+    cancel event
+    send "&7[&e!&7] &cPress your drop key again to confirm dropping the item." to player
+    set {dropconfirm::%player%} to true
+
+    wait 3 seconds
+    delete {dropconfirm::%player%}

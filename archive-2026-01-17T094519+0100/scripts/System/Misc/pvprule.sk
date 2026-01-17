@@ -1,0 +1,3 @@
+on damage of player:  # Cette condition va se déclencher lorsqu'un joueur prend des dégâts
+    if attacker is a player:  # Vérifie si l'attaquant est également un joueur
+        cancel event 

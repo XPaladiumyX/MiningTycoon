@@ -1,0 +1,5 @@
+command /set_prestige_cancel_delay <offline player>:
+    trigger:
+        set {prestige_cancel_delay::%arg-1%} to true
+        wait 2 seconds
+        delete {prestige_cancel_delay::%arg-1%}

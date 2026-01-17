@@ -1,0 +1,45 @@
+function getToolBonus(item: item) :: objects:
+    set {_exp} to 0
+    set {_money} to 0
+
+    if custom model data of {_item} is 1234: # Stone Pickaxe
+        set {_exp} to 3
+        set {_money} to 1
+    if custom model data of {_item} is 1236: # Reinforced Pickaxe
+        set {_exp} to 7
+        set {_money} to 3
+    if custom model data of {_item} is 1237: # Rockshredder
+        set {_exp} to 15
+        set {_money} to 8
+    if custom model data of {_item} is 1238: # Stone Crusher
+        set {_exp} to 40
+        set {_money} to 23
+    if custom model data of {_item} is 1239: # Iron Pickaxe
+        set {_exp} to 92
+        set {_money} to 53
+    if custom model data of {_item} is 1240: # Tempered Edge
+        set {_exp} to 128
+        set {_money} to 86
+    if custom model data of {_item} is 1241: # Ore Splitter
+        set {_exp} to 376
+        set {_money} to 191
+    if custom model data of {_item} is 1242: # IronStorm
+        set {_exp} to 720
+        set {_money} to 346
+    if custom model data of {_item} is 1243: # Diamond Pickaxe
+        set {_exp} to 1656
+        set {_money} to 742
+    if custom model data of {_item} is 1244: # Crystal Cutter
+        set {_exp} to 3704
+        set {_money} to 1506
+    if custom model data of {_item} is 1245: # Shardpiercer
+        set {_exp} to 7159
+        set {_money} to 3458
+    if custom model data of {_item} is 1246: # GemReaper
+        set {_exp} to 12406
+        set {_money} to 5846
+    if custom model data of {_item} is 1247: # AetherPick
+        set {_exp} to 19750
+        set {_money} to 14987
+
+    return {_exp} and {_money}

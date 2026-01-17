@@ -1,0 +1,58 @@
+on join:
+    if {level::%player%} is not set:
+        set {level::%player%} to 1
+
+    if {exp::%player%} is not set:
+        set {exp::%player%} to 0
+
+    # Toujours définir exp_needed si absent ou invalide
+    if {exp_needed::%player%} is not set:
+        set {exp_needed::%player%} to 100
+    else if {exp_needed::%player%} <= 0:
+        set {exp_needed::%player%} to 100
+
+
+
+command /checklevel:
+    trigger:
+        # Calculer la différence d'EXP à donner
+        set {_expDelta} to {exp::%player%} - {exp_needed::%player%}
+        
+        # Si l'expérience dépasse les besoins, on fait monter de niveau
+        if {_expDelta} >= 0:
+            set {exp::%player%} to {_expDelta}  # Réinitialiser l'EXP après le level-up
+            # Niveau max 500
+            if {level::%player%} < 500:
+                add 1 to {level::%player%}
+                # Augmenter la quantité d'EXP nécessaire à chaque niveau
+                set {exp_needed::%player%} to ({exp_needed::%player%} * 1.1)
+            else:
+                set {exp::%player%} to {exp_needed::%player%}  # Ne permet pas de dépasser 500 niveaux
+                send "&cYou've reached the maximum level! &5(/rebirth)" to player
+
+command /level:
+    trigger:
+        set {_player} to player's name
+        set {_level} to {level::%player%}
+        set {_maxLevel} to 500
+        set {_exp} to {exp::%player%}
+        set {_expNeeded} to {exp_needed::%player%}
+        set {_percent} to ({_exp} / {_expNeeded}) * 100
+
+        send "&7&l-------< &d&lLevel&f&lStats &7&l>-------" to player
+        send "&fPlayer: &7%{_player}%" to player
+        send "&fLevel: &6%{_level}%&7/&c%{_maxLevel}%" to player
+        send "&fEXP: &b%formatExp({_exp})%&7/&b%formatExp({_expNeeded})%" to player
+
+        # Barre de progression visuelle en texte
+        set {_progress} to "&8[&d"
+        set {_filledBars} to floor({_percent} / 10)
+        loop {_filledBars} times:
+            set {_progress} to "%{_progress}%■"
+        set {_progress} to "%{_progress}%&7"
+        loop (10 - {_filledBars}) times:
+            set {_progress} to "%{_progress}%■"
+        set {_progress} to "%{_progress}%&8]"
+
+        send "%{_progress}%" to player
+        send "&7&l--------------------------" to player

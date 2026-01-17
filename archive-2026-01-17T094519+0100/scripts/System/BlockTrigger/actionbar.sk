@@ -1,0 +1,78 @@
+import:
+    java.lang.String
+
+function formatNumberCompact(num: number) :: string:
+    set {_float} to {_num}.floatValue()
+
+    if {_num} < 1000:
+        return String.format("%%,.0f", {_float})
+
+    else if {_float} < 1000000:
+        return String.format("%%,.2f", {_float} / 1000) + "K"
+
+    else if {_float} < 1000000000:
+        return String.format("%%,.2f", {_float} / 1000000) + "M"
+
+    else if {_float} < 1000000000000:
+        return String.format("%%,.2f", {_float} / 1000000000) + "B"
+
+    else if {_float} < 1000000000000000:
+        return String.format("%%,.2f", {_float} / 1000000000000) + "T"
+
+    else if {_float} < 1000000000000000000:
+        return String.format("%%,.2f", {_float} / 1000000000000000) + "Q"
+
+    else if {_float} < 1000000000000000000000:
+        return String.format("%%,.2f", {_float} / 1000000000000000000) + "Qi"
+
+    else if {_float} < 1000000000000000000000000:
+        return String.format("%%,.2f", {_float} / 1000000000000000000000) + "Sx"
+
+    else if {_float} < 1000000000000000000000000000:
+        return String.format("%%,.2f", {_float} / 1000000000000000000000000) + "Sp"
+
+    else:
+        return String.format("%%,.2f", {_float} / 1000000000000000000000000000) + "Oc"
+
+function updateActionBar(p: player, expGained: number, money: number):
+    set {_exp} to floor({exp::%{_p}%})
+    set {_expNeeded} to floor({exp_needed::%{_p}%})
+    set {_expRemaining} to floor({_expNeeded} - {_exp})
+
+    if {_expRemaining} < 0:
+        set {_expRemaining} to 0
+
+    set {_percent} to round(({_exp} / {_expNeeded}) * 100)
+    if {_percent} > 100:
+        set {_percent} to 100
+
+    set {_level} to {level::%{_p}%}
+
+    set {_formattedExpGained} to formatNumberCompact({_expGained})
+    set {_formattedMoney} to formatNumberCompact({_money})
+    set {_formattedExpRemaining} to formatNumberCompact({_expRemaining})
+
+    # Progress bar JAVA
+    set {_progress} to "&8[&d"
+    set {_filledBars} to floor({_percent} / 10)
+    loop {_filledBars} times:
+        set {_progress} to "%{_progress}%■"
+    set {_progress} to "%{_progress}%&7"
+    loop (10 - {_filledBars}) times:
+        set {_progress} to "%{_progress}%■"
+    set {_progress} to "%{_progress}%&8]"
+
+    # Progress bar BEDROCK
+    set {_bedrockprogress} to "&8[&d"
+    set {_bedrockBars} to floor({_percent} / 10)
+    loop {_bedrockBars} times:
+        set {_bedrockprogress} to "%{_bedrockprogress}%•"
+    set {_bedrockprogress} to "%{_bedrockprogress}%&7"
+    loop (10 - {_bedrockBars}) times:
+        set {_bedrockprogress} to "%{_bedrockprogress}%•"
+    set {_bedrockprogress} to "%{_bedrockprogress}%&8]"
+
+    if uuid of {_p} contains "00000000":
+        send action bar "&3+%{_formattedExpGained}%✦ &6+%{_formattedMoney}%⛁ &7| &8[&b%{_level}%✐&8] %{_bedrockprogress}% &7(%{_percent}%)" to {_p}
+    else:
+        send action bar "&3+%{_formattedExpGained}%✦ &6+%{_formattedMoney}%⛁ &7| &8[&b%{_level}%✐&8] %{_progress}% &7(%{_percent}%%% | %{_formattedExpRemaining}% EXP left)" to {_p}

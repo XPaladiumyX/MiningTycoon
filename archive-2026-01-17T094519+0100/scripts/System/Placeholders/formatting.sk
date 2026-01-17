@@ -1,0 +1,35 @@
+import:
+    java.lang.String
+
+function formatExp(num: number) :: string:
+    set {_float} to {_num}.floatValue()
+
+    if {_num} < 1000:
+        return String.format("%%,.0f", {_float})
+
+    else if {_float} < 1000000:
+        return String.format("%%,.2f", {_float} / 1000) + "K"
+
+    else if {_float} < 1000000000:
+        return String.format("%%,.2f", {_float} / 1000000) + "M"
+
+    else if {_float} < 1000000000000:
+        return String.format("%%,.2f", {_float} / 1000000000) + "B"
+
+    else if {_float} < 1000000000000000:
+        return String.format("%%,.2f", {_float} / 1000000000000) + "T"
+
+    else if {_float} < 1000000000000000000:
+        return String.format("%%,.2f", {_float} / 1000000000000000) + "Q"
+
+    else if {_float} < 1000000000000000000000:
+        return String.format("%%,.2f", {_float} / 1000000000000000000) + "Qi"
+
+    else if {_float} < 1000000000000000000000000:
+        return String.format("%%,.2f", {_float} / 1000000000000000000000) + "Sx"
+
+    else if {_float} < 1000000000000000000000000000:
+        return String.format("%%,.2f", {_float} / 1000000000000000000000000) + "Sp"
+
+    else:
+        return String.format("%%,.2f", {_float} / 1000000000000000000000000000) + "Oc"

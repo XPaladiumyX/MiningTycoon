@@ -1,0 +1,65 @@
+options:
+    community_zone: zone1_mid
+
+    # Drop rates (ex: 1 chance sur 1500)
+    redstone_reward_chance: 500
+    zentium_chance: 666
+    armor_chance: 1250
+    boost_chance: 1500
+
+on break redstone_ore:
+    set {_p} to player
+    if {playermode::%{_p}%} is "staff":
+        stop
+
+    if "%region at event-block%" does not contain "{@community_zone}":
+        stop
+
+    cancel event
+    send action bar "&d⚒ &7Mining the &cCommunity Generator&7..." to {_p}
+
+    # Global Boost (1/1500)
+    set {_boostRoll} to random integer between 1 and {@boost_chance}
+    if {_boostRoll} = 1:
+        # Choix aléatoire du type de boost
+        set {_typeRoll} to random integer between 1 and 3
+        if {_typeRoll} = 1:
+            set {_type} to "exp"
+        else if {_typeRoll} = 2:
+            set {_type} to "coins"
+        else:
+            set {_type} to "both"
+
+        # Appel correct : on passe le type ET le joueur
+        startGlobalBoost({_type}, {_p})
+
+        # Message public : joueur + type du boost + probabilité
+        broadcast "&b☄ &d%{_p}% has triggered a &6Global Boost &d(%{_type}% - 1 in {@boost_chance}&7)"
+        stop
+
+    # Armor (1/1250)
+    set {_armorRoll} to random integer between 1 and {@armor_chance}
+    if {_armorRoll} = 1:
+        execute console command "armor give random %{_p}%"
+        send "&aYou found a piece of &dArmor&a from the Generator! &7(&c1 in {@armor_chance}&7)" to {_p}
+        stop
+
+    # Zentium (1/666)
+    set {_zentiumRoll} to random integer between 1 and {@zentium_chance}
+    if {_zentiumRoll} = 1:
+        execute console command "zentium give %{_p}% 1"
+        send "&d+1 Zentium ✧ &7(from Community Generator) &7(&c1 in {@zentium_chance}&7)" to {_p}
+        stop
+
+    # Coins & Exp (1/500)
+    set {_dropRoll} to random integer between 1 and {@redstone_reward_chance}
+    if {_dropRoll} = 1:
+        # Random EXP entre 150 et 400
+        set {_expReward} to random integer between 150 and 400
+
+        # Random Coins entre 500 et 2000
+        set {_coinReward} to random integer between 500 and 2000
+
+        add {_expReward} to {exp::%{_p}%}
+        execute console command "coins give %{_p}% %{_coinReward}%"
+        send "&a+%{_expReward}%✦ &7and &6+%{_coinReward}%⛁ &7from Community Generator! &7(&c1 in {@redstone_reward_chance}&7)" to {_p}

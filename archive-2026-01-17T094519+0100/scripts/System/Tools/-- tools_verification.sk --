@@ -1,0 +1,27 @@
+on block break:
+    set {_item} to player's tool
+
+    # Stone Pickaxe
+    if custom model data of {_item} is 1234:
+        set {_exp} to 3
+        set {_money} to 1
+        add {_exp} to {exp::%player%}
+        add {_money} to player's balance
+    # Reinforced Pickaxe
+    if custom model data of {_item} is 1236:
+        set {_exp} to 7
+        set {_money} to 3
+        add {_exp} to {exp::%player%}
+        add {_money} to player's balance
+    # Rockshredder
+    if custom model data of {_item} is 1237:
+        set {_exp} to 15
+        set {_money} to 8
+        add {_exp} to {exp::%player%}
+        add {_money} to player's balance
+    # Stone Crusher
+    if custom model data of {_item} is 1238:
+        set {_exp} to 40
+        set {_money} to 23
+        add {_exp} to {exp::%player%}
+        add {_money} to player's balance

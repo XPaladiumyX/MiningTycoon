@@ -1,0 +1,5 @@
+every 5 seconds:
+    loop all players:
+        if name of world of loop-player is "mining_tycoon":
+            set {_effect} to potion effect of night vision of tier 1 without particles for 120 seconds
+            add {_effect} to potion effects of loop-player

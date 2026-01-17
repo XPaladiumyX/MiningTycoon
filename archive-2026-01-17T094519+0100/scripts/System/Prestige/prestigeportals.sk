@@ -1,0 +1,45 @@
+on player move:
+    # Ne rien faire si cooldown en cours
+    if {prestige_cooldown::%player%} is set:
+        stop
+
+    # Ne rien faire si annulation récente
+    if {prestige_cancel_delay::%player%} is set:
+        stop
+
+    set {_regions::*} to regions at player
+
+    loop {_regions::*}:
+        # Zone de prestige basique
+        if loop-value is "prestige_basic":
+            set {_level} to {level::%player%}
+            if {_level} < 120:
+                send "&c⛔ You must be &lLevel 120 &cto prestige!" to player
+                set {prestige_cooldown::%player%} to true
+                wait 2 seconds
+                delete {prestige_cooldown::%player%}
+                stop
+
+            set {prestige_confirm::%player%} to true
+            execute console command "dm open prestige_confirmation %player%"
+            set {prestige_cooldown::%player%} to true
+            wait 2 seconds
+            delete {prestige_cooldown::%player%}
+            stop
+
+        # Zone de prestige élite
+        if loop-value is "prestige_elite":
+            set {_level} to {level::%player%}
+            if {_level} < 150:
+                send "&c⛔ Elite Prestige requires &lLevel 150&c!" to player
+                set {prestige_cooldown::%player%} to true
+                wait 2 seconds
+                delete {prestige_cooldown::%player%}
+                stop
+
+            set {prestige_confirm::%player%} to true
+            execute console command "dm open prestige_confirmation %player%"
+            set {prestige_cooldown::%player%} to true
+            wait 2 seconds
+            delete {prestige_cooldown::%player%}
+            stop
