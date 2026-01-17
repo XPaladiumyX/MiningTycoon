@@ -10,7 +10,7 @@ softdepend: [ PlaceholderAPI, Vault, WorldGuard ]
 
 commands:
   level:
-    description: Display your level and experience
+    description: Display your levels and experience
     usage: /level
 
   prestige:
