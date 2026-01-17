@@ -1,0 +1,307 @@
+command /giveitem <text> <offline player>:
+    trigger:
+        if sender is a player:
+            if sender is not op:
+                send "&cYou are not allowed to use this command." to sender
+                stop
+        set {_itemname} to arg-1
+        set {_target} to arg-2
+
+        if {_itemname} is "stone_pickaxe":
+            set {_item} to unbreakable stone pickaxe
+            set {_item} to stone pickaxe
+            set custom model data of {_item} to 1234
+            set name of {_item} to "&7Stone Pickaxe"
+            set lore of {_item} to "&8Pickaxe" and "" and "&d&lBonus:" and "&8« &3+3✦ &8| &6+1⛁ &8»" and "" and "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "wooden_pickaxe":
+            set {_item} to unbreakable wooden pickaxe
+            set {_item} to wooden pickaxe
+            set custom model data of {_item} to 1235
+            set name of {_item} to "&6Starter Pickaxe"
+            set lore of {_item} to "&8Pickaxe" and "" and "&7&lBASIC"
+            enchant {_item} with unbreaking 255
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "reinforced_pickaxe":
+            set {_item} to unbreakable stone pickaxe
+            set {_item} to stone pickaxe
+            set custom model data of {_item} to 1236
+            set name of {_item} to "&7Reinforced Pickaxe"
+            set the 1st line of lore of {_item} to "&8Pickaxe"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+7✦ &8| &6+3⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&1Efficiency I"
+            set the 7th line of lore of {_item} to "&7Increases &6Mining Speed &7by &a20%%"
+            set the 8th line of lore of {_item} to ""
+            set the 9th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with efficiency 1
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "rockshredder_pickaxe":
+            set {_item} to unbreakable stone pickaxe
+            set {_item} to stone pickaxe
+            set custom model data of {_item} to 1237
+            set name of {_item} to "&7Rockshredder"
+            set the 1st line of lore of {_item} to "&8Pickaxe"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+15✦ &8| &6+8⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&1Efficiency II"
+            set the 7th line of lore of {_item} to "&7Increases &6Mining Speed &7by &a50%%"
+            set the 8th line of lore of {_item} to ""
+            set the 9th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with efficiency 2
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "stone_crusher":
+            set {_item} to unbreakable stone pickaxe
+            set {_item} to stone pickaxe
+            set custom model data of {_item} to 1238
+            set name of {_item} to "&eStone Crusher"
+            set the 1st line of lore of {_item} to "&8Pickaxe"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+40✦ &8| &6+23⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&1Efficiency III"
+            set the 7th line of lore of {_item} to "&7Increases &6Mining Speed &7by &a100%%"
+            set the 8th line of lore of {_item} to ""
+            set the 9th line of lore of {_item} to "&eLucky Miner I"
+            set the 10th line of lore of {_item} to "&a15%% &7Chance to earn double XP & money while mining"
+            set the 11th line of lore of {_item} to ""
+            set the 12th line of lore of {_item} to "&e&lRARE"
+            enchant {_item} with efficiency 3
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "iron_pickaxe":
+            set {_item} to unbreakable iron pickaxe
+            set {_item} to iron pickaxe
+            set custom model data of {_item} to 1239
+            set name of {_item} to "&7Iron Pickaxe"
+            set the 1st line of lore of {_item} to "&8Pickaxe"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+92✦ &8| &6+53⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&eLucky Miner II"
+            set the 7th line of lore of {_item} to "&a35%% &7Chance to earn double XP & money while mining"
+            set the 8th line of lore of {_item} to ""
+            set the 9th line of lore of {_item} to "&e&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "tempered_edge":
+            set {_item} to unbreakable iron pickaxe
+            set {_item} to iron pickaxe
+            set custom model data of {_item} to 1240
+            set name of {_item} to "&7Tempered Edge"
+            set the 1st line of lore of {_item} to "&8Pickaxe"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+128✦ &8| &6+86⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&1Efficiency I"
+            set the 7th line of lore of {_item} to "&7Increases &6Mining Speed &7by &a20%%"
+            set the 8th line of lore of {_item} to ""
+            set the 9th line of lore of {_item} to "&bHaste I"
+            set the 10th line of lore of {_item} to "&a15%% &7Chance to apply &eHaste 1 (10s) &7while mining"
+            set the 11th line of lore of {_item} to ""
+            set the 12th line of lore of {_item} to "&eLucky Miner II"
+            set the 13th line of lore of {_item} to "&a35%% &7Chance to earn double XP & money while mining"
+            set the 14th line of lore of {_item} to ""
+            set the 15th line of lore of {_item} to "&e&lRARE"
+            enchant {_item} with efficiency 1
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "ore_splitter":
+            set {_item} to unbreakable iron pickaxe
+            set {_item} to iron pickaxe
+            set custom model data of {_item} to 1241
+            set name of {_item} to "&7Ore Splitter"
+            set the 1st line of lore of {_item} to "&8Pickaxe"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+376✦ &8| &6+191⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&1Efficiency II"
+            set the 7th line of lore of {_item} to "&7Increases &6Mining Speed &7by &a50%%"
+            set the 8th line of lore of {_item} to ""
+            set the 9th line of lore of {_item} to "&bHaste II"
+            set the 10th line of lore of {_item} to "&a35%% &7Chance to apply &eHaste 1 (30s) &7while mining"
+            set the 11th line of lore of {_item} to ""
+            set the 12th line of lore of {_item} to "&eLucky Miner II"
+            set the 13th line of lore of {_item} to "&a35%% &7Chance to earn double XP & money while mining"
+            set the 14th line of lore of {_item} to ""
+            set the 15th line of lore of {_item} to "&9&lEPIC"
+            enchant {_item} with efficiency 2
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "iron_storm":
+            set {_item} to unbreakable iron pickaxe
+            set {_item} to iron pickaxe
+            set custom model data of {_item} to 1242
+            set name of {_item} to "&eIron Storm"
+            set the 1st line of lore of {_item} to "&8Pickaxe"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+720✦ &8| &6+346⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&1Efficiency III"
+            set the 7th line of lore of {_item} to "&7Increases &6Mining Speed &7by &a100%%"
+            set the 8th line of lore of {_item} to ""
+            set the 9th line of lore of {_item} to "&bHaste III"
+            set the 10th line of lore of {_item} to "&a50%% &7Chance to apply &eHaste 2 (10s) &7while mining"
+            set the 11th line of lore of {_item} to ""
+            set the 12th line of lore of {_item} to "&eLucky Miner II"
+            set the 13th line of lore of {_item} to "&a35%% &7Chance to earn double XP & money while mining"
+            set the 14th line of lore of {_item} to ""
+            set the 15th line of lore of {_item} to "&9&lEPIC"
+            enchant {_item} with efficiency 3
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "diamond_pickaxe":
+            set {_item} to unbreakable diamond pickaxe
+            set {_item} to diamond pickaxe
+            set custom model data of {_item} to 1243
+            set name of {_item} to "&bDiamond Pickaxe"
+            set the 1st line of lore of {_item} to "&8Pickaxe"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+1656✦ &8| &6+742⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&1Efficiency I"
+            set the 7th line of lore of {_item} to "&7Increases &6Mining Speed &7by &a20%%"
+            set the 8th line of lore of {_item} to ""
+            set the 9th line of lore of {_item} to "&bHaste III"
+            set the 10th line of lore of {_item} to "&a50%% &7Chance to apply &eHaste 2 (10s) &7while mining"
+            set the 11th line of lore of {_item} to ""
+            set the 12th line of lore of {_item} to "&eLucky Miner III"
+            set the 13th line of lore of {_item} to "&a50%% &7Chance to earn double XP & money while mining"
+            set the 14th line of lore of {_item} to ""
+            set the 15th line of lore of {_item} to "&9&lEPIC"
+            enchant {_item} with efficiency 1
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "crystal_cutter":
+            set {_item} to unbreakable diamond pickaxe
+            set {_item} to diamond pickaxe
+            set custom model data of {_item} to 1244
+            set name of {_item} to "&d&lCrystal &b&lCutter"
+            set the 1st line of lore of {_item} to "&8Pickaxe"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+3704✦ &8| &6+1506⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&1Efficiency I"
+            set the 7th line of lore of {_item} to "&7Increases &6Mining Speed &7by &a20%%"
+            set the 8th line of lore of {_item} to ""
+            set the 9th line of lore of {_item} to "&bHaste III"
+            set the 10th line of lore of {_item} to "&a50%% &7Chance to apply &eHaste 2 (10s) &7while mining"
+            set the 11th line of lore of {_item} to ""
+            set the 12th line of lore of {_item} to "&eLucky Miner III"
+            set the 13th line of lore of {_item} to "&a50%% &7Chance to earn double XP & money while mining"
+            set the 14th line of lore of {_item} to ""
+            set the 15th line of lore of {_item} to "&9&lEPIC"
+            enchant {_item} with efficiency 1
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "shardpiercer":
+            set {_item} to unbreakable diamond pickaxe
+            set {_item} to diamond pickaxe
+            set custom model data of {_item} to 1245
+            set name of {_item} to "&d&lShard&b&lpiercer"
+            set the 1st line of lore of {_item} to "&8Pickaxe"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+7159✦ &8| &6+3458⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&1Efficiency II"
+            set the 7th line of lore of {_item} to "&7Increases &6Mining Speed &7by &a50%%"
+            set the 8th line of lore of {_item} to ""
+            set the 9th line of lore of {_item} to "&bHaste III"
+            set the 10th line of lore of {_item} to "&a50%% &7Chance to apply &eHaste 2 (10s) &7while mining"
+            set the 11th line of lore of {_item} to ""
+            set the 12th line of lore of {_item} to "&eLucky Miner III"
+            set the 13th line of lore of {_item} to "&a50%% &7Chance to earn double XP & money while mining"
+            set the 14th line of lore of {_item} to ""
+            set the 15th line of lore of {_item} to "&9&lEPIC"
+            enchant {_item} with efficiency 2
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "gemreaper":
+            set {_item} to unbreakable diamond pickaxe
+            set {_item} to diamond pickaxe
+            set custom model data of {_item} to 1246
+            set name of {_item} to "&a&lGemReaper"
+            set the 1st line of lore of {_item} to "&8Pickaxe"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+12,406✦ &8| &6+5846⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&1Efficiency III"
+            set the 7th line of lore of {_item} to "&7Increases &6Mining Speed &7by &a100%%"
+            set the 8th line of lore of {_item} to ""
+            set the 9th line of lore of {_item} to "&bHaste III"
+            set the 10th line of lore of {_item} to "&a50%% &7Chance to apply &eHaste 2 (10s) &7while mining"
+            set the 11th line of lore of {_item} to ""
+            set the 12th line of lore of {_item} to "&eLucky Miner III"
+            set the 13th line of lore of {_item} to "&a50%% &7Chance to earn double XP & money while mining"
+            set the 14th line of lore of {_item} to ""
+            set the 15th line of lore of {_item} to "&9&lEPIC"
+            enchant {_item} with efficiency 3
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "aetherpick":
+            set {_item} to unbreakable diamond pickaxe
+            set {_item} to diamond pickaxe
+            set custom model data of {_item} to 1247
+            set name of {_item} to "&f&lAetherPick"
+            set the 1st line of lore of {_item} to "&8Pickaxe"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+19,750✦ &8| &6+14,987⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&1Efficiency IV"
+            set the 7th line of lore of {_item} to "&7Increases &6Mining Speed &7by &a150%%"
+            set the 8th line of lore of {_item} to ""
+            set the 9th line of lore of {_item} to "&bHaste III"
+            set the 10th line of lore of {_item} to "&a50%% &7Chance to apply &eHaste 2 (10s) &7while mining"
+            set the 11th line of lore of {_item} to ""
+            set the 12th line of lore of {_item} to "&eLucky Miner III"
+            set the 13th line of lore of {_item} to "&a50%% &7Chance to earn double XP & money while mining"
+            set the 14th line of lore of {_item} to ""
+            set the 15th line of lore of {_item} to "&9&lEPIC"
+            enchant {_item} with efficiency 4
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else:
+            send "&cUnknown item: %{_itemname}%" to console

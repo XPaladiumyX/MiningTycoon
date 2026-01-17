@@ -1,0 +1,9 @@
+on join:
+    if world of player is "world":
+        execute player command "hub"
+        send "&cYou were teleported to the hub because you were in the Overworld and tried to enter a restricted world!" to {_p}
+
+on player move:
+    if world of player is "world":
+        execute player command "hub"
+        send "&cYou were teleported to the hub because you were in the Overworld and tried to enter a restricted world!" to {_p}

@@ -1,0 +1,36 @@
+on first join:
+    if {received_first_pickaxe::%player's uuid%} is not set:
+        execute player command "/givefirstpickaxe"
+
+command /givefirstpickaxe:
+    trigger:
+        if {received_first_pickaxe::%player's uuid%} is set:
+            if player is not op:
+                send "&cYou have already received your Starter Pack!" to player
+                stop
+        set {_pickaxe} to wooden pickaxe
+        set {_pickaxe} to unbreakable wooden pickaxe # Empêche la casse visuellement
+        set {_pickaxe}'s durability to 59 # Rend la pioche incassable
+        set {_pickaxe}'s name to "&6Starter Pickaxe"
+        set {_pickaxe}'s lore to "&7This pickaxe is unbreakable!"
+        set custom model data of {_pickaxe} to 1235
+
+        set byte tag "minecraft:custom_data;NoBreak" of nbt of {_pickaxe} to 1
+
+        # Création de la Nether Star Menu
+        set {_menuItem} to nether star
+        set {_menuItem}'s name to "&b&lMenu"
+        set custom model data of {_menuItem} to 1234
+        set {_menuItem}'s lore to "&7Click to open the menu"
+
+        give {_pickaxe} to player
+        set slot 8 of player's inventory to {_menuItem}
+
+        send "&aYou received a &6Starter Pickaxe &aand a &dMenu&a!" to player
+
+        set {received_first_pickaxe::%player's uuid%} to true
+
+command /firstjointest:
+    permission: op
+    trigger:
+        execute player command "/givefirstpickaxe"

@@ -1,0 +1,51 @@
+command /prestige [<text>]:
+    trigger:
+        set {_arg} to arg 1
+        set {_p} to player
+
+        if {_arg} is not set:
+            send "&c⛔ You can only use this command from a Prestige Portal!"
+            stop
+
+        if {_arg} is "confirm":
+            if {prestige_confirm::%{_p}%} is not set:
+                send "&cNo pending prestige request. Use the portal to begin." to {_p}
+                stop
+
+            set {_in_prestige_region} to false
+            set {_zone} to ""
+            set {_regions::*} to regions at {_p}
+
+            loop {_regions::*}:
+                if loop-value is "prestige_basic":
+                    set {_in_prestige_region} to true
+                    set {_zone} to "basic"
+                else if loop-value is "prestige_elite":
+                    set {_in_prestige_region} to true
+                    set {_zone} to "elite"
+
+            if {_in_prestige_region} is not true:
+                send "&c⛔ You must be in a prestige portal region to confirm!"
+                stop
+
+            delete {prestige_confirm::%{_p}%}
+            set {level::%{_p}%} to 1
+            set {exp::%{_p}%} to 0
+            set {exp_needed::%{_p}%} to 100
+            add 1 to {prestige::%{_p}%}
+
+            give {_p} 1 diamond
+            execute console command "coins give %{_p}% 10000"
+
+            # 🎁 BONUS : Zentium uniquement pour prestige_basic
+            if {_zone} is "basic":
+                execute console command "zentium give %{_p}% 1"
+
+            # 🎉 Broadcast stylé
+            set {_prestigeLevel} to {prestige::%{_p}%}
+            broadcast "&8[&d⚡ Prestige &8] &6%{_p}% &ehas reached &dPrestige %{_prestigeLevel}%&e!"
+
+            send "&aCongratulations! You are now Prestige &d%{_prestigeLevel}%&a!" to {_p}
+            stop
+
+        send "&c⛔ Invalid argument. You can only use &e/prestige confirm&c after entering the portal."

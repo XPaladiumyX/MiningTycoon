@@ -1,0 +1,198 @@
+options:
+    zone_2: 5 # Niveau minimum requis pour entrer dans zone_2
+    zone_3: 10
+    zone_4: 26
+    zone_5: 42
+    zone_6: 58
+    zone_7: 74
+    zone_8: 90
+    zone_9: 100
+    zone_10: 150
+    zone_11: 212
+    zone_12: 289
+    zone_13: 325
+    zone_14: 395
+    zone_15: 420
+    zone_16: 447
+    zone_17: 486
+    zone_18: 500
+    push_delay: 5 # Délai en secondes avant de reset le compteur de push
+    max_pushes: 3 # Nombre maximal de pushes dans une zone avant de TP le joueur
+
+on player move:
+
+    # Staff Mode Enabled?
+    if {playermode::%player%} is "staff":
+        stop
+
+    set {_p} to player
+    set {_lvl} to {level::%{_p}%} # Récupère le niveau du joueur
+    
+    # Sauvegarde la dernière position valide
+    if {lastLocation::%{_p}%} is not set:
+        set {lastLocation::%{_p}%} to location of {_p}
+
+    set {_blocked} to false
+
+    # Zone 2 - Nécessite niveau 5
+    if "%region at {_p}%" contains "zone_2":
+        if {_lvl} < {@zone_2}:
+            set {_blocked} to true
+            if {lastWarning::%{_p}%} is not "zone_2":
+                set {lastWarning::%{_p}%} to "zone_2"
+                send "&7[&e!&7] &cYou must be level {@zone_2} to enter this zone !" to {_p}
+
+
+
+    # Zone 3 - Nécessite niveau 10
+    if "%region at {_p}%" contains "zone_3":
+        if {_lvl} < {@zone_3}:
+            set {_blocked} to true
+            if {lastWarning::%{_p}%} is not "zone_3":
+                set {lastWarning::%{_p}%} to "zone_3"
+                send "&7[&e!&7] &cYou must be level {@zone_3} to enter this zone !" to {_p}
+
+    # Zone 4 - Nécessite niveau 26
+    if "%region at {_p}%" contains "zone_4":
+        if {_lvl} < {@zone_4}:
+            set {_blocked} to true
+            if {lastWarning::%{_p}%} is not "zone_4":
+                set {lastWarning::%{_p}%} to "zone_4"
+                send "&7[&e!&7] &cYou must be level {@zone_4} to enter this zone !" to {_p}
+
+    # Zone 5 - Nécessite niveau 42
+    if "%region at {_p}%" contains "zone_5":
+        if {_lvl} < {@zone_5}:
+            set {_blocked} to true
+            if {lastWarning::%{_p}%} is not "zone_5":
+                set {lastWarning::%{_p}%} to "zone_5"
+                send "&7[&e!&7] &cYou must be level {@zone_5} to enter this zone !" to {_p}
+
+    # Zone 6 - Nécessite niveau 58
+    if "%region at {_p}%" contains "zone_6":
+        if {_lvl} < {@zone_6}:
+            set {_blocked} to true
+            if {lastWarning::%{_p}%} is not "zone_6":
+                set {lastWarning::%{_p}%} to "zone_6"
+                send "&7[&e!&7] &cYou must be level {@zone_6} to enter this zone !" to {_p}
+
+    # Zone 7 - Nécessite niveau 74
+    if "%region at {_p}%" contains "zone_7":
+        if {_lvl} < {@zone_7}:
+            set {_blocked} to true
+            if {lastWarning::%{_p}%} is not "zone_7":
+                set {lastWarning::%{_p}%} to "zone_7"
+                send "&7[&e!&7] &cYou must be level {@zone_7} to enter this zone !" to {_p}
+
+    # Zone 8 - Nécessite niveau 90
+    if "%region at {_p}%" contains "zone_8":
+        if {_lvl} < {@zone_8}:
+            set {_blocked} to true
+            if {lastWarning::%{_p}%} is not "zone_8":
+                set {lastWarning::%{_p}%} to "zone_8"
+                send "&7[&e!&7] &cYou must be level {@zone_8} to enter this zone !" to {_p}
+
+    # Zone 9 - Nécessite niveau 100
+    if "%region at {_p}%" contains "zone_9":
+        if {_lvl} < {@zone_9}:
+            set {_blocked} to true
+            if {lastWarning::%{_p}%} is not "zone_9":
+                set {lastWarning::%{_p}%} to "zone_9"
+                send "&7[&e!&7] &cYou must be level {@zone_9} to enter this zone !" to {_p}
+
+    # Zone 10 - Nécessite niveau 150
+    if "%region at {_p}%" contains "zone_10":
+        if {_lvl} < {@zone_10}:
+            set {_blocked} to true
+            if {lastWarning::%{_p}%} is not "zone_10":
+                set {lastWarning::%{_p}%} to "zone_10"
+                send "&7[&e!&7] &cYou must be level {@zone_10} to enter this zone !" to {_p}
+
+    # Zone 11 - Nécessite niveau 212
+    if "%region at {_p}%" contains "zone_11":
+        if {_lvl} < {@zone_11}:
+            set {_blocked} to true
+            if {lastWarning::%{_p}%} is not "zone_11":
+                set {lastWarning::%{_p}%} to "zone_11"
+                send "&7[&e!&7] &cYou must be level {@zone_11} to enter this zone !" to {_p}
+
+    # Zone 12 - Nécessite niveau 289
+    if "%region at {_p}%" contains "zone_12":
+        if {_lvl} < {@zone_12}:
+            set {_blocked} to true
+            if {lastWarning::%{_p}%} is not "zone_12":
+                set {lastWarning::%{_p}%} to "zone_12"
+                send "&7[&e!&7] &cYou must be level {@zone_12} to enter this zone !" to {_p}
+
+    # Zone 13 - Nécessite niveau 325
+    if "%region at {_p}%" contains "zone_13":
+        if {_lvl} < {@zone_13}:
+            set {_blocked} to true
+            if {lastWarning::%{_p}%} is not "zone_13":
+                set {lastWarning::%{_p}%} to "zone_13"
+                send "&7[&e!&7] &cYou must be level {@zone_13} to enter this zone !" to {_p}
+
+    # Zone 14 - Nécessite niveau 395
+    if "%region at {_p}%" contains "zone_14":
+        if {_lvl} < {@zone_14}:
+            set {_blocked} to true
+            if {lastWarning::%{_p}%} is not "zone_14":
+                set {lastWarning::%{_p}%} to "zone_14"
+                send "&7[&e!&7] &cYou must be level {@zone_14} to enter this zone !" to {_p}
+
+    # Zone 15 - Nécessite niveau 420
+    if "%region at {_p}%" contains "zone_15":
+        if {_lvl} < {@zone_15}:
+            set {_blocked} to true
+            if {lastWarning::%{_p}%} is not "zone_15":
+                set {lastWarning::%{_p}%} to "zone_15"
+                send "&7[&e!&7] &cYou must be level {@zone_15} to enter this zone !" to {_p}
+
+    # Zone 16 - Nécessite niveau 447
+    if "%region at {_p}%" contains "zone_16":
+        if {_lvl} < {@zone_16}:
+            set {_blocked} to true
+            if {lastWarning::%{_p}%} is not "zone_16":
+                set {lastWarning::%{_p}%} to "zone_16"
+                send "&7[&e!&7] &cYou must be level {@zone_16} to enter this zone !" to {_p}
+
+    # Zone 17 - Nécessite niveau 484
+    if "%region at {_p}%" contains "zone_17":
+        if {_lvl} < {@zone_17}:
+            set {_blocked} to true
+            if {lastWarning::%{_p}%} is not "zone_17":
+                set {lastWarning::%{_p}%} to "zone_17"
+                send "&7[&e!&7] &cYou must be level {@zone_17} to enter this zone !" to {_p}
+
+    # Zone 18 - Nécessite niveau 500
+    if "%region at {_p}%" contains "zone_18":
+        if {_lvl} < {@zone_18}:
+            set {_blocked} to true
+            if {lastWarning::%{_p}%} is not "zone_18":
+                set {lastWarning::%{_p}%} to "zone_18"
+                send "&7[&e!&7] &cYou must be level {@zone_18} to enter this zone !" to {_p}
+
+    # Repousse le joueur en arrière au lieu de le téléporter
+    if {_blocked} is true:
+        if {lastPush::%{_p}%} is not set:
+            set {lastPush::%{_p}%} to now
+        if difference between {lastPush::%{_p}%} and now > 0.1 second:
+            set {lastPush::%{_p}%} to now
+            set {_direction} to vector from {_p} to {lastLocation::%{_p}%}
+            set {_speed} to 1.0 # Ajuste la force du push
+            push {_p} {_direction} at speed {_speed}
+            push {_p} upwards at speed 0.1 # Évite que le joueur reste coincé
+
+            # Incrémente le compteur de push
+            add 1 to {pushCount::%{_p}%}
+            
+            # Vérifie si le joueur a dépassé le nombre de pushes autorisés
+            if {pushCount::%{_p}%} >= {@max_pushes}:
+                send "&cYou were teleported to the hub after too many attempts in a restricted area!" to {_p}
+                execute player command "/hub"
+                delete {pushCount::%{_p}%} # Réinitialise le compteur de push
+
+    else:
+        set {lastLocation::%{_p}%} to location of {_p} # Mise à jour si le joueur n'est pas bloqué
+        delete {lastWarning::%{_p}%} # Réinitialise l'avertissement pour la prochaine zone
+        delete {pushCount::%{_p}%} # Réinitialise le compteur de push si le joueur quitte la zone

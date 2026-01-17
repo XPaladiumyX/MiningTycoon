@@ -1,0 +1,72 @@
+on right click holding player head:
+    if clicked block is not set:
+        if helmet of player is not air:
+            send "&8[&dPet&8] &cYou already have a pet equipped on your head! Remove it before equipping another one." to player
+            stop
+
+        set helmet of player to player's tool
+        remove 1 of player's tool from player
+        set {_name} to name of helmet of player
+
+        if {_name} is "&7&lRocky Mole":
+            send "&8[&dPet Equipped&8] &fRocky Mole ➜ &3+7✦ &7| &6+2⛁" to player
+        else if {_name} is "&7&lStone Crab":
+            send "&8[&dPet Equipped&8] &7&lStone Crab ➜ &3+14✦ &7| &6+5⛁" to player
+        else if {_name} is "&7&lTiny Golem":
+            send "&8[&dPet Equipped&8] &fTiny Golem ➜ &3+52✦ &7| &6+16⛁" to player
+        else if {_name} is "&7&lCave Bat":
+            send "&8[&dPet Equipped&8] &fCave Bat ➜ &3+41✦ &7| &6+39⛁" to player
+        else if {_name} is "&7&lDusty Rat":
+            send "&8[&dPet Equipped&8] &fDusty Rat ➜ &3+126✦ &7| &6+52⛁" to player
+        else if {_name} is "&7&lPebble Slime":
+            send "&8[&dPet Equipped&8] &fPebble Slime ➜ &3+113✦ &7| &6+111⛁" to player
+        else if {_name} is "&a&lIron Snail":
+            send "&8[&dPet Equipped&8] &fIron Snail ➜ &3+2300✦ &7| &6+1980⛁" to player
+        else if {_name} is "&a&lPickaxe Puppy":
+            send "&8[&dPet Equipped&8] &fPickaxe Puppy ➜ &3+2600✦ &7| &6+2150⛁" to player
+        else if {_name} is "&a&lDrill Bee":
+            send "&8[&dPet Equipped&8] &fDrill Bee ➜ &3+2800✦ &7| &6+2300⛁" to player
+        else if {_name} is "&a&lMine Cat":
+            send "&8[&dPet Equipped&8] &fMine Cat ➜ &3+2750✦ &7| &6+2400⛁" to player
+        else if {_name} is "&a&lRusty Guardian":
+            send "&8[&dPet Equipped&8] &fRusty Guardian ➜ &3+2920✦ &7| &6+2500⛁" to player
+        else if {_name} is "&a&lGlow Worm":
+            send "&8[&dPet Equipped&8] &fGlow Worm ➜ &3+3150✦ &7| &6+2800⛁" to player
+        else if {_name} is "&e&lSilver Griffin":
+            send "&8[&dPet Equipped&8] &fSilver Griffin ➜ &3+4500✦ &7| &6+4000⛁" to player
+        else if {_name} is "&e&lOre Hound":
+            send "&8[&dPet Equipped&8] &fOre Hound ➜ &3+4950✦ &7| &6+4320⛁" to player
+        else if {_name} is "&e&lMagnet Crawler":
+            send "&8[&dPet Equipped&8] &fMagnet Crawler ➜ &3+5300✦ &7| &6+4890⛁" to player
+        else if {_name} is "&e&lSmelt Spirit":
+            send "&8[&dPet Equipped&8] &fSmelt Spirit ➜ &3+5800✦ &7| &6+5000⛁" to player
+        else if {_name} is "&e&lShimmer Beetle":
+            send "&8[&dPet Equipped&8] &fShimmer Beetle ➜ &3+5565✦ &7| &6+5498⛁" to player
+        else if {_name} is "&e&lEmerald Fox":
+            send "&8[&dPet Equipped&8] &fEmerald Fox ➜ &3+6000✦ &7| &6+5880⛁" to player
+        else if {_name} is "&5&lDrill Core":
+            send "&8[&dPet Equipped&8] &fDrill Core ➜ &3+8700✦ &7| &6+7400⛁" to player
+        else if {_name} is "&5&lCrystallion":
+            send "&8[&dPet Equipped&8] &fCrystallion ➜ &3+9300✦ &7| &6+7800⛁" to player
+        else if {_name} is "&5&lObsidian Beast":
+            send "&8[&dPet Equipped&8] &fObsidian Beast ➜ &3+9900✦ &7| &6+8200⛁" to player
+        else if {_name} is "&5&lSparkling Phoenix":
+            send "&8[&dPet Equipped&8] &fSparkling Phoenix ➜ &3+10500✦ &7| &6+8800⛁" to player
+        else if {_name} is "&5&lAncient Digger":
+            send "&8[&dPet Equipped&8] &fAncient Digger ➜ &3+10200✦ &7| &6+9600⛁" to player
+        else if {_name} is "&5&lLava Serpent":
+            send "&8[&dPet Equipped&8] &fLava Serpent ➜ &3+10700✦ &7| &6+10650⛁" to player
+        else if {_name} is "&c&lTitanium &6&lDragon":
+            send "&8[&dPet Equipped&8] &fTitanium Dragon ➜ &3+15500✦ &7| &6+12400⛁" to player
+        else if {_name} is "&c&lMythic &6&lCentipede":
+            send "&8[&dPet Equipped&8] &fMythic Centipede ➜ &3+16200✦ &7| &6+13100⛁" to player
+        else if {_name} is "&c&lQuantum &6&lGhost":
+            send "&8[&dPet Equipped&8] &fQuantum Ghost ➜ &3+17000✦ &7| &6+13800⛁" to player
+        else if {_name} is "&c&lVoid &6&lHarvester":
+            send "&8[&dPet Equipped&8] &fVoid Harvester ➜ &3+17500✦ &7| &6+14300⛁" to player
+        else if {_name} is "&c&lChrono &6&lMole":
+            send "&8[&dPet Equipped&8] &fChrono Mole ➜ &3+18000✦ &7| &6+14800⛁" to player
+        else if {_name} is "&c&lNuclear &6&lWyrm":
+            send "&8[&dPet Equipped&8] &fNuclear Wyrm ➜ &3+18500✦ &7| &6+15400⛁" to player
+        else if {_name} is "&c&lGalactic &6&lGolem":
+            send "&8[&dPet Equipped&8] &fGalactic Golem ➜ &3+20000✦ &7| &6+17900⛁" to player

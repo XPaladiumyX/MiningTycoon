@@ -1,0 +1,132 @@
+placeholderapi placeholder with the prefix "skriptplaceholders":
+    if the identifier is "level_current":
+        set {_player} to event-player
+        set the result to "%{level::%{_player}%}%"
+
+    else if the identifier is "exp_display":
+        set {_player} to event-player
+        set {_exp} to floor({exp::%{_player}%}) # Suppression des décimales
+        set {_expNeeded} to floor({exp_needed::%{_player}%}) # Suppression des décimales
+
+        if {_exp} or {_expNeeded} is not set:
+            send "Erreur : les données de l'XP ne sont pas définies pour %{_player}%" to {_player}
+            stop
+
+        set {_exp} to floor({_exp}) 
+        set {_expNeeded} to floor({_expNeeded}) 
+        
+        # Formater les nombres avec formatNumber
+        # !!!
+        # HEY A CHANGER PAR formatNumber SI MARCHE PAS
+        # !!!
+        set {_formattedExp} to formatExp({_exp})
+        set {_formattedExpNeeded} to formatExp({_expNeeded})
+
+        # Afficher l'expérience formatée
+        set the result to "%formatExp({_exp})%/%formatExp({_expNeeded})%✦"
+
+    else if the identifier is "exp_progress":
+        set {_player} to event-player
+        set {_exp} to {exp::%{_player}%}
+        set {_expNeeded} to {exp_needed::%{_player}%}
+
+        set {_percent} to floor(({_exp} / {_expNeeded}) * 100) # Suppression des décimales
+        set {_progress} to "&8[&d"
+        set {_filledBars} to floor({_percent} / 10)
+
+        loop {_filledBars} times:
+            set {_progress} to "%{_progress}%█"
+
+        set {_progress} to "%{_progress}%&7"
+
+        loop (10 - {_filledBars}) times:
+            set {_progress} to "%{_progress}%█"
+
+        set {_progress} to "%{_progress}%&8]"
+
+        set the result to {_progress}
+    else if the identifier is "prestige_current":
+        set {_player} to event-player
+        set {_prestige} to {prestige::%{_player}%}
+        if {_prestige} is not set:
+            set {_prestige} to 0
+        set the result to "%{_prestige}%"
+    else if the identifier is "prestige_current_raw":
+        set {_player} to event-player
+        set {_prestige} to {prestige::%{_player}%}
+        if {_prestige} is not set:
+            set {_prestige} to 0
+        # Renvoie un nombre brut, utilisable dans les conditions JS
+        set the result to {_prestige}
+    else if the identifier is "prestige_display":
+        set {_player} to event-player
+        set {_prestige} to {prestige::%{_player}%}
+        if {_prestige} is not set:
+            set {_prestige} to 0
+
+        # Format court si 1000 ou +
+        if {_prestige} >= 1000:
+            set {_formatted} to round({_prestige} / 10) / 100
+            set {_value} to "%{_formatted}%k"
+        else:
+            set {_value} to "%{_prestige}%"
+
+        # Couleurs et styles selon le prestige
+        if {_prestige} = 0:
+            set the result to "&7[-]"
+        else if {_prestige} < 10:
+            set the result to "&7[%{_value}%✾]"
+        else if {_prestige} < 50:
+            set the result to "&a[%{_value}%✾]"
+        else if {_prestige} < 100:
+            set the result to "&b[%{_value}%✾]"
+        else if {_prestige} < 200:
+            set the result to "&d[%{_value}%✾]"
+        else if {_prestige} < 300:
+            set the result to "&6[%{_value}%✾]"
+        else if {_prestige} < 500:
+            set the result to "&c[%{_value}%✾]"
+        else if {_prestige} < 800:
+            set the result to "&e[%{_value}%✾]"
+        else if {_prestige} < 1000:
+            set the result to "&5[%{_value}%✾]"
+        else if {_prestige} < 1300:
+            set the result to "&9[%{_value}%✾]"
+        else if {_prestige} < 1500:
+            set the result to "&d[%{_value}%✾]"
+        else:
+            set the result to "&d✴[%{_value}%✾]&d✴"
+    else if the identifier is "level_display":
+        set {_player} to event-player
+        set {_level} to {level::%{_player}%}
+        if {_level} is not set:
+            set {_level} to 0
+
+        # Format court si 1000 ou +
+        if {_level} >= 1000:
+            set {_formatted} to round({_level} / 10) / 100
+            set {_value} to "%{_formatted}%k"
+        else:
+            set {_value} to "%{_level}%"
+
+        # Couleurs selon le niveau
+        if {_level} < 10:
+            set the result to "&7[%{_value}%✐]"
+        else if {_level} < 50:
+            set the result to "&e[%{_value}%✐]"
+        else if {_level} < 100:
+            set the result to "&a[%{_value}%✐]"
+        else if {_level} < 200:
+            set the result to "&b[%{_value}%✐]"
+        else if {_level} < 300:
+            set the result to "&d[%{_value}%✐]"
+        else if {_level} < 500:
+            set the result to "&6[%{_value}%✐]"
+        else if {_level} < 800:
+            set the result to "&c[%{_value}%✐]"
+        else if {_level} < 1000:
+            set the result to "&e[%{_value}%✐]"
+        else if {_level} < 1500:
+            set the result to "&5[%{_value}%✐]"
+        else:
+            set the result to "&4✴[%{_value}%✐]✴"

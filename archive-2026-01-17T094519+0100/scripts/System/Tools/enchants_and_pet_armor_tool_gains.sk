@@ -1,0 +1,43 @@
+command /droptoggle:
+    trigger:
+        if {dropmsg::%player%} is not set:
+            set {dropmsg::%player%} to true
+        if {dropmsg::%player%} is true:
+            set {dropmsg::%player%} to false
+            send "&c✖ Drop messages & sounds disabled." to player
+        else:
+            set {dropmsg::%player%} to true
+            send "&a✔ Drop messages & sounds enabled." to player
+
+# Gestion des effets et messages sans ajouter d'XP ni de coins
+
+on block break:
+
+    set {_item} to player's tool
+    delete {luckydrop::%player%}
+    delete {luckydrop_bonus_exp::%player%}
+    delete {luckydrop_bonus_money::%player%}
+
+    if lore of {_item} contains "&eLucky Miner I":
+        chance of 15%:
+            set {luckydrop::%player%} to 2
+            # message affiché plus tard dans main.sk avec les valeurs réelles
+    else if lore of {_item} contains "&eLucky Miner II":
+        chance of 35%:
+            set {luckydrop::%player%} to 2
+    else if lore of {_item} contains "&eLucky Miner III":
+        chance of 50%:
+            set {luckydrop::%player%} to 2
+
+    if lore of {_item} contains "&bHaste I":
+        chance of 15%:
+            set {_effect} to potion effect of haste of tier 1 without particles for 10 seconds
+            add {_effect} to potion effects of player
+    if lore of {_item} contains "&bHaste II":
+        chance of 35%:
+            set {_effect} to potion effect of haste of tier 1 without particles for 30 seconds
+            add {_effect} to potion effects of player
+    if lore of {_item} contains "&bHaste III":
+        chance of 50%:
+            set {_effect} to potion effect of haste of tier 2 without particles for 10 seconds
+            add {_effect} to potion effects of player

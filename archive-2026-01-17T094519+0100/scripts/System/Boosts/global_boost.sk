@@ -1,0 +1,90 @@
+options:
+    boost_duration: 300
+    exp_multiplier: 1.5
+    coins_multiplier: 2
+
+command /booststatus:
+    trigger:
+        if {boost_active} is true:
+            # Calculer temps restant en secondes
+            set {_time} to {boost_end} - difference between now and now
+            # Cette ligne est incorrecte, on doit avoir une autre méthode
+            # Alternative : on utilise une variable {boost_time_remaining}
+            # que l'on met à jour dans la boucle du boost
+            if {boost_time_remaining} is set:
+                send "&b☄ A Global Boost is active! Type: &a%{boost_type}%, &7ends in %{boost_time_remaining}% seconds." to player
+            else:
+                send "&7Le temps restant est indisponible."
+        else:
+            send "&7No Global Boost is currently active."
+
+function startGlobalBoost(type: text, p: player):
+    if {boost_active} is true:
+        # Boost déjà actif → message et compensation
+        send "&c⚠ A Global Boost is already active! You received a compensation item instead." to {_p}
+        execute console command "give %{_p}% dirt"
+    else:
+        # Pas de boost actif → on lance le boost
+        set {boost_active} to true
+        set {boost_type} to {_type}
+
+        # 🎲 Gestion des boosts EXP
+        if {_type} is "exp":
+            set {_superRoll} to random integer between 1 and 200
+            if {_superRoll} = 1:
+                set {exp_multiplier} to 3.5
+                set {boost_duration} to 3600
+            else:
+                set {exp_multiplier} to (random integer between 10 and 30) / 10
+                set {boost_duration} to random integer between 60 and 300
+
+            set {boost_time_remaining} to {boost_duration}
+            set {_exp_bonus_percent} to ({exp_multiplier} - 1) * 100
+
+            broadcast "&b☄ &dA Global EXP Boost is now active! &7(x%{exp_multiplier}% EXP for %{boost_duration}% seconds)"
+            set {_title} to "&d☄ Global EXP Boost Active! &7(x%{exp_multiplier}%)"
+            set {_color} to "purple"
+
+        # 🎲 Coins boost
+        else if {_type} is "coins":
+            set {coins_multiplier} to 2
+            set {boost_duration} to random integer between 60 and 300
+            set {boost_time_remaining} to {boost_duration}
+
+            broadcast "&b☄ &6A Global Coins Boost is now active! &7(x%{coins_multiplier}% Coins for %{boost_duration}% seconds)"
+            set {_title} to "&6☄ Global Coins Boost Active! &7(x%{coins_multiplier}%)"
+            set {_color} to "yellow"
+
+        # 🎲 EXP + Coins boost combiné
+        else:
+            set {exp_multiplier} to 1.5
+            set {coins_multiplier} to 2
+            set {boost_duration} to random integer between 60 and 300
+            set {boost_time_remaining} to {boost_duration}
+
+            broadcast "&b☄ &dA Global EXP & Coins Boost is now active! &7(x%{exp_multiplier}% EXP, x%{coins_multiplier}% Coins for %{boost_duration}% seconds)"
+            set {_title} to "&b☄ Global EXP & Coins Boost Active! &7(x%{exp_multiplier}%, x%{coins_multiplier}%)"
+            set {_color} to "blue"
+
+        # Bossbar
+        set {_bar} to boss bar with id "globalboost" with title {_title} with color {_color} with progress 100
+        loop all players:
+            add loop-player to {_bar}
+
+        loop {boost_duration} times:
+            if {boost_active} is not true:
+                stop
+            subtract 1 from {boost_time_remaining}
+            set {_progress} to {boost_time_remaining} / {boost_duration}
+            set bar progress of {_bar} to {_progress}
+            set bar title of {_bar} to "%{_title}% &7(%{boost_time_remaining}%s left)"
+            wait 1 second
+
+        delete {boost_active}
+        delete {boost_type}
+        delete {boost_time_remaining}
+        delete {boost_duration}
+        broadcast "&7☄ The Global Boost has ended."
+
+        loop all players:
+            remove loop-player from {_bar}

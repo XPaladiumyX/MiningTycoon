@@ -1,0 +1,492 @@
+function getArmorBonus(p: player) :: objects:
+    set {_exp} to 0
+    set {_money} to 0
+
+    # Récupération des pièces d’armure
+    set {_chestplate} to chestplate of {_p}
+    set {_leggings} to leggings of {_p}
+    set {_boots} to boots of {_p}
+
+    # MINER SET - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2001:
+            add 5 to {_exp}
+            add 3 to {_money}
+
+    # MINER SET - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2002:
+            add 3 to {_exp}
+            add 3 to {_money}
+
+    # MINER SET - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2003:
+            add 3 to {_exp}
+            add 1 to {_money}
+
+    # Prospector Set - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2004:
+            add 10 to {_exp}
+            add 6 to {_money}
+
+    # Prospector Set - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2005:
+            add 8 to {_exp}
+            add 4 to {_money}
+
+    # Prospector Set - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2006:
+            add 6 to {_exp}
+            add 2 to {_money}
+
+    # Quarry Set - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2008:
+            add 18 to {_exp}
+            add 11 to {_money}
+
+    # Quarry Set - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2009:
+            add 14 to {_exp}
+            add 7 to {_money}
+
+    # Quarry Set - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2010:
+            add 11 to {_exp}
+            add 4 to {_money}
+
+    # Industrial Set - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2011:
+            add 32 to {_exp}
+            add 20 to {_money}
+
+    # Industrial Set - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2012:
+            add 25 to {_exp}
+            add 13 to {_money}
+
+    # Industrial Set - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2013:
+            add 20 to {_exp}
+            add 7 to {_money}
+
+    # Random Miner Set - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2014:
+            add 58 to {_exp}
+            add 36 to {_money}
+
+    # Random Miner Set - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2015:
+            add 45 to {_exp}
+            add 23 to {_money}
+
+    # Random Miner Set - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2016:
+            add 36 to {_exp}
+            add 13 to {_money}
+
+    # Steel Miner Set - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2017:
+            add 1389 to {_exp}
+            add 1367 to {_money}
+
+    # Steel Miner Set - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2018:
+            add 1376 to {_exp}
+            add 1355 to {_money}
+
+    # Steel Miner Set - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2019:
+            add 1367 to {_exp}
+            add 1345 to {_money}
+
+    # Coal Extractor Set - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2020:
+            add 2720 to {_exp}
+            add 2699 to {_money}
+
+    # Coal Extractor Set - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2021:
+            add 2708 to {_exp}
+            add 2687 to {_money}
+
+    # Coal Extractor Set - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2022:
+            add 2699 to {_exp}
+            add 2678 to {_money}
+
+    # Amber Worker Set - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2023:
+            add 4051 to {_exp}
+            add 4031 to {_money}
+
+    # Amber Worker Set - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2024:
+            add 4039 to {_exp}
+            add 4020 to {_money}
+
+    # Amber Worker Set - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2025:
+            add 4031 to {_exp}
+            add 4011 to {_money}
+
+    # Bronze Digger Set - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2026:
+            add 5382 to {_exp}
+            add 5363 to {_money}
+
+    # Bronze Digger Set - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2027:
+            add 5371 to {_exp}
+            add 5352 to {_money}
+
+    # Bronze Digger Set - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2028:
+            add 5363 to {_exp}
+            add 5344 to {_money}
+
+    # Obsidian Laborer Set - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2029:
+            add 6713 to {_exp}
+            add 6695 to {_money}
+
+    # Obsidian Laborer Set - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2030:
+            add 6702 to {_exp}
+            add 6685 to {_money}
+
+    # Obsidian Laborer Set - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2031:
+            add 6695 to {_exp}
+            add 6677 to {_money}
+
+    # Saltstone Scraper Set - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2032:
+            add 8044 to {_exp}
+            add 8027 to {_money}
+
+    # Saltstone Scraper Set - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2033:
+            add 8034 to {_exp}
+            add 8017 to {_money}
+
+    # Saltstone Scraper Set - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2034:
+            add 8027 to {_exp}
+            add 8009 to {_money}
+
+    # Gold Hunter Set - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2035:
+            add 9375 to {_exp}
+            add 9359 to {_money}
+
+    # Gold Hunter Set - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2036:
+            add 9365 to {_exp}
+            add 9349 to {_money}
+
+    # Gold Hunter Set - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2037:
+            add 9359 to {_exp}
+            add 9342 to {_money}
+
+    # Lapis Technician Set - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2038:
+            add 10706 to {_exp}
+            add 10691 to {_money}
+
+    # Lapis Technician Set - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2039:
+            add 10697 to {_exp}
+            add 10682 to {_money}
+
+    # Lapis Technician Set - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2040:
+            add 10691 to {_exp}
+            add 10675 to {_money}
+
+    # Topaz Artisan Set - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2041:
+            add 12037 to {_exp}
+            add 12022 to {_money}
+
+    # Topaz Artisan Set - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2042:
+            add 12028 to {_exp}
+            add 12014 to {_money}
+
+    # Topaz Artisan Set - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2043:
+            add 12022 to {_exp}
+            add 12008 to {_money}
+
+    # Cobalt Excavator Set - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2044:
+            add 13368 to {_exp}
+            add 13354 to {_money}
+
+    # Cobalt Excavator Set - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2045:
+            add 13360 to {_exp}
+            add 13347 to {_money}
+
+    # Cobalt Excavator Set - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2046:
+            add 13354 to {_exp}
+            add 13341 to {_money}
+
+    # Granite Breaker Set - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2047:
+            add 14699 to {_exp}
+            add 14686 to {_money}
+
+    # Granite Breaker Set - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2048:
+            add 14691 to {_exp}
+            add 14679 to {_money}
+
+    # Granite Breaker Set - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2049:
+            add 14686 to {_exp}
+            add 14673 to {_money}
+
+    # Onyx Surveyor Set - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2050:
+            add 16030 to {_exp}
+            add 16018 to {_money}
+
+    # Onyx Surveyor Set - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2051:
+            add 16023 to {_exp}
+            add 16011 to {_money}
+
+    # Onyx Surveyor Set - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2052:
+            add 16018 to {_exp}
+            add 16006 to {_money}
+
+    # Ruby Prospector Set - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2053:
+            add 17361 to {_exp}
+            add 17350 to {_money}
+
+    # Ruby Prospector Set - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2054:
+            add 17354 to {_exp}
+            add 17344 to {_money}
+
+    # Ruby Prospector Set - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2055:
+            add 17350 to {_exp}
+            add 17339 to {_money}
+
+    # Emerald Harvester Set - chestplate
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2056:
+            add 18692 to {_exp}
+            add 18682 to {_money}
+
+    # Emerald Harvester Set - leggings
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2057:
+            add 18686 to {_exp}
+            add 18676 to {_money}
+
+    # Emerald Harvester Set - boots
+    if {_boots} is set:
+        if custom model data of {_boots} is 2058:
+            add 18682 to {_exp}
+            add 18672 to {_money}
+# ----------------------------------
+    # Mythril Splitter Set - Epic
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2059:
+            add 21354 to {_exp}
+            add 21346 to {_money}
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2060:
+            add 21349 to {_exp}
+            add 21341 to {_money}
+    if {_boots} is set:
+        if custom model data of {_boots} is 2061:
+            add 21346 to {_exp}
+            add 21337 to {_money}
+
+    # Zircon Excavator Set - Epic
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2062:
+            add 22685 to {_exp}
+            add 22677 to {_money}
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2063:
+            add 22680 to {_exp}
+            add 22673 to {_money}
+    if {_boots} is set:
+        if custom model data of {_boots} is 2064:
+            add 22677 to {_exp}
+            add 22670 to {_money}
+
+    # Moonstone Diver Set - Epic
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2065:
+            add 24016 to {_exp}
+            add 24009 to {_money}
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2066:
+            add 24012 to {_exp}
+            add 24006 to {_money}
+    if {_boots} is set:
+        if custom model data of {_boots} is 2067:
+            add 24009 to {_exp}
+            add 24003 to {_money}
+
+    # Starlight Engineer Set - Epic
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2068:
+            add 25347 to {_exp}
+            add 25341 to {_money}
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2069:
+            add 25343 to {_exp}
+            add 25338 to {_money}
+    if {_boots} is set:
+        if custom model data of {_boots} is 2070:
+            add 25341 to {_exp}
+            add 25336 to {_money}
+
+    # Void Monarch Set - Legendary
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2071:
+            add 26678 to {_exp}
+            add 26673 to {_money}
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2072:
+            add 26675 to {_exp}
+            add 26671 to {_money}
+    if {_boots} is set:
+        if custom model data of {_boots} is 2073:
+            add 26673 to {_exp}
+            add 26669 to {_money}
+
+    # Chrono Crusher Set - Legendary
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2074:
+            add 28009 to {_exp}
+            add 28005 to {_money}
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2075:
+            add 28006 to {_exp}
+            add 28003 to {_money}
+    if {_boots} is set:
+        if custom model data of {_boots} is 2076:
+            add 28005 to {_exp}
+            add 28001 to {_money}
+
+    # Celestial Titan Set - Legendary
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2077:
+            add 29340 to {_exp}
+            add 29337 to {_money}
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2078:
+            add 29338 to {_exp}
+            add 29335 to {_money}
+    if {_boots} is set:
+        if custom model data of {_boots} is 2079:
+            add 29337 to {_exp}
+            add 29334 to {_money}
+
+    # Draconic Reaper Set - Legendary
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2080:
+            add 30671 to {_exp}
+            add 30669 to {_money}
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2081:
+            add 30669 to {_exp}
+            add 30668 to {_money}
+    if {_boots} is set:
+        if custom model data of {_boots} is 2082:
+            add 30669 to {_exp}
+            add 30667 to {_money}
+
+    # Galactic Annihilator Set - Legendary
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2083:
+            add 32002 to {_exp}
+            add 32001 to {_money}
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2084:
+            add 32001 to {_exp}
+            add 32000 to {_money}
+    if {_boots} is set:
+        if custom model data of {_boots} is 2085:
+            add 32001 to {_exp}
+            add 32000 to {_money}
+
+    # Eternal Warden Set - Legendary
+    if {_chestplate} is set:
+        if custom model data of {_chestplate} is 2086:
+            add 33333 to {_exp}
+            add 33333 to {_money}
+    if {_leggings} is set:
+        if custom model data of {_leggings} is 2087:
+            add 33333 to {_exp}
+            add 33333 to {_money}
+    if {_boots} is set:
+        if custom model data of {_boots} is 2088:
+            add 33333 to {_exp}
+            add 33333 to {_money}
+
+    return {_exp} and {_money}

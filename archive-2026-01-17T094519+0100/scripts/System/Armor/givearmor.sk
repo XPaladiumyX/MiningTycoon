@@ -1,0 +1,1441 @@
+command /givearmor <text> <offline player>:
+    trigger:
+        if sender is a player:
+            if sender is not op:
+                send "&cYou are not allowed to use this command." to sender
+                stop
+        set {_itemname} to arg-1
+        set {_target} to arg-2
+
+        if {_itemname} is "miner_chestguard":
+            set {_item} to unbreakable leather chestplate
+            set {_item} to leather chestplate
+            dye {_item} red
+            set custom model data of {_item} to 2001
+            set name of {_item} to "&7Miner's Chestguard"
+            set lore of {_item} to "&8Armor" and "" and "&d&lBonus:" and "&8« &3+5✦ &8| &6+3⛁ &8»" and "" and "&7&lBASIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "miner_workpants":
+            set {_item} to unbreakable leather leggings
+            set {_item} to leather leggings
+            dye {_item} red
+            set custom model data of {_item} to 2002
+            set name of {_item} to "&7Miner's Workpants"
+            set lore of {_item} to "&8Armor" and "" and "&d&lBonus:" and "&8« &3+3✦ &8| &6+3⛁ &8»" and "" and "&7&lBASIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "miner_boots":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather boots
+            dye {_item} red
+            set custom model data of {_item} to 2003
+            set name of {_item} to "&7Miner's Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+3✦ &8| &6+1⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&7&lBASIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "prospector_vest":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather chestplate
+            dye {_item} orange
+            set custom model data of {_item} to 2004
+            set name of {_item} to "&7Prospector’s Vest"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+10✦ &8| &6+6⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&7&lBASIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "fieldwork_pants":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather leggings
+            dye {_item} orange
+            set custom model data of {_item} to 2005
+            set name of {_item} to "&7Fieldwork Pants"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+8✦ &8| &6+4⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&7&lBASIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "studded_boots":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather boots
+            dye {_item} orange
+            set custom model data of {_item} to 2006
+            set name of {_item} to "&7Studded Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+6✦ &8| &6+2⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&7&lBASIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "reinforced_chestplate":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather chestplate
+            dye {_item} white
+            set custom model data of {_item} to 2008
+            set name of {_item} to "&aReinforced Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+32✦ &8| &6+20⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "metallic_leggings":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather leggings
+            dye {_item} white
+            set custom model data of {_item} to 2009
+            set name of {_item} to "&aMetallic Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+25✦ &8| &6+13⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "antislip_boots":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather boots
+            dye {_item} white
+            set custom model data of {_item} to 2010
+            set name of {_item} to "&aAnti-Slip Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+20✦ &8| &6+7⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "quartz_chestplate":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather chestplate
+            dye {_item} pink
+            set custom model data of {_item} to 2011
+            set name of {_item} to "&aQuartz Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+58✦ &8| &6+36⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "sapphire_pants":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather leggings
+            dye {_item} pink
+            set custom model data of {_item} to 2012
+            set name of {_item} to "&aSapphire Pants"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+45✦ &8| &6+23⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "amethyst_boots":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather boots
+            dye {_item} pink
+            set custom model data of {_item} to 2013
+            set name of {_item} to "&aAmethyst Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+36✦ &8| &6+13⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "steel_miner_chestplate":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather chestplate
+            dye {_item} dark gray
+            set custom model data of {_item} to 2014
+            set name of {_item} to "&aSteel Miner Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+1389✦ &8| &6+1367⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "steel_miner_leggings":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather leggings
+            dye {_item} dark gray
+            set custom model data of {_item} to 2015
+            set name of {_item} to "&aSteel Miner Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+1376✦ &8| &6+1355⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "steel_miner_boots":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather boots
+            dye {_item} dark gray
+            set custom model data of {_item} to 2016
+            set name of {_item} to "&aSteel Miner Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+1367✦ &8| &6+1345⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "coal_extractor_chestplate":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather chestplate
+            dye {_item} black
+            set custom model data of {_item} to 2017
+            set name of {_item} to "&aCoal Extractor Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+2720✦ &8| &6+2699⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "coal_extractor_leggings":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather leggings
+            dye {_item} black
+            set custom model data of {_item} to 2018
+            set name of {_item} to "&aCoal Extractor Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+2708✦ &8| &6+2687⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "coal_extractor_boots":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather boots
+            dye {_item} black
+            set custom model data of {_item} to 2019
+            set name of {_item} to "&aCoal Extractor Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+1367✦ &8| &6+1345⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "amber_worker_chestplate":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather chestplate
+            dye {_item} purple
+            set custom model data of {_item} to 2020
+            set name of {_item} to "&aAmber Worker Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+4051✦ &8| &6+4031⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "amber_worker_leggings":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather leggings
+            dye {_item} purple
+            set custom model data of {_item} to 2021
+            set name of {_item} to "&aAmber Worker Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+4039✦ &8| &6+4020⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+        else if {_itemname} is "amber_worker_boots":
+            set {_item} to unbreakable leather boots
+            set {_item} to leather boots
+            dye {_item} purple
+            set custom model data of {_item} to 2022
+            set name of {_item} to "&aAmber Worker Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+4031✦ &8| &6+4011⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+            #-----------------------------------------------------------------------------
+        else if {_itemname} is "bronze_digger_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} orange
+            set custom model data of {_item} to 2023
+            set name of {_item} to "&aBronze Digger Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+5382✦ &8| &6+5363⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "bronze_digger_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} orange
+            set custom model data of {_item} to 2024
+            set name of {_item} to "&aBronze Digger Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+5371✦ &8| &6+5352⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "bronze_digger_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} orange
+            set custom model data of {_item} to 2025
+            set name of {_item} to "&aBronze Digger Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+5363✦ &8| &6+5344⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "obsidian_laborer_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} black
+            set custom model data of {_item} to 2026
+            set name of {_item} to "&aObsidian Laborer Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+6713✦ &8| &6+6695⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "obsidian_laborer_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} black
+            set custom model data of {_item} to 2027
+            set name of {_item} to "&aObsidian Laborer Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+6702✦ &8| &6+6685⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "obsidian_laborer_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} black
+            set custom model data of {_item} to 2028
+            set name of {_item} to "&aObsidian Laborer Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+6695✦ &8| &6+6677⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+# (Répetitions similaires pour les autres sets)
+#-----------------------------------------------------------------------------
+
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "saltstone_scraper_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} brown
+            set custom model data of {_item} to 2029
+            set name of {_item} to "&aSaltstone Scraper Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+8044✦ &8| &6+8027⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "saltstone_scraper_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} brown
+            set custom model data of {_item} to 2030
+            set name of {_item} to "&aSaltstone Scraper Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+8034✦ &8| &6+8017⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "saltstone_scraper_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} brown
+            set custom model data of {_item} to 2031
+            set name of {_item} to "&aSaltstone Scraper Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+8027✦ &8| &6+8009⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&a&lCOMMON"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "gold_hunter_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} yellow
+            set custom model data of {_item} to 2032
+            set name of {_item} to "&bGold Hunter Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+9375✦ &8| &6+9359⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&b&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "gold_hunter_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} yellow
+            set custom model data of {_item} to 2033
+            set name of {_item} to "&bGold Hunter Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+9365✦ &8| &6+9349⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&b&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "gold_hunter_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} yellow
+            set custom model data of {_item} to 2034
+            set name of {_item} to "&bGold Hunter Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+9359✦ &8| &6+9342⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&b&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "lapis_technician_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} blue
+            set custom model data of {_item} to 2035
+            set name of {_item} to "&bLapis Technician Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+10706✦ &8| &6+10691⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&b&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "lapis_technician_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} blue
+            set custom model data of {_item} to 2036
+            set name of {_item} to "&bLapis Technician Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+10697✦ &8| &6+10682⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&b&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "lapis_technician_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} blue
+            set custom model data of {_item} to 2037
+            set name of {_item} to "&bLapis Technician Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+10691✦ &8| &6+10675⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&b&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+# Répétez ce modèle pour tous les autres sets: Topaz Artisan, Cobalt Excavator, etc.
+
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "topaz_artisan_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} orange
+            set custom model data of {_item} to 2038
+            set name of {_item} to "&bTopaz Artisan Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+12037✦ &8| &6+12022⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&b&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "topaz_artisan_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} orange
+            set custom model data of {_item} to 2039
+            set name of {_item} to "&bTopaz Artisan Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+12028✦ &8| &6+12014⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&b&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "topaz_artisan_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} orange
+            set custom model data of {_item} to 2040
+            set name of {_item} to "&bTopaz Artisan Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+12022✦ &8| &6+12008⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&b&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "cobalt_excavator_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} dark blue
+            set custom model data of {_item} to 2041
+            set name of {_item} to "&bCobalt Excavator Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+13368✦ &8| &6+13354⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&b&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "cobalt_excavator_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} dark blue
+            set custom model data of {_item} to 2042
+            set name of {_item} to "&bCobalt Excavator Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+13360✦ &8| &6+13347⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&b&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "cobalt_excavator_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} dark blue
+            set custom model data of {_item} to 2043
+            set name of {_item} to "&bCobalt Excavator Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+13354✦ &8| &6+13341⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&b&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+# Répétez ce modèle pour les autres sets comme Amethyst Guardian, Diamond Miner's, etc.
+
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "granite_breaker_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} grey
+            set custom model data of {_item} to 2044
+            set name of {_item} to "&bGranite Breaker Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+14699✦ &8| &6+14686⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&b&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "granite_breaker_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} grey
+            set custom model data of {_item} to 2045
+            set name of {_item} to "&bGranite Breaker Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+14691✦ &8| &6+14679⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&b&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "granite_breaker_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} grey
+            set custom model data of {_item} to 2046
+            set name of {_item} to "&bGranite Breaker Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+14686✦ &8| &6+14673⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&b&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "onyx_surveyor_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} black
+            set custom model data of {_item} to 2047
+            set name of {_item} to "&bOnyx Surveyor Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+16030✦ &8| &6+16018⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&b&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "onyx_surveyor_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} black
+            set custom model data of {_item} to 2048
+            set name of {_item} to "&bOnyx Surveyor Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+16023✦ &8| &6+16011⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&b&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "onyx_surveyor_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} black
+            set custom model data of {_item} to 2049
+            set name of {_item} to "&bOnyx Surveyor Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+16018✦ &8| &6+16006⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&b&lRARE"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+# Continue with other sets like Ruby Prospector, Emerald Harvester, etc.
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "ruby_prospector_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} red
+            set custom model data of {_item} to 2050
+            set name of {_item} to "&5Ruby Prospector Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+17361✦ &8| &6+17350⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "ruby_prospector_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} red
+            set custom model data of {_item} to 2051
+            set name of {_item} to "&5Ruby Prospector Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+17354✦ &8| &6+17344⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "ruby_prospector_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} red
+            set custom model data of {_item} to 2052
+            set name of {_item} to "&5Ruby Prospector Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+17350✦ &8| &6+17339⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "emerald_harvester_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} green
+            set custom model data of {_item} to 2053
+            set name of {_item} to "&5Emerald Harvester Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+18692✦ &8| &6+18682⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "emerald_harvester_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} green
+            set custom model data of {_item} to 2054
+            set name of {_item} to "&5Emerald Harvester Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+18686✦ &8| &6+18676⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "emerald_harvester_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} green
+            set custom model data of {_item} to 2055
+            set name of {_item} to "&5Emerald Harvester Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+18682✦ &8| &6+18672⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "titanium_borer_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} light gray
+            set custom model data of {_item} to 2056
+            set name of {_item} to "&5Titanium Borer Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+20023✦ &8| &6+20014⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "titanium_borer_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} light gray
+            set custom model data of {_item} to 2057
+            set name of {_item} to "&5Titanium Borer Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+20017✦ &8| &6+20009⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "titanium_borer_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} light gray
+            set custom model data of {_item} to 2058
+            set name of {_item} to "&5Titanium Borer Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+20014✦ &8| &6+20005⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+# Continue with Mythril Splitter, Zircon Excavator, Moonstone Diver, etc.
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "mythril_splitter_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} blue
+            set custom model data of {_item} to 2059
+            set name of {_item} to "&5Mythril Splitter Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+21354✦ &8| &6+21346⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "mythril_splitter_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} blue
+            set custom model data of {_item} to 2060
+            set name of {_item} to "&5Mythril Splitter Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+21349✦ &8| &6+21341⛁ &8»»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "mythril_splitter_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} blue
+            set custom model data of {_item} to 2061
+            set name of {_item} to "&5Mythril Splitter Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+21346✦ &8| &6+21337⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "zircon_excavator_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} cyan
+            set custom model data of {_item} to 2062
+            set name of {_item} to "&5Zircon Excavator Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+22685✦ &8| &6+22677⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "zircon_excavator_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} cyan
+            set custom model data of {_item} to 2063
+            set name of {_item} to "&5Zircon Excavator Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+22680✦ &8| &6+22673⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "zircon_excavator_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} cyan
+            set custom model data of {_item} to 2064
+            set name of {_item} to "&5Zircon Excavator Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+22677✦ &8| &6+22670⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "moonstone_diver_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} light blue
+            set custom model data of {_item} to 2065
+            set name of {_item} to "&5Moonstone Diver Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+24016✦ &8| &6+24009⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "moonstone_diver_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} light blue
+            set custom model data of {_item} to 2066
+            set name of {_item} to "&5Moonstone Diver Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+24012✦ &8| &6+24006⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "moonstone_diver_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} light blue
+            set custom model data of {_item} to 2067
+            set name of {_item} to "&5Moonstone Diver Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+24009✦ &8| &6+24003⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+# Continue with additional sets...
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "starlight_guardian_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} purple
+            set custom model data of {_item} to 2068
+            set name of {_item} to "&5Starlight Guardian Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+25347✦ &8| &6+25341⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "starlight_guardian_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} purple
+            set custom model data of {_item} to 2069
+            set name of {_item} to "&5Starlight Guardian Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+25343✦ &8| &6+25338⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "starlight_guardian_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} purple
+            set custom model data of {_item} to 2070
+            set name of {_item} to "&5Starlight Guardian Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+25341✦ &8| &6+25336⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&5&lEPIC"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+# Continue with additional sets...
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "void_monarch_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} black
+            set custom model data of {_item} to 2071
+            set name of {_item} to "&6&lVoid Monarch Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+26678✦ &8| &6+26673⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&e&lLEGENDARY"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "void_monarch_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} black
+            set custom model data of {_item} to 2072
+            set name of {_item} to "&6&lVoid Monarch Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+26675✦ &8| &6+26671⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&e&lLEGENDARY"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "void_monarch_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} black
+            set custom model data of {_item} to 2073
+            set name of {_item} to "&6&lVoid Monarch Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+26673✦ &8| &6+26669⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&e&lLEGENDARY"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "chrono_crusher_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} blue
+            set custom model data of {_item} to 2074
+            set name of {_item} to "&6&lChrono Crusher Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+28009✦ &8| &6+28005⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&e&lLEGENDARY"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "chrono_crusher_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} blue
+            set custom model data of {_item} to 2075
+            set name of {_item} to "&6&lChrono Crusher Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+28006✦ &8| &6+28003⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&e&lLEGENDARY"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "chrono_crusher_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} blue
+            set custom model data of {_item} to 2076
+            set name of {_item} to "&6&lChrono Crusher Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+28005✦ &8| &6+28001⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&e&lLEGENDARY"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "celestial_titan_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} yellow
+            set custom model data of {_item} to 2077
+            set name of {_item} to "&6&lCelestial Titan Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+29340✦ &8| &6+29337⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&e&lLEGENDARY"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "celestial_titan_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} yellow
+            set custom model data of {_item} to 2078
+            set name of {_item} to "&6&lCelestial Titan Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+29338✦ &8| &6+29335⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&e&lLEGENDARY"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "celestial_titan_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} yellow
+            set custom model data of {_item} to 2079
+            set name of {_item} to "&6&lCelestial Titan Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+29337✦ &8| &6+29334⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&e&lLEGENDARY"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+# Continue with the Draconic Reaper, Galactic Annihilator, and Eternal Warden sets...
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "draconic_reaper_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} red
+            set custom model data of {_item} to 2080
+            set name of {_item} to "&6&lDraconic Reaper Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+30671✦ &8| &6+30669⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&e&lLEGENDARY"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "draconic_reaper_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} red
+            set custom model data of {_item} to 2081
+            set name of {_item} to "&6&lDraconic Reaper Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+30669✦ &8| &6+30668⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&e&lLEGENDARY"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "draconic_reaper_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} red
+            set custom model data of {_item} to 2082
+            set name of {_item} to "&6&lDraconic Reaper Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+30669✦ &8| &6+30667⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&e&lLEGENDARY"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "galactic_annihilator_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} dark purple
+            set custom model data of {_item} to 2083
+            set name of {_item} to "&6&lGalactic Annihilator Chestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+32002✦ &8| &6+32001⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&e&lLEGENDARY"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "galactic_annihilator_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} dark purple
+            set custom model data of {_item} to 2084
+            set name of {_item} to "&6&lGalactic Annihilator Leggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+32001✦ &8| &6+32000⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&e&lLEGENDARY"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "galactic_annihilator_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} dark purple
+            set custom model data of {_item} to 2085
+            set name of {_item} to "&6&lGalactic Annihilator Boots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+32001✦ &8| &6+32000⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&e&lLEGENDARY"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+#-----------------------------------------------------------------------------
+        else if {_itemname} is "eternal_warden_chestplate":
+            set {_item} to unbreakable leather chestplate
+            dye {_item} dark blue
+            set custom model data of {_item} to 2086
+            set name of {_item} to "&b&lE&1&lt&b&le&1&lr&b&ln&1&la&b&ll &1&lW&b&la&1&lr&b&ld&1&le&b&ln &f&lChestplate"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+33333✦ &8| &6+33333⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&e&lLEGENDARY"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "eternal_warden_leggings":
+            set {_item} to unbreakable leather leggings
+            dye {_item} light blue
+            set custom model data of {_item} to 2087
+            set name of {_item} to "&b&lE&1&lt&b&le&1&lr&b&ln&1&la&b&ll &1&lW&b&la&1&lr&b&ld&1&le&b&ln &f&lLeggings"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+33333✦ &8| &6+33333⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&e&lLEGENDARY"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else if {_itemname} is "eternal_warden_boots":
+            set {_item} to unbreakable leather boots
+            dye {_item} dark blue
+            set custom model data of {_item} to 2088
+            set name of {_item} to "&b&lE&1&lt&b&le&1&lr&b&ln&1&la&b&ll &1&lW&b&la&1&lr&b&ld&1&le&b&ln &f&lBoots"
+            set the 1st line of lore of {_item} to "&8Armor"
+            set the 2nd line of lore of {_item} to ""
+            set the 3rd line of lore of {_item} to "&d&lBonus:"
+            set the 4th line of lore of {_item} to "&8« &3+33333✦ &8| &6+33333⛁ &8»"
+            set the 5th line of lore of {_item} to ""
+            set the 6th line of lore of {_item} to "&e&lLEGENDARY"
+            enchant {_item} with unbreaking 255
+            add hide enchants and hide unbreakable to item flags of {_item}
+            give {_item} to {_target}
+            send "&a%{_itemname}% has been given to %{_target}%" to console
+
+        else:
+            send "&cUnknown item: %{_itemname}%" to console

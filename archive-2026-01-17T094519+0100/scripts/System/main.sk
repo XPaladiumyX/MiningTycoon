@@ -1,0 +1,202 @@
+options:
+    zone_2: 5
+    zone_3: 10
+    zone_4: 26
+    zone_5: 42
+    zone_6: 58
+    zone_7: 74
+    zone_8: 90
+    zone_9: 100
+    zone_10: 150
+    zone_11: 212
+    zone_12: 289
+    zone_13: 325
+    zone_14: 395
+    zone_15: 420
+    zone_16: 447
+    zone_17: 486
+    zone_18: 500
+    exp_multiplier: 1.5
+    coins_multiplier: 2
+
+on break:
+    set {_block} to event-block
+    set {_base_exp} to 0
+    set {_base_money} to 0
+    delete {_valid_block}
+
+    if {exp::%player%} > {exp_needed::%player%}:
+        execute player command "checklevel"
+        set {exp::%player%} to 0
+
+    if {playermode::%player%} is "staff":
+        stop
+
+    set {_level} to {level::%player%}
+
+    if {_block} is stone:
+        set {_base_exp} to 5
+        set {_base_money} to 1
+        set {_valid_block} to true
+        cancel event
+    else if {_block} is coal_ore:
+        set {_base_money} to 2
+        set {_base_exp} to 10
+        set {_valid_block} to true
+        cancel event
+    else if {_block} is iron_ore:
+        if {_level} < {@zone_2}:
+            send "&7[&e!&7] &cYou must be level {@zone_2} to mine this block." to player
+            cancel event
+            stop
+        set {_base_money} to 4
+        set {_base_exp} to 15
+        set {_valid_block} to true
+        cancel event
+    else if {_block} is raw_iron_block:
+        if {_level} < {@zone_3}:
+            send "&7[&e!&7] &cYou must be level {@zone_3} to mine this block." to player
+            cancel event
+            stop
+        set {_base_money} to 8
+        set {_base_exp} to 23
+        set {_valid_block} to true
+        cancel event
+    else if {_block} is copper_ore:
+        if {_level} < {@zone_4}:
+            send "&7[&e!&7] &cYou must be level {@zone_4} to mine this block." to player
+            cancel event
+            stop
+        set {_base_money} to 13
+        set {_base_exp} to 38
+        set {_valid_block} to true
+        cancel event
+    else if {_block} is raw_copper_block:
+        if {_level} < {@zone_5}:
+            send "&7[&e!&7] &cYou must be level {@zone_5} to mine this block." to player
+            cancel event
+            stop
+        set {_base_money} to 21
+        set {_base_exp} to 63
+        set {_valid_block} to true
+        cancel event
+    else if {_block} is gold_ore:
+        if {_level} < {@zone_6}:
+            send "&7[&e!&7] &cYou must be level {@zone_6} to mine this block." to player
+            cancel event
+            stop
+        set {_base_money} to 35
+        set {_base_exp} to 105
+        set {_valid_block} to true
+        cancel event
+    else if {_block} is raw_gold_block:
+        if {_level} < {@zone_7}:
+            send "&7[&e!&7] &cYou must be level {@zone_7} to mine this block." to player
+            cancel event
+            stop
+        set {_base_money} to 58
+        set {_base_exp} to 175
+        set {_valid_block} to true
+        cancel event
+    else if {_block} is lapis_ore:
+        if {_level} < {@zone_8}:
+            send "&7[&e!&7] &cYou must be level {@zone_8} to mine this block." to player
+            cancel event
+            stop
+        set {_base_money} to 96
+        set {_base_exp} to 291
+        set {_valid_block} to true
+        cancel event
+    else if {_block} is diamond_ore:
+        if {_level} < {@zone_9}:
+            send "&7[&e!&7] &cYou must be level {@zone_9} to mine this block." to player
+            cancel event
+            stop
+        set {_base_money} to 160
+        set {_base_exp} to 485
+        set {_valid_block} to true
+        cancel event
+    else if {_block} is emerald_ore:
+        if {_level} < {@zone_10}:
+            send "&7[&e!&7] &cYou must be level {@zone_10} to mine this block." to player
+            cancel event
+            stop
+        set {_base_money} to 266
+        set {_base_exp} to 808
+        set {_valid_block} to true
+        cancel event
+    else if {_block} is amethyst_block:
+        if {_level} < {@zone_11}:
+            send "&7[&e!&7] &cYou must be level {@zone_11} to mine this block." to player
+            cancel event
+            stop
+        set {_base_money} to 443
+        set {_base_exp} to 1346
+        set {_valid_block} to true
+        cancel event
+
+    if {_valid_block} is not set:
+        stop # Pas de gain sur bloc non autorisé
+
+    # Récupération des bonus
+    set {_tool_bonus::*} to getToolBonus(player's tool)
+    set {_pet_bonus::*} to getPetBonus(player)
+    set {_armor_bonus::*} to getArmorBonus(player)
+
+    # Calcul final
+    set {_total_exp} to {_base_exp} + {_tool_bonus::1} + {_pet_bonus::1} + {_armor_bonus::1}
+    set {_total_money} to {_base_money} + {_tool_bonus::2} + {_pet_bonus::2} + {_armor_bonus::2}
+
+    # Calculer bonus lucky drop
+    if {luckydrop::%player%} is set:
+        set {_bonus_exp} to {_total_exp} * ({luckydrop::%player%} - 1)
+        set {_bonus_money} to {_total_money} * ({luckydrop::%player%} - 1)
+
+        # Appliquer multiplicateur lucky drop
+        set {_total_exp} to {_total_exp} * {luckydrop::%player%}
+        set {_total_money} to {_total_money} * {luckydrop::%player%}
+    else:
+        # Pas de bonus lucky drop
+        set {_bonus_exp} to 0
+        set {_bonus_money} to 0
+
+    # Gestion boost
+    if {boost_active} is true:
+        if {boost_end} is set:
+            if now > {boost_end}:
+                delete {boost_active}
+                delete {boost_type}
+                delete {boost_end}
+            else:
+                if {boost_type} is "exp":
+                    set {_total_exp} to floor({_total_exp} * {@exp_multiplier})
+                else if {boost_type} is "both":
+                    set {_total_exp} to floor({_total_exp} * {@exp_multiplier})
+                    set {_total_money} to floor({_total_money} * {@coins_multiplier})
+                else if {boost_type} is "coins":
+                    set {_total_money} to floor({_total_money} * {@coins_multiplier})
+
+    # Affichage message bonus lucky drop (si activé)
+    if {dropmsg::%player%} is not set:
+        set {dropmsg::%player%} to true
+    if {dropmsg::%player%} is true and {_bonus_exp} > 0:
+        send "&e[DROP] &3+%{_bonus_exp}%✦ &6+%{_bonus_money}%⛁ &7(/droptoggle)" to player
+        play sound "entity.experience_orb.pickup" with volume 0.5 to player
+
+    # Ajout exp et money au joueur
+    if {_total_exp} > 0:
+        add {_total_exp} to {exp::%player%}
+    if {_total_money} > 0:
+        add {_total_money} to player's balance
+
+    updateActionBar(player, {_total_exp}, {_total_money})
+
+command /mode:
+    permission: op
+    trigger:
+        if {playermode::%player%} is not "player":
+            set {playermode::%player%} to "player"
+            send action bar "&aMode: &lPlayer &7(Break = Rewards)" to player
+        else:
+            set {playermode::%player%} to "staff"
+            send action bar "&cMode: &lStaff &7(Break = No Rewards)" to player

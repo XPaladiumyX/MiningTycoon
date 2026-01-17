@@ -1,0 +1,51 @@
+on right click holding nether star:
+    if custom model data of player's tool is 1234:
+        execute player command "menu"
+
+command /fasttp [<text>] [<number>]:
+    trigger:
+        if arg-1 is not "zone":
+            send "&cUsage: /fasttp zone <zone_number>" to player
+            stop
+        if arg-2 is not set:
+            send "&cUsage: /fasttp zone <zone_number>" to player
+            stop
+        set {_zone} to arg-2
+        set {_level} to {level::%player%}
+
+        # Niveaux requis par zone
+        set {_requiredLevels::2} to 5
+        set {_requiredLevels::3} to 10
+        set {_requiredLevels::4} to 26
+        set {_requiredLevels::5} to 42
+        set {_requiredLevels::6} to 58
+        set {_requiredLevels::7} to 74
+        set {_requiredLevels::8} to 90
+        set {_requiredLevels::9} to 100
+
+        if {_requiredLevels::%{_zone}%} is not set:
+            send "&cZone %{_zone}% doesn't exist." to player
+            stop
+
+        set {_required} to {_requiredLevels::%{_zone}%}
+
+        if {_level} < {_required}:
+            send "&7[&e!&7] &cYou need to be level &6%{_required}% &cto teleport to zone %{_zone}%!"
+            stop
+
+        # Emplacements des zones
+        set {_locations::2} to location at -45, 122, 7 in world "mining_tycoon"
+        set {_locations::3} to location at -42, 123, -7 in world "mining_tycoon"
+        set {_locations::4} to location at -34, 125, -22 in world "mining_tycoon"
+        set {_locations::5} to location at -16, 125, -28 in world "mining_tycoon"
+        set {_locations::6} to location at 3, 126, -31 in world "mining_tycoon"
+        set {_locations::7} to location at 17, 126, -31 in world "mining_tycoon"
+        set {_locations::8} to location at 31, 126, -15 in world "mining_tycoon"
+        set {_locations::9} to location at 28, 128, 5 in world "mining_tycoon"
+
+        if {_locations::%{_zone}%} is not set:
+            send "&cTeleport location for zone %{_zone}% is not defined." to player
+            stop
+
+        teleport player to {_locations::%{_zone}%}
+        send "&7[&e!&7] &aTeleporting to zone %{_zone}%..." to player

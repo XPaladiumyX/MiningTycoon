@@ -1,0 +1,47 @@
+command /prestigeadmin <text> [<player>] [<text>]:
+    permission: "prestige.admin"
+    permission message: &c&lYou don't have permission to use this command.
+    trigger:
+        set {_subcommand} to argument 1
+
+        if {_subcommand} is "set":
+            if argument 2 is not set:
+                send "&c&lUsage: &7/prestigeadmin set <player> <prestige>" to player
+                stop
+            if argument 3 is not set:
+                send "&c&lUsage: &7/prestigeadmin set <player> <prestige>" to player
+                stop
+
+            set {_target} to argument 2
+            set {_value} to argument 3 parsed as number
+
+            if {_value} is not set:
+                send "&c&lError: &7Prestige must be a valid number." to player
+                stop
+
+            if {_value} < 0:
+                send "&c&lError: &7Prestige must be 0 or higher." to player
+                stop
+
+            set {prestige::%{_target}%} to {_value}
+            send "&a✔ &aThe prestige of &b&l%{_target}% &ahas been set to &d&l%{_value}%&a." to player
+
+        else if {_subcommand} is "reset":
+            if argument 2 is not set:
+                send "&c&lUsage: &7/prestigeadmin reset <player>" to player
+                stop
+
+            set {_target} to argument 2
+            delete {prestige::%{_target}%}
+            send "&a✔ &aThe prestige of &b&l%{_target}% &ahas been reset to &d&l0&a." to player
+
+        else if {_subcommand} is not set:
+            send "&c&lUsage: &7/prestigeadmin <set/reset> <player> <prestige>" to player
+            stop
+
+        else:
+            set {_targetName} to argument 1 parsed as offline player
+            set {_prestige} to {prestige::%{_targetName}%}
+            if {_prestige} is not set:
+                set {_prestige} to 0
+            send "&b&l%{_targetName}% &ais currently at &d&lPrestige %{_prestige}%&a." to player

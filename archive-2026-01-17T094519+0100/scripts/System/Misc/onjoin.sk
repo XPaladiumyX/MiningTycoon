@@ -1,0 +1,3 @@
+on join:
+    wait 3 seconds
+    send "&dSky X &9Network &8●⏺  &e90%% &fof the system was coded with love by &biiXPaladiumyXii &f. Thank you for supporting him by subscribing or donating to SkyXNetwork!" to player

@@ -1,0 +1,45 @@
+# Fichier: plugins/Skript/scripts/System/Afk/afkleaderboard.sk
+# Leaderboard AFK avec hologram DecentHolograms
+# Coordonnées du hologram : 11 122 19 dans le monde mining_tycoon
+
+options:
+    hologram-name: afk-leaderboard
+    hologram-world: mining_tycoon
+    hologram-x: 11
+    hologram-y: 122
+    hologram-z: 19
+
+# Création de l’hologramme au démarrage
+on load:
+    # Supprime l'ancien
+    execute console command "dh delete {@hologram-name}"
+    # Crée un hologram fixe
+    execute console command "dh createfixed {@hologram-name} {@hologram-world} {@hologram-x} {@hologram-y} {@hologram-z}"
+    updateAfkLeaderboard()
+
+# Mise à jour automatique toutes les 5 minutes
+every 5 minutes:
+    updateAfkLeaderboard()
+
+function updateAfkLeaderboard():
+    # Efface les lignes actuelles
+    execute console command "dh lines clear {@hologram-name}"
+    
+    # Titre
+    execute console command "dh lines add {@hologram-name} &6&lTop AFK"
+    execute console command "dh lines add {@hologram-name} &7-------------------"
+
+    # Boucle sur le top AFK
+    set {_index} to 0
+    loop {afk::*} sorted by value in descending order:
+        add 1 to {_index}
+        if {_index} <= 10: # top 10
+            set {_player} to loop-index
+            set {_time} to loop-value
+            execute console command "dh lines add {@hologram-name} &e%{_index}%. &f%{_player}% &7- &b%{_time}% min"
+        else:
+            stop loop
+
+    # Bas de l’hologramme
+    execute console command "dh lines add {@hologram-name} &7-------------------"
+    execute console command "dh lines add {@hologram-name} &fMise à jour toutes les 5m"

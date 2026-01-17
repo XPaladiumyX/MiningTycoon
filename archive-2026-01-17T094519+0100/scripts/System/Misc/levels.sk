@@ -1,0 +1,65 @@
+command /leveladmin <text> [<player>] [<text>]:
+    permission: "level.admin"
+    permission message: &cYou do not have permission to use this command.
+    trigger:
+        set {_subcommand} to argument 1
+
+        if {_subcommand} is "set":
+            if argument 2 is not set:
+                send "&cUsage: /leveladmin set <player> <level>" to player
+                stop
+
+            if argument 3 is not set:
+                send "&cUsage: /leveladmin set <player> <level>" to player
+                stop
+
+            set {_target} to argument 2
+            set {_newLevel} to argument 3 parsed as number
+
+            if {_newLevel} is not set:
+                send "&cError: Level must be a valid number." to player
+                stop
+
+            if {_newLevel} < 1:
+                send "&cError: Level must be at least 1." to player
+                stop
+
+            # Appliquer le niveau
+            set {level::%{_target}%} to {_newLevel}
+
+            # Réinitialiser l'EXP et recalculer l'EXP requise pour level up
+            set {exp::%{_target}%} to 0
+            set {_expNeeded} to 100
+            loop {_newLevel} - 1 times:
+                set {_expNeeded} to {_expNeeded} * 1.1
+            set {exp_needed::%{_target}%} to {_expNeeded}
+
+            send "&aThe level of &e%{_target}% &ahas been set to &6%{_newLevel}%&a." to player
+
+        else if {_subcommand} is "reset":
+            if argument 2 is not set:
+                send "&cUsage: /leveladmin reset <player>" to player
+                stop
+
+            set {_target} to argument 2
+
+            # Remettre le joueur au niveau 1 avec EXP de base
+            set {level::%{_target}%} to 1
+            set {exp::%{_target}%} to 0
+            set {exp_needed::%{_target}%} to 100
+
+            send "&aThe level of &e%{_target}% &ahas been reset." to player
+
+        else if {_subcommand} is not set:
+            send "&cUsage: /leveladmin <set/reset> <player> <level>" to player
+            stop
+
+        else:
+            set {_target} to argument 1
+            set {_level} to {level::%{_target}%}
+
+            if {_level} is not set:
+                send "&cError: Unable to retrieve level of %{_target}%." to player
+                stop
+
+            send "&aThe level of &e%{_target}% &ais &6%{_level}%&a." to player
