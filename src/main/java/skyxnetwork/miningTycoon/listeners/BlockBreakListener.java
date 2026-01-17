@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
@@ -42,22 +43,26 @@ public class BlockBreakListener implements Listener {
         blockRewards.put(Material.AMETHYST_BLOCK, new BlockReward(1346, 443, 11));
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onBlockBreak(BlockBreakEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
+
         Player player = event.getPlayer();
         Material blockType = event.getBlock().getType();
 
         PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
 
-        // Staff mode check
+        // Staff mode check - no rewards
         if (data.getPlayerMode().equals("staff")) {
             return;
         }
 
-        // Check if valid block
+        // Check if valid mineable block
         BlockReward reward = blockRewards.get(blockType);
         if (reward == null) {
-            return;
+            return; // Not a reward block, let it break normally
         }
 
         // Zone requirement check
@@ -67,6 +72,7 @@ public class BlockBreakListener implements Listener {
             return;
         }
 
+        // Cancel the event to prevent normal drops
         event.setDropItems(false);
 
         // Calculate rewards
@@ -107,7 +113,8 @@ public class BlockBreakListener implements Listener {
 
         // Add rewards
         data.addExperience(totalExp);
-        // Add money (using economy plugin)
+
+        // Add money (using economy plugin or internal system)
         org.bukkit.Bukkit.dispatchCommand(org.bukkit.Bukkit.getConsoleSender(),
                 "coins give " + player.getName() + " " + (int) totalMoney);
 
@@ -138,23 +145,26 @@ public class BlockBreakListener implements Listener {
     }
 
     private double getToolBonus(ItemStack tool, boolean isExp) {
-        if (tool == null || !tool.hasItemMeta()) return 0;
+        if (tool == null || !tool.hasItemMeta() || !tool.getItemMeta().hasCustomModelData()) {
+            return 0;
+        }
+
         int cmd = tool.getItemMeta().getCustomModelData();
 
         Map<Integer, double[]> toolBonuses = new HashMap<>();
-        toolBonuses.put(1234, new double[]{3, 1});     // Stone Pickaxe
-        toolBonuses.put(1236, new double[]{7, 3});     // Reinforced
-        toolBonuses.put(1237, new double[]{15, 8});    // Rockshredder
-        toolBonuses.put(1238, new double[]{40, 23});   // Stone Crusher
-        toolBonuses.put(1239, new double[]{92, 53});   // Iron
-        toolBonuses.put(1240, new double[]{128, 86});  // Tempered Edge
-        toolBonuses.put(1241, new double[]{376, 191}); // Ore Splitter
-        toolBonuses.put(1242, new double[]{720, 346}); // Iron Storm
-        toolBonuses.put(1243, new double[]{1656, 742}); // Diamond
-        toolBonuses.put(1244, new double[]{3704, 1506}); // Crystal Cutter
-        toolBonuses.put(1245, new double[]{7159, 3458}); // Shardpiercer
-        toolBonuses.put(1246, new double[]{12406, 5846}); // GemReaper
-        toolBonuses.put(1247, new double[]{19750, 14987}); // AetherPick
+        toolBonuses.put(1234, new double[]{3, 1});
+        toolBonuses.put(1236, new double[]{7, 3});
+        toolBonuses.put(1237, new double[]{15, 8});
+        toolBonuses.put(1238, new double[]{40, 23});
+        toolBonuses.put(1239, new double[]{92, 53});
+        toolBonuses.put(1240, new double[]{128, 86});
+        toolBonuses.put(1241, new double[]{376, 191});
+        toolBonuses.put(1242, new double[]{720, 346});
+        toolBonuses.put(1243, new double[]{1656, 742});
+        toolBonuses.put(1244, new double[]{3704, 1506});
+        toolBonuses.put(1245, new double[]{7159, 3458});
+        toolBonuses.put(1246, new double[]{12406, 5846});
+        toolBonuses.put(1247, new double[]{19750, 14987});
 
         double[] bonuses = toolBonuses.get(cmd);
         if (bonuses != null) {
@@ -165,7 +175,9 @@ public class BlockBreakListener implements Listener {
 
     private double getPetBonus(Player player, boolean isExp) {
         ItemStack helmet = player.getInventory().getHelmet();
-        if (helmet == null || helmet.getType() != Material.PLAYER_HEAD) return 0;
+        if (helmet == null || helmet.getType() != Material.PLAYER_HEAD || !helmet.hasItemMeta()) {
+            return 0;
+        }
 
         String name = helmet.getItemMeta().getDisplayName();
         Map<String, double[]> petBonuses = new HashMap<>();
@@ -194,16 +206,19 @@ public class BlockBreakListener implements Listener {
     }
 
     private double getArmorPieceBonus(ItemStack armor, boolean isExp) {
-        if (armor == null || !armor.hasItemMeta()) return 0;
+        if (armor == null || !armor.hasItemMeta() || !armor.getItemMeta().hasCustomModelData()) {
+            return 0;
+        }
+
         int cmd = armor.getItemMeta().getCustomModelData();
 
         Map<Integer, double[]> armorBonuses = new HashMap<>();
-        armorBonuses.put(2001, new double[]{5, 3});   // Miner Chestguard
-        armorBonuses.put(2002, new double[]{3, 3});   // Miner Workpants
-        armorBonuses.put(2003, new double[]{3, 1});   // Miner Boots
-        armorBonuses.put(2086, new double[]{33333, 33333}); // Eternal Warden Chest
-        armorBonuses.put(2087, new double[]{33333, 33333}); // Eternal Warden Legs
-        armorBonuses.put(2088, new double[]{33333, 33333}); // Eternal Warden Boots
+        armorBonuses.put(2001, new double[]{5, 3});
+        armorBonuses.put(2002, new double[]{3, 3});
+        armorBonuses.put(2003, new double[]{3, 1});
+        armorBonuses.put(2086, new double[]{33333, 33333});
+        armorBonuses.put(2087, new double[]{33333, 33333});
+        armorBonuses.put(2088, new double[]{33333, 33333});
 
         double[] bonuses = armorBonuses.get(cmd);
         if (bonuses != null) {
@@ -213,21 +228,27 @@ public class BlockBreakListener implements Listener {
     }
 
     private int getLuckyMinerLevel(ItemStack tool) {
-        if (tool == null || !tool.hasItemMeta() || !tool.getItemMeta().hasLore()) return 0;
+        if (tool == null || !tool.hasItemMeta() || !tool.getItemMeta().hasLore()) {
+            return 0;
+        }
+
         for (String line : tool.getItemMeta().getLore()) {
-            if (line.contains("Lucky Miner I")) return 1;
-            if (line.contains("Lucky Miner II")) return 2;
             if (line.contains("Lucky Miner III")) return 3;
+            if (line.contains("Lucky Miner II")) return 2;
+            if (line.contains("Lucky Miner I")) return 1;
         }
         return 0;
     }
 
     private int getHasteLevel(ItemStack tool) {
-        if (tool == null || !tool.hasItemMeta() || !tool.getItemMeta().hasLore()) return 0;
+        if (tool == null || !tool.hasItemMeta() || !tool.getItemMeta().hasLore()) {
+            return 0;
+        }
+
         for (String line : tool.getItemMeta().getLore()) {
-            if (line.contains("Haste I")) return 1;
-            if (line.contains("Haste II")) return 2;
             if (line.contains("Haste III")) return 3;
+            if (line.contains("Haste II")) return 2;
+            if (line.contains("Haste I")) return 1;
         }
         return 0;
     }

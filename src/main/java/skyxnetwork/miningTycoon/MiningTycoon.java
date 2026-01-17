@@ -5,11 +5,13 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import skyxnetwork.miningTycoon.commands.*;
 import skyxnetwork.miningTycoon.data.DataStorage;
+import skyxnetwork.miningTycoon.gui.AdminGUI;
 import skyxnetwork.miningTycoon.listeners.*;
 import skyxnetwork.miningTycoon.managers.BoostManager;
 import skyxnetwork.miningTycoon.managers.PlayerDataManager;
 import skyxnetwork.miningTycoon.managers.PrestigeManager;
 import skyxnetwork.miningTycoon.managers.ZoneManager;
+import skyxnetwork.miningTycoon.placeholders.MiningTycoonPlaceholders;
 import skyxnetwork.miningTycoon.tasks.AFKRewardTask;
 import skyxnetwork.miningTycoon.tasks.LevelCheckTask;
 import skyxnetwork.miningTycoon.tasks.NightVisionTask;
@@ -56,8 +58,13 @@ public final class MiningTycoon extends JavaPlugin {
         // Start tasks
         startTasks();
 
-        // Load all player data
-        dataStorage.loadAllData();
+        // Register PlaceholderAPI expansion
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new MiningTycoonPlaceholders(this).register();
+            getLogger().info("PlaceholderAPI expansion registered!");
+        } else {
+            getLogger().warning("PlaceholderAPI not found! Placeholders will not work.");
+        }
 
         getLogger().info("MiningTycoon enabled successfully!");
     }
@@ -83,6 +90,9 @@ public final class MiningTycoon extends JavaPlugin {
         pm.registerEvents(new InventoryClickListener(this), this);
         pm.registerEvents(new DropListener(this), this);
         pm.registerEvents(new AFKListener(this), this);
+        pm.registerEvents(new PortalListener(this), this);
+        pm.registerEvents(new BlockPlaceListener(this), this);
+        pm.registerEvents(new AdminGUI(this), this);
 
         getLogger().info("Registered all event listeners");
     }
