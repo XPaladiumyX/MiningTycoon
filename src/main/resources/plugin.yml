@@ -1,0 +1,8 @@
+name: MiningTycoon
+version: '1.1-SNAPSHOT'
+main: skyxnetwork.miningTycoon.MiningTycoon
+api-version: '1.21'
+prefix: SkyXCore-Logger
+authors: [ XPaladiumyX ]
+description: Made with love and determination
+website: skyxnetwork.net
