@@ -1,8 +1,89 @@
 name: MiningTycoon
-version: '1.1-SNAPSHOT'
+version: '2.0.0'
 main: skyxnetwork.miningTycoon.MiningTycoon
 api-version: '1.21'
-prefix: SkyXCore-Logger
+prefix: MiningTycoon
 authors: [ XPaladiumyX ]
-description: Made with love and determination
+description: Complete mining progression plugin with levels, prestige, pets, and custom equipment
 website: skyxnetwork.net
+softdepend: [ PlaceholderAPI, Vault, WorldGuard ]
+
+commands:
+  level:
+    description: Display your level and experience
+    usage: /level
+
+  prestige:
+    description: Prestige system
+    usage: /prestige [confirm]
+
+  afk:
+    description: Teleport to AFK zone
+    usage: /afk
+
+  fasttp:
+    description: Fast teleport to zones
+    usage: /fasttp zone <1-18>
+
+  admin:
+    description: Open admin GUI
+    usage: /admin
+    permission: miningtycoon.admin
+
+  giveitem:
+    description: Give a custom tool to a player
+    usage: /giveitem <item> <player>
+    permission: miningtycoon.admin
+
+  givearmor:
+    description: Give custom armor to a player
+    usage: /givearmor <armor> <player>
+    permission: miningtycoon.admin
+
+  leveladmin:
+    description: Manage player levels
+    usage: /leveladmin <set/reset> <player> [level]
+    permission: miningtycoon.level.admin
+
+  prestigeadmin:
+    description: Manage player prestige
+    usage: /prestigeadmin <set/reset> <player> [prestige]
+    permission: miningtycoon.prestige.admin
+
+  droptoggle:
+    description: Toggle drop messages
+    usage: /droptoggle
+
+  booststatus:
+    description: Check global boost status
+    usage: /booststatus
+
+  mode:
+    description: Toggle staff mode (no rewards)
+    usage: /mode
+    permission: op
+
+  index:
+    description: Display command list
+    usage: /index
+
+  lobby:
+    description: Return to lobby
+    usage: /lobby
+
+permissions:
+  miningtycoon.admin:
+    description: Full admin access
+    default: op
+
+  miningtycoon.prestige.admin:
+    description: Prestige management
+    default: op
+
+  miningtycoon.level.admin:
+    description: Level management
+    default: op
+
+  antiblock.bypass:
+    description: Bypass block protection
+    default: op

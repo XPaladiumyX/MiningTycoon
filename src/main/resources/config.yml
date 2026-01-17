@@ -1,0 +1,107 @@
+# MiningTycoon Configuration File
+
+# General Settings
+settings:
+  world-name: "mining_tycoon"
+  max-level: 500
+  level-up-multiplier: 1.1
+
+# AFK Zone Settings
+afk:
+  enabled: true
+  location:
+    x: 9
+    y: 125
+    z: 19
+  rewards:
+    exp-per-tick: 1
+    money-per-tick: 1
+
+# Global Boost Settings
+boosts:
+  exp:
+    min-multiplier: 1.0
+    max-multiplier: 3.0
+    min-duration: 60
+    max-duration: 300
+    super-rare-chance: 200
+    super-rare-multiplier: 3.5
+    super-rare-duration: 3600
+
+  coins:
+    multiplier: 2.0
+    min-duration: 60
+    max-duration: 300
+
+# Zone Settings
+zones:
+  push-delay: 5
+  max-pushes: 3
+  requirements:
+    2: 5
+    3: 10
+    4: 26
+    5: 42
+    6: 58
+    7: 74
+    8: 90
+    9: 100
+    10: 150
+    11: 212
+    12: 289
+    13: 325
+    14: 395
+    15: 420
+    16: 447
+    17: 486
+    18: 500
+
+# Prestige Settings
+prestige:
+  basic:
+    level-requirement: 120
+    rewards:
+      diamonds: 1
+      coins: 10000
+      zentium: 1
+
+  elite:
+    level-requirement: 150
+    rewards:
+      diamonds: 1
+      coins: 10000
+
+# Community Generator Settings
+community-generator:
+  enabled: true
+  drop-chances:
+    redstone-reward: 500
+    zentium: 666
+    armor: 1250
+    boost: 1500
+  rewards:
+    exp:
+      min: 150
+      max: 400
+    coins:
+      min: 500
+      max: 2000
+
+# Database Settings
+database:
+  type: "yaml" # yaml or mysql
+  mysql:
+    host: "localhost"
+    port: 3306
+    database: "miningtycoon"
+    username: "root"
+    password: "password"
+
+# Messages
+messages:
+  prefix: "§7[§6MiningTycoon§7]"
+  level-up: "§6§lLEVEL UP! §eYou are now level §6%level%"
+  prestige-broadcast: "§8[§d⚡ Prestige §8] §6%player% §ehas reached §dPrestige %prestige%§e!"
+  zone-locked: "§7[§e!§7] §cYou must be level §6%level% §cto enter this zone!"
+  staff-mode-enabled: "§aMode: §lPlayer §7(Break = Rewards)"
+  staff-mode-disabled: "§cMode: §lStaff §7(Break = No Rewards)"
