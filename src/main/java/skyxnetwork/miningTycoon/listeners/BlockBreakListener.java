@@ -1,5 +1,6 @@
 package skyxnetwork.miningTycoon.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -72,8 +73,8 @@ public class BlockBreakListener implements Listener {
             return;
         }
 
-        // Cancel the event to prevent normal drops
-        event.setDropItems(false);
+        // CANCEL THE EVENT - Make blocks unbreakable
+        event.setCancelled(true);
 
         // Calculate rewards
         ItemStack tool = player.getInventory().getItemInMainHand();
@@ -115,7 +116,7 @@ public class BlockBreakListener implements Listener {
         data.addExperience(totalExp);
 
         // Add money (using economy plugin or internal system)
-        org.bukkit.Bukkit.dispatchCommand(org.bukkit.Bukkit.getConsoleSender(),
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
                 "coins give " + player.getName() + " " + (int) totalMoney);
 
         // Lucky drop message

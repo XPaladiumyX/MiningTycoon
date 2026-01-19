@@ -5,6 +5,7 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitTask;
 import skyxnetwork.miningTycoon.MiningTycoon;
 
 public class BoostManager {
@@ -17,6 +18,7 @@ public class BoostManager {
     private int boostDuration;
     private int timeRemaining;
     private BossBar bossBar;
+    private BukkitTask boostTask;
 
     public BoostManager(MiningTycoon plugin) {
         this.plugin = plugin;
@@ -83,27 +85,36 @@ public class BoostManager {
     }
 
     private void startBoostTask() {
-        Bukkit.getScheduler().runTaskTimer(plugin, task -> {
-            if (!boostActive || timeRemaining <= 0) {
-                endBoost();
-                task.cancel();
-                return;
-            }
+        boostTask = Bukkit.getScheduler().runTaskTimer(plugin, new Runnable() {
+            @Override
+            public void run() {
+                if (!boostActive || timeRemaining <= 0) {
+                    endBoost();
+                    return;
+                }
 
-            timeRemaining--;
-            double progress = (double) timeRemaining / boostDuration;
-            if (bossBar != null) {
-                bossBar.setProgress(Math.max(0.0, Math.min(1.0, progress)));
-                bossBar.setTitle(bossBar.getTitle().split(" §7\\(")[0] + " §7(" + timeRemaining + "s left)");
+                timeRemaining--;
+                double progress = (double) timeRemaining / boostDuration;
+                if (bossBar != null) {
+                    bossBar.setProgress(Math.max(0.0, Math.min(1.0, progress)));
+                    bossBar.setTitle(bossBar.getTitle().split(" §7\\(")[0] + " §7(" + timeRemaining + "s left)");
+                }
             }
         }, 0L, 20L);
     }
 
-    private void endBoost() {
+    public void endBoost() {
         boostActive = false;
         expMultiplier = 1.0;
         coinsMultiplier = 1.0;
+
+        if (boostTask != null) {
+            boostTask.cancel();
+            boostTask = null;
+        }
+
         Bukkit.broadcastMessage("§7☄ The Global Boost has ended.");
+
         if (bossBar != null) {
             bossBar.removeAll();
             bossBar = null;
