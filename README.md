@@ -126,15 +126,10 @@ A complete Minecraft mining progression plugin with a leveling system, prestige,
 
 All data is saved in `plugins/MiningTycoon/playerdata/`
 
-## 🐛 Support
-
-To report a bug or suggest an improvement:
-- Discord: SkyXNetwork
-- GitHub Issues: [Repo link]
-
 ## 📜 License
 
 © 2026 SkyXNetwork - All rights reserved
 Developed with ❤️ XPaladiumyX
 
 ---
+
