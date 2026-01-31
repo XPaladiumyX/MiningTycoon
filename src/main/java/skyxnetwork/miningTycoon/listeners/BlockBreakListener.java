@@ -9,28 +9,84 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import skyxnetwork.miningTycoon.MiningTycoon;
 import skyxnetwork.miningTycoon.data.PlayerData;
 import skyxnetwork.miningTycoon.utils.ActionBarUtil;
 import skyxnetwork.miningTycoon.utils.NumberFormatter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
+class Level {
+    int baseExp;
+    int baseMoney = 1;
+    int minLevel = 1;
+    int myLevel = 1;
+    Level(int level){
+        myLevel = level;
+        if (level <= 1){
+            baseExp = 5;
+            baseMoney = 1;
+            minLevel = 1;
+        } else if (level == 2){
+            baseExp = 10;
+            baseMoney = 2;
+            minLevel = 1;
+        } else if (level == 3){
+            baseExp = 15;
+            baseMoney = 4;
+            minLevel = 2;
+        } else{
+            baseExp = 23;
+            baseMoney = 8;
+            minLevel = 3;
+
+            for (int i = 4; i <= level; i++) {
+                baseExp = (baseExp * 5) / 3;
+                baseMoney = (baseMoney * 5) / 3;
+                minLevel++;
+            }
+
+        }
+    }
+
+    public static Level levelLookup(int lookupLevel){
+        for (Level testLevel : BlockBreakListener.levels){
+            if (testLevel.myLevel == lookupLevel){
+                return testLevel;
+            }
+        }
+        //BlockBreakListener.plugin.getLogger().warning("Level " + lookupLevel + " not found");
+        return null;
+    }
+}
 
 public class BlockBreakListener implements Listener {
 
     private final MiningTycoon plugin;
     private final Random random = new Random();
     private final Map<Material, BlockReward> blockRewards = new HashMap<>();
+    static ArrayList<Level> levels = new ArrayList<>();
+
+    static {
+        for (int i = 1; i <= 100; i++) {
+            Level newLevel = new Level(i);
+            levels.add(newLevel);
+        }
+    }
 
     public BlockBreakListener(MiningTycoon plugin) {
         this.plugin = plugin;
         initializeBlockRewards();
     }
 
+
     private void initializeBlockRewards() {
-        blockRewards.put(Material.STONE, new BlockReward(5, 1, 1));
+        /*blockRewards.put(Material.STONE, new BlockReward(5, 1, 1));
         blockRewards.put(Material.COAL_ORE, new BlockReward(10, 2, 1));
         blockRewards.put(Material.IRON_ORE, new BlockReward(15, 4, 2));
         blockRewards.put(Material.RAW_IRON_BLOCK, new BlockReward(23, 8, 3));
@@ -41,7 +97,42 @@ public class BlockBreakListener implements Listener {
         blockRewards.put(Material.LAPIS_ORE, new BlockReward(291, 96, 8));
         blockRewards.put(Material.DIAMOND_ORE, new BlockReward(485, 160, 9));
         blockRewards.put(Material.EMERALD_ORE, new BlockReward(808, 266, 10));
-        blockRewards.put(Material.AMETHYST_BLOCK, new BlockReward(1346, 443, 11));
+        blockRewards.put(Material.AMETHYST_BLOCK, new BlockReward(1346, 443, 11));*/
+
+        blockRewards.put(Material.STONE, new BlockReward(Level.levelLookup(1).baseExp, Level.levelLookup(1).baseMoney, Level.levelLookup(1).minLevel));
+
+
+
+        //  Ores
+        blockRewards.put(Material.COAL_ORE, new BlockReward(Level.levelLookup(2).baseExp, Level.levelLookup(2).baseMoney, Level.levelLookup(2).minLevel));
+        blockRewards.put(Material.IRON_ORE, new BlockReward(Level.levelLookup(3).baseExp, Level.levelLookup(3).baseMoney, Level.levelLookup(3).minLevel));
+        blockRewards.put(Material.RAW_IRON_BLOCK, new BlockReward(Level.levelLookup(4).baseExp, Level.levelLookup(4).baseMoney, Level.levelLookup(4).minLevel));
+        blockRewards.put(Material.COPPER_ORE, new BlockReward(Level.levelLookup(5).baseExp, Level.levelLookup(5).baseMoney, Level.levelLookup(5).minLevel));
+        blockRewards.put(Material.RAW_COPPER_BLOCK, new BlockReward(Level.levelLookup(6).baseExp, Level.levelLookup(6).baseMoney, Level.levelLookup(6).minLevel));
+        blockRewards.put(Material.GOLD_ORE, new BlockReward(Level.levelLookup(7).baseExp, Level.levelLookup(7).baseMoney, Level.levelLookup(7).minLevel));
+        blockRewards.put(Material.RAW_GOLD_BLOCK, new BlockReward(Level.levelLookup(8).baseExp, Level.levelLookup(8).baseMoney, Level.levelLookup(8).minLevel));
+        blockRewards.put(Material.LAPIS_ORE, new BlockReward(Level.levelLookup(9).baseExp, Level.levelLookup(9).baseMoney, Level.levelLookup(9).minLevel));
+        blockRewards.put(Material.DIAMOND_ORE, new BlockReward(Level.levelLookup(10).baseExp, Level.levelLookup(10).baseMoney, Level.levelLookup(10).minLevel));
+        blockRewards.put(Material.EMERALD_ORE, new BlockReward(Level.levelLookup(11).baseExp, Level.levelLookup(11).baseMoney, Level.levelLookup(11).minLevel));
+        blockRewards.put(Material.AMETHYST_BLOCK, new BlockReward(Level.levelLookup(12).baseExp, Level.levelLookup(12).baseMoney, Level.levelLookup(12).minLevel));
+        blockRewards.put(Material.DEEPSLATE_COAL_ORE, new BlockReward(Level.levelLookup(13).baseExp, Level.levelLookup(13).baseMoney, Level.levelLookup(13).minLevel));
+        blockRewards.put(Material.DEEPSLATE_IRON_ORE, new BlockReward(Level.levelLookup(14).baseExp, Level.levelLookup(14).baseMoney, Level.levelLookup(14).minLevel));
+        blockRewards.put(Material.DEEPSLATE_COPPER_ORE, new BlockReward(Level.levelLookup(15).baseExp, Level.levelLookup(15).baseMoney, Level.levelLookup(15).minLevel));
+        blockRewards.put(Material.DEEPSLATE_GOLD_ORE, new BlockReward(Level.levelLookup(16).baseExp, Level.levelLookup(16).baseMoney, Level.levelLookup(16).minLevel));
+        blockRewards.put(Material.DEEPSLATE_LAPIS_ORE, new BlockReward(Level.levelLookup(17).baseExp, Level.levelLookup(17).baseMoney, Level.levelLookup(17).minLevel));
+        blockRewards.put(Material.DEEPSLATE_DIAMOND_ORE, new BlockReward(Level.levelLookup(18).baseExp, Level.levelLookup(18).baseMoney, Level.levelLookup(18).minLevel));
+
+
+        //  Extras
+        blockRewards.put(Material.STONE, new BlockReward(Level.levelLookup(1).baseExp, Level.levelLookup(1).baseMoney, Level.levelLookup(1).minLevel));
+        blockRewards.put(Material.STONE_SLAB, new BlockReward(Level.levelLookup(1).baseExp, Level.levelLookup(1).baseMoney, Level.levelLookup(1).minLevel));
+        blockRewards.put(Material.STONE_STAIRS, new BlockReward(Level.levelLookup(1).baseExp, Level.levelLookup(1).baseMoney, Level.levelLookup(1).minLevel));
+        blockRewards.put(Material.COBBLESTONE, new BlockReward(Level.levelLookup(2).baseExp, Level.levelLookup(2).baseMoney, Level.levelLookup(2).minLevel));
+        blockRewards.put(Material.COBBLESTONE_STAIRS, new BlockReward(Level.levelLookup(2).baseExp, Level.levelLookup(2).baseMoney, Level.levelLookup(2).minLevel));
+        blockRewards.put(Material.CALCITE, new BlockReward(Level.levelLookup(4).baseExp, Level.levelLookup(4).baseMoney, Level.levelLookup(4).minLevel));
+        blockRewards.put(Material.DEEPSLATE, new BlockReward(Level.levelLookup(10).baseExp, Level.levelLookup(10).baseMoney, Level.levelLookup(10).minLevel));
+
+
     }
 
     @EventHandler(priority = EventPriority.HIGH)
@@ -133,8 +224,8 @@ public class BlockBreakListener implements Listener {
             if (random.nextInt(100) < chance) {
                 int duration = hasteLevel == 2 ? 600 : 200;
                 int amplifier = hasteLevel == 3 ? 1 : 0;
-                player.addPotionEffect(new org.bukkit.potion.PotionEffect(
-                        org.bukkit.potion.PotionEffectType.HASTE, duration, amplifier, false, false));
+                player.addPotionEffect(new PotionEffect(
+                        PotionEffectType.HASTE, duration, amplifier, false, false));
             }
         }
 
