@@ -45,7 +45,7 @@ class Level {
             baseMoney = 8;
             minLevel = 3;
 
-            for (int i = 4; i <= level; i++) {
+            for (int i = 4; i < level; i++) {
                 baseExp = (baseExp * 5) / 3;
                 baseMoney = (baseMoney * 5) / 3;
                 minLevel++;
@@ -69,7 +69,7 @@ public class BlockBreakListener implements Listener {
 
     private final MiningTycoon plugin;
     private final Random random = new Random();
-    private final Map<Material, BlockReward> blockRewards = new HashMap<>();
+    public static final Map<Material, BlockReward> blockRewards = new HashMap<>();
     static ArrayList<Level> levels = new ArrayList<>();
 
     static {
