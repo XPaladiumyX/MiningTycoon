@@ -131,6 +131,9 @@ public class BlockBreakListener implements Listener {
         blockRewards.put(Material.COBBLESTONE_STAIRS, new BlockReward(Level.levelLookup(2).baseExp, Level.levelLookup(2).baseMoney, Level.levelLookup(2).minLevel));
         blockRewards.put(Material.CALCITE, new BlockReward(Level.levelLookup(4).baseExp, Level.levelLookup(4).baseMoney, Level.levelLookup(4).minLevel));
         blockRewards.put(Material.DEEPSLATE, new BlockReward(Level.levelLookup(10).baseExp, Level.levelLookup(10).baseMoney, Level.levelLookup(10).minLevel));
+        blockRewards.put(Material.COBBLED_DEEPSLATE, new BlockReward(Level.levelLookup(10).baseExp, Level.levelLookup(10).baseMoney, Level.levelLookup(10).minLevel));
+        blockRewards.put(Material.COBBLED_DEEPSLATE_SLAB, new BlockReward(Level.levelLookup(10).baseExp, Level.levelLookup(10).baseMoney, Level.levelLookup(10).minLevel));
+        blockRewards.put(Material.COBBLED_DEEPSLATE_STAIRS, new BlockReward(Level.levelLookup(10).baseExp, Level.levelLookup(10).baseMoney, Level.levelLookup(10).minLevel));
 
 
     }
