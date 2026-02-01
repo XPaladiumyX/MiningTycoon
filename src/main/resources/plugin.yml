@@ -71,9 +71,16 @@ commands:
     description: Return to lobby
     usage: /lobby
 
+  permconfig:
+    description: Configure your permissions
+    usage: /permconfig <add/remove/check> <player> <perm>
+
 permissions:
+  miningtycoon.permhandle:
+    description: Access to change permissions
+    default: op
   miningtycoon.admin:
-    description: Full admin access
+    description: Full admin access except for permission handling
     default: op
 
   miningtycoon.prestige.admin:
