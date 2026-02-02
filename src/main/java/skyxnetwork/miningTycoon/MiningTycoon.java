@@ -27,6 +27,11 @@ public final class MiningTycoon extends JavaPlugin {
     private PrestigeManager prestigeManager;
     private ZoneManager zoneManager;
     private DataStorage dataStorage;
+    private PermissionCommand permissionCommand;
+
+    public PermissionCommand getPermissionCommand() {
+        return permissionCommand;
+    }
 
     @Override
     public void onEnable() {

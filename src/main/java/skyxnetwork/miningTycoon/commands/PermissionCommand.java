@@ -17,7 +17,7 @@ import java.util.UUID;
 public class PermissionCommand implements CommandExecutor {
 
     private final MiningTycoon plugin;
-    private final Map<UUID, PermissionAttachment> attachments = new HashMap<>();
+    public static final Map<UUID, PermissionAttachment> attachments = new HashMap<>();
 
 
     public PermissionCommand(MiningTycoon plugin) {
@@ -27,7 +27,7 @@ public class PermissionCommand implements CommandExecutor {
         return player.hasPermission(perm);
     }
 
-    private PermissionAttachment getAttachment(Player player) {
+    public PermissionAttachment getAttachment(Player player) {
         PermissionAttachment attachment = attachments.get(player.getUniqueId());
         if (attachment == null) {
             attachment = player.addAttachment(plugin);
@@ -35,6 +35,15 @@ public class PermissionCommand implements CommandExecutor {
         }
         return attachment;
     }
+
+    public static void removeAttachment(Player player) {
+        PermissionAttachment attachment = attachments.remove(player.getUniqueId());
+
+        if (attachment != null) {
+            player.removeAttachment(attachment);
+        }
+    }
+
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
