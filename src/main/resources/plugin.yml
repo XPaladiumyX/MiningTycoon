@@ -1,5 +1,5 @@
 name: MiningTycoon
-version: '2.0.0'
+version: '2.0.1'
 main: skyxnetwork.miningTycoon.MiningTycoon
 api-version: '1.21'
 prefix: MiningTycoon
@@ -71,9 +71,16 @@ commands:
     description: Return to lobby
     usage: /lobby
 
+  permconfig:
+    description: Configure your permissions
+    usage: /permconfig <add/remove/check> <player> <perm>
+
 permissions:
+  miningtycoon.permhandle:
+    description: Access to change permissions
+    default: op
   miningtycoon.admin:
-    description: Full admin access
+    description: Full admin access except for permission handling
     default: op
 
   miningtycoon.prestige.admin:

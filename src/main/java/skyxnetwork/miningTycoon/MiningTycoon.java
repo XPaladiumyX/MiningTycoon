@@ -27,6 +27,11 @@ public final class MiningTycoon extends JavaPlugin {
     private PrestigeManager prestigeManager;
     private ZoneManager zoneManager;
     private DataStorage dataStorage;
+    private PermissionCommand permissionCommand;
+
+    public PermissionCommand getPermissionCommand() {
+        return permissionCommand;
+    }
 
     @Override
     public void onEnable() {
@@ -112,6 +117,7 @@ public final class MiningTycoon extends JavaPlugin {
         getCommand("mode").setExecutor(new ModeCommand(this));
         getCommand("index").setExecutor(new IndexCommand(this));
         getCommand("lobby").setExecutor(new LobbyCommand(this));
+        getCommand("permconfig").setExecutor(new PermissionCommand(this));
 
         getLogger().info("Registered all commands");
     }

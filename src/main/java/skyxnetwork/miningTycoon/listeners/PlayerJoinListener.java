@@ -7,6 +7,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import skyxnetwork.miningTycoon.MiningTycoon;
 import skyxnetwork.miningTycoon.data.PlayerData;
+import skyxnetwork.miningTycoon.commands.*;
 
 public class PlayerJoinListener implements Listener {
 
@@ -42,6 +43,7 @@ public class PlayerJoinListener implements Listener {
         plugin.getDataStorage().savePlayerData(player.getUniqueId(), data);
 
         // Remove from memory
+        plugin.getPermissionCommand().removeAttachment(player);
         plugin.getPlayerDataManager().removePlayerData(player.getUniqueId());
     }
 }

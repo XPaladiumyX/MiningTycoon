@@ -6,7 +6,7 @@
 
     <groupId>skyxnetwork</groupId>
     <artifactId>MiningTycoon</artifactId>
-    <version>2.0.0</version>
+    <version>2.0.1EXPERIMENTAL-4</version>
     <packaging>jar</packaging>
 
     <name>MiningTycoon</name>
