@@ -5,7 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import skyxnetwork.miningTycoon.MiningTycoon;
-import skyxnetwork.miningTycoon.gui.AdminGUI;
+import skyxnetwork.miningTycoon.gui.AdminGUINew;
 
 public class AdminCommand implements CommandExecutor {
 
@@ -28,7 +28,7 @@ public class AdminCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-        AdminGUI.openMainMenu(player, plugin);
+        AdminGUINew.openMainMenu(player);
 
         return true;
     }
