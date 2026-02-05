@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Random;
 
 class Level {
+    static double growFactor = 5.0/3.0;
     int baseExp;
     int baseMoney = 1;
     int minLevel = 1;
@@ -46,8 +47,8 @@ class Level {
             minLevel = 3;
 
             for (int i = 4; i < level; i++) {
-                baseExp = (baseExp * 5) / 3;
-                baseMoney = (baseMoney * 5) / 3;
+                baseExp = (int) (baseExp * growFactor);
+                baseMoney = (int) (baseMoney * growFactor);
                 minLevel++;
             }
 
