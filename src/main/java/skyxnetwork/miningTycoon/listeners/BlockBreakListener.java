@@ -1,6 +1,5 @@
 package skyxnetwork.miningTycoon.listeners;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -22,7 +21,7 @@ import java.util.Map;
 import java.util.Random;
 
 class Level {
-    static double growFactor = 5.0/3.0;
+    static double growFactor = 5.0 / 3.0;
     int baseExp;
     int baseMoney = 1;
     int minLevel = 1;
@@ -189,9 +188,15 @@ public class BlockBreakListener implements Listener {
         // Add rewards
         data.addExperience(totalExp);
 
-        // Add money
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
-                "coins give " + player.getName() + " " + (int) totalMoney);
+        // Add money using EconomyManager
+        if (plugin.getEconomyManager().isEnabled()) {
+            boolean moneyGiven = plugin.getEconomyManager().giveMoney(player, totalMoney);
+            if (!moneyGiven) {
+                plugin.getLogger().warning("Failed to give " + totalMoney + " coins to " + player.getName());
+            }
+        } else {
+            plugin.getLogger().warning("Economy system is not enabled! Configure it in config.yml");
+        }
 
         // Lucky drop message
         if (luckyDrop && data.isDropMessagesEnabled()) {

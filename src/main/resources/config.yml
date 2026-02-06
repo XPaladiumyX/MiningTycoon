@@ -6,6 +6,25 @@ settings:
   max-level: 500
   level-up-multiplier: 1.1
 
+# Economy Settings
+economy:
+  # Economy system to use:
+  # - If you have Vault installed, it will automatically use it
+  # - Otherwise, it will use the command system below
+  use-commands: true
+
+  # Command to give money to players
+  # %player% = player name
+  # %amount% = amount of money (will be rounded to integer)
+  # Examples:
+  #   - "coins give %player% %amount%" (for custom coin plugins)
+  #   - "eco give %player% %amount%" (for Essentials)
+  #   - "money give %player% %amount%" (for other economy plugins)
+  command: "coins give %player% %amount%"
+
+  # Currency symbol used in messages (if not using Vault)
+  currency-symbol: "⛁"
+
 # AFK Zone Settings
 afk:
   enabled: true

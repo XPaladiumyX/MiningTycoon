@@ -1,0 +1,330 @@
+# Configuration des pickaxes
+# Format:
+# id:
+#   material: MATERIAL_TYPE
+#   customModelData: NUMBER
+#   name: "Display Name"
+#   lore:
+#     - "Line 1"
+#     - "Line 2"
+#   expBonus: NUMBER
+#   moneyBonus: NUMBER
+#   efficiency: LEVEL (0 for none)
+#   luckyMiner: LEVEL (0 for none)
+#   haste: LEVEL (0 for none)
+
+wooden_pickaxe:
+  material: WOODEN_PICKAXE
+  customModelData: 1235
+  name: "§6Starter Pickaxe"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§7§lBASIC"
+  expBonus: 0
+  moneyBonus: 0
+  efficiency: 0
+  luckyMiner: 0
+  haste: 0
+
+stone_pickaxe:
+  material: STONE_PICKAXE
+  customModelData: 1234
+  name: "§7Stone Pickaxe"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+3✦ §8| §6+1⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 3
+  moneyBonus: 1
+  efficiency: 0
+  luckyMiner: 0
+  haste: 0
+
+reinforced_pickaxe:
+  material: STONE_PICKAXE
+  customModelData: 1236
+  name: "§7Reinforced Pickaxe"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+7✦ §8| §6+3⛁ §8»"
+    - ""
+    - "§1Efficiency I"
+    - "§7Increases §6Mining Speed §7by §a20%%"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 7
+  moneyBonus: 3
+  efficiency: 1
+  luckyMiner: 0
+  haste: 0
+
+rockshredder_pickaxe:
+  material: STONE_PICKAXE
+  customModelData: 1237
+  name: "§7Rockshredder"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+15✦ §8| §6+8⛁ §8»"
+    - ""
+    - "§1Efficiency II"
+    - "§7Increases §6Mining Speed §7by §a50%%"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 15
+  moneyBonus: 8
+  efficiency: 2
+  luckyMiner: 0
+  haste: 0
+
+stone_crusher:
+  material: STONE_PICKAXE
+  customModelData: 1238
+  name: "§eStone Crusher"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+40✦ §8| §6+23⛁ §8»"
+    - ""
+    - "§1Efficiency III"
+    - "§7Increases §6Mining Speed §7by §a100%%"
+    - ""
+    - "§eLucky Miner I"
+    - "§a15%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§e§lRARE"
+  expBonus: 40
+  moneyBonus: 23
+  efficiency: 3
+  luckyMiner: 1
+  haste: 0
+
+iron_pickaxe:
+  material: IRON_PICKAXE
+  customModelData: 1239
+  name: "§7Iron Pickaxe"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+92✦ §8| §6+53⛁ §8»"
+    - ""
+    - "§eLucky Miner II"
+    - "§a35%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§e§lRARE"
+  expBonus: 92
+  moneyBonus: 53
+  efficiency: 0
+  luckyMiner: 2
+  haste: 0
+
+tempered_edge:
+  material: IRON_PICKAXE
+  customModelData: 1240
+  name: "§7Tempered Edge"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+128✦ §8| §6+86⛁ §8»"
+    - ""
+    - "§1Efficiency I"
+    - "§7Increases §6Mining Speed §7by §a20%%"
+    - ""
+    - "§eLucky Miner II"
+    - "§a35%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§e§lRARE"
+  expBonus: 128
+  moneyBonus: 86
+  efficiency: 1
+  luckyMiner: 2
+  haste: 0
+
+ore_splitter:
+  material: IRON_PICKAXE
+  customModelData: 1241
+  name: "§7Ore Splitter"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+376✦ §8| §6+191⛁ §8»"
+    - ""
+    - "§1Efficiency II"
+    - "§7Increases §6Mining Speed §7by §a50%%"
+    - ""
+    - "§eLucky Miner II"
+    - "§a35%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§e§lRARE"
+  expBonus: 376
+  moneyBonus: 191
+  efficiency: 2
+  luckyMiner: 2
+  haste: 0
+
+iron_storm:
+  material: IRON_PICKAXE
+  customModelData: 1242
+  name: "§7Iron Storm"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+720✦ §8| §6+346⛁ §8»"
+    - ""
+    - "§1Efficiency III"
+    - "§7Increases §6Mining Speed §7by §a100%%"
+    - ""
+    - "§bHaste II"
+    - "§a35%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner II"
+    - "§a35%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§e§lRARE"
+  expBonus: 720
+  moneyBonus: 346
+  efficiency: 3
+  luckyMiner: 2
+  haste: 2
+
+diamond_pickaxe:
+  material: DIAMOND_PICKAXE
+  customModelData: 1243
+  name: "§bDiamond Pickaxe"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+1656✦ §8| §6+742⛁ §8»"
+    - ""
+    - "§1Efficiency I"
+    - "§7Increases §6Mining Speed §7by §a20%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner III"
+    - "§a50%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§9§lEPIC"
+  expBonus: 1656
+  moneyBonus: 742
+  efficiency: 1
+  luckyMiner: 3
+  haste: 3
+
+crystal_cutter:
+  material: DIAMOND_PICKAXE
+  customModelData: 1244
+  name: "§bCrystal Cutter"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+3704✦ §8| §6+1506⛁ §8»"
+    - ""
+    - "§1Efficiency II"
+    - "§7Increases §6Mining Speed §7by §a50%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner III"
+    - "§a50%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§9§lEPIC"
+  expBonus: 3704
+  moneyBonus: 1506
+  efficiency: 2
+  luckyMiner: 3
+  haste: 3
+
+shardpiercer:
+  material: DIAMOND_PICKAXE
+  customModelData: 1245
+  name: "§bShardpiercer"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+7159✦ §8| §6+3458⛁ §8»"
+    - ""
+    - "§1Efficiency III"
+    - "§7Increases §6Mining Speed §7by §a100%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner III"
+    - "§a50%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§9§lEPIC"
+  expBonus: 7159
+  moneyBonus: 3458
+  efficiency: 3
+  luckyMiner: 3
+  haste: 3
+
+gemreaper:
+  material: DIAMOND_PICKAXE
+  customModelData: 1246
+  name: "§bGemReaper"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+12406✦ §8| §6+5846⛁ §8»"
+    - ""
+    - "§1Efficiency IV"
+    - "§7Increases §6Mining Speed §7by §a150%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner III"
+    - "§a50%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§9§lEPIC"
+  expBonus: 12406
+  moneyBonus: 5846
+  efficiency: 4
+  luckyMiner: 3
+  haste: 3
+
+aetherpick:
+  material: DIAMOND_PICKAXE
+  customModelData: 1247
+  name: "§f§lAetherPick"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+19750✦ §8| §6+14987⛁ §8»"
+    - ""
+    - "§1Efficiency IV"
+    - "§7Increases §6Mining Speed §7by §a150%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner III"
+    - "§a50%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§9§lEPIC"
+  expBonus: 19750
+  moneyBonus: 14987
+  efficiency: 4
+  luckyMiner: 3
+  haste: 3

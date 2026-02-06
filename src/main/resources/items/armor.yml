@@ -1,0 +1,256 @@
+# Configuration des armures
+# Format:
+# id:
+#   type: HELMET/CHESTPLATE/LEGGINGS/BOOTS
+#   material: LEATHER_CHESTPLATE (etc)
+#   customModelData: NUMBER
+#   name: "Display Name"
+#   color: "R,G,B" (for leather armor)
+#   lore:
+#     - "Line 1"
+#   expBonus: NUMBER
+#   moneyBonus: NUMBER
+
+# Miner Set
+miner_chestguard:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2001
+  name: "§7Miner's Chestguard"
+  color: "255,0,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+5✦ §8| §6+3⛁ §8»"
+    - ""
+    - "§7§lBASIC"
+  expBonus: 5
+  moneyBonus: 3
+
+miner_workpants:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2002
+  name: "§7Miner's Workpants"
+  color: "255,0,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+3✦ §8| §6+3⛁ §8»"
+    - ""
+    - "§7§lBASIC"
+  expBonus: 3
+  moneyBonus: 3
+
+miner_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2003
+  name: "§7Miner's Boots"
+  color: "255,0,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+3✦ §8| §6+1⛁ §8»"
+    - ""
+    - "§7§lBASIC"
+  expBonus: 3
+  moneyBonus: 1
+
+# Prospector Set
+prospector_helmet:
+  type: HELMET
+  material: LEATHER_HELMET
+  customModelData: 2004
+  name: "§7Prospector's Helmet"
+  color: "139,69,19"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+7✦ §8| §6+4⛁ §8»"
+    - ""
+    - "§7§lBASIC"
+  expBonus: 7
+  moneyBonus: 4
+
+prospector_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2005
+  name: "§7Prospector's Chestplate"
+  color: "139,69,19"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+10✦ §8| §6+6⛁ §8»"
+    - ""
+    - "§7§lBASIC"
+  expBonus: 10
+  moneyBonus: 6
+
+prospector_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2006
+  name: "§7Prospector's Leggings"
+  color: "139,69,19"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+8✦ §8| §6+5⛁ §8»"
+    - ""
+    - "§7§lBASIC"
+  expBonus: 8
+  moneyBonus: 5
+
+prospector_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2007
+  name: "§7Prospector's Boots"
+  color: "139,69,19"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+5✦ §8| §6+3⛁ §8»"
+    - ""
+    - "§7§lBASIC"
+  expBonus: 5
+  moneyBonus: 3
+
+# Eternal Warden Set (Legendary)
+eternal_warden_helmet:
+  type: HELMET
+  material: LEATHER_HELMET
+  customModelData: 2085
+  name: "§b§lE§1§lt§b§le§1§lr§b§ln§1§la§b§ll §1§lW§b§la§1§lr§b§ld§1§le§b§ln §f§lHelmet"
+  color: "0,191,255"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+33333✦ §8| §6+33333⛁ §8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 33333
+  moneyBonus: 33333
+
+eternal_warden_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2086
+  name: "§b§lE§1§lt§b§le§1§lr§b§ln§1§la§b§ll §1§lW§b§la§1§lr§b§ld§1§le§b§ln §f§lChestplate"
+  color: "0,0,255"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+33333✦ §8| §6+33333⛁ §8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 33333
+  moneyBonus: 33333
+
+eternal_warden_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2087
+  name: "§b§lE§1§lt§b§le§1§lr§b§ln§1§la§b§ll §1§lW§b§la§1§lr§b§ld§1§le§b§ln §f§lLeggings"
+  color: "0,255,255"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+33333✦ §8| §6+33333⛁ §8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 33333
+  moneyBonus: 33333
+
+eternal_warden_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2088
+  name: "§b§lE§1§lt§b§le§1§lr§b§ln§1§la§b§ll §1§lW§b§la§1§lr§b§ld§1§le§b§ln §f§lBoots"
+  color: "0,0,255"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+33333✦ §8| §6+33333⛁ §8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 33333
+  moneyBonus: 33333
+
+# Quarry Set (Common)
+quarry_helmet:
+  type: HELMET
+  material: LEATHER_HELMET
+  customModelData: 2008
+  name: "§aQuarry Helmet"
+  color: "50,205,50"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+15✦ §8| §6+10⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 15
+  moneyBonus: 10
+
+quarry_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2009
+  name: "§aQuarry Chestplate"
+  color: "50,205,50"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+20✦ §8| §6+15⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 20
+  moneyBonus: 15
+
+quarry_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2010
+  name: "§aQuarry Leggings"
+  color: "50,205,50"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+17✦ §8| §6+12⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 17
+  moneyBonus: 12
+
+quarry_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2011
+  name: "§aQuarry Boots"
+  color: "50,205,50"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+12✦ §8| §6+8⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 12
+  moneyBonus: 8

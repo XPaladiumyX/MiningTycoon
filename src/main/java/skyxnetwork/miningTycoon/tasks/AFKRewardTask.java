@@ -78,9 +78,10 @@ public class AFKRewardTask extends BukkitRunnable {
                 data.addExperience(exp);
                 data.addAfkTime(1);
 
-                // Add money via economy
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
-                        "coins give " + player.getName() + " " + (int) money);
+                // Add money using EconomyManager
+                if (plugin.getEconomyManager().isEnabled()) {
+                    plugin.getEconomyManager().giveMoney(player, money);
+                }
 
                 // Send subtitle
                 player.sendTitle("", "§f[§6+" + (int) money + "⛁§f] §f[§3+" + (int) exp + "✦§f]", 0, 20, 0);
