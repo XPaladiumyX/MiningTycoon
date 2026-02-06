@@ -25,6 +25,7 @@ public final class MiningTycoon extends JavaPlugin {
     private ZoneManager zoneManager;
     private DataStorage dataStorage;
     private ItemManager itemManager;
+    private EconomyManager economyManager;
     private PermissionCommand permissionCommand;
 
     // Tab Completer
@@ -50,6 +51,7 @@ public final class MiningTycoon extends JavaPlugin {
         // Initialize managers
         dataStorage = new DataStorage(this);
         playerDataManager = new PlayerDataManager(this);
+        economyManager = new EconomyManager(this); // Initialize economy first
         boostManager = new BoostManager(this);
         prestigeManager = new PrestigeManager(this);
         zoneManager = new ZoneManager(this);
@@ -76,6 +78,7 @@ public final class MiningTycoon extends JavaPlugin {
         getLogger().info("Loaded " + itemManager.getAllPickaxeIds().size() + " pickaxes, " +
                 itemManager.getAllArmorIds().size() + " armor pieces, and " +
                 itemManager.getAllPetIds().size() + " pets");
+        getLogger().info("Economy system: " + economyManager.getEconomyType());
     }
 
     @Override
@@ -195,6 +198,10 @@ public final class MiningTycoon extends JavaPlugin {
 
     public ItemManager getItemManager() {
         return itemManager;
+    }
+
+    public EconomyManager getEconomyManager() {
+        return economyManager;
     }
 
     public PermissionCommand getPermissionCommand() {

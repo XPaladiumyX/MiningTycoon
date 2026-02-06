@@ -37,11 +37,14 @@ public class PrestigeManager {
 
         // Give rewards
         player.getInventory().addItem(new ItemStack(Material.DIAMOND, 1));
-        // Add 10000 coins (assuming economy plugin integration)
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "coins give " + player.getName() + " 10000");
+
+        // Add 10000 coins using EconomyManager
+        if (plugin.getEconomyManager().isEnabled()) {
+            plugin.getEconomyManager().giveMoney(player, 10000);
+        }
 
         if (zone.equals("basic")) {
-            // Give Zentium for basic prestige
+            // Give Zentium for basic prestige (still using command as it's a special currency)
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "zentium give " + player.getName() + " 1");
         }
 
