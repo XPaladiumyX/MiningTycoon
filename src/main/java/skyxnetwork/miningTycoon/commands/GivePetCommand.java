@@ -9,11 +9,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import skyxnetwork.miningTycoon.MiningTycoon;
 
-public class GiveArmorCommand implements CommandExecutor {
+public class GivePetCommand implements CommandExecutor {
 
     private final MiningTycoon plugin;
 
-    public GiveArmorCommand(MiningTycoon plugin) {
+    public GivePetCommand(MiningTycoon plugin) {
         this.plugin = plugin;
     }
 
@@ -25,12 +25,12 @@ public class GiveArmorCommand implements CommandExecutor {
         }
 
         if (args.length < 2) {
-            sender.sendMessage("§cUsage: /givearmor <armor_id> <player>");
-            sender.sendMessage("§eAvailable armor: " + String.join(", ", plugin.getItemManager().getAllArmorIds()));
+            sender.sendMessage("§cUsage: /givepet <pet_id> <player>");
+            sender.sendMessage("§eAvailable pets: " + String.join(", ", plugin.getItemManager().getAllPetIds()));
             return true;
         }
 
-        String armorId = args[0].toLowerCase();
+        String petId = args[0].toLowerCase();
         OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
 
         if (!target.isOnline()) {
@@ -39,17 +39,17 @@ public class GiveArmorCommand implements CommandExecutor {
         }
 
         Player player = (Player) target;
-        ItemStack armor = plugin.getItemManager().getArmor(armorId);
+        ItemStack pet = plugin.getItemManager().getPet(petId);
 
-        if (armor == null) {
-            sender.sendMessage("§cUnknown armor: " + armorId);
-            sender.sendMessage("§eAvailable armor: " + String.join(", ", plugin.getItemManager().getAllArmorIds()));
+        if (pet == null) {
+            sender.sendMessage("§cUnknown pet: " + petId);
+            sender.sendMessage("§eAvailable pets: " + String.join(", ", plugin.getItemManager().getAllPetIds()));
             return true;
         }
 
-        player.getInventory().addItem(armor);
-        sender.sendMessage("§a" + armorId + " has been given to " + player.getName());
-        player.sendMessage("§aYou received: " + armor.getItemMeta().getDisplayName());
+        player.getInventory().addItem(pet);
+        sender.sendMessage("§a" + petId + " has been given to " + player.getName());
+        player.sendMessage("§aYou received: " + pet.getItemMeta().getDisplayName());
 
         return true;
     }

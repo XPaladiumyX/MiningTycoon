@@ -5,12 +5,9 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import skyxnetwork.miningTycoon.commands.*;
 import skyxnetwork.miningTycoon.data.DataStorage;
-import skyxnetwork.miningTycoon.gui.AdminGUI;
+import skyxnetwork.miningTycoon.gui.AdminGUINew;
 import skyxnetwork.miningTycoon.listeners.*;
-import skyxnetwork.miningTycoon.managers.BoostManager;
-import skyxnetwork.miningTycoon.managers.PlayerDataManager;
-import skyxnetwork.miningTycoon.managers.PrestigeManager;
-import skyxnetwork.miningTycoon.managers.ZoneManager;
+import skyxnetwork.miningTycoon.managers.*;
 import skyxnetwork.miningTycoon.placeholders.MiningTycoonPlaceholders;
 import skyxnetwork.miningTycoon.tasks.AFKRewardTask;
 import skyxnetwork.miningTycoon.tasks.LevelCheckTask;
@@ -27,18 +24,18 @@ public final class MiningTycoon extends JavaPlugin {
     private PrestigeManager prestigeManager;
     private ZoneManager zoneManager;
     private DataStorage dataStorage;
+    private ItemManager itemManager;
     private PermissionCommand permissionCommand;
 
-    public PermissionCommand getPermissionCommand() {
-        return permissionCommand;
-    }
+    // Tab Completer
+    private MiningTycoonTabCompleter tabCompleter;
 
     @Override
     public void onEnable() {
         instance = this;
 
         getLogger().info("====================================");
-        getLogger().info("  MiningTycoon v2.0.0");
+        getLogger().info("  MiningTycoon v" + getDescription().getVersion());
         getLogger().info("  By XPaladiumyX");
         getLogger().info("  Starting plugin...");
         getLogger().info("====================================");
@@ -47,12 +44,16 @@ public final class MiningTycoon extends JavaPlugin {
         saveDefaultConfig();
         ConfigUtil.loadConfigurations(this);
 
+        // Create items directory structure
+        createItemsDirectory();
+
         // Initialize managers
         dataStorage = new DataStorage(this);
         playerDataManager = new PlayerDataManager(this);
         boostManager = new BoostManager(this);
         prestigeManager = new PrestigeManager(this);
         zoneManager = new ZoneManager(this);
+        itemManager = new ItemManager(this);
 
         // Register listeners
         registerListeners();
@@ -72,6 +73,9 @@ public final class MiningTycoon extends JavaPlugin {
         }
 
         getLogger().info("MiningTycoon enabled successfully!");
+        getLogger().info("Loaded " + itemManager.getAllPickaxeIds().size() + " pickaxes, " +
+                itemManager.getAllArmorIds().size() + " armor pieces, and " +
+                itemManager.getAllPetIds().size() + " pets");
     }
 
     @Override
@@ -87,6 +91,14 @@ public final class MiningTycoon extends JavaPlugin {
         getLogger().info("MiningTycoon disabled successfully!");
     }
 
+    private void createItemsDirectory() {
+        java.io.File itemsDir = new java.io.File(getDataFolder(), "items");
+        if (!itemsDir.exists()) {
+            itemsDir.mkdirs();
+            getLogger().info("Created items directory");
+        }
+    }
+
     private void registerListeners() {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new BlockBreakListener(this), this);
@@ -97,29 +109,50 @@ public final class MiningTycoon extends JavaPlugin {
         pm.registerEvents(new AFKListener(this), this);
         pm.registerEvents(new PortalListener(this), this);
         pm.registerEvents(new BlockPlaceListener(this), this);
-        pm.registerEvents(new AdminGUI(this), this);
+        pm.registerEvents(new AdminGUINew(this), this);
 
         getLogger().info("Registered all event listeners");
     }
 
     private void registerCommands() {
+        // Initialize tab completer
+        tabCompleter = new MiningTycoonTabCompleter(this);
+
+        // Player commands
         getCommand("level").setExecutor(new LevelCommand(this));
         getCommand("prestige").setExecutor(new PrestigeCommand(this));
         getCommand("afk").setExecutor(new AFKCommand(this));
         getCommand("fasttp").setExecutor(new FastTeleportCommand(this));
-        getCommand("admin").setExecutor(new AdminCommand(this));
-        getCommand("giveitem").setExecutor(new GiveItemCommand(this));
-        getCommand("givearmor").setExecutor(new GiveArmorCommand(this));
-        getCommand("leveladmin").setExecutor(new LevelAdminCommand(this));
-        getCommand("prestigeadmin").setExecutor(new PrestigeAdminCommand(this));
+        getCommand("fasttp").setTabCompleter(tabCompleter);
         getCommand("droptoggle").setExecutor(new DropToggleCommand(this));
         getCommand("booststatus").setExecutor(new BoostStatusCommand(this));
         getCommand("mode").setExecutor(new ModeCommand(this));
         getCommand("index").setExecutor(new IndexCommand(this));
         getCommand("lobby").setExecutor(new LobbyCommand(this));
-        getCommand("permconfig").setExecutor(new PermissionCommand(this));
 
-        getLogger().info("Registered all commands");
+        // Admin commands
+        getCommand("admin").setExecutor(new AdminCommand(this));
+        getCommand("giveitem").setExecutor(new GiveItemCommand(this));
+        getCommand("giveitem").setTabCompleter(tabCompleter);
+        getCommand("givearmor").setExecutor(new GiveArmorCommand(this));
+        getCommand("givearmor").setTabCompleter(tabCompleter);
+        getCommand("givepet").setExecutor(new GivePetCommand(this));
+        getCommand("givepet").setTabCompleter(tabCompleter);
+        getCommand("leveladmin").setExecutor(new LevelAdminCommand(this));
+        getCommand("leveladmin").setTabCompleter(tabCompleter);
+        getCommand("prestigeadmin").setExecutor(new PrestigeAdminCommand(this));
+        getCommand("prestigeadmin").setTabCompleter(tabCompleter);
+
+        // Permission management
+        permissionCommand = new PermissionCommand(this);
+        getCommand("permconfig").setExecutor(permissionCommand);
+        getCommand("permconfig").setTabCompleter(tabCompleter);
+
+        // Main plugin command
+        getCommand("miningtycoon").setExecutor(new MiningTycoonCommand(this));
+        getCommand("miningtycoon").setTabCompleter(tabCompleter);
+
+        getLogger().info("Registered all commands with tab completion");
     }
 
     private void startTasks() {
@@ -158,5 +191,13 @@ public final class MiningTycoon extends JavaPlugin {
 
     public DataStorage getDataStorage() {
         return dataStorage;
+    }
+
+    public ItemManager getItemManager() {
+        return itemManager;
+    }
+
+    public PermissionCommand getPermissionCommand() {
+        return permissionCommand;
     }
 }

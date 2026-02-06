@@ -31,13 +31,18 @@ commands:
     permission: miningtycoon.admin
 
   giveitem:
-    description: Give a custom tool to a player
-    usage: /giveitem <item> <player>
+    description: Give a custom pickaxe to a player
+    usage: /giveitem <pickaxe_id> <player>
     permission: miningtycoon.admin
 
   givearmor:
     description: Give custom armor to a player
-    usage: /givearmor <armor> <player>
+    usage: /givearmor <armor_id> <player>
+    permission: miningtycoon.admin
+
+  givepet:
+    description: Give a custom pet to a player
+    usage: /givepet <pet_id> <player>
     permission: miningtycoon.admin
 
   leveladmin:
@@ -72,13 +77,21 @@ commands:
     usage: /lobby
 
   permconfig:
-    description: Configure your permissions
+    description: Configure permissions
     usage: /permconfig <add/remove/check> <player> <perm>
+    permission: miningtycoon.permhandle
+
+  miningtycoon:
+    description: Main plugin command
+    usage: /miningtycoon <reload/save/help/version>
+    aliases: [ mt, mtycoon ]
+    permission: miningtycoon.admin
 
 permissions:
   miningtycoon.permhandle:
     description: Access to change permissions
     default: op
+
   miningtycoon.admin:
     description: Full admin access except for permission handling
     default: op
