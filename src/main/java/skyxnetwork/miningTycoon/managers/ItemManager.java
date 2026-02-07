@@ -23,9 +23,10 @@ import java.util.*;
 public class ItemManager {
 
     private final MiningTycoon plugin;
-    private final Map<String, ItemStack> pickaxes = new HashMap<>();
-    private final Map<String, ItemStack> armors = new HashMap<>();
-    private final Map<String, ItemStack> pets = new HashMap<>();
+    // Changed to LinkedHashMap to preserve insertion order
+    private final Map<String, ItemStack> pickaxes = new LinkedHashMap<>();
+    private final Map<String, ItemStack> armors = new LinkedHashMap<>();
+    private final Map<String, ItemStack> pets = new LinkedHashMap<>();
 
     private FileConfiguration pickaxesConfig;
     private FileConfiguration armorConfig;
@@ -199,15 +200,18 @@ public class ItemManager {
     }
 
     public Set<String> getAllPickaxeIds() {
-        return new HashSet<>(pickaxes.keySet());
+        // LinkedHashSet preserves order
+        return new LinkedHashSet<>(pickaxes.keySet());
     }
 
     public Set<String> getAllArmorIds() {
-        return new HashSet<>(armors.keySet());
+        // LinkedHashSet preserves order
+        return new LinkedHashSet<>(armors.keySet());
     }
 
     public Set<String> getAllPetIds() {
-        return new HashSet<>(pets.keySet());
+        // LinkedHashSet preserves order
+        return new LinkedHashSet<>(pets.keySet());
     }
 
     // Get bonus values from config
