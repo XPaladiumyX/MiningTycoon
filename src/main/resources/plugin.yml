@@ -1,5 +1,5 @@
 name: MiningTycoon
-version: '2.0.3'
+version: '2.0.4'
 main: skyxnetwork.miningTycoon.MiningTycoon
 api-version: '1.21'
 prefix: MiningTycoon
