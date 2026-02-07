@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import skyxnetwork.miningTycoon.MiningTycoon;
+import skyxnetwork.miningTycoon.data.PlayerData;
 
 public class PrestigeCommand implements CommandExecutor {
 
@@ -22,15 +23,24 @@ public class PrestigeCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
+        PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
 
-        if (args.length == 0 || !args[0].equalsIgnoreCase("confirm")) {
-            player.sendMessage("§c⛔ You can only use this command from a Prestige Portal!");
-            return true;
-        }
-
-        // Check if player is in prestige region (integrate with WorldGuard)
-        // For now, simplified version
-        player.sendMessage("§aPrestige system integrated with portal regions");
+        // Show prestige info
+        player.sendMessage("§8§m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        player.sendMessage("§d§l⚡ PRESTIGE INFORMATION ⚡");
+        player.sendMessage("");
+        player.sendMessage("§7Current Level: §6" + data.getLevel());
+        player.sendMessage("§7Current Prestige: §d" + data.getPrestige());
+        player.sendMessage("");
+        player.sendMessage("§eHow to prestige:");
+        player.sendMessage("§f1. §7Enter a prestige portal");
+        player.sendMessage("§f2. §7The GUI will open automatically");
+        player.sendMessage("§f3. §7Follow the confirmation steps");
+        player.sendMessage("");
+        player.sendMessage("§7Available portals:");
+        player.sendMessage("§f  • §dBasic Portal §7(Level 120+)");
+        player.sendMessage("§f  • §5Elite Portal §7(Level 150+)");
+        player.sendMessage("§8§m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
         return true;
     }

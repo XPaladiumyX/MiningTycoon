@@ -77,6 +77,57 @@ zones:
 
 # Prestige Settings
 prestige:
+  # Spawn location after prestige
+  spawn:
+    world: "mining_tycoon"
+    x: -36.5
+    y: 124
+    z: 16.5
+    yaw: -270
+    pitch: 0
+
+  # Prestige Portals
+  # You can define multiple portals with different requirements
+  portals:
+    # Basic Prestige Portal
+    basic_portal:
+      # World name
+      world: "mining_tycoon"
+
+      # Portal region (cuboid area)
+      # Players must be within this region to prestige
+      region:
+        min:
+          x: -50
+          y: 100
+          z: -50
+        max:
+          x: -45
+          y: 105
+          z: -45
+
+      # Minimum level required to use this portal
+      level-requirement: 120
+
+      # Type of prestige (must match rewards below)
+      type: "basic"
+
+    # Elite Prestige Portal
+    elite_portal:
+      world: "mining_tycoon"
+      region:
+        min:
+          x: 45
+          y: 100
+          z: 45
+        max:
+          x: 50
+          y: 105
+          z: 50
+      level-requirement: 150
+      type: "elite"
+
+  # Prestige Rewards by Type
   basic:
     level-requirement: 120
     rewards:
@@ -124,3 +175,8 @@ messages:
   zone-locked: "§7[§e!§7] §cYou must be level §6%level% §cto enter this zone!"
   staff-mode-enabled: "§aMode: §lPlayer §7(Break = Rewards)"
   staff-mode-disabled: "§cMode: §lStaff §7(Break = No Rewards)"
+
+  prestige:
+    enter-portal: "§d⚡ §eEntered prestige portal! Type §a/prestige confirm §eto proceed"
+    requirements-not-met: "§c⛔ You need to be level §6%level% §cto use this portal!"
+    cancelled: "§7Prestige cancelled"
