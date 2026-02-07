@@ -26,13 +26,15 @@ public class PrestigePortalManager {
         this.plugin = plugin;
         this.portals = new HashMap<>();
         this.lastPrestigeAttempt = new HashMap<>();
-        loadPortals();
+
+        // Delay initial load by 2 seconds to allow worlds to load
+        Bukkit.getScheduler().runTaskLater(plugin, this::loadPortals, 40L);
     }
 
     /**
      * Load all prestige portals from config
      */
-    private void loadPortals() {
+    public void loadPortals() {
         portals.clear();
 
         ConfigurationSection portalsSection = plugin.getConfig().getConfigurationSection("prestige.portals");
@@ -41,49 +43,56 @@ public class PrestigePortalManager {
             return;
         }
 
+        int loadedCount = 0;
+
         for (String portalId : portalsSection.getKeys(false)) {
             ConfigurationSection portalConfig = portalsSection.getConfigurationSection(portalId);
             if (portalConfig == null) continue;
 
             try {
-                String worldName = portalConfig.getString("world");
-                World world = Bukkit.getWorld(worldName);
-
-                if (world == null) {
-                    plugin.getLogger().warning("World '" + worldName + "' not found for portal '" + portalId + "'");
-                    continue;
-                }
-
-                int minX = portalConfig.getInt("region.min.x");
-                int minY = portalConfig.getInt("region.min.y");
-                int minZ = portalConfig.getInt("region.min.z");
-                int maxX = portalConfig.getInt("region.max.x");
-                int maxY = portalConfig.getInt("region.max.y");
-                int maxZ = portalConfig.getInt("region.max.z");
-
-                int levelRequirement = portalConfig.getInt("level-requirement");
-                String type = portalConfig.getString("type", "basic");
-
-                PrestigePortal portal = new PrestigePortal(
-                        portalId,
-                        world,
-                        minX, minY, minZ,
-                        maxX, maxY, maxZ,
-                        levelRequirement,
-                        type
-                );
-
-                portals.put(portalId, portal);
-                plugin.getLogger().info("Loaded prestige portal: " + portalId +
-                        " (Type: " + type + ", Level: " + levelRequirement + ")");
-
+                loadSinglePortal(portalId, portalConfig);
+                loadedCount++;
             } catch (Exception e) {
                 plugin.getLogger().severe("Failed to load portal '" + portalId + "': " + e.getMessage());
-                e.printStackTrace();
             }
         }
 
-        plugin.getLogger().info("Loaded " + portals.size() + " prestige portal(s)");
+        plugin.getLogger().info("Loaded " + loadedCount + " prestige portal(s)");
+    }
+
+    /**
+     * Load a single portal from config
+     */
+    private void loadSinglePortal(String portalId, ConfigurationSection portalConfig) {
+        String worldName = portalConfig.getString("world");
+        World world = Bukkit.getWorld(worldName);
+
+        if (world == null) {
+            throw new IllegalStateException("World '" + worldName + "' not found");
+        }
+
+        int minX = portalConfig.getInt("region.min.x");
+        int minY = portalConfig.getInt("region.min.y");
+        int minZ = portalConfig.getInt("region.min.z");
+        int maxX = portalConfig.getInt("region.max.x");
+        int maxY = portalConfig.getInt("region.max.y");
+        int maxZ = portalConfig.getInt("region.max.z");
+
+        int levelRequirement = portalConfig.getInt("level-requirement");
+        String type = portalConfig.getString("type", "basic");
+
+        PrestigePortal portal = new PrestigePortal(
+                portalId,
+                world,
+                minX, minY, minZ,
+                maxX, maxY, maxZ,
+                levelRequirement,
+                type
+        );
+
+        portals.put(portalId, portal);
+        plugin.getLogger().info("Loaded prestige portal: " + portalId +
+                " (Type: " + type + ", Level: " + levelRequirement + ")");
     }
 
     /**
@@ -244,6 +253,7 @@ public class PrestigePortalManager {
      */
     public void reload() {
         loadPortals();
+        plugin.getLogger().info("Reloaded prestige portals");
     }
 
     /**
@@ -251,6 +261,56 @@ public class PrestigePortalManager {
      */
     public Map<String, PrestigePortal> getPortals() {
         return new HashMap<>(portals);
+    }
+
+    /**
+     * Create a new portal
+     */
+    public boolean createPortal(String id, String worldName, int minX, int minY, int minZ,
+                                int maxX, int maxY, int maxZ, int levelRequirement, String type) {
+        try {
+            // Save to config
+            String path = "prestige.portals." + id;
+            plugin.getConfig().set(path + ".world", worldName);
+            plugin.getConfig().set(path + ".region.min.x", minX);
+            plugin.getConfig().set(path + ".region.min.y", minY);
+            plugin.getConfig().set(path + ".region.min.z", minZ);
+            plugin.getConfig().set(path + ".region.max.x", maxX);
+            plugin.getConfig().set(path + ".region.max.y", maxY);
+            plugin.getConfig().set(path + ".region.max.z", maxZ);
+            plugin.getConfig().set(path + ".level-requirement", levelRequirement);
+            plugin.getConfig().set(path + ".type", type);
+
+            plugin.saveConfig();
+            reload();
+            return true;
+        } catch (Exception e) {
+            plugin.getLogger().severe("Failed to create portal: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Delete a portal
+     */
+    public boolean deletePortal(String id) {
+        try {
+            plugin.getConfig().set("prestige.portals." + id, null);
+            plugin.saveConfig();
+            reload();
+            return true;
+        } catch (Exception e) {
+            plugin.getLogger().severe("Failed to delete portal: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Update a portal
+     */
+    public boolean updatePortal(String id, String worldName, int minX, int minY, int minZ,
+                                int maxX, int maxY, int maxZ, int levelRequirement, String type) {
+        return createPortal(id, worldName, minX, minY, minZ, maxX, maxY, maxZ, levelRequirement, type);
     }
 
     /**
@@ -298,6 +358,30 @@ public class PrestigePortalManager {
 
         public World getWorld() {
             return world;
+        }
+
+        public int getMinX() {
+            return minX;
+        }
+
+        public int getMinY() {
+            return minY;
+        }
+
+        public int getMinZ() {
+            return minZ;
+        }
+
+        public int getMaxX() {
+            return maxX;
+        }
+
+        public int getMaxY() {
+            return maxY;
+        }
+
+        public int getMaxZ() {
+            return maxZ;
         }
 
         public int getLevelRequirement() {

@@ -35,6 +35,9 @@ public class MiningTycoonCommand implements CommandExecutor {
                 // Reload all items
                 plugin.getItemManager().loadAllItems();
 
+                // Reload prestige portals
+                plugin.getPrestigePortalManager().reload();
+
                 // Save all player data
                 plugin.getDataStorage().saveAllData();
 
@@ -43,6 +46,8 @@ public class MiningTycoonCommand implements CommandExecutor {
                         plugin.getItemManager().getAllPickaxeIds().size() + " pickaxes, " +
                         plugin.getItemManager().getAllArmorIds().size() + " armor pieces, and " +
                         plugin.getItemManager().getAllPetIds().size() + " pets");
+                sender.sendMessage("§7[§6MiningTycoon§7] §aLoaded " +
+                        plugin.getPrestigePortalManager().getPortals().size() + " prestige portal(s)");
                 break;
 
             case "save":
