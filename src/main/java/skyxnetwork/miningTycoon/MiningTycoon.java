@@ -22,6 +22,7 @@ public final class MiningTycoon extends JavaPlugin {
     private PlayerDataManager playerDataManager;
     private BoostManager boostManager;
     private PrestigeManager prestigeManager;
+    private PrestigePortalManager prestigePortalManager;
     private ZoneManager zoneManager;
     private DataStorage dataStorage;
     private ItemManager itemManager;
@@ -54,6 +55,7 @@ public final class MiningTycoon extends JavaPlugin {
         economyManager = new EconomyManager(this); // Initialize economy first
         boostManager = new BoostManager(this);
         prestigeManager = new PrestigeManager(this);
+        prestigePortalManager = new PrestigePortalManager(this); // NEW
         zoneManager = new ZoneManager(this);
         itemManager = new ItemManager(this);
 
@@ -78,6 +80,7 @@ public final class MiningTycoon extends JavaPlugin {
         getLogger().info("Loaded " + itemManager.getAllPickaxeIds().size() + " pickaxes, " +
                 itemManager.getAllArmorIds().size() + " armor pieces, and " +
                 itemManager.getAllPetIds().size() + " pets");
+        getLogger().info("Loaded " + prestigePortalManager.getPortals().size() + " prestige portal(s)");
         getLogger().info("Economy system: " + economyManager.getEconomyType());
     }
 
@@ -110,9 +113,10 @@ public final class MiningTycoon extends JavaPlugin {
         pm.registerEvents(new InventoryClickListener(this), this);
         pm.registerEvents(new DropListener(this), this);
         pm.registerEvents(new AFKListener(this), this);
-        pm.registerEvents(new PortalListener(this), this);
+        pm.registerEvents(new PrestigePortalListener(this), this); // NEW
         pm.registerEvents(new BlockPlaceListener(this), this);
         pm.registerEvents(new AdminGUINew(this), this);
+        pm.registerEvents(new PortalListener(this), this); // END PORTAL LISTENER DONT REMOVE
 
         getLogger().info("Registered all event listeners");
     }
@@ -186,6 +190,10 @@ public final class MiningTycoon extends JavaPlugin {
 
     public PrestigeManager getPrestigeManager() {
         return prestigeManager;
+    }
+
+    public PrestigePortalManager getPrestigePortalManager() {
+        return prestigePortalManager;
     }
 
     public ZoneManager getZoneManager() {
