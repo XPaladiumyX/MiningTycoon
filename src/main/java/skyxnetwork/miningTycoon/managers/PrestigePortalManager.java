@@ -134,56 +134,22 @@ public class PrestigePortalManager {
 
         // Check if player can prestige
         if (!canPrestige(player, portal)) {
+            // Player doesn't meet requirements - push them back
             PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
             player.sendMessage("§c⛔ You need to be level §6" + portal.getLevelRequirement() +
                     " §cto prestige through this portal!");
             player.sendMessage("§7Your current level: §6" + data.getLevel());
             player.playSound(player.getLocation(), "block.note_block.bass", 1.0f, 0.5f);
+
+            // Push player back (same as zone restriction)
+            org.bukkit.Location currentLoc = player.getLocation();
+            org.bukkit.util.Vector direction = currentLoc.getDirection().multiply(-1);
+            player.setVelocity(direction.multiply(1.0).setY(0.1));
             return;
         }
 
-        // Show prestige confirmation GUI or execute directly
-        showPrestigeConfirmation(player, portal);
-    }
-
-    /**
-     * Show prestige confirmation to player
-     */
-    private void showPrestigeConfirmation(Player player, PrestigePortal portal) {
-        PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
-
-        player.sendMessage("§8§m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-        player.sendMessage("§d§l⚡ PRESTIGE CONFIRMATION ⚡");
-        player.sendMessage("");
-        player.sendMessage("§7Portal Type: §e" + portal.getType().toUpperCase());
-        player.sendMessage("§7Current Level: §6" + data.getLevel());
-        player.sendMessage("§7Current Prestige: §d" + data.getPrestige());
-        player.sendMessage("");
-        player.sendMessage("§e§lREWARDS:");
-
-        ConfigurationSection rewards = plugin.getConfig()
-                .getConfigurationSection("prestige." + portal.getType() + ".rewards");
-
-        if (rewards != null) {
-            if (rewards.contains("diamonds")) {
-                player.sendMessage("  §b◆ §f" + rewards.getInt("diamonds") + " Diamond(s)");
-            }
-            if (rewards.contains("coins")) {
-                player.sendMessage("  §6⛁ §f" + rewards.getInt("coins") + " Coins");
-            }
-            if (rewards.contains("zentium")) {
-                player.sendMessage("  §d✦ §f" + rewards.getInt("zentium") + " Zentium");
-            }
-        }
-
-        player.sendMessage("");
-        player.sendMessage("§c§lWARNING: §7You will be reset to level 1!");
-        player.sendMessage("");
-        player.sendMessage("§aType §e/prestige confirm §ain chat to confirm");
-        player.sendMessage("§7Or step out of the portal to cancel");
-        player.sendMessage("§8§m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-
-        player.playSound(player.getLocation(), "block.note_block.pling", 1.0f, 1.5f);
+        // Open GUI via PrestigePortalGUI
+        plugin.getPrestigePortalGUI().openPrestigeGUI(player, portal);
     }
 
     /**

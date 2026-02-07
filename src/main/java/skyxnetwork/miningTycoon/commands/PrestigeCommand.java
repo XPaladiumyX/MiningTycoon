@@ -5,7 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import skyxnetwork.miningTycoon.MiningTycoon;
-import skyxnetwork.miningTycoon.managers.PrestigePortalManager;
+import skyxnetwork.miningTycoon.data.PlayerData;
 
 public class PrestigeCommand implements CommandExecutor {
 
@@ -23,39 +23,25 @@ public class PrestigeCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-
-        // Check if player is confirming prestige
-        if (args.length > 0 && args[0].equalsIgnoreCase("confirm")) {
-            // Check if player is in a prestige portal
-            PrestigePortalManager.PrestigePortal portal =
-                    plugin.getPrestigePortalManager().getPortalAtLocation(player.getLocation());
-
-            if (portal == null) {
-                player.sendMessage("§c⛔ You must be inside a prestige portal to use this command!");
-                return true;
-            }
-
-            // Execute prestige
-            plugin.getPrestigePortalManager().executePrestige(player, portal.getType());
-            return true;
-        }
+        PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
 
         // Show prestige info
-        showPrestigeInfo(player);
+        player.sendMessage("§8§m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        player.sendMessage("§d§l⚡ PRESTIGE INFORMATION ⚡");
+        player.sendMessage("");
+        player.sendMessage("§7Current Level: §6" + data.getLevel());
+        player.sendMessage("§7Current Prestige: §d" + data.getPrestige());
+        player.sendMessage("");
+        player.sendMessage("§eHow to prestige:");
+        player.sendMessage("§f1. §7Enter a prestige portal");
+        player.sendMessage("§f2. §7The GUI will open automatically");
+        player.sendMessage("§f3. §7Follow the confirmation steps");
+        player.sendMessage("");
+        player.sendMessage("§7Available portals:");
+        player.sendMessage("§f  • §dBasic Portal §7(Level 120+)");
+        player.sendMessage("§f  • §5Elite Portal §7(Level 150+)");
+        player.sendMessage("§8§m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
         return true;
-    }
-
-    private void showPrestigeInfo(Player player) {
-        PrestigePortalManager.PrestigePortal portal =
-                plugin.getPrestigePortalManager().getPortalAtLocation(player.getLocation());
-
-        if (portal != null) {
-            player.sendMessage("§e§lYou are in a prestige portal!");
-            player.sendMessage("§7Use §e/prestige confirm §7to prestige");
-        } else {
-            player.sendMessage("§c⛔ You must enter a prestige portal to prestige!");
-            player.sendMessage("§7Prestige portals are special areas where you can reset");
-            player.sendMessage("§7your level in exchange for prestige points and rewards.");
-        }
     }
 }

@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import skyxnetwork.miningTycoon.commands.*;
 import skyxnetwork.miningTycoon.data.DataStorage;
 import skyxnetwork.miningTycoon.gui.AdminGUINew;
+import skyxnetwork.miningTycoon.gui.PrestigePortalGUI;
 import skyxnetwork.miningTycoon.listeners.*;
 import skyxnetwork.miningTycoon.managers.*;
 import skyxnetwork.miningTycoon.placeholders.MiningTycoonPlaceholders;
@@ -28,6 +29,9 @@ public final class MiningTycoon extends JavaPlugin {
     private ItemManager itemManager;
     private EconomyManager economyManager;
     private PermissionCommand permissionCommand;
+
+    // GUI
+    private PrestigePortalGUI prestigePortalGUI;
 
     // Tab Completer
     private MiningTycoonTabCompleter tabCompleter;
@@ -55,9 +59,12 @@ public final class MiningTycoon extends JavaPlugin {
         economyManager = new EconomyManager(this); // Initialize economy first
         boostManager = new BoostManager(this);
         prestigeManager = new PrestigeManager(this);
-        prestigePortalManager = new PrestigePortalManager(this); // NEW
+        prestigePortalManager = new PrestigePortalManager(this); // Loads portals with delay
         zoneManager = new ZoneManager(this);
         itemManager = new ItemManager(this);
+
+        // Initialize GUI
+        prestigePortalGUI = new PrestigePortalGUI(this);
 
         // Register listeners
         registerListeners();
@@ -80,7 +87,6 @@ public final class MiningTycoon extends JavaPlugin {
         getLogger().info("Loaded " + itemManager.getAllPickaxeIds().size() + " pickaxes, " +
                 itemManager.getAllArmorIds().size() + " armor pieces, and " +
                 itemManager.getAllPetIds().size() + " pets");
-        getLogger().info("Loaded " + prestigePortalManager.getPortals().size() + " prestige portal(s)");
         getLogger().info("Economy system: " + economyManager.getEconomyType());
     }
 
@@ -113,7 +119,8 @@ public final class MiningTycoon extends JavaPlugin {
         pm.registerEvents(new InventoryClickListener(this), this);
         pm.registerEvents(new DropListener(this), this);
         pm.registerEvents(new AFKListener(this), this);
-        pm.registerEvents(new PrestigePortalListener(this), this); // NEW
+        pm.registerEvents(new PrestigePortalListener(this), this); // Portal detection
+        pm.registerEvents(prestigePortalGUI, this); // Portal GUI
         pm.registerEvents(new BlockPlaceListener(this), this);
         pm.registerEvents(new AdminGUINew(this), this);
         pm.registerEvents(new PortalListener(this), this); // END PORTAL LISTENER DONT REMOVE
@@ -194,6 +201,10 @@ public final class MiningTycoon extends JavaPlugin {
 
     public PrestigePortalManager getPrestigePortalManager() {
         return prestigePortalManager;
+    }
+
+    public PrestigePortalGUI getPrestigePortalGUI() {
+        return prestigePortalGUI;
     }
 
     public ZoneManager getZoneManager() {
