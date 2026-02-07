@@ -169,9 +169,22 @@ public class ItemManager {
 
                 // Apply custom texture if available
                 if (!texture.isEmpty()) {
-                    PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID());
-                    profile.setProperty(new ProfileProperty("textures", texture));
-                    meta.setPlayerProfile(profile);
+                    try {
+                        // Create a random UUID for the profile
+                        UUID profileId = UUID.nameUUIDFromBytes(("OfflinePlayer:" + key).getBytes());
+                        PlayerProfile profile = Bukkit.createProfile(profileId, key);
+
+                        // Set the texture property
+                        ProfileProperty property = new ProfileProperty("textures", texture);
+                        profile.setProperty(property);
+
+                        // Apply the profile to the skull
+                        meta.setPlayerProfile(profile);
+
+                        plugin.getLogger().info("Applied texture to pet: " + key);
+                    } catch (Exception e) {
+                        plugin.getLogger().warning("Failed to apply texture to pet " + key + ": " + e.getMessage());
+                    }
                 }
 
                 item.setItemMeta(meta);
@@ -179,6 +192,7 @@ public class ItemManager {
 
             } catch (Exception e) {
                 plugin.getLogger().warning("Failed to load pet: " + key + " - " + e.getMessage());
+                e.printStackTrace();
             }
         }
     }
