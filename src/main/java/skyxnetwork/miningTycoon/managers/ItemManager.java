@@ -1,8 +1,5 @@
 package skyxnetwork.miningTycoon.managers;
 
-import com.destroystokyo.paper.profile.PlayerProfile;
-import com.destroystokyo.paper.profile.ProfileProperty;
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -13,8 +10,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 import skyxnetwork.miningTycoon.MiningTycoon;
+import skyxnetwork.miningTycoon.utils.ItemBuilder;
 
 import java.io.File;
 import java.io.IOException;
@@ -161,33 +158,20 @@ public class ItemManager {
                 List<String> lore = section.getStringList("lore");
                 String texture = section.getString("texture", "");
 
-                ItemStack item = new ItemStack(Material.PLAYER_HEAD);
-                SkullMeta meta = (SkullMeta) item.getItemMeta();
-
-                meta.setDisplayName(name);
-                meta.setLore(lore);
+                // Use ItemBuilder with skull texture support
+                ItemBuilder builder = new ItemBuilder(Material.PLAYER_HEAD)
+                        .setName(name)
+                        .setLore(lore);
 
                 // Apply custom texture if available
                 if (!texture.isEmpty()) {
-                    try {
-                        // Create a random UUID for the profile
-                        UUID profileId = UUID.nameUUIDFromBytes(("OfflinePlayer:" + key).getBytes());
-                        PlayerProfile profile = Bukkit.createProfile(profileId, key);
-
-                        // Set the texture property
-                        ProfileProperty property = new ProfileProperty("textures", texture);
-                        profile.setProperty(property);
-
-                        // Apply the profile to the skull
-                        meta.setPlayerProfile(profile);
-
-                        plugin.getLogger().info("Applied texture to pet: " + key);
-                    } catch (Exception e) {
-                        plugin.getLogger().warning("Failed to apply texture to pet " + key + ": " + e.getMessage());
-                    }
+                    builder.setSkullTexture(texture);
+                    plugin.getLogger().info("Successfully loaded pet with texture: " + key);
+                } else {
+                    plugin.getLogger().warning("Pet " + key + " has no texture defined");
                 }
 
-                item.setItemMeta(meta);
+                ItemStack item = builder.build();
                 pets.put(key, item);
 
             } catch (Exception e) {
