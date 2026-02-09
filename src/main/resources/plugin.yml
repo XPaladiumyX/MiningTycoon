@@ -6,7 +6,7 @@ prefix: MiningTycoon
 authors: [ XPaladiumyX ]
 description: Complete mining progression plugin with levels, prestige, pets, and custom equipment
 website: skyxnetwork.net
-softdepend: [ PlaceholderAPI, Vault, WorldGuard ]
+softdepend: [ PlaceholderAPI, Vault, WorldGuard, HeadDatabase ]
 
 commands:
   level:

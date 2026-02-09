@@ -9,6 +9,7 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 import skyxnetwork.miningTycoon.MiningTycoon;
 import skyxnetwork.miningTycoon.data.PlayerData;
 import skyxnetwork.miningTycoon.utils.ItemBuilder;
@@ -252,19 +253,23 @@ public class AdminGUINew implements Listener {
 
             if (pet != null) {
                 ItemStack display = pet.clone();
-                ItemBuilder builder = new ItemBuilder(display.getType());
 
-                List<String> lore = new ArrayList<>(display.getItemMeta().hasLore() ?
-                        display.getItemMeta().getLore() : new ArrayList<>());
-                lore.add("");
-                lore.add("§7ID: §e" + id);
-                lore.add("");
-                lore.add("§e▸ Left Click §7to edit");
-                lore.add("§c▸ Right Click §7to delete");
-                lore.add("§a▸ Shift + Left §7to give yourself");
+                // Get the skull meta to preserve the texture
+                if (display.getItemMeta() instanceof SkullMeta skullMeta) {
+                    List<String> lore = new ArrayList<>(skullMeta.hasLore() ?
+                            skullMeta.getLore() : new ArrayList<>());
+                    lore.add("");
+                    lore.add("§7ID: §e" + id);
+                    lore.add("");
+                    lore.add("§e▸ Left Click §7to edit");
+                    lore.add("§c▸ Right Click §7to delete");
+                    lore.add("§a▸ Shift + Left §7to give yourself");
 
-                builder.setLore(lore);
-                inv.setItem(9 + (i - startIndex), builder.build());
+                    skullMeta.setLore(lore);
+                    display.setItemMeta(skullMeta);
+                }
+
+                inv.setItem(9 + (i - startIndex), display);
             }
         }
 

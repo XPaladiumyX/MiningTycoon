@@ -2,7 +2,7 @@
 # Format:
 # id:
 #   name: "Display Name"
-#   texture: "base64_texture_value" (optional, for custom heads)
+#   texture: "base64_texture_value" or "hdb-12345" (HeadDatabase ID)
 #   lore:
 #     - "Line 1"
 #   expBonus: NUMBER
@@ -10,7 +10,7 @@
 
 rocky_mole:
   name: "§7§lRocky Mole"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjZiYTkzYzU5YzgxZjU2NGM3N2NiYmNhZTY2OGYxZjJhNzg5ODU5ZTlkNGY5MzQwZmZiZGNiNjJlMjU3YjcifX19"
+  texture: "hdb-26905"
   lore:
     - "§8Pet"
     - ""
