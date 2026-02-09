@@ -2,7 +2,7 @@
 # Format:
 # id:
 #   name: "Display Name"
-#   texture: "base64_texture_value" (optional, for custom heads)
+#   texture: "base64_texture_value" or "hdb-12345" (HeadDatabase ID)
 #   lore:
 #     - "Line 1"
 #   expBonus: NUMBER
@@ -10,7 +10,7 @@
 
 rocky_mole:
   name: "§7§lRocky Mole"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjZiYTkzYzU5YzgxZjU2NGM3N2NiYmNhZTY2OGYxZjJhNzg5ODU5ZTlkNGY5MzQwZmZiZGNiNjJlMjU3YjcifX19"
+  texture: "hdb-26905"
   lore:
     - "§8Pet"
     - ""
@@ -23,7 +23,7 @@ rocky_mole:
 
 stone_crab:
   name: "§7§lStone Crab"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTBhNGU0YzRiZGE5NDk2OWY4YjMzOWMzZjI1MzE1ZWRiZTNhZTg4YTQzZmYzMjJkZjE0MTNmNGZkMjU1In19fQ=="
+  texture: "hdb-39749"
   lore:
     - "§8Pet"
     - ""
@@ -36,7 +36,7 @@ stone_crab:
 
 tiny_golem:
   name: "§7§lTiny Golem"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODkwOTFkNzllYTBmNTllZjdlZjk0ZDdiYmE2ZTVmMTdmMmY3ZDQ1NzJjNDRmOTBmNzZjNDgyN2RhODcifX19"
+  texture: "hdb-3410"
   lore:
     - "§8Pet"
     - ""
@@ -49,47 +49,47 @@ tiny_golem:
 
 cave_bat:
   name: "§7§lCave Bat"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWU5MmI1ZGU4YTVhNDlkMzU3ODI3YWFkNjJmNzMyZjU0ZjZhZjE4YWJkNDEyZmQ3NWJmZTgxZWVlNmNhIn19fQ=="
+  texture: "hdb-6607"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "§8« §3+30✦ §8| §6+12⛁ §8»"
+    - "§8« §3+41✦ §8| §6+39⛁ §8»"
     - ""
     - "§7§lBASIC"
-  expBonus: 30
-  moneyBonus: 12
+  expBonus: 41
+  moneyBonus: 39
 
 dusty_rat:
   name: "§7§lDusty Rat"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzQ5NWY5MzlhYWFiNTJjNWZhNjIwNjkzMTFkZGVkMzg4ZTVhODNkYTc2MjZhZjJlZjg4Y2Q5YzM5OWVlOCJ9fX0="
+  texture: "hdb-55567"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "§8« §3+45✦ §8| §6+14⛁ §8»"
+    - "§8« §3+126✦ §8| §6+52⛁ §8»"
     - ""
     - "§7§lBASIC"
-  expBonus: 45
-  moneyBonus: 14
+  expBonus: 126
+  moneyBonus: 52
 
 pebble_slime:
   name: "§7§lPebble Slime"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTZhZDIwZmMyZDU3OWJlMjUwZDNkYjA1OGNmYTAyZjNmYTYzMmVlY2IxNjY4YjVlZGFhNzU5OWYzNTU5YSJ9fX0="
+  texture: "hdb-98861"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "§8« §3+60✦ §8| §6+18⛁ §8»"
+    - "§8« §3+113✦ §8| §6+111⛁ §8»"
     - ""
     - "§7§lBASIC"
-  expBonus: 60
-  moneyBonus: 18
+  expBonus: 113
+  moneyBonus: 111
 
 # Common Pets
 iron_snail:
   name: "§a§lIron Snail"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDFiODMwZWI0MDhkNDM0NjQ2YzM1ODBjYjY1YmU5ZDE1MzJhNjVhNzMzNmU2MjFiNmM0YmMyMDM2MjM3ZmEifX19"
+  texture: "hdb-36841"
   lore:
     - "§8Pet"
     - ""
@@ -102,73 +102,73 @@ iron_snail:
 
 pickaxe_puppy:
   name: "§a§lPickaxe Puppy"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTIwNjQyOWY1ZmQyNWE0MTZlMzg4ZDkzN2Q1M2Y2NzQ3NTY1NWQxNWE5YzY1MmIzMzI5NzYwZTE4MWUzMjEifX19"
+  texture: "hdb-40312"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "§8« §3+1500✦ §8| §6+1200⛁ §8»"
+    - "§8« §3+2600✦ §8| §6+2150⛁ §8»"
     - ""
     - "§a§lCOMMON"
-  expBonus: 1500
-  moneyBonus: 1200
+  expBonus: 2600
+  moneyBonus: 2150
 
 drill_bee:
   name: "§a§lDrill Bee"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzE1ZmE5MzM0YzY0N2Q4OTNiZDUyNjk5YTRhZjg1OGU0ODgxYjg2MjFkOWZlYjI4ZWFlMzU5YTUzMGE5NiJ9fX0="
+  texture: "hdb-100711"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "§8« §3+1800✦ §8| §6+1400⛁ §8»"
+    - "§8« §3+2800✦ §8| §6+2300⛁ §8»"
     - ""
     - "§a§lCOMMON"
-  expBonus: 1800
-  moneyBonus: 1400
+  expBonus: 2800
+  moneyBonus: 2300
 
 mine_cat:
   name: "§a§lMine Cat"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU5ZTQ5ZGJjNGE1NGQxOWY1OTM5Y2YzOTIxYTlmYWQzMWMwYjQ2NTY3YjRmOGM5YzlhNzllZmUyZWY0In19fQ=="
+  texture: "hdb-48466"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "§8« §3+2000✦ §8| §6+1600⛁ §8»"
+    - "§8« §3+2750✦ §8| §6+2400⛁ §8»"
     - ""
     - "§a§lCOMMON"
-  expBonus: 2000
-  moneyBonus: 1600
+  expBonus: 2750
+  moneyBonus: 2400
 
 rusty_guardian:
   name: "§a§lRusty Guardian"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzI1YWY5NjZhOGIzYjJiNjQ1OWQ4ZTM1MmUzYmNjY2UzNThhMmM4OGVlOGZjNTg3YmY3ZTRkZjQxZTkzZCJ9fX0="
+  texture: "hdb-57679"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "§8« §3+2200✦ §8| §6+1850⛁ §8»"
+    - "§8« §3+2920✦ §8| §6+2500⛁ §8»"
     - ""
     - "§a§lCOMMON"
-  expBonus: 2200
-  moneyBonus: 1850
+  expBonus: 2920
+  moneyBonus: 2500
 
 glow_worm:
   name: "§a§lGlow Worm"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzYzMDU0ZjI4ZjJiYzI0OWE1ZjEwZmQ4ZWVkZTg2MzQyZTk1MzI1ZDk5YWJkZjI3ZWFlY2M2ZjRhIn19fQ=="
+  texture: "hdb-64053"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "§8« §3+2500✦ §8| §6+2100⛁ §8»"
+    - "§8« §3+3150✦ §8| §6+2800⛁ §8»"
     - ""
     - "§a§lCOMMON"
-  expBonus: 2500
-  moneyBonus: 2100
+  expBonus: 3150
+  moneyBonus: 2800
 
 # Rare Pets
 silver_griffin:
   name: "§e§lSilver Griffin"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Y3NmE4MjU5YzQ4ODk0NzY5ZGM4YjYxYzFkMjNmNDY5OTE4ZTJjZDQ1ZTdmOTI2OGIxMTZiNjU2MTRlMiJ9fX0="
+  texture: "hdb-3936"
   lore:
     - "§8Pet"
     - ""
@@ -181,39 +181,78 @@ silver_griffin:
 
 ore_hound:
   name: "§e§lOre Hound"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDg3YjgzZTEyNmEzZGE3YjI4M2FiNjQ2Njk4NzQ5MjJhOWEyZjczMDUxZGRhYmNjNTU5MTBkNDVmODdhIn19fQ=="
+  texture: "hdb-103807"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "§8« §3+3800✦ §8| §6+3500⛁ §8»"
+    - "§8« §3+4950✦ §8| §6+4320⛁ §8»"
     - ""
     - "§e§lRARE"
-  expBonus: 3800
-  moneyBonus: 3500
+  expBonus: 4950
+  moneyBonus: 4320
+
+magnet_crawler:
+  name: "&e&lMagnet Crawler"
+  texture: "hdb-45690"
+  lore:
+    - "&8Pet"
+    - ""
+    - "&d&lBonus:"
+    - "&8« &3+5300✦ &8| &6+4890⛁ &8»"
+    - ""
+    - "&9&lRARE"
+  expBonus: 5300
+  moneyBonus: 4890
+
+smelt_spirit:
+  name: "&e&lSmelt Spirit"
+  texture: "hdb-68848"
+  lore:
+    - "&8Pet"
+    - ""
+    - "&d&lBonus:"
+    - "&8« &3+5800✦ &8| &6+5000⛁ &8»"
+    - ""
+    - "&9&lRARE"
+  expBonus: 5800
+  moneyBonus: 5000
+
+shimmer_beetle:
+  name: "&e&lShimmer Beetle"
+  texture: "hdb-59564"
+  lore:
+    - "&8Pet"
+    - ""
+    - "&d&lBonus:"
+    - "&8« &3+5565✦ &8| &6+5498⛁ &8»"
+    - ""
+    - "&9&lRARE"
+  expBonus: 5565
+  moneyBonus: 5498
 
 emerald_fox:
   name: "§e§lEmerald Fox"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDhlNmJjMjRlZDY5ZmQ1MTM1N2U1OGNiNzIyNWRlYmMwNDhjYWU4MTI5NzY0ZTRiYWNmZjFjYzZkOWE2YyJ9fX0="
+  texture: "hdb-29628"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "§8« §3+5000✦ §8| §6+4500⛁ §8»"
+    - "&8« &3+6000✦ &8| &6+5880⛁ &8»"
     - ""
     - "§e§lRARE"
-  expBonus: 5000
-  moneyBonus: 4500
+  expBonus: 6000
+  moneyBonus: 5880
 
 # Epic Pets
 drill_core:
   name: "§5§lDrill Core"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGQ0ZDhlY2E1NzJhODlkYWI2ZDM3ZjQ4YTVmMGJhNGE3MTdjNmE0NWU4OWRiNGY4ZDRlYTQxYjYzZjdjIn19fQ=="
+  texture: "hdb-103283"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "§8« §3+8700✦ §8| §6+7400⛁ §8»"
+    - "&8« &3+8700✦ &8| &6+7400⛁ &8»"
     - ""
     - "§9§lEPIC"
   expBonus: 8700
@@ -221,39 +260,78 @@ drill_core:
 
 crystallion:
   name: "§5§lCrystallion"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzY4ZjI3YWIwYTc5YTUwMjUzNzMwMTU0MjAxZmJkNjJlY2NhYzFiNWQyYTFkODQwNjg0MjcyYmRiZSJ9fX0="
+  texture: "hdb-31951"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "§8« §3+7500✦ §8| §6+6800⛁ §8»"
+    - "&8« &3+9300✦ &8| &6+7800⛁ &8»"
     - ""
     - "§9§lEPIC"
-  expBonus: 7500
-  moneyBonus: 6800
+  expBonus: 9300
+  moneyBonus: 7800
+
+obsidian_beast:
+  name: "&5&lObsidian Beast"
+  texture: "hdb-112393"
+  lore:
+    - "§8Pet"
+    - ""
+    - "§d§lBonus:"
+    - "&8« &3+9900✦ &8| &6+8200⛁ &8»"
+    - ""
+    - "§9§lEPIC"
+  expBonus: 9900
+  moneyBonus: 8200
+
+sparkling_phoenix:
+  name: "&5&lSparkling Phoenix"
+  texture: "hdb-683"
+  lore:
+    - "§8Pet"
+    - ""
+    - "§d§lBonus:"
+    - "&8« &3+10500✦ &8| &6+8800⛁ &8»"
+    - ""
+    - "§9§lEPIC"
+  expBonus: 10500
+  moneyBonus: 8800
+
+ancient_digger:
+  name: "&5&lAncient Digger"
+  texture: "hdb-51069"
+  lore:
+    - "§8Pet"
+    - ""
+    - "§d§lBonus:"
+    - "&8« &3+10200✦ &8| &6+9600⛁ &8»"
+    - ""
+    - "§9§lEPIC"
+  expBonus: 10200
+  moneyBonus: 9600
 
 lava_serpent:
   name: "§5§lLava Serpent"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTBjMTc4ZTlmM2JlYTc3ZWZlYTg5MzJiNGUwYmRlODFjOTJmNjZlNjc4MThmZWVhZDlmMDNmOGEyZjJjOCJ9fX0="
+  texture: "hdb-110061"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "§8« §3+9000✦ §8| §6+7800⛁ §8»"
+    - "&8« &3+10700✦ &8| &6+10650⛁ &8»"
     - ""
     - "§9§lEPIC"
-  expBonus: 9000
-  moneyBonus: 7800
+  expBonus: 10700
+  moneyBonus: 10650
 
 # Legendary Pets
 titanium_dragon:
   name: "§c§lTitanium §6§lDragon"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzRkYjMxOTFkYzE3YTBjYWVhN2FlMmNiNWYyZWQzNTEzMjJlNzI0ZjQ3YzA0M2U3YjcxMDM3NzI1YjEifX19"
+  texture: "hdb-24607"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "§8« §3+15500✦ §8| §6+12400⛁ §8»"
+    - "&8« &3+15500✦ &8| &6+12400⛁ &8»"
     - ""
     - "§e§lLEGENDARY"
   expBonus: 15500
@@ -261,20 +339,72 @@ titanium_dragon:
 
 mythic_centipede:
   name: "§c§lMythic §6§lCentipede"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODQ5NGYyYWRmOWE2ZjZhOGY3MmRiN2QwNTQyNWEyMDQ3MjJjY2VjNjZhNjZlMTU2ZmE1ODc1NmY4ZSJ9fX0="
+  texture: "hdb-115613"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "§8« §3+14000✦ §8| §6+11500⛁ §8»"
+    - "&8« &3+16200✦ &8| &6+13100⛁ &8»"
     - ""
     - "§e§lLEGENDARY"
-  expBonus: 14000
-  moneyBonus: 11500
+  expBonus: 16200
+  moneyBonus: 13100
+
+quantum_ghost:
+  name: "&c&lQuantum &6&lGhost"
+  texture: "hdb-52051"
+  lore:
+    - "§8Pet"
+    - ""
+    - "§d§lBonus:"
+    - "&8« &3+17000✦ &8| &6+13800⛁ &8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 17000
+  moneyBonus: 13800
+
+void_harvester:
+  name: "&c&lVoid &6&lHarvester"
+  texture: "hdb-56128"
+  lore:
+    - "§8Pet"
+    - ""
+    - "§d§lBonus:"
+    - "&8« &3+17500✦ &8| &6+14300⛁ &8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 17500
+  moneyBonus: 14300
+
+chrono_mole:
+  name: "&c&lChrono &6&lMole"
+  texture: "hdb-15006"
+  lore:
+    - "§8Pet"
+    - ""
+    - "§d§lBonus:"
+    - "&8« &3+18000✦ &8| &6+14800⛁ &8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 18000
+  moneyBonus: 14800
+
+nuclear_wyrm:
+  name: "&c&lNuclear &6&lWyrm"
+  texture: "hdb-33091"
+  lore:
+    - "§8Pet"
+    - ""
+    - "§d§lBonus:"
+    - "&8« &3+18500✦ &8| &6+15400⛁ &8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 18500
+  moneyBonus: 15400
 
 galactic_golem:
   name: "§c§lGalactic §6§lGolem"
-  texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTBhNzk4OWI1ZDZlNjIxYTEyY2E1NjJiZjFhNmIxOGIxMzdhNTNiZjI1MjUzZjRkZDFhMjFmNDY5ZDYifX19"
+  texture: "hdb-16184"
   lore:
     - "§8Pet"
     - ""

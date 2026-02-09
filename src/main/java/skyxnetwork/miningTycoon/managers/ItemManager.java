@@ -1,8 +1,5 @@
 package skyxnetwork.miningTycoon.managers;
 
-import com.destroystokyo.paper.profile.PlayerProfile;
-import com.destroystokyo.paper.profile.ProfileProperty;
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -13,8 +10,9 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 import skyxnetwork.miningTycoon.MiningTycoon;
+import skyxnetwork.miningTycoon.utils.ColorUtil;
+import skyxnetwork.miningTycoon.utils.ItemBuilder;
 
 import java.io.File;
 import java.io.IOException;
@@ -66,8 +64,8 @@ public class ItemManager {
             try {
                 Material material = Material.valueOf(section.getString("material", "DIAMOND_PICKAXE"));
                 int customModelData = section.getInt("customModelData", 0);
-                String name = section.getString("name", "§7Pickaxe");
-                List<String> lore = section.getStringList("lore");
+                String name = ColorUtil.translate(section.getString("name", "&7Pickaxe"));
+                List<String> lore = ColorUtil.translate(section.getStringList("lore"));
                 int efficiency = section.getInt("efficiency", 0);
 
                 ItemStack item = new ItemStack(material);
@@ -109,8 +107,8 @@ public class ItemManager {
             try {
                 Material material = Material.valueOf(section.getString("material", "LEATHER_CHESTPLATE"));
                 int customModelData = section.getInt("customModelData", 0);
-                String name = section.getString("name", "§7Armor");
-                List<String> lore = section.getStringList("lore");
+                String name = ColorUtil.translate(section.getString("name", "&7Armor"));
+                List<String> lore = ColorUtil.translate(section.getStringList("lore"));
                 String colorString = section.getString("color", "255,255,255");
 
                 ItemStack item = new ItemStack(material);
@@ -157,28 +155,24 @@ public class ItemManager {
             if (section == null) continue;
 
             try {
-                String name = section.getString("name", "§7Pet");
-                List<String> lore = section.getStringList("lore");
+                String name = ColorUtil.translate(section.getString("name", "&7Pet"));
+                List<String> lore = ColorUtil.translate(section.getStringList("lore"));
                 String texture = section.getString("texture", "");
 
-                ItemStack item = new ItemStack(Material.PLAYER_HEAD);
-                SkullMeta meta = (SkullMeta) item.getItemMeta();
+                ItemBuilder builder = new ItemBuilder(Material.PLAYER_HEAD)
+                        .setName(name)
+                        .setLore(lore);
 
-                meta.setDisplayName(name);
-                meta.setLore(lore);
-
-                // Apply custom texture if available
                 if (!texture.isEmpty()) {
-                    PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID());
-                    profile.setProperty(new ProfileProperty("textures", texture));
-                    meta.setPlayerProfile(profile);
+                    builder.setSkullTexture(texture);
                 }
 
-                item.setItemMeta(meta);
+                ItemStack item = builder.build();
                 pets.put(key, item);
 
             } catch (Exception e) {
-                plugin.getLogger().warning("Failed to load pet: " + key + " - " + e.getMessage());
+                plugin.getLogger().severe("Failed to load pet: " + key);
+                e.printStackTrace();
             }
         }
     }
@@ -283,7 +277,8 @@ public class ItemManager {
 
         String name = item.getItemMeta().getDisplayName();
         for (String id : pets.keySet()) {
-            if (petsConfig.getString(id + ".name", "").equals(name)) {
+            String configName = ColorUtil.translate(petsConfig.getString(id + ".name", ""));
+            if (configName.equals(name)) {
                 return id;
             }
         }
