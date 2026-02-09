@@ -158,24 +158,19 @@ public class ItemManager {
                 List<String> lore = section.getStringList("lore");
                 String texture = section.getString("texture", "");
 
-                // Use ItemBuilder with skull texture support
                 ItemBuilder builder = new ItemBuilder(Material.PLAYER_HEAD)
                         .setName(name)
                         .setLore(lore);
 
-                // Apply custom texture if available
                 if (!texture.isEmpty()) {
                     builder.setSkullTexture(texture);
-                    plugin.getLogger().info("Successfully loaded pet with texture: " + key);
-                } else {
-                    plugin.getLogger().warning("Pet " + key + " has no texture defined");
                 }
 
                 ItemStack item = builder.build();
                 pets.put(key, item);
 
             } catch (Exception e) {
-                plugin.getLogger().warning("Failed to load pet: " + key + " - " + e.getMessage());
+                plugin.getLogger().severe("Failed to load pet: " + key);
                 e.printStackTrace();
             }
         }

@@ -66,19 +66,13 @@ public class ItemBuilder {
     public ItemBuilder setSkullTexture(String base64Texture) {
         if (meta instanceof SkullMeta skullMeta) {
             try {
-                // Create a unique profile for this skull
-                UUID uuid = UUID.nameUUIDFromBytes(base64Texture.getBytes());
-                PlayerProfile profile = Bukkit.createProfile(uuid, "CustomHead");
-
-                // Set the texture property
+                PlayerProfile profile = Bukkit.createProfileExact(UUID.randomUUID(), null);
                 ProfileProperty property = new ProfileProperty("textures", base64Texture);
-                profile.setProperty(property);
-
-                // Apply the profile to the skull
-                skullMeta.setPlayerProfile(profile);
-
+                profile.getProperties().add(property);
+                skullMeta.setOwnerProfile(profile);
             } catch (Exception e) {
-                Bukkit.getLogger().warning("Failed to set skull texture: " + e.getMessage());
+                Bukkit.getLogger().severe("Failed to set skull texture: " + e.getMessage());
+                e.printStackTrace();
             }
         }
         return this;
