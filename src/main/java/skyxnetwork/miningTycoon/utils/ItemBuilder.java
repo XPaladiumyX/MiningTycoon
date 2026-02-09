@@ -14,6 +14,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class ItemBuilder {
 
@@ -26,17 +27,19 @@ public class ItemBuilder {
     }
 
     public ItemBuilder setName(String name) {
-        meta.setDisplayName(name);
+        meta.setDisplayName(ColorUtil.translate(name));
         return this;
     }
 
     public ItemBuilder setLore(String... lore) {
-        meta.setLore(Arrays.asList(lore));
+        meta.setLore(Arrays.stream(lore)
+                .map(ColorUtil::translate)
+                .collect(Collectors.toList()));
         return this;
     }
 
     public ItemBuilder setLore(List<String> lore) {
-        meta.setLore(lore);
+        meta.setLore(ColorUtil.translate(lore));
         return this;
     }
 

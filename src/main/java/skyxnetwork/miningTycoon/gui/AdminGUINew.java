@@ -30,27 +30,27 @@ public class AdminGUINew implements Listener {
         Inventory inv = Bukkit.createInventory(null, 27, "§8§lMiningTycoon Admin");
 
         inv.setItem(10, new ItemBuilder(Material.PLAYER_HEAD)
-                .setName("§6§lPlayer Management")
-                .setLore("§7Manage player data", "", "§e▸ View stats", "§e▸ Edit levels", "§e▸ Edit prestige")
+                .setName("&6&lPlayer Management")
+                .setLore("&7Manage player data", "", "&e▸ View stats", "&e▸ Edit levels", "&e▸ Edit prestige")
                 .build());
 
         inv.setItem(12, new ItemBuilder(Material.DIAMOND_PICKAXE)
-                .setName("§b§lItem Management")
-                .setLore("§7Manage all items", "", "§e▸ Edit pickaxes", "§e▸ Edit armor", "§e▸ Edit pets")
+                .setName("&b&lItem Management")
+                .setLore("&7Manage all items", "", "&e▸ Edit pickaxes", "&e▸ Edit armor", "&e▸ Edit pets")
                 .build());
 
         inv.setItem(14, new ItemBuilder(Material.BEACON)
-                .setName("§d§lBoost Management")
-                .setLore("§7Control global boosts", "", "§e▸ Start boost", "§e▸ View status", "§e▸ End boost")
+                .setName("&d&lBoost Management")
+                .setLore("&7Control global boosts", "", "&e▸ Start boost", "&e▸ View status", "&e▸ End boost")
                 .build());
 
         inv.setItem(16, new ItemBuilder(Material.COMMAND_BLOCK)
-                .setName("§c§lServer Settings")
-                .setLore("§7Plugin configuration", "", "§e▸ Reload plugin", "§e▸ Save data", "§e▸ Statistics")
+                .setName("&c&lServer Settings")
+                .setLore("&7Plugin configuration", "", "&e▸ Reload plugin", "&e▸ Save data", "&e▸ Statistics")
                 .build());
 
         inv.setItem(26, new ItemBuilder(Material.BARRIER)
-                .setName("§cClose")
+                .setName("&cClose")
                 .build());
 
         player.openInventory(inv);
@@ -61,36 +61,36 @@ public class AdminGUINew implements Listener {
         Inventory inv = Bukkit.createInventory(null, 27, "§8§lItem Management");
 
         inv.setItem(0, new ItemBuilder(Material.ARROW)
-                .setName("§7← Back")
+                .setName("&7← Back")
                 .build());
 
         inv.setItem(11, new ItemBuilder(Material.DIAMOND_PICKAXE)
-                .setName("§e§lPickaxes")
+                .setName("&e&lPickaxes")
                 .setLore(
-                        "§7Total: §e" + plugin.getItemManager().getAllPickaxeIds().size(),
+                        "&7Total: &e" + plugin.getItemManager().getAllPickaxeIds().size(),
                         "",
-                        "§e▸ Left Click §7to view all",
-                        "§a▸ Right Click §7to create new"
+                        "&e▸ Left Click &7to view all",
+                        "&a▸ Right Click &7to create new"
                 )
                 .build());
 
         inv.setItem(13, new ItemBuilder(Material.LEATHER_CHESTPLATE)
-                .setName("§b§lArmor")
+                .setName("&b&lArmor")
                 .setLore(
-                        "§7Total: §e" + plugin.getItemManager().getAllArmorIds().size(),
+                        "&7Total: &e" + plugin.getItemManager().getAllArmorIds().size(),
                         "",
-                        "§e▸ Left Click §7to view all",
-                        "§a▸ Right Click §7to create new"
+                        "&e▸ Left Click &7to view all",
+                        "&a▸ Right Click &7to create new"
                 )
                 .build());
 
         inv.setItem(15, new ItemBuilder(Material.PLAYER_HEAD)
-                .setName("§d§lPets")
+                .setName("&d&lPets")
                 .setLore(
-                        "§7Total: §e" + plugin.getItemManager().getAllPetIds().size(),
+                        "&7Total: &e" + plugin.getItemManager().getAllPetIds().size(),
                         "",
-                        "§e▸ Left Click §7to view all",
-                        "§a▸ Right Click §7to create new"
+                        "&e▸ Left Click &7to view all",
+                        "&a▸ Right Click &7to create new"
                 )
                 .build());
 
@@ -105,25 +105,25 @@ public class AdminGUINew implements Listener {
         Inventory inv = Bukkit.createInventory(null, 54, "§8§lPickaxes (Page " + (page + 1) + "/" + totalPages + ")");
 
         inv.setItem(0, new ItemBuilder(Material.ARROW)
-                .setName("§7← Back")
+                .setName("&7← Back")
                 .build());
 
         inv.setItem(8, new ItemBuilder(Material.EMERALD)
-                .setName("§a§lCreate New Pickaxe")
-                .setLore("§7Click to create a new pickaxe")
+                .setName("&a&lCreate New Pickaxe")
+                .setLore("&7Click to create a new pickaxe")
                 .build());
 
         // Previous page
         if (page > 0) {
             inv.setItem(45, new ItemBuilder(Material.ARROW)
-                    .setName("§7← Previous Page")
+                    .setName("&7← Previous Page")
                     .build());
         }
 
         // Next page
         if (page < totalPages - 1) {
             inv.setItem(53, new ItemBuilder(Material.ARROW)
-                    .setName("§7Next Page →")
+                    .setName("&7Next Page →")
                     .build());
         }
 
@@ -142,11 +142,11 @@ public class AdminGUINew implements Listener {
                 List<String> lore = new ArrayList<>(display.getItemMeta().hasLore() ?
                         display.getItemMeta().getLore() : new ArrayList<>());
                 lore.add("");
-                lore.add("§7ID: §e" + id);
+                lore.add("&7ID: &e" + id);
                 lore.add("");
-                lore.add("§e▸ Left Click §7to edit");
-                lore.add("§c▸ Right Click §7to delete");
-                lore.add("§a▸ Shift + Left §7to give yourself");
+                lore.add("&e▸ Left Click &7to edit");
+                lore.add("&c▸ Right Click &7to delete");
+                lore.add("&a▸ Shift + Left &7to give yourself");
 
                 builder.setLore(lore);
                 inv.setItem(9 + (i - startIndex), builder.build());
@@ -164,24 +164,24 @@ public class AdminGUINew implements Listener {
         Inventory inv = Bukkit.createInventory(null, 54, "§8§lArmor (Page " + (page + 1) + "/" + totalPages + ")");
 
         inv.setItem(0, new ItemBuilder(Material.ARROW)
-                .setName("§7← Back")
+                .setName("&7← Back")
                 .build());
 
         inv.setItem(8, new ItemBuilder(Material.EMERALD)
-                .setName("§a§lCreate New Armor")
-                .setLore("§7Click to create new armor")
+                .setName("&a&lCreate New Armor")
+                .setLore("&7Click to create new armor")
                 .build());
 
         // Navigation
         if (page > 0) {
             inv.setItem(45, new ItemBuilder(Material.ARROW)
-                    .setName("§7← Previous Page")
+                    .setName("&7← Previous Page")
                     .build());
         }
 
         if (page < totalPages - 1) {
             inv.setItem(53, new ItemBuilder(Material.ARROW)
-                    .setName("§7Next Page →")
+                    .setName("&7Next Page →")
                     .build());
         }
 
@@ -200,11 +200,11 @@ public class AdminGUINew implements Listener {
                 List<String> lore = new ArrayList<>(display.getItemMeta().hasLore() ?
                         display.getItemMeta().getLore() : new ArrayList<>());
                 lore.add("");
-                lore.add("§7ID: §e" + id);
+                lore.add("&7ID: &e" + id);
                 lore.add("");
-                lore.add("§e▸ Left Click §7to edit");
-                lore.add("§c▸ Right Click §7to delete");
-                lore.add("§a▸ Shift + Left §7to give yourself");
+                lore.add("&e▸ Left Click &7to edit");
+                lore.add("&c▸ Right Click &7to delete");
+                lore.add("&a▸ Shift + Left &7to give yourself");
 
                 builder.setLore(lore);
                 inv.setItem(9 + (i - startIndex), builder.build());
@@ -222,24 +222,24 @@ public class AdminGUINew implements Listener {
         Inventory inv = Bukkit.createInventory(null, 54, "§8§lPets (Page " + (page + 1) + "/" + totalPages + ")");
 
         inv.setItem(0, new ItemBuilder(Material.ARROW)
-                .setName("§7← Back")
+                .setName("&7← Back")
                 .build());
 
         inv.setItem(8, new ItemBuilder(Material.EMERALD)
-                .setName("§a§lCreate New Pet")
-                .setLore("§7Click to create a new pet")
+                .setName("&a&lCreate New Pet")
+                .setLore("&7Click to create a new pet")
                 .build());
 
         // Navigation
         if (page > 0) {
             inv.setItem(45, new ItemBuilder(Material.ARROW)
-                    .setName("§7← Previous Page")
+                    .setName("&7← Previous Page")
                     .build());
         }
 
         if (page < totalPages - 1) {
             inv.setItem(53, new ItemBuilder(Material.ARROW)
-                    .setName("§7Next Page →")
+                    .setName("&7Next Page →")
                     .build());
         }
 
@@ -259,13 +259,13 @@ public class AdminGUINew implements Listener {
                     List<String> lore = new ArrayList<>(skullMeta.hasLore() ?
                             skullMeta.getLore() : new ArrayList<>());
                     lore.add("");
-                    lore.add("§7ID: §e" + id);
+                    lore.add("&7ID: &e" + id);
                     lore.add("");
-                    lore.add("§e▸ Left Click §7to edit");
-                    lore.add("§c▸ Right Click §7to delete");
-                    lore.add("§a▸ Shift + Left §7to give yourself");
+                    lore.add("&e▸ Left Click &7to edit");
+                    lore.add("&c▸ Right Click &7to delete");
+                    lore.add("&a▸ Shift + Left &7to give yourself");
 
-                    skullMeta.setLore(lore);
+                    skullMeta.setLore(skyxnetwork.miningTycoon.utils.ColorUtil.translate(lore));
                     display.setItemMeta(skullMeta);
                 }
 
@@ -281,40 +281,40 @@ public class AdminGUINew implements Listener {
         Inventory inv = Bukkit.createInventory(null, 27, "§8§lBoost Management");
 
         inv.setItem(0, new ItemBuilder(Material.ARROW)
-                .setName("§7← Back")
+                .setName("&7← Back")
                 .build());
 
         inv.setItem(10, new ItemBuilder(Material.EXPERIENCE_BOTTLE)
-                .setName("§d§lStart EXP Boost")
-                .setLore("§7Start a global EXP boost")
+                .setName("&d&lStart EXP Boost")
+                .setLore("&7Start a global EXP boost")
                 .build());
 
         inv.setItem(12, new ItemBuilder(Material.GOLD_INGOT)
-                .setName("§6§lStart Coins Boost")
-                .setLore("§7Start a global coins boost")
+                .setName("&6&lStart Coins Boost")
+                .setLore("&7Start a global coins boost")
                 .build());
 
         inv.setItem(14, new ItemBuilder(Material.NETHER_STAR)
-                .setName("§b§lStart Combined Boost")
-                .setLore("§7Start EXP + Coins boost")
+                .setName("&b&lStart Combined Boost")
+                .setLore("&7Start EXP + Coins boost")
                 .build());
 
         inv.setItem(16, new ItemBuilder(Material.REDSTONE_BLOCK)
-                .setName("§c§lStop Current Boost")
-                .setLore("§7Stop the active boost")
+                .setName("&c&lStop Current Boost")
+                .setLore("&7Stop the active boost")
                 .build());
 
         if (plugin.getBoostManager().isBoostActive()) {
             inv.setItem(22, new ItemBuilder(Material.LIME_DYE)
-                    .setName("§a§lBoost Active")
+                    .setName("&a&lBoost Active")
                     .setLore(
-                            "§7Type: §e" + plugin.getBoostManager().getBoostType(),
-                            "§7Time Left: §e" + plugin.getBoostManager().getTimeRemaining() + "s"
+                            "&7Type: &e" + plugin.getBoostManager().getBoostType(),
+                            "&7Time Left: &e" + plugin.getBoostManager().getTimeRemaining() + "s"
                     )
                     .build());
         } else {
             inv.setItem(22, new ItemBuilder(Material.GRAY_DYE)
-                    .setName("§c§lNo Active Boost")
+                    .setName("&c&lNo Active Boost")
                     .build());
         }
 
@@ -326,12 +326,12 @@ public class AdminGUINew implements Listener {
         Inventory inv = Bukkit.createInventory(null, 27, "§8§lPlayer Management");
 
         inv.setItem(0, new ItemBuilder(Material.ARROW)
-                .setName("§7← Back")
+                .setName("&7← Back")
                 .build());
 
         inv.setItem(11, new ItemBuilder(Material.COMPASS)
-                .setName("§a§lOnline Players")
-                .setLore("§7View and manage online players")
+                .setName("&a&lOnline Players")
+                .setLore("&7View and manage online players")
                 .build());
 
         player.openInventory(inv);
@@ -342,7 +342,7 @@ public class AdminGUINew implements Listener {
         Inventory inv = Bukkit.createInventory(null, 54, "§8§lOnline Players");
 
         inv.setItem(0, new ItemBuilder(Material.ARROW)
-                .setName("§7← Back")
+                .setName("&7← Back")
                 .build());
 
         int slot = 10;
@@ -352,13 +352,13 @@ public class AdminGUINew implements Listener {
             PlayerData data = plugin.getPlayerDataManager().getPlayerData(onlinePlayer);
 
             inv.setItem(slot, new ItemBuilder(Material.PLAYER_HEAD)
-                    .setName("§e" + onlinePlayer.getName())
+                    .setName("&e" + onlinePlayer.getName())
                     .setLore(
-                            "§7Level: §6" + data.getLevel(),
-                            "§7Prestige: §d" + data.getPrestige(),
-                            "§7Experience: §b" + String.format("%.0f", data.getExperience()),
+                            "&7Level: &6" + data.getLevel(),
+                            "&7Prestige: &d" + data.getPrestige(),
+                            "&7Experience: &b" + String.format("%.0f", data.getExperience()),
                             "",
-                            "§eClick to manage player"
+                            "&eClick to manage player"
                     )
                     .build());
             slot++;
@@ -372,27 +372,27 @@ public class AdminGUINew implements Listener {
         Inventory inv = Bukkit.createInventory(null, 27, "§8§lServer Settings");
 
         inv.setItem(0, new ItemBuilder(Material.ARROW)
-                .setName("§7← Back")
+                .setName("&7← Back")
                 .build());
 
         inv.setItem(11, new ItemBuilder(Material.BOOK)
-                .setName("§e§lReload Plugin")
-                .setLore("§7Reload configuration and items")
+                .setName("&e&lReload Plugin")
+                .setLore("&7Reload configuration and items")
                 .build());
 
         inv.setItem(13, new ItemBuilder(Material.WRITABLE_BOOK)
-                .setName("§a§lSave All Data")
-                .setLore("§7Save all player data to disk")
+                .setName("&a&lSave All Data")
+                .setLore("&7Save all player data to disk")
                 .build());
 
         inv.setItem(15, new ItemBuilder(Material.KNOWLEDGE_BOOK)
-                .setName("§b§lView Statistics")
+                .setName("&b&lView Statistics")
                 .setLore(
-                        "§7Total Players: §e" + plugin.getPlayerDataManager().getAllPlayerData().size(),
-                        "§7Online Players: §e" + Bukkit.getOnlinePlayers().size(),
-                        "§7Pickaxes: §e" + plugin.getItemManager().getAllPickaxeIds().size(),
-                        "§7Armor: §e" + plugin.getItemManager().getAllArmorIds().size(),
-                        "§7Pets: §e" + plugin.getItemManager().getAllPetIds().size()
+                        "&7Total Players: &e" + plugin.getPlayerDataManager().getAllPlayerData().size(),
+                        "&7Online Players: &e" + Bukkit.getOnlinePlayers().size(),
+                        "&7Pickaxes: &e" + plugin.getItemManager().getAllPickaxeIds().size(),
+                        "&7Armor: &e" + plugin.getItemManager().getAllArmorIds().size(),
+                        "&7Pets: &e" + plugin.getItemManager().getAllPetIds().size()
                 )
                 .build());
 

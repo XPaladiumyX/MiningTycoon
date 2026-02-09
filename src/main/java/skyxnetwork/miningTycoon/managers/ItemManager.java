@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import skyxnetwork.miningTycoon.MiningTycoon;
+import skyxnetwork.miningTycoon.utils.ColorUtil;
 import skyxnetwork.miningTycoon.utils.ItemBuilder;
 
 import java.io.File;
@@ -63,8 +64,8 @@ public class ItemManager {
             try {
                 Material material = Material.valueOf(section.getString("material", "DIAMOND_PICKAXE"));
                 int customModelData = section.getInt("customModelData", 0);
-                String name = section.getString("name", "§7Pickaxe");
-                List<String> lore = section.getStringList("lore");
+                String name = ColorUtil.translate(section.getString("name", "&7Pickaxe"));
+                List<String> lore = ColorUtil.translate(section.getStringList("lore"));
                 int efficiency = section.getInt("efficiency", 0);
 
                 ItemStack item = new ItemStack(material);
@@ -106,8 +107,8 @@ public class ItemManager {
             try {
                 Material material = Material.valueOf(section.getString("material", "LEATHER_CHESTPLATE"));
                 int customModelData = section.getInt("customModelData", 0);
-                String name = section.getString("name", "§7Armor");
-                List<String> lore = section.getStringList("lore");
+                String name = ColorUtil.translate(section.getString("name", "&7Armor"));
+                List<String> lore = ColorUtil.translate(section.getStringList("lore"));
                 String colorString = section.getString("color", "255,255,255");
 
                 ItemStack item = new ItemStack(material);
@@ -154,8 +155,8 @@ public class ItemManager {
             if (section == null) continue;
 
             try {
-                String name = section.getString("name", "§7Pet");
-                List<String> lore = section.getStringList("lore");
+                String name = ColorUtil.translate(section.getString("name", "&7Pet"));
+                List<String> lore = ColorUtil.translate(section.getStringList("lore"));
                 String texture = section.getString("texture", "");
 
                 ItemBuilder builder = new ItemBuilder(Material.PLAYER_HEAD)
@@ -276,7 +277,8 @@ public class ItemManager {
 
         String name = item.getItemMeta().getDisplayName();
         for (String id : pets.keySet()) {
-            if (petsConfig.getString(id + ".name", "").equals(name)) {
+            String configName = ColorUtil.translate(petsConfig.getString(id + ".name", ""));
+            if (configName.equals(name)) {
                 return id;
             }
         }
