@@ -45,6 +45,11 @@ commands:
     usage: /givepet <pet_id> <player>
     permission: miningtycoon.admin
 
+  givemenu:
+    description: Give menu item to a player
+    usage: /givemenu <player>
+    permission: miningtycoon.admin
+
   leveladmin:
     description: Manage player levels
     usage: /leveladmin <set/reset> <player> [level]

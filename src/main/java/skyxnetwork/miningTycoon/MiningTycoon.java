@@ -53,6 +53,9 @@ public final class MiningTycoon extends JavaPlugin {
         // Create items directory structure
         createItemsDirectory();
 
+        // ✅ Fix /lobby : enregistrement du canal plugin messaging pour Velocity/BungeeCord
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+
         // Initialize managers
         dataStorage = new DataStorage(this);
         playerDataManager = new PlayerDataManager(this);
@@ -97,6 +100,9 @@ public final class MiningTycoon extends JavaPlugin {
             dataStorage.saveAllData();
         }
 
+        // ✅ Fix /lobby : désenregistrement propre du canal au shutdown
+        getServer().getMessenger().unregisterOutgoingPluginChannel(this, "BungeeCord");
+
         // Stop all tasks
         Bukkit.getScheduler().cancelTasks(this);
 
@@ -119,8 +125,8 @@ public final class MiningTycoon extends JavaPlugin {
         pm.registerEvents(new InventoryClickListener(this), this);
         pm.registerEvents(new DropListener(this), this);
         pm.registerEvents(new AFKListener(this), this);
-        pm.registerEvents(new PrestigePortalListener(this), this); // Portal detection
-        pm.registerEvents(prestigePortalGUI, this); // Portal GUI
+        pm.registerEvents(new PrestigePortalListener(this), this);
+        pm.registerEvents(prestigePortalGUI, this);
         pm.registerEvents(new BlockPlaceListener(this), this);
         pm.registerEvents(new AdminGUINew(this), this);
         pm.registerEvents(new PortalListener(this), this); // END PORTAL LISTENER DONT REMOVE
@@ -156,6 +162,7 @@ public final class MiningTycoon extends JavaPlugin {
         getCommand("leveladmin").setTabCompleter(tabCompleter);
         getCommand("prestigeadmin").setExecutor(new PrestigeAdminCommand(this));
         getCommand("prestigeadmin").setTabCompleter(tabCompleter);
+        getCommand("givemenu").setExecutor(new GiveMenuCommand(this));
 
         // Permission management
         permissionCommand = new PermissionCommand(this);
@@ -170,13 +177,8 @@ public final class MiningTycoon extends JavaPlugin {
     }
 
     private void startTasks() {
-        // Level check task - every second
         new LevelCheckTask(this).runTaskTimer(this, 20L, 20L);
-
-        // Night vision task - every 5 seconds
         new NightVisionTask(this).runTaskTimer(this, 100L, 100L);
-
-        // AFK reward task - every tick
         new AFKRewardTask(this).runTaskTimer(this, 1L, 1L);
 
         getLogger().info("Started all scheduled tasks");

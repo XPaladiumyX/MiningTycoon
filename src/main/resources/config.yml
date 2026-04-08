@@ -80,11 +80,11 @@ prestige:
   # Spawn location after prestige
   spawn:
     world: "mining_tycoon"
-    x: -36.5
-    y: 124
-    z: 16.5
-    yaw: -270
-    pitch: 0
+    x: -5
+    y: 122
+    z: 24
+    yaw: -180
+    pitch: 0.5
 
   # Prestige Portals
   # You can define multiple portals with different requirements
@@ -98,13 +98,13 @@ prestige:
       # Players must be within this region to prestige
       region:
         min:
-          x: -50
-          y: 100
-          z: -50
+          x: 30
+          y: 130
+          z: 20
         max:
-          x: -45
-          y: 105
-          z: -45
+          x: 32
+          y: 127
+          z: 20
 
       # Minimum level required to use this portal
       level-requirement: 120

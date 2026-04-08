@@ -1,5 +1,7 @@
 package skyxnetwork.miningTycoon.commands;
 
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,14 +24,14 @@ public class LobbyCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-        player.sendMessage("§aConnecting to lobby...");
 
-        // Using BungeeCord/Velocity connection
-        org.bukkit.Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            player.sendMessage("§aSending to lobby...");
-            // Implement actual proxy connection here
-            // player.connect(server);
-        }, 60L);
+        // Velocity utilise le canal de compatibilité BungeeCord pour les plugin messages
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("Connect");
+        out.writeUTF("lobby"); // nom du serveur dans velocity.toml
+
+        player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
+        player.sendMessage("§aConnecting to lobby...");
 
         return true;
     }
