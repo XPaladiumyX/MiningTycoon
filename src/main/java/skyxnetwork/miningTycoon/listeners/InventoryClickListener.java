@@ -1,8 +1,11 @@
 package skyxnetwork.miningTycoon.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryAction;
@@ -38,7 +41,6 @@ public class InventoryClickListener implements Listener {
         InventoryType clickedInventoryType = event.getClickedInventory() != null ?
                 event.getClickedInventory().getType() : null;
 
-        // Check if clicking on the menu item
         if (clicked != null && PlayerJoinListener.isMenuItem(clicked)) {
             if (clickedInventoryType != null && clickedInventoryType != InventoryType.PLAYER) {
                 event.setCancelled(true);
@@ -52,7 +54,6 @@ public class InventoryClickListener implements Listener {
             }
         }
 
-        // Check if cursor has the menu item (dragging)
         if (cursor != null && PlayerJoinListener.isMenuItem(cursor)) {
             if (clickedInventoryType != null && clickedInventoryType != InventoryType.PLAYER) {
                 event.setCancelled(true);
@@ -78,69 +79,60 @@ public class InventoryClickListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerInteract(PlayerInteractEvent event) {
-        // On intercepte les deux mains mais on traite une seule fois
         if (event.getHand() != EquipmentSlot.HAND) return;
 
         Player player = event.getPlayer();
         Action action = event.getAction();
 
-        // ✅ Fix : on gère clic droit ET clic gauche, dans l'air ET sur un bloc
         boolean isRightClick = (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK);
         boolean isLeftClick = (action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK);
 
         if (!isRightClick && !isLeftClick) return;
 
         ItemStack item = player.getInventory().getItemInMainHand();
+        ItemStack offhand = player.getInventory().getItemInOffHand();
 
-        // ✅ Fix menu item : clic droit OU gauche sur la star ouvre le menu
+        // Check if it's the menu item - use main hand
         if (item != null && PlayerJoinListener.isMenuItem(item)) {
             event.setCancelled(true);
-            player.performCommand("menu");
+            // Use dispatchCommand instead of performCommand
+            Bukkit.dispatchCommand(player, "menu");
             return;
         }
 
-        // Vérification offhand aussi
-        ItemStack offhand = player.getInventory().getItemInOffHand();
+        // Also check offhand
         if (offhand != null && PlayerJoinListener.isMenuItem(offhand)) {
             event.setCancelled(true);
-            player.performCommand("menu");
+            Bukkit.dispatchCommand(player, "menu");
             return;
         }
 
-        // À partir d'ici, on ne traite l'équipement du pet que sur clic droit
+        // From here: pet equip on right click only
         if (!isRightClick) return;
 
-        // Check if item is a pet (PLAYER_HEAD)
         if (item == null || item.getType() != Material.PLAYER_HEAD) return;
 
-        // Verify it's actually a pet from our plugin
         String petId = plugin.getItemManager().getPetId(item);
         if (petId == null) return;
 
-        // Check cooldown
         UUID uuid = player.getUniqueId();
         long now = System.currentTimeMillis();
         if (petEquipCooldown.containsKey(uuid)) {
-            long timeSince = now - petEquipCooldown.get(uuid);
-            if (timeSince < COOLDOWN_MS) return;
+            if (now - petEquipCooldown.get(uuid) < COOLDOWN_MS) return;
         }
 
         event.setCancelled(true);
         petEquipCooldown.put(uuid, now);
 
-        // Get current helmet
         ItemStack currentHelmet = player.getInventory().getHelmet();
 
-        // Create a single pet item
         ItemStack singlePet = item.clone();
         singlePet.setAmount(1);
 
-        // Equip the pet on the head
         player.getInventory().setHelmet(singlePet);
 
-        // Handle the item in hand
         if (item.getAmount() > 1) {
             item.setAmount(item.getAmount() - 1);
             player.getInventory().setItemInMainHand(item);
@@ -148,7 +140,6 @@ public class InventoryClickListener implements Listener {
             player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
         }
 
-        // Put old helmet back in inventory if there was one
         if (currentHelmet != null && currentHelmet.getType() != Material.AIR) {
             HashMap<Integer, ItemStack> leftover = player.getInventory().addItem(currentHelmet);
             if (!leftover.isEmpty()) {
