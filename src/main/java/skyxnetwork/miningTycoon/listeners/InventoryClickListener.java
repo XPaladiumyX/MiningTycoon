@@ -3,18 +3,17 @@ package skyxnetwork.miningTycoon.listeners;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import skyxnetwork.miningTycoon.MiningTycoon;
+import skyxnetwork.miningTycoon.commands.GiveMenuCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,10 +23,38 @@ public class InventoryClickListener implements Listener {
 
     private final MiningTycoon plugin;
     private final Map<UUID, Long> petEquipCooldown = new HashMap<>();
+    private final Map<UUID, Long> menuCooldown = new HashMap<>();
     private static final long COOLDOWN_MS = 500;
 
     public InventoryClickListener(MiningTycoon plugin) {
         this.plugin = plugin;
+    }
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (!(event.getWhoClicked() instanceof Player)) return;
+        if (event.isCancelled()) return;
+
+        Player player = (Player) event.getWhoClicked();
+        ItemStack clickedItem = event.getCurrentItem();
+        ItemStack cursorItem = event.getCursor();
+
+        InventoryType topInvType = event.getView().getTopInventory().getType();
+        boolean isInteractingWithContainer = isContainerInventory(topInvType);
+
+        if (clickedItem != null && GiveMenuCommand.isMenuItem(clickedItem)) {
+            if (isInteractingWithContainer) {
+                event.setCancelled(true);
+                player.sendMessage("§c§oYou cannot put the menu item in a container!");
+            }
+        }
+
+        if (cursorItem != null && GiveMenuCommand.isMenuItem(cursorItem)) {
+            if (isInteractingWithContainer) {
+                event.setCancelled(true);
+                player.sendMessage("§c§oYou cannot put the menu item in a container!");
+            }
+        }
     }
 
     @EventHandler
@@ -36,38 +63,7 @@ public class InventoryClickListener implements Listener {
 
         Player player = (Player) event.getWhoClicked();
         ItemStack clicked = event.getCurrentItem();
-        ItemStack cursor = event.getCursor();
 
-        InventoryType clickedInventoryType = event.getClickedInventory() != null ?
-                event.getClickedInventory().getType() : null;
-
-        if (clicked != null && PlayerJoinListener.isMenuItem(clicked)) {
-            if (clickedInventoryType != null && clickedInventoryType != InventoryType.PLAYER) {
-                event.setCancelled(true);
-                player.sendMessage("§7[§e!§7] §cYou can't put the menu in a container!");
-                return;
-            }
-            if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
-                event.setCancelled(true);
-                player.sendMessage("§7[§e!§7] §cYou can't move the menu to a container!");
-                return;
-            }
-        }
-
-        if (cursor != null && PlayerJoinListener.isMenuItem(cursor)) {
-            if (clickedInventoryType != null && clickedInventoryType != InventoryType.PLAYER) {
-                event.setCancelled(true);
-                player.sendMessage("§7[§e!§7] §cYou can't put the menu in a container!");
-                return;
-            }
-            if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
-                event.setCancelled(true);
-                player.sendMessage("§7[§e!§7] §cYou can't move the menu to a container!");
-                return;
-            }
-        }
-
-        // Handle pet equipping in inventory (slot 39 = helmet slot)
         if (clicked != null && clicked.getType() == Material.PLAYER_HEAD) {
             if (event.getSlot() == 39) {
                 String petId = plugin.getItemManager().getPetId(clicked);
@@ -79,40 +75,57 @@ public class InventoryClickListener implements Listener {
         }
     }
 
+    private boolean isContainerInventory(InventoryType type) {
+        return type == InventoryType.CHEST
+                || type == InventoryType.ENDER_CHEST
+                || type == InventoryType.BARREL
+                || type == InventoryType.FURNACE
+                || type == InventoryType.DISPENSER
+                || type == InventoryType.DROPPER
+                || type == InventoryType.HOPPER
+                || type == InventoryType.SHULKER_BOX;
+    }
+
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerInteract(PlayerInteractEvent event) {
+    public void onRightClick(PlayerInteractEvent event) {
         if (event.getHand() != EquipmentSlot.HAND) return;
 
         Player player = event.getPlayer();
-        Action action = event.getAction();
-
-        boolean isRightClick = (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK);
-        boolean isLeftClick = (action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK);
-
-        if (!isRightClick && !isLeftClick) return;
-
         ItemStack item = player.getInventory().getItemInMainHand();
-        ItemStack offhand = player.getInventory().getItemInOffHand();
 
-        // Check if it's the menu item - use main hand
-        if (item != null && PlayerJoinListener.isMenuItem(item)) {
+        if (item == null || item.getType() == Material.AIR) return;
+
+        if (GiveMenuCommand.isMenuItem(item)) {
+            Action action = event.getAction();
+
+            boolean isValidAction = action == Action.RIGHT_CLICK_AIR
+                    || action == Action.RIGHT_CLICK_BLOCK
+                    || action == Action.LEFT_CLICK_AIR
+                    || action == Action.LEFT_CLICK_BLOCK;
+
+            if (!isValidAction) return;
+
+            UUID uuid = player.getUniqueId();
+            long now = System.currentTimeMillis();
+            Long lastUse = menuCooldown.get(uuid);
+            if (lastUse != null && (now - lastUse) < COOLDOWN_MS) {
+                return;
+            }
+            menuCooldown.put(uuid, now);
+
             event.setCancelled(true);
-            // Use dispatchCommand instead of performCommand
-            Bukkit.dispatchCommand(player, "menu");
+            player.chat("/menu");
             return;
         }
 
-        // Also check offhand
-        if (offhand != null && PlayerJoinListener.isMenuItem(offhand)) {
-            event.setCancelled(true);
-            Bukkit.dispatchCommand(player, "menu");
-            return;
-        }
+        Action action = event.getAction();
+        boolean isValidAction = action == Action.RIGHT_CLICK_AIR
+                || action == Action.RIGHT_CLICK_BLOCK
+                || action == Action.LEFT_CLICK_AIR
+                || action == Action.LEFT_CLICK_BLOCK;
 
-        // From here: pet equip on right click only
-        if (!isRightClick) return;
-
-        if (item == null || item.getType() != Material.PLAYER_HEAD) return;
+        if (!isValidAction) return;
+        if (item.getType() != Material.PLAYER_HEAD) return;
 
         String petId = plugin.getItemManager().getPetId(item);
         if (petId == null) return;
@@ -120,7 +133,10 @@ public class InventoryClickListener implements Listener {
         UUID uuid = player.getUniqueId();
         long now = System.currentTimeMillis();
         if (petEquipCooldown.containsKey(uuid)) {
-            if (now - petEquipCooldown.get(uuid) < COOLDOWN_MS) return;
+            long timeSince = now - petEquipCooldown.get(uuid);
+            if (timeSince < COOLDOWN_MS) {
+                return;
+            }
         }
 
         event.setCancelled(true);

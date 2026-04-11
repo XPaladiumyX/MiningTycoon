@@ -1,18 +1,25 @@
 package skyxnetwork.miningTycoon.commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import skyxnetwork.miningTycoon.MiningTycoon;
-import skyxnetwork.miningTycoon.listeners.PlayerJoinListener;
+
+import java.util.Arrays;
 
 public class GiveMenuCommand implements CommandExecutor {
 
     private final MiningTycoon plugin;
+
+    public static final int MENU_ITEM_CMD = 1234;
+    public static final String MENU_ITEM_NAME = ChatColor.translateAlternateColorCodes('&', "&5&lMenu");
+    public static final String MENU_ITEM_LORE = ChatColor.translateAlternateColorCodes('&', "&7Right or left click to open the menu.");
 
     public GiveMenuCommand(MiningTycoon plugin) {
         this.plugin = plugin;
@@ -36,34 +43,44 @@ public class GiveMenuCommand implements CommandExecutor {
             return true;
         }
 
-        // Check if player already has the menu item
-        if (hasMenuItemInInventory(target)) {
-            sender.sendMessage("§c" + target.getName() + " already has the menu item!");
-            return true;
-        }
+        ItemStack menuItem = createMenuItem();
 
-        // Give the menu item
-        ItemStack menuItem = PlayerJoinListener.createMenuItem();
-        
-        // Try to give at slot 8 first, then find any empty slot
-        if (target.getInventory().getItem(8) == null || 
-            target.getInventory().getItem(8).getType() == Material.AIR) {
+        if (target.getInventory().getItem(8) == null ||
+                target.getInventory().getItem(8).getType() == Material.AIR) {
             target.getInventory().setItem(8, menuItem);
         } else {
             target.getInventory().addItem(menuItem);
         }
 
-        sender.sendMessage("§aGiven menu item to " + target.getName() + "!");
-        target.sendMessage("§aYou received the menu item!");
-        
+        sender.sendMessage("§aMenu item given to §d" + target.getName() + "§a!");
+        target.sendMessage("§8[§dMenu§8] §aYou received the menu item. Right or left click to open!");
+
         return true;
     }
 
-    private boolean hasMenuItemInInventory(Player player) {
+    public static ItemStack createMenuItem() {
+        ItemStack item = new ItemStack(Material.NETHER_STAR);
+        ItemMeta meta = item.getItemMeta();
+
+        meta.setDisplayName(MENU_ITEM_NAME);
+        meta.setLore(Arrays.asList(MENU_ITEM_LORE));
+        meta.setCustomModelData(MENU_ITEM_CMD);
+
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    public static boolean isMenuItem(ItemStack item) {
+        if (item == null || item.getType() != Material.NETHER_STAR) return false;
+        if (!item.hasItemMeta()) return false;
+        ItemMeta meta = item.getItemMeta();
+        if (!meta.hasCustomModelData()) return false;
+        return meta.getCustomModelData() == MENU_ITEM_CMD;
+    }
+
+    public boolean hasMenuItem(Player player) {
         for (ItemStack item : player.getInventory().getContents()) {
-            if (PlayerJoinListener.isMenuItem(item)) {
-                return true;
-            }
+            if (isMenuItem(item)) return true;
         }
         return false;
     }

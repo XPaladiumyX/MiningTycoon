@@ -163,6 +163,7 @@ public final class MiningTycoon extends JavaPlugin {
         getCommand("prestigeadmin").setExecutor(new PrestigeAdminCommand(this));
         getCommand("prestigeadmin").setTabCompleter(tabCompleter);
         getCommand("givemenu").setExecutor(new GiveMenuCommand(this));
+        getCommand("menu").setExecutor(new MenuCommand(this));
 
         // Permission management
         permissionCommand = new PermissionCommand(this);

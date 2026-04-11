@@ -50,6 +50,10 @@ commands:
     usage: /givemenu <player>
     permission: miningtycoon.admin
 
+  menu:
+    description: Open the main menu
+    usage: /menu
+
   leveladmin:
     description: Manage player levels
     usage: /leveladmin <set/reset> <player> [level]
@@ -96,6 +100,10 @@ permissions:
   miningtycoon.permhandle:
     description: Access to change permissions
     default: op
+
+  miningtycoon.menu:
+    description: Access to open the menu
+    default: true
 
   miningtycoon.admin:
     description: Full admin access except for permission handling

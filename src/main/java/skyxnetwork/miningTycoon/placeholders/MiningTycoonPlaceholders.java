@@ -61,6 +61,7 @@ public class MiningTycoonPlaceholders extends PlaceholderExpansion {
                 return String.valueOf(data.getPrestige());
 
             case "prestige_current_raw":
+            case "prestige":
                 return String.valueOf(data.getPrestige());
 
             case "prestige_display":
