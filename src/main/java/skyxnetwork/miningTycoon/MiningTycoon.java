@@ -146,6 +146,7 @@ public final class MiningTycoon extends JavaPlugin {
         getCommand("level").setExecutor(new LevelCommand(this));
         getCommand("prestige").setExecutor(new PrestigeCommand(this));
         getCommand("afk").setExecutor(new AFKCommand(this));
+        getCommand("afk").setTabCompleter(tabCompleter);
         getCommand("fasttp").setExecutor(new FastTeleportCommand(this));
         getCommand("fasttp").setTabCompleter(tabCompleter);
         getCommand("droptoggle").setExecutor(new DropToggleCommand(this));

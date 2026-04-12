@@ -83,6 +83,9 @@ public class MiningTycoonPlaceholders extends PlaceholderExpansion {
             case "afk_time":
                 return plugin.getAfkManager().getFormattedAfkTime(player.getUniqueId());
 
+            case "afk_time_detailed":
+                return plugin.getAfkManager().getDetailedAfkTime(player.getUniqueId());
+
             case "afk_time_seconds":
                 return String.valueOf(plugin.getAfkManager().getPlayerAfkTime(player.getUniqueId()));
 
@@ -91,7 +94,7 @@ public class MiningTycoonPlaceholders extends PlaceholderExpansion {
                 return rank > 0 ? String.valueOf(rank) : "N/A";
 
             case "afk_status":
-                return plugin.getAfkManager().isPlayerAfk(player.getUniqueId()) ? "AFK" : "";
+                return plugin.getAfkManager().getAfkStatusForPlaceholder(player.getUniqueId());
 
             case "afk_top_1":
             case "afk_top_2":

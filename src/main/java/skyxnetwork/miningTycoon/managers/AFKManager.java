@@ -79,6 +79,21 @@ public class AFKManager {
         afkTimeCache.put(uuid, current + time);
     }
 
+    public void setPlayerAfk(UUID uuid, boolean afk) {
+        if (afk) {
+            afkStatus.put(uuid, true);
+            afkStartTime.put(uuid, System.currentTimeMillis());
+        } else {
+            if (Boolean.TRUE.equals(afkStatus.get(uuid))) {
+                long afkStart = afkStartTime.getOrDefault(uuid, System.currentTimeMillis());
+                long afkDuration = (System.currentTimeMillis() - afkStart) / 1000;
+                addAfkTime(uuid, afkDuration);
+            }
+            afkStatus.put(uuid, false);
+            afkStartTime.remove(uuid);
+        }
+    }
+
     public boolean isPlayerAfk(UUID uuid) {
         Player player = Bukkit.getPlayer(uuid);
         if (player != null && player.getWorld().getName().equals("mining_tycoon")) {
@@ -91,6 +106,10 @@ public class AFKManager {
             }
         }
         return afkStatus.getOrDefault(uuid, false);
+    }
+
+    public String getAfkStatusForPlaceholder(UUID uuid) {
+        return isPlayerAfk(uuid) ? "§cAFK " : "";
     }
 
     public void updateLastActivity(Player player) {
@@ -189,15 +208,34 @@ public class AFKManager {
     }
 
     private String formatTime(long seconds) {
-        if (seconds < 60) return seconds + "s";
-        long minutes = seconds / 60;
-        if (minutes < 60) return minutes + "m";
-        long hours = minutes / 60;
-        long remainingMinutes = minutes % 60;
-        if (hours < 24) return hours + "h " + remainingMinutes + "m";
-        long days = hours / 24;
-        long remainingHours = hours % 24;
-        return days + "d " + remainingHours + "h";
+        long days = seconds / 86400;
+        long hours = (seconds % 86400) / 3600;
+        long minutes = (seconds % 3600) / 60;
+        long secs = seconds % 60;
+
+        StringBuilder sb = new StringBuilder();
+        if (days > 0) sb.append(days).append("d ");
+        if (hours > 0) sb.append(hours).append("h ");
+        if (minutes > 0) sb.append(minutes).append("m ");
+        sb.append(secs).append("s");
+
+        return sb.toString().trim();
+    }
+
+    public String getDetailedAfkTime(UUID uuid) {
+        long seconds = getPlayerAfkTime(uuid);
+        long days = seconds / 86400;
+        long hours = (seconds % 86400) / 3600;
+        long minutes = (seconds % 3600) / 60;
+        long secs = seconds % 60;
+
+        StringBuilder sb = new StringBuilder();
+        if (days > 0) sb.append(days).append("d ");
+        if (hours > 0) sb.append(hours).append("h ");
+        if (minutes > 0) sb.append(minutes).append("m ");
+        sb.append(secs).append("s");
+
+        return sb.toString().trim();
     }
 
     public String getFormattedAfkTime(UUID uuid) {

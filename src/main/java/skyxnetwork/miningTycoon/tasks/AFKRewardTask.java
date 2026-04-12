@@ -77,6 +77,7 @@ public class AFKRewardTask extends BukkitRunnable {
                 // Add rewards
                 data.addExperience(exp);
                 data.addAfkTime(1);
+                plugin.getAfkManager().addAfkTime(player.getUniqueId(), 1);
 
                 // Add money using EconomyManager
                 if (plugin.getEconomyManager().isEnabled()) {
