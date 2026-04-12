@@ -37,7 +37,7 @@ public class MiningTycoonTabCompleter implements TabCompleter {
 
             case "afk":
                 if (args.length == 1) {
-                    completions.addAll(Arrays.asList("playtime", "set"));
+                    completions.addAll(Arrays.asList("playtime", "set", "unset"));
                 }
                 break;
 

@@ -41,6 +41,12 @@ public class AFKCommand implements CommandExecutor {
                 player.sendMessage("§aYou are now marked as AFK!");
                 return true;
             }
+            
+            if (args[0].equalsIgnoreCase("unset")) {
+                plugin.getAfkManager().setPlayerAfk(player.getUniqueId(), false);
+                player.sendMessage("§aYou are no longer marked as AFK!");
+                return true;
+            }
         }
 
         Location afkLoc = new Location(Bukkit.getWorld("mining_tycoon"), 9, 125, 19);

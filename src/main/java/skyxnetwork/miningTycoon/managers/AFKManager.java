@@ -19,6 +19,8 @@ public class AFKManager {
     private final Map<UUID, Long> afkStartTime = new ConcurrentHashMap<>();
     private final Map<UUID, Boolean> afkStatus = new ConcurrentHashMap<>();
     private final Map<UUID, Long> afkTimeCache = new ConcurrentHashMap<>();
+    private final Set<UUID> manualAfkTime = Collections.newSetFromMap(new ConcurrentHashMap<>());
+    private final Map<UUID, Long> lastManualAfkAdd = new ConcurrentHashMap<>();
 
     private long afkThreshold;
     private final File afkDataFile;
@@ -83,15 +85,36 @@ public class AFKManager {
         if (afk) {
             afkStatus.put(uuid, true);
             afkStartTime.put(uuid, System.currentTimeMillis());
+            manualAfkTime.add(uuid);
         } else {
             if (Boolean.TRUE.equals(afkStatus.get(uuid))) {
                 long afkStart = afkStartTime.getOrDefault(uuid, System.currentTimeMillis());
                 long afkDuration = (System.currentTimeMillis() - afkStart) / 1000;
-                addAfkTime(uuid, afkDuration);
+                
+                if (!manualAfkTime.contains(uuid)) {
+                    addAfkTime(uuid, afkDuration);
+                } else {
+                    manualAfkTime.remove(uuid);
+                    lastManualAfkAdd.remove(uuid);
+                }
             }
             afkStatus.put(uuid, false);
             afkStartTime.remove(uuid);
         }
+    }
+
+    public boolean isManuallyAfk(UUID uuid) {
+        return manualAfkTime.contains(uuid);
+    }
+
+    public boolean shouldAddTime(UUID uuid) {
+        long now = System.currentTimeMillis();
+        Long lastAdd = lastManualAfkAdd.get(uuid);
+        if (lastAdd == null || now - lastAdd >= 1000) {
+            lastManualAfkAdd.put(uuid, now);
+            return true;
+        }
+        return false;
     }
 
     public boolean isPlayerAfk(UUID uuid) {
@@ -101,11 +124,23 @@ public class AFKManager {
             int x = loc.getBlockX();
             int y = loc.getBlockY();
             int z = loc.getBlockZ();
-            if (x >= 8 && x <= 11 && y == 108 && z >= 18 && z <= 21) {
+            if (x >= 8 && x <= 11 && z >= 18 && z <= 21 && y <= 125 && y >= 100) {
                 return true;
             }
         }
         return afkStatus.getOrDefault(uuid, false);
+    }
+
+    public boolean isPlayerInAfkZone(UUID uuid) {
+        Player player = Bukkit.getPlayer(uuid);
+        if (player != null && player.getWorld().getName().equals("mining_tycoon")) {
+            Location loc = player.getLocation();
+            int x = loc.getBlockX();
+            int y = loc.getBlockY();
+            int z = loc.getBlockZ();
+            return x >= 8 && x <= 11 && z >= 18 && z <= 21 && y <= 125 && y >= 100;
+        }
+        return false;
     }
 
     public String getAfkStatusForPlaceholder(UUID uuid) {
@@ -117,6 +152,14 @@ public class AFKManager {
         lastActivityTime.put(uuid, System.currentTimeMillis());
 
         if (Boolean.TRUE.equals(afkStatus.get(uuid))) {
+            if (manualAfkTime.contains(uuid)) {
+                manualAfkTime.remove(uuid);
+                afkStatus.put(uuid, false);
+                afkStartTime.remove(uuid);
+                player.sendMessage("§aYou returned from AFK!");
+                return;
+            }
+
             long afkStart = afkStartTime.getOrDefault(uuid, System.currentTimeMillis());
             long afkDuration = (System.currentTimeMillis() - afkStart) / 1000;
             addAfkTime(uuid, afkDuration);
