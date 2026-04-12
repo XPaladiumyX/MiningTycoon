@@ -32,6 +32,8 @@ public class PlayerJoinListener implements Listener {
         PlayerData data = plugin.getDataStorage().loadPlayerData(player.getUniqueId());
         plugin.getPlayerDataManager().getAllPlayerData().put(player.getUniqueId(), data);
 
+        plugin.getAfkManager().onPlayerJoin(player.getUniqueId());
+
         plugin.getBoostManager().addPlayerToBossBar(player);
 
         boolean menuGiven = giveMenuItemIfMissing(player);
@@ -143,6 +145,7 @@ public class PlayerJoinListener implements Listener {
         Player player = event.getPlayer();
         PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
 
+        plugin.getAfkManager().onPlayerQuit(player.getUniqueId());
         plugin.getDataStorage().savePlayerData(player.getUniqueId(), data);
         plugin.getPermissionCommand().removeAttachment(player);
         plugin.getPlayerDataManager().removePlayerData(player.getUniqueId());

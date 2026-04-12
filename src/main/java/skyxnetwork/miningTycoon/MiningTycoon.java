@@ -11,6 +11,7 @@ import skyxnetwork.miningTycoon.listeners.*;
 import skyxnetwork.miningTycoon.managers.*;
 import skyxnetwork.miningTycoon.placeholders.MiningTycoonPlaceholders;
 import skyxnetwork.miningTycoon.tasks.AFKRewardTask;
+import skyxnetwork.miningTycoon.tasks.AFKCheckTask;
 import skyxnetwork.miningTycoon.tasks.LevelCheckTask;
 import skyxnetwork.miningTycoon.tasks.NightVisionTask;
 import skyxnetwork.miningTycoon.utils.ConfigUtil;
@@ -22,6 +23,7 @@ public final class MiningTycoon extends JavaPlugin {
     // Managers
     private PlayerDataManager playerDataManager;
     private BoostManager boostManager;
+    private AFKManager afkManager;
     private PrestigeManager prestigeManager;
     private PrestigePortalManager prestigePortalManager;
     private ZoneManager zoneManager;
@@ -61,6 +63,7 @@ public final class MiningTycoon extends JavaPlugin {
         playerDataManager = new PlayerDataManager(this);
         economyManager = new EconomyManager(this); // Initialize economy first
         boostManager = new BoostManager(this);
+        afkManager = new AFKManager(this);
         prestigeManager = new PrestigeManager(this);
         prestigePortalManager = new PrestigePortalManager(this); // Loads portals with delay
         zoneManager = new ZoneManager(this);
@@ -125,6 +128,7 @@ public final class MiningTycoon extends JavaPlugin {
         pm.registerEvents(new InventoryClickListener(this), this);
         pm.registerEvents(new DropListener(this), this);
         pm.registerEvents(new AFKListener(this), this);
+        pm.registerEvents(new AFKActivityListener(this), this);
         pm.registerEvents(new PrestigePortalListener(this), this);
         pm.registerEvents(prestigePortalGUI, this);
         pm.registerEvents(new BlockPlaceListener(this), this);
@@ -181,6 +185,7 @@ public final class MiningTycoon extends JavaPlugin {
         new LevelCheckTask(this).runTaskTimer(this, 20L, 20L);
         new NightVisionTask(this).runTaskTimer(this, 100L, 100L);
         new AFKRewardTask(this).runTaskTimer(this, 1L, 1L);
+        new AFKCheckTask(this).runTaskTimer(this, 20L, 20L);
 
         getLogger().info("Started all scheduled tasks");
     }
@@ -196,6 +201,10 @@ public final class MiningTycoon extends JavaPlugin {
 
     public BoostManager getBoostManager() {
         return boostManager;
+    }
+
+    public AFKManager getAfkManager() {
+        return afkManager;
     }
 
     public PrestigeManager getPrestigeManager() {

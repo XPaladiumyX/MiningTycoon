@@ -36,6 +36,11 @@ afk:
     exp-per-tick: 1
     money-per-tick: 1
 
+# AFK Tracking Settings
+afk-settings:
+  # Time in seconds before player is marked as AFK (default: 300 = 5 minutes)
+  idle-threshold: 300
+
 # Global Boost Settings
 boosts:
   exp:

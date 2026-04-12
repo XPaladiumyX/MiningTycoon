@@ -80,6 +80,31 @@ public class MiningTycoonPlaceholders extends PlaceholderExpansion {
                 int percent = (int) ((data.getExperience() / data.getExperienceNeeded()) * 100);
                 return String.valueOf(Math.min(percent, 100));
 
+            case "afk_time":
+                return plugin.getAfkManager().getFormattedAfkTime(player.getUniqueId());
+
+            case "afk_time_seconds":
+                return String.valueOf(plugin.getAfkManager().getPlayerAfkTime(player.getUniqueId()));
+
+            case "afk_rank":
+                int rank = plugin.getAfkManager().getPlayerRank(player.getUniqueId());
+                return rank > 0 ? String.valueOf(rank) : "N/A";
+
+            case "afk_status":
+                return plugin.getAfkManager().isPlayerAfk(player.getUniqueId()) ? "AFK" : "";
+
+            case "afk_top_1":
+            case "afk_top_2":
+            case "afk_top_3":
+            case "afk_top_4":
+            case "afk_top_5":
+            case "afk_top_6":
+            case "afk_top_7":
+            case "afk_top_8":
+            case "afk_top_9":
+            case "afk_top_10":
+                return getAfkTopPlaceholder(identifier);
+
             default:
                 return null;
         }
@@ -117,5 +142,53 @@ public class MiningTycoonPlaceholders extends PlaceholderExpansion {
         if (level < 1000) return "§e[" + value + "✐]";
         if (level < 1500) return "§5[" + value + "✐]";
         return "§4✴[" + value + "✐]✴";
+    }
+
+    private String getAfkTopPlaceholder(String identifier) {
+        int position;
+        switch (identifier) {
+            case "afk_top_1": position = 1; break;
+            case "afk_top_2": position = 2; break;
+            case "afk_top_3": position = 3; break;
+            case "afk_top_4": position = 4; break;
+            case "afk_top_5": position = 5; break;
+            case "afk_top_6": position = 6; break;
+            case "afk_top_7": position = 7; break;
+            case "afk_top_8": position = 8; break;
+            case "afk_top_9": position = 9; break;
+            case "afk_top_10": position = 10; break;
+            default: return "";
+        }
+
+        var topList = plugin.getAfkManager().getTopAfkPlayers(10);
+        
+        String playerName;
+        long seconds = 0;
+        
+        if (position <= topList.size()) {
+            var entry = topList.get(position - 1);
+            var topPlayer = plugin.getServer().getPlayer(entry.getKey());
+            if (topPlayer == null) {
+                playerName = "§c-";
+            } else {
+                playerName = "§e" + topPlayer.getName();
+            }
+            seconds = entry.getValue();
+        } else {
+            playerName = "§c-";
+        }
+
+        long days = seconds / 86400;
+        long hours = (seconds % 86400) / 3600;
+        long minutes = (seconds % 3600) / 60;
+        long secs = seconds % 60;
+
+        StringBuilder timeStr = new StringBuilder();
+        if (days > 0) timeStr.append(days).append("d ");
+        if (hours > 0) timeStr.append(hours).append("h ");
+        if (minutes > 0) timeStr.append(minutes).append("m ");
+        if (secs > 0 || timeStr.length() == 0) timeStr.append(secs).append("s");
+
+        return "§7" + position + ". " + playerName + " " + timeStr.toString();
     }
 }

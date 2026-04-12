@@ -24,6 +24,18 @@ public class AFKCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
+
+        if (args.length > 0 && args[0].equalsIgnoreCase("playtime")) {
+            long afkTime = plugin.getAfkManager().getPlayerAfkTime(player.getUniqueId());
+            String formattedTime = plugin.getAfkManager().getFormattedAfkTime(player.getUniqueId());
+            int rank = plugin.getAfkManager().getPlayerRank(player.getUniqueId());
+            
+            sender.sendMessage("§6§lAFK Playtime");
+            sender.sendMessage("§7Total AFK time: §e" + formattedTime);
+            sender.sendMessage("§7Rank: §e#" + (rank > 0 ? rank : "N/A"));
+            return true;
+        }
+
         Location afkLoc = new Location(Bukkit.getWorld("mining_tycoon"), 9, 125, 19);
         afkLoc.setYaw(-270);
         afkLoc.setPitch(0);
