@@ -32,62 +32,60 @@ public class AFKRewardTask extends BukkitRunnable {
             int y = loc.getBlockY();
             int z = loc.getBlockZ();
 
-            // Check if in AFK zone (coordinates 8-11, y=108, z=18-21)
-            if (x >= 8 && x <= 11 && z >= 18 && z <= 21 && y == 108) {
+            if (x >= 8 && x <= 11 && z >= 18 && z <= 21 && y <= 125 && y >= 100) {
                 PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
 
                 if (!data.isInAFKZone()) {
                     data.setInAFKZone(true);
+                }
 
-                    // Save current rotation
-                    savedYaw.put(player.getUniqueId(), loc.getYaw());
-                    savedPitch.put(player.getUniqueId(), loc.getPitch());
+                savedYaw.put(player.getUniqueId(), loc.getYaw());
+                savedPitch.put(player.getUniqueId(), loc.getPitch());
 
-                    // Teleport up while preserving rotation
+                if (loc.getBlockY() == 108) {
                     Location newLoc = new Location(player.getWorld(), x + 0.5, 125, z + 0.5);
-                    newLoc.setYaw(savedYaw.get(player.getUniqueId()));
-                    newLoc.setPitch(savedPitch.get(player.getUniqueId()));
+                    newLoc.setYaw(savedYaw.getOrDefault(player.getUniqueId(), loc.getYaw()));
+                    newLoc.setPitch(savedPitch.getOrDefault(player.getUniqueId(), loc.getPitch()));
                     player.teleport(newLoc);
-                }
 
-                // Calculate rewards with all bonuses
-                double exp = 1;
-                double money = 1;
+                    double exp = 1;
+                    double money = 1;
 
-                // Tool bonus
-                ItemStack tool = player.getInventory().getItemInMainHand();
-                String toolId = plugin.getItemManager().getPickaxeId(tool);
-                if (toolId != null) {
-                    exp += plugin.getItemManager().getPickaxeExpBonus(toolId);
-                    money += plugin.getItemManager().getPickaxeMoneyBonus(toolId);
-                }
+                    ItemStack tool = player.getInventory().getItemInMainHand();
+                    String toolId = plugin.getItemManager().getPickaxeId(tool);
+                    if (toolId != null) {
+                        exp += plugin.getItemManager().getPickaxeExpBonus(toolId);
+                        money += plugin.getItemManager().getPickaxeMoneyBonus(toolId);
+                    }
 
-                // Pet bonus (helmet)
-                ItemStack helmet = player.getInventory().getHelmet();
-                String petId = plugin.getItemManager().getPetId(helmet);
-                if (petId != null) {
-                    exp += plugin.getItemManager().getPetExpBonus(petId);
-                    money += plugin.getItemManager().getPetMoneyBonus(petId);
-                }
+                    ItemStack helmet = player.getInventory().getHelmet();
+                    String petId = plugin.getItemManager().getPetId(helmet);
+                    if (petId != null) {
+                        exp += plugin.getItemManager().getPetExpBonus(petId);
+                        money += plugin.getItemManager().getPetMoneyBonus(petId);
+                    }
 
-                // Armor bonus
-                exp += getArmorBonus(player, true);
-                money += getArmorBonus(player, false);
+                    exp += getArmorBonus(player, true);
+                    money += getArmorBonus(player, false);
 
-                // Add rewards
-                data.addExperience(exp);
-                data.addAfkTime(1);
-
-                // Add money using EconomyManager
-                if (plugin.getEconomyManager().isEnabled()) {
+                    data.addExperience(exp);
+                    data.addAfkTime(1);
+                    plugin.getAfkManager().addAfkTime(player.getUniqueId(), 1);
                     plugin.getEconomyManager().giveMoney(player, money);
-                }
 
-                // Send subtitle
-                player.sendTitle("", "§f[§6+" + (int) money + "⛁§f] §f[§3+" + (int) exp + "✦§f]", 0, 20, 0);
+                    player.sendTitle("", "§f[§6+" + (int) money + "⛁§f] §f[§3+" + (int) exp + "✦§f]", 0, 20, 0);
+                }
+            } else if (plugin.getAfkManager().isManuallyAfk(player.getUniqueId())) {
+                if (plugin.getAfkManager().shouldAddTime(player.getUniqueId())) {
+                    plugin.getAfkManager().addAfkTime(player.getUniqueId(), 1);
+                    PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
+                    if (data != null) {
+                        data.addAfkTime(1);
+                    }
+                }
             } else {
                 PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
-                if (data.isInAFKZone()) {
+                if (data != null && data.isInAFKZone()) {
                     data.setInAFKZone(false);
                     savedYaw.remove(player.getUniqueId());
                     savedPitch.remove(player.getUniqueId());

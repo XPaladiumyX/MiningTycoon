@@ -35,6 +35,12 @@ public class MiningTycoonTabCompleter implements TabCompleter {
                 }
                 break;
 
+            case "afk":
+                if (args.length == 1) {
+                    completions.addAll(Arrays.asList("playtime", "on", "off"));
+                }
+                break;
+
             case "giveitem":
                 if (args.length == 1) {
                     completions.addAll(plugin.getItemManager().getAllPickaxeIds());

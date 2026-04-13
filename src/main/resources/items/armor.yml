@@ -1,7 +1,7 @@
 # Configuration des armures
 # Format:
 # id:
-#   type: HELMET/CHESTPLATE/LEGGINGS/BOOTS
+#   type: CHESTPLATE/LEGGINGS/BOOTS
 #   material: LEATHER_CHESTPLATE (etc)
 #   customModelData: NUMBER
 #   name: "Display Name"
@@ -11,7 +11,7 @@
 #   expBonus: NUMBER
 #   moneyBonus: NUMBER
 
-# Miner Set
+# Miner Set (BASIC) - 3 pieces
 miner_chestguard:
   type: CHESTPLATE
   material: LEATHER_CHESTPLATE
@@ -60,28 +60,12 @@ miner_boots:
   expBonus: 3
   moneyBonus: 1
 
-# Prospector Set
-prospector_helmet:
-  type: HELMET
-  material: LEATHER_HELMET
-  customModelData: 2004
-  name: "§7Prospector's Helmet"
-  color: "139,69,19"
-  lore:
-    - "§8Armor"
-    - ""
-    - "§d§lBonus:"
-    - "§8« §3+7✦ §8| §6+4⛁ §8»"
-    - ""
-    - "§7§lBASIC"
-  expBonus: 7
-  moneyBonus: 4
-
-prospector_chestplate:
+# Prospector Set (BASIC) - 4 pieces
+prospector_vest:
   type: CHESTPLATE
   material: LEATHER_CHESTPLATE
-  customModelData: 2005
-  name: "§7Prospector's Chestplate"
+  customModelData: 2004
+  name: "§7Prospector's Vest"
   color: "139,69,19"
   lore:
     - "§8Armor"
@@ -93,11 +77,11 @@ prospector_chestplate:
   expBonus: 10
   moneyBonus: 6
 
-prospector_leggings:
+fieldwork_pants:
   type: LEGGINGS
   material: LEATHER_LEGGINGS
-  customModelData: 2006
-  name: "§7Prospector's Leggings"
+  customModelData: 2005
+  name: "§7Fieldwork Pants"
   color: "139,69,19"
   lore:
     - "§8Armor"
@@ -109,39 +93,1297 @@ prospector_leggings:
   expBonus: 8
   moneyBonus: 5
 
-prospector_boots:
+studded_boots:
   type: BOOTS
   material: LEATHER_BOOTS
-  customModelData: 2007
-  name: "§7Prospector's Boots"
+  customModelData: 2006
+  name: "§7Studded Boots"
   color: "139,69,19"
   lore:
     - "§8Armor"
     - ""
     - "§d§lBonus:"
-    - "§8« §3+5✦ §8| §6+3⛁ §8»"
+    - "§8« §3+6✦ §8| §6+3⛁ §8»"
     - ""
     - "§7§lBASIC"
-  expBonus: 5
+  expBonus: 6
   moneyBonus: 3
 
-# Eternal Warden Set (Legendary)
-eternal_warden_helmet:
-  type: HELMET
-  material: LEATHER_HELMET
-  customModelData: 2085
-  name: "§b§lE§1§lt§b§le§1§lr§b§ln§1§la§b§ll §1§lW§b§la§1§lr§b§ld§1§le§b§ln §f§lHelmet"
-  color: "0,191,255"
+# Quarry Set (COMMON) - 4 pieces
+reinforced_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2008
+  name: "§aReinforced Chestplate"
+  color: "50,205,50"
   lore:
     - "§8Armor"
     - ""
     - "§d§lBonus:"
-    - "§8« §3+33333✦ §8| §6+33333⛁ §8»"
+    - "§8« §3+18✦ §8| §6+11⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 18
+  moneyBonus: 11
+
+metallic_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2009
+  name: "§aMetallic Leggings"
+  color: "50,205,50"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+14✦ §8| §6+7⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 14
+  moneyBonus: 7
+
+antislip_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2010
+  name: "§aAnti-Slip Boots"
+  color: "50,205,50"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+11✦ §8| §6+4⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 11
+  moneyBonus: 4
+
+# Industrial Set (COMMON) - 4 pieces
+quartz_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2011
+  name: "§aQuartz Chestplate"
+  color: "160,160,160"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+32✦ §8| §6+20⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 32
+  moneyBonus: 20
+
+sapphire_pants:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2012
+  name: "§aSapphire Pants"
+  color: "160,160,160"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+25✦ §8| §6+13⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 25
+  moneyBonus: 13
+
+amethyst_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2013
+  name: "§aAmethyst Boots"
+  color: "160,160,160"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+20✦ §8| §6+7⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 20
+  moneyBonus: 7
+
+# Steel Miner Set (COMMON) - 3 pieces
+steel_miner_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2014
+  name: "§aSteel Miner Chestplate"
+  color: "105,105,105"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+1389✦ §8| §6+1367⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 1389
+  moneyBonus: 1367
+
+steel_miner_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2015
+  name: "§aSteel Miner Leggings"
+  color: "105,105,105"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+1376✦ §8| §6+1355⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 1376
+  moneyBonus: 1355
+
+steel_miner_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2016
+  name: "§aSteel Miner Boots"
+  color: "105,105,105"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+1367✦ §8| §6+1345⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 1367
+  moneyBonus: 1345
+
+# Coal Extractor Set (COMMON) - 3 pieces
+coal_extractor_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2017
+  name: "§aCoal Extractor Chestplate"
+  color: "0,0,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+2720✦ §8| §6+2699⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 2720
+  moneyBonus: 2699
+
+coal_extractor_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2018
+  name: "§aCoal Extractor Leggings"
+  color: "0,0,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+2708✦ §8| §6+2687⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 2708
+  moneyBonus: 2687
+
+coal_extractor_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2019
+  name: "§aCoal Extractor Boots"
+  color: "0,0,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+2699✦ §8| §6+2678⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 2699
+  moneyBonus: 2678
+
+# Amber Worker Set (COMMON) - 3 pieces
+amber_worker_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2020
+  name: "§aAmber Worker Chestplate"
+  color: "128,0,128"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+4051✦ §8| §6+4031⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 4051
+  moneyBonus: 4031
+
+amber_worker_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2021
+  name: "§aAmber Worker Leggings"
+  color: "128,0,128"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+4039✦ §8| §6+4020⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 4039
+  moneyBonus: 4020
+
+amber_worker_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2022
+  name: "§aAmber Worker Boots"
+  color: "128,0,128"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+4031✦ §8| §6+4011⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 4031
+  moneyBonus: 4011
+
+# Bronze Digger Set (COMMON) - 3 pieces
+bronze_digger_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2023
+  name: "§aBronze Digger Chestplate"
+  color: "205,127,50"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+5382✦ §8| §6+5363⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 5382
+  moneyBonus: 5363
+
+bronze_digger_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2024
+  name: "§aBronze Digger Leggings"
+  color: "205,127,50"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+5371✦ §8| §6+5352⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 5371
+  moneyBonus: 5352
+
+bronze_digger_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2025
+  name: "§aBronze Digger Boots"
+  color: "205,127,50"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+5363✦ §8| §6+5344⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 5363
+  moneyBonus: 5344
+
+# Obsidian Laborer Set (COMMON) - 3 pieces
+obsidian_laborer_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2026
+  name: "§bObsidian Laborer Chestplate"
+  color: "20,20,20"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+6713✦ §8| §6+6695⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 6713
+  moneyBonus: 6695
+
+obsidian_laborer_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2027
+  name: "§bObsidian Laborer Leggings"
+  color: "20,20,20"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+6702✦ §8| §6+6685⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 6702
+  moneyBonus: 6685
+
+obsidian_laborer_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2028
+  name: "§bObsidian Laborer Boots"
+  color: "20,20,20"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+6695✦ §8| §6+6677⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 6695
+  moneyBonus: 6677
+
+# Saltstone Scraper Set (COMMON) - 3 pieces
+saltstone_scraper_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2029
+  name: "§bSaltstone Scraper Chestplate"
+  color: "139,119,101"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+8044✦ §8| §6+8027⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 8044
+  moneyBonus: 8027
+
+saltstone_scraper_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2030
+  name: "§bSaltstone Scraper Leggings"
+  color: "139,119,101"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+8034✦ §8| §6+8017⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 8034
+  moneyBonus: 8017
+
+saltstone_scraper_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2031
+  name: "§bSaltstone Scraper Boots"
+  color: "139,119,101"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+8027✦ §8| §6+8009⛁ §8»"
+    - ""
+    - "§a§lCOMMON"
+  expBonus: 8027
+  moneyBonus: 8009
+
+# Gold Hunter Set (RARE) - 3 pieces
+gold_hunter_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2032
+  name: "§bGold Hunter Chestplate"
+  color: "255,215,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+9375✦ §8| §6+9359⛁ §8»"
+    - ""
+    - "§b§lRARE"
+  expBonus: 9375
+  moneyBonus: 9359
+
+gold_hunter_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2033
+  name: "§bGold Hunter Leggings"
+  color: "255,215,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+9365✦ §8| §6+9349⛁ §8»"
+    - ""
+    - "§b§lRARE"
+  expBonus: 9365
+  moneyBonus: 9349
+
+gold_hunter_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2034
+  name: "§bGold Hunter Boots"
+  color: "255,215,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+9359✦ §8| §6+9342⛁ §8»"
+    - ""
+    - "§b§lRARE"
+  expBonus: 9359
+  moneyBonus: 9342
+
+# Lapis Technician Set (RARE) - 3 pieces
+lapis_technician_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2035
+  name: "§bLapis Technician Chestplate"
+  color: "0,0,255"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+10706✦ §8| §6+10691⛁ §8»"
+    - ""
+    - "§b§lRARE"
+  expBonus: 10706
+  moneyBonus: 10691
+
+lapis_technician_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2036
+  name: "§bLapis Technician Leggings"
+  color: "0,0,255"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+10697✦ §8| §6+10682⛁ §8»"
+    - ""
+    - "§b§lRARE"
+  expBonus: 10697
+  moneyBonus: 10682
+
+lapis_technician_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2037
+  name: "§bLapis Technician Boots"
+  color: "0,0,255"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+10691✦ §8| §6+10675⛁ §8»"
+    - ""
+    - "§b§lRARE"
+  expBonus: 10691
+  moneyBonus: 10675
+
+# Topaz Artisan Set (RARE) - 3 pieces
+topaz_artisan_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2038
+  name: "§bTopaz Artisan Chestplate"
+  color: "255,165,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+12037✦ §8| §6+12022⛁ §8»"
+    - ""
+    - "§b§lRARE"
+  expBonus: 12037
+  moneyBonus: 12022
+
+topaz_artisan_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2039
+  name: "§bTopaz Artisan Leggings"
+  color: "255,165,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+12028✦ §8| §6+12014⛁ §8»"
+    - ""
+    - "§b§lRARE"
+  expBonus: 12028
+  moneyBonus: 12014
+
+topaz_artisan_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2040
+  name: "§bTopaz Artisan Boots"
+  color: "255,165,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+12022✦ §8| §6+12008⛁ §8»"
+    - ""
+    - "§b§lRARE"
+  expBonus: 12022
+  moneyBonus: 12008
+
+# Cobalt Excavator Set (RARE) - 3 pieces
+cobalt_excavator_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2041
+  name: "§bCobalt Excavator Chestplate"
+  color: "0,0,139"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+13368✦ §8| §6+13354⛁ §8»"
+    - ""
+    - "§b§lRARE"
+  expBonus: 13368
+  moneyBonus: 13354
+
+cobalt_excavator_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2042
+  name: "§bCobalt Excavator Leggings"
+  color: "0,0,139"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+13360✦ §8| §6+13347⛁ §8»"
+    - ""
+    - "§b§lRARE"
+  expBonus: 13360
+  moneyBonus: 13347
+
+cobalt_excavator_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2043
+  name: "§bCobalt Excavator Boots"
+  color: "0,0,139"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+13354✦ §8| §6+13341⛁ §8»"
+    - ""
+    - "§b§lRARE"
+  expBonus: 13354
+  moneyBonus: 13341
+
+# Granite Breaker Set (RARE) - 3 pieces
+granite_breaker_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2044
+  name: "§bGranite Breaker Chestplate"
+  color: "128,128,128"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+14699✦ §8| §6+14686⛁ §8»"
+    - ""
+    - "§b§lRARE"
+  expBonus: 14699
+  moneyBonus: 14686
+
+granite_breaker_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2045
+  name: "§bGranite Breaker Leggings"
+  color: "128,128,128"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+14691✦ §8| §6+14679⛁ §8»"
+    - ""
+    - "§b§lRARE"
+  expBonus: 14691
+  moneyBonus: 14679
+
+granite_breaker_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2046
+  name: "§bGranite Breaker Boots"
+  color: "128,128,128"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+14686✦ §8| §6+14673⛁ §8»"
+    - ""
+    - "§b§lRARE"
+  expBonus: 14686
+  moneyBonus: 14673
+
+# Onyx Surveyor Set (RARE) - 3 pieces
+onyx_surveyor_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2047
+  name: "§bOnyx Surveyor Chestplate"
+  color: "0,0,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+16030✦ §8| §6+16018⛁ §8»"
+    - ""
+    - "§b§lRARE"
+  expBonus: 16030
+  moneyBonus: 16018
+
+onyx_surveyor_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2048
+  name: "§bOnyx Surveyor Leggings"
+  color: "0,0,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+16023✦ §8| §6+16011⛁ §8»"
+    - ""
+    - "§b§lRARE"
+  expBonus: 16023
+  moneyBonus: 16011
+
+onyx_surveyor_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2049
+  name: "§bOnyx Surveyor Boots"
+  color: "0,0,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+16018✦ §8| §6+16006⛁ §8»"
+    - ""
+    - "§b§lRARE"
+  expBonus: 16018
+  moneyBonus: 16006
+
+# Ruby Prospector Set (EPIC) - 3 pieces
+ruby_prospector_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2050
+  name: "§5Ruby Prospector Chestplate"
+  color: "255,0,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+17361✦ §8| §6+17350⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 17361
+  moneyBonus: 17350
+
+ruby_prospector_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2051
+  name: "§5Ruby Prospector Leggings"
+  color: "255,0,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+17354✦ §8| §6+17344⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 17354
+  moneyBonus: 17344
+
+ruby_prospector_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2052
+  name: "§5Ruby Prospector Boots"
+  color: "255,0,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+17350✦ §8| §6+17339⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 17350
+  moneyBonus: 17339
+
+# Emerald Harvester Set (EPIC) - 3 pieces
+emerald_harvester_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2053
+  name: "§5Emerald Harvester Chestplate"
+  color: "0,255,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+18692✦ §8| §6+18682⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 18692
+  moneyBonus: 18682
+
+emerald_harvester_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2054
+  name: "§5Emerald Harvester Leggings"
+  color: "0,255,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+18686✦ §8| §6+18676⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 18686
+  moneyBonus: 18676
+
+emerald_harvester_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2055
+  name: "§5Emerald Harvester Boots"
+  color: "0,255,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+18682✦ §8| §6+18672⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 18682
+  moneyBonus: 18672
+
+# Titanium Borer Set (EPIC) - 3 pieces
+titanium_borer_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2056
+  name: "§5Titanium Borer Chestplate"
+  color: "192,192,192"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+20023✦ §8| §6+20014⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 20023
+  moneyBonus: 20014
+
+titanium_borer_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2057
+  name: "§5Titanium Borer Leggings"
+  color: "192,192,192"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+20017✦ §8| §6+20009⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 20017
+  moneyBonus: 20009
+
+titanium_borer_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2058
+  name: "§5Titanium Borer Boots"
+  color: "192,192,192"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+20014✦ §8| §6+20005⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 20014
+  moneyBonus: 20005
+
+# Mythril Splitter Set (EPIC) - 3 pieces
+mythril_splitter_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2059
+  name: "§5Mythril Splitter Chestplate"
+  color: "0,255,255"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+21354✦ §8| §6+21346⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 21354
+  moneyBonus: 21346
+
+mythril_splitter_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2060
+  name: "§5Mythril Splitter Leggings"
+  color: "0,255,255"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+21349✦ §8| §6+21341⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 21349
+  moneyBonus: 21341
+
+mythril_splitter_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2061
+  name: "§5Mythril Splitter Boots"
+  color: "0,255,255"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+21346✦ §8| §6+21337⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 21346
+  moneyBonus: 21337
+
+# Zircon Excavator Set (EPIC) - 3 pieces
+zircon_excavator_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2062
+  name: "§5Zircon Excavator Chestplate"
+  color: "0,255,255"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+22685✦ §8| §6+22677⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 22685
+  moneyBonus: 22677
+
+zircon_excavator_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2063
+  name: "§5Zircon Excavator Leggings"
+  color: "0,255,255"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+22680✦ §8| §6+22673⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 22680
+  moneyBonus: 22673
+
+zircon_excavator_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2064
+  name: "§5Zircon Excavator Boots"
+  color: "0,255,255"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+22677✦ §8| §6+22670⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 22677
+  moneyBonus: 22670
+
+# Moonstone Diver Set (EPIC) - 3 pieces
+moonstone_diver_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2065
+  name: "§5Moonstone Diver Chestplate"
+  color: "173,216,230"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+24016✦ §8| §6+24009⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 24016
+  moneyBonus: 24009
+
+moonstone_diver_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2066
+  name: "§5Moonstone Diver Leggings"
+  color: "173,216,230"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+24012✦ §8| §6+24006⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 24012
+  moneyBonus: 24006
+
+moonstone_diver_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2067
+  name: "§5Moonstone Diver Boots"
+  color: "173,216,230"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+24009✦ §8| §6+24003⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 24009
+  moneyBonus: 24003
+
+# Starlight Guardian Set (EPIC) - 3 pieces
+starlight_guardian_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2068
+  name: "§5Starlight Guardian Chestplate"
+  color: "191,0,255"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+25347✦ §8| §6+25341⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 25347
+  moneyBonus: 25341
+
+starlight_guardian_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2069
+  name: "§5Starlight Guardian Leggings"
+  color: "191,0,255"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+25343✦ §8| §6+25338⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 25343
+  moneyBonus: 25338
+
+starlight_guardian_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2070
+  name: "§5Starlight Guardian Boots"
+  color: "191,0,255"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+25341✦ §8| §6+25336⛁ §8»"
+    - ""
+    - "§5§lEPIC"
+  expBonus: 25341
+  moneyBonus: 25336
+
+# Void Monarch Set (LEGENDARY) - 3 pieces
+void_monarch_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2071
+  name: "§6§lVoid Monarch Chestplate"
+  color: "20,0,20"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+26678✦ §8| §6+26673⛁ §8»"
     - ""
     - "§e§lLEGENDARY"
-  expBonus: 33333
-  moneyBonus: 33333
+  expBonus: 26678
+  moneyBonus: 26673
 
+void_monarch_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2072
+  name: "§6§lVoid Monarch Leggings"
+  color: "20,0,20"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+26675✦ §8| §6+26671⛁ §8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 26675
+  moneyBonus: 26671
+
+void_monarch_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2073
+  name: "§6§lVoid Monarch Boots"
+  color: "20,0,20"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+26673✦ §8| §6+26669⛁ §8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 26673
+  moneyBonus: 26669
+
+# Chrono Crusher Set (LEGENDARY) - 3 pieces
+chrono_crusher_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2074
+  name: "§6§lChrono Crusher Chestplate"
+  color: "0,0,139"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+28009✦ §8| §6+28005⛁ §8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 28009
+  moneyBonus: 28005
+
+chrono_crusher_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2075
+  name: "§6§lChrono Crusher Leggings"
+  color: "0,0,139"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+28006✦ §8| §6+28003⛁ §8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 28006
+  moneyBonus: 28003
+
+chrono_crusher_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2076
+  name: "§6§lChrono Crusher Boots"
+  color: "0,0,139"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+28005✦ §8| §6+28001⛁ §8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 28005
+  moneyBonus: 28001
+
+# Celestial Titan Set (LEGENDARY) - 3 pieces
+celestial_titan_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2077
+  name: "§6§lCelestial Titan Chestplate"
+  color: "255,255,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+29340✦ §8| §6+29337⛁ §8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 29340
+  moneyBonus: 29337
+
+celestial_titan_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2078
+  name: "§6§lCelestial Titan Leggings"
+  color: "255,255,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+29338✦ §8| §6+29335⛁ §8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 29338
+  moneyBonus: 29335
+
+celestial_titan_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2079
+  name: "§6§lCelestial Titan Boots"
+  color: "255,255,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+29337✦ §8| §6+29334⛁ §8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 29337
+  moneyBonus: 29334
+
+# Draconic Reaper Set (LEGENDARY) - 3 pieces
+draconic_reaper_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2080
+  name: "§6§lDraconic Reaper Chestplate"
+  color: "139,0,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+30671✦ §8| §6+30669⛁ §8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 30671
+  moneyBonus: 30669
+
+draconic_reaper_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2081
+  name: "§6§lDraconic Reaper Leggings"
+  color: "139,0,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+30669✦ §8| §6+30668⛁ §8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 30669
+  moneyBonus: 30668
+
+draconic_reaper_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2082
+  name: "§6§lDraconic Reaper Boots"
+  color: "139,0,0"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+30669✦ §8| §6+30667⛁ §8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 30669
+  moneyBonus: 30667
+
+# Galactic Annihilator Set (LEGENDARY) - 3 pieces
+galactic_annihilator_chestplate:
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  customModelData: 2083
+  name: "§6§lGalactic Annihilator Chestplate"
+  color: "75,0,130"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+32002✦ §8| §6+32001⛁ §8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 32002
+  moneyBonus: 32001
+
+galactic_annihilator_leggings:
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  customModelData: 2084
+  name: "§6§lGalactic Annihilator Leggings"
+  color: "75,0,130"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+32001✦ §8| §6+32000⛁ §8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 32001
+  moneyBonus: 32000
+
+galactic_annihilator_boots:
+  type: BOOTS
+  material: LEATHER_BOOTS
+  customModelData: 2085
+  name: "§6§lGalactic Annihilator Boots"
+  color: "75,0,130"
+  lore:
+    - "§8Armor"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+32001✦ §8| §6+32000⛁ §8»"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 32001
+  moneyBonus: 32000
+
+# Eternal Warden Set (LEGENDARY) - 3 pieces
 eternal_warden_chestplate:
   type: CHESTPLATE
   material: LEATHER_CHESTPLATE
@@ -189,68 +1431,3 @@ eternal_warden_boots:
     - "§e§lLEGENDARY"
   expBonus: 33333
   moneyBonus: 33333
-
-# Quarry Set (Common)
-quarry_helmet:
-  type: HELMET
-  material: LEATHER_HELMET
-  customModelData: 2008
-  name: "§aQuarry Helmet"
-  color: "50,205,50"
-  lore:
-    - "§8Armor"
-    - ""
-    - "§d§lBonus:"
-    - "§8« §3+15✦ §8| §6+10⛁ §8»"
-    - ""
-    - "§a§lCOMMON"
-  expBonus: 15
-  moneyBonus: 10
-
-quarry_chestplate:
-  type: CHESTPLATE
-  material: LEATHER_CHESTPLATE
-  customModelData: 2009
-  name: "§aQuarry Chestplate"
-  color: "50,205,50"
-  lore:
-    - "§8Armor"
-    - ""
-    - "§d§lBonus:"
-    - "§8« §3+20✦ §8| §6+15⛁ §8»"
-    - ""
-    - "§a§lCOMMON"
-  expBonus: 20
-  moneyBonus: 15
-
-quarry_leggings:
-  type: LEGGINGS
-  material: LEATHER_LEGGINGS
-  customModelData: 2010
-  name: "§aQuarry Leggings"
-  color: "50,205,50"
-  lore:
-    - "§8Armor"
-    - ""
-    - "§d§lBonus:"
-    - "§8« §3+17✦ §8| §6+12⛁ §8»"
-    - ""
-    - "§a§lCOMMON"
-  expBonus: 17
-  moneyBonus: 12
-
-quarry_boots:
-  type: BOOTS
-  material: LEATHER_BOOTS
-  customModelData: 2011
-  name: "§aQuarry Boots"
-  color: "50,205,50"
-  lore:
-    - "§8Armor"
-    - ""
-    - "§d§lBonus:"
-    - "§8« §3+12✦ §8| §6+8⛁ §8»"
-    - ""
-    - "§a§lCOMMON"
-  expBonus: 12
-  moneyBonus: 8
