@@ -36,13 +36,13 @@ public class AFKCommand implements CommandExecutor {
                 return true;
             }
             
-            if (args[0].equalsIgnoreCase("set")) {
+            if (args[0].equalsIgnoreCase("on")) {
                 plugin.getAfkManager().setPlayerAfk(player.getUniqueId(), true);
                 player.sendMessage("§aYou are now marked as AFK!");
                 return true;
             }
             
-            if (args[0].equalsIgnoreCase("unset")) {
+            if (args[0].equalsIgnoreCase("off")) {
                 plugin.getAfkManager().setPlayerAfk(player.getUniqueId(), false);
                 player.sendMessage("§aYou are no longer marked as AFK!");
                 return true;

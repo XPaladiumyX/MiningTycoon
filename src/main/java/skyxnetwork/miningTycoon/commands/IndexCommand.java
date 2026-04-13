@@ -34,8 +34,8 @@ public class IndexCommand implements CommandExecutor {
         player.sendMessage("§e/lobby §7- Sends you to the lobby");
         player.sendMessage("§e/afk §7- Teleport you to the afk area");
         player.sendMessage("§e/afk playtime §7- Check your AFK playtime");
-        player.sendMessage("§e/afk set §7- Set yourself as AFK");
-        player.sendMessage("§e/afk unset §7- Remove AFK status");
+        player.sendMessage("§e/afk on §7- Set yourself as AFK");
+        player.sendMessage("§e/afk off §7- Remove AFK status");
         player.sendMessage("§e/playerhide §7- Toggle visibility of other players");
         player.sendMessage("§e/booststatus §7- Show if a Global Boost is active");
         player.sendMessage("§8§m-----------------------------");
