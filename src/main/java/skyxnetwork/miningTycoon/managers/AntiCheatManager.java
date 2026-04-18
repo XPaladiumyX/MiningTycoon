@@ -184,7 +184,17 @@ public class AntiCheatManager {
                 plugin.getLogger().info("[AntiCheat] ROLLBACK: " + player.getName() +
                         " speedViol=" + speedViolation + " flyViol=" + flyViolation);
             }
-            rollbackPlayer(player, data.getLastSafeLocation());
+            
+            Location safeLoc = data.getLastSafeLocation();
+            if (safeLoc == null) {
+                safeLoc = from;
+            }
+            rollbackPlayer(player, safeLoc);
+            
+            data.speedViolations = 0;
+            data.flyViolations = 0;
+            data.rollbackCooldown = 20;
+            
             return false;
         }
 
@@ -192,6 +202,8 @@ public class AntiCheatManager {
             data.speedViolations = 0;
             data.flyViolations = 0;
             data.setLastSafeLocation(to);
+        } else if (data.getLastSafeLocation() == null) {
+            data.setLastSafeLocation(from);
         }
 
         return true;
@@ -366,8 +378,14 @@ public class AntiCheatManager {
         boolean lastOnGround = true;
         long currentTick = 0;
         long jumpStartTick = 0;
+        int rollbackCooldown = 0;
 
         boolean shouldCheck(int flyInterval, int speedInterval) {
+            if (rollbackCooldown > 0) {
+                rollbackCooldown--;
+                return false;
+            }
+            
             long now = System.currentTimeMillis();
             if (now - lastSpeedCheck > speedInterval * 50) {
                 lastSpeedCheck = now;
