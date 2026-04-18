@@ -1,0 +1,116 @@
+# Anti-Cheat Configuration File
+# Movement protection for MiningTycoon
+# 
+# This anti-cheat is designed to be lenient and safe for:
+# - Bedrock players (Geyser/Floodgate)
+# - Java players with legitimate speed/jump effects
+# - Server-side velocity and knockback
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  GENERAL SETTINGS
+# ═══════════════════════════════════════════════════════════════════════════════
+enabled: true
+
+# Debug mode - logs suspicious movements (for testing)
+debug: false
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  SPEED HACK DETECTION
+# ═══════════════════════════════════════════════════════════════════════════════
+speed:
+  enabled: true
+  
+  # Maximum horizontal speed threshold (blocks per tick)
+  # Normal player walking: ~0.2 blocks/tick
+  # Speed I (level 1): ~0.28 blocks/tick
+  # Speed II (level 2): ~0.34 blocks/tick
+  # Speed III+: higher but still limited
+  # Default: 0.75 (very lenient, allows Speed V + jump)
+  max-horizontal-speed: 0.75
+  
+  # Tolerance: how many violations before rollback
+  # Higher = more tolerant
+  tolerance: 3
+  
+  # Check interval in ticks (lower = more responsive but more CPU)
+  check-interval: 1
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  FLY HACK DETECTION  
+# ═══════════════════════════════════════════════════════════════════════════════
+fly:
+  enabled: true
+  
+  # Maximum ticks a player can stay in air without jumping
+  # Normal jump: ~12-15 ticks in air
+  # With Jump Boost I: ~16-18 ticks
+  # With Jump Boost II: ~19-22 ticks
+  # Default: 25 (very lenient)
+  max-air-ticks: 25
+  
+  # Tolerance: how many violations before rollback
+  tolerance: 3
+  
+  # Check interval in ticks
+  check-interval: 1
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  AIR WALK / NO-FALL DETECTION
+# ═══════════════════════════════════════════════════════════════════════════════
+air-walk:
+  enabled: true
+  
+  # Detect horizontal movement while in air for extended periods
+  # Default: 15 ticks
+  max-air-horizontal-ticks: 15
+  
+  # Tolerance
+  tolerance: 3
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  ROLLBACK SETTINGS
+# ═══════════════════════════════════════════════════════════════════════════════
+rollback:
+  # Use last known safe position for rollback
+  use-last-safe-position: true
+  
+  # Velocity to apply after rollback (push slightly up)
+  vertical-push: 0.1
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  EXCLUDED PLAYERS / CONDITIONS
+# ═══════════════════════════════════════════════════════════════════════════════
+exclusions:
+  # Players with these permissions bypass anti-cheat
+  bypass-permission: "miningtycoon.anticheat.bypass"
+  
+  # Don't flag players in these gamemodes
+  excluded-gamemodes:
+    - creative
+    - spectator
+  
+  # Don't flag players with these potion effects
+  allowed-effects:
+    - speed
+    - slowness
+    - jump_boost
+    - levitation
+  
+  # Don't flag players on these blocks
+  safe-blocks:
+    - WATER
+    - LAVA
+    - SLIME_BLOCK
+    - HONEY_BLOCK
+    - VINE
+    - LADDER
+    - SCAFFOLDING
+    - BUOYANCY
+  
+  # Don't flag players with vertical velocity from external sources
+  # (knockback, explosion, plugin launches, etc.)
+  ignore-external-velocity: true
+  
+  # Minimum velocity magnitude to consider as "external"
+  # Below this, velocity is assumed to be from player movement
+  external-velocity-threshold: 2.0

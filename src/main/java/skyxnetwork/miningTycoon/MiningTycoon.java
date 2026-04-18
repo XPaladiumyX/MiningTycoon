@@ -34,6 +34,7 @@ public final class MiningTycoon extends JavaPlugin {
     private EconomyManager economyManager;
     private PermissionCommand permissionCommand;
     private AreaGateManager areaGateManager;
+    private AntiCheatManager antiCheatManager;
 
     // GUI
     private PrestigePortalGUI prestigePortalGUI;
@@ -74,6 +75,7 @@ public final class MiningTycoon extends JavaPlugin {
         mineManager = new MineManager(this);
         itemManager = new ItemManager(this);
         areaGateManager = new AreaGateManager(this);
+        antiCheatManager = new AntiCheatManager(this);
 
         // Initialize GUI
         prestigePortalGUI = new PrestigePortalGUI(this);
@@ -257,5 +259,9 @@ public final class MiningTycoon extends JavaPlugin {
 
     public AreaGateManager getAreaGateManager() {
         return areaGateManager;
+    }
+
+    public AntiCheatManager getAntiCheatManager() {
+        return antiCheatManager;
     }
 }
