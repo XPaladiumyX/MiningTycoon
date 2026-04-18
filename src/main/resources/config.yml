@@ -14,6 +14,10 @@ settings:
   world-name: "mining_tycoon"
   max-level: 2100
   level-up-multiplier: 1.08
+  spawn-location:
+    x: -36.5
+    y: 124
+    z: 16.5
 
 economy:
   use-commands: true
@@ -475,3 +479,48 @@ messages:
     enter-portal: "§d⚡ §eEntered prestige portal! Type §a/prestige confirm §eto proceed"
     requirements-not-met: "§c⛔ You need to be level §6%level% §cto use this portal!"
     cancelled: "§7Prestige cancelled"
+
+  area-gate:
+    access-denied: "§7[§e!§7] §cYou need %requirement% %type% to enter this area!"
+    teleport-warning: "§cYou were teleported to spawn after too many attempts in a restricted area!"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  AREA GATES — Zone access control using WorldGuard regions
+#  Each gate region controls access to a specific zone.
+#  Requirements: Prestige, Level, and/or Zentium
+# ═══════════════════════════════════════════════════════════════════════════════
+area_gates:
+  push-delay: 100
+  max-pushes: 3
+
+  # ── Area Gate 2 — Deep Zone Entrance ────────────────────────────────────────
+  area_gate_2:
+    region: "area_gate_2"
+    required_prestige: 1
+    required_level: 0
+    required_zentium: 0
+    push-back-location: "spawn"
+
+  # ── Area Gate 3 — Nether Zone Entrance ─────────────────────────────────────
+  area_gate_3:
+    region: "area_gate_3"
+    required_prestige: 0
+    required_level: 50
+    required_zentium: 0
+    push-back-location: "spawn"
+
+  # ── Area Gate 4 — End Zone Entrance ────────────────────────────────────────
+  area_gate_4:
+    region: "area_gate_4"
+    required_prestige: 0
+    required_level: 100
+    required_zentium: 10
+    push-back-location: "spawn"
+
+  # ── Area Gate 5 — Final Zone Entrance ──────────────────────────────────────
+  area_gate_5:
+    region: "area_gate_5"
+    required_prestige: 0
+    required_level: 200
+    required_zentium: 50
+    push-back-location: "spawn"

@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
 import skyxnetwork.miningTycoon.MiningTycoon;
 import skyxnetwork.miningTycoon.data.PlayerData;
+import skyxnetwork.miningTycoon.managers.AreaGateManager;
 import skyxnetwork.miningTycoon.managers.WorldGuardManager;
 
 import java.util.HashMap;
@@ -20,15 +21,21 @@ public class PlayerMoveListener implements Listener {
 
     private final MiningTycoon plugin;
     private final WorldGuardManager worldGuardManager;
+    private final AreaGateManager areaGateManager;
     private final Map<UUID, Long> lastPushTime = new HashMap<>();
     private final Map<UUID, Integer> pushCount = new HashMap<>();
     private final Map<UUID, String> lastWarning = new HashMap<>();
     private static final long PUSH_COOLDOWN = 100;
     private static final int MAX_PUSHES = 3;
 
+    private final Map<UUID, Long> gateLastPushTime = new HashMap<>();
+    private final Map<UUID, Integer> gatePushCount = new HashMap<>();
+    private final Map<UUID, String> gateLastWarning = new HashMap<>();
+
     public PlayerMoveListener(MiningTycoon plugin) {
         this.plugin = plugin;
         this.worldGuardManager = new WorldGuardManager(plugin);
+        this.areaGateManager = plugin.getAreaGateManager();
     }
 
     @EventHandler
@@ -42,12 +49,12 @@ public class PlayerMoveListener implements Listener {
         Player player = event.getPlayer();
         PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
 
-        // Staff mode bypass
         if (data.getPlayerMode().equals("staff")) {
             return;
         }
 
         checkZoneRestriction(player, event);
+        checkAreaGateRestriction(player, event);
     }
 
     private void checkZoneRestriction(Player player, PlayerMoveEvent event) {
@@ -63,7 +70,6 @@ public class PlayerMoveListener implements Listener {
         int requiredLevel = 0;
         String zoneName = "";
 
-        // Try WorldGuard first
         if (worldGuardManager.isWorldGuardEnabled()) {
             List<String> regions = worldGuardManager.getRegionsAtLocation(loc);
             Integer zoneNumber = worldGuardManager.getZoneNumberFromRegions(regions);
@@ -76,7 +82,6 @@ public class PlayerMoveListener implements Listener {
                 }
             }
         } else {
-            // Fallback to coordinate-based system
             ZoneInfo zoneInfo = getZoneFromCoordinates(loc);
             if (zoneInfo != null) {
                 requiredLevel = zoneInfo.requiredLevel;
@@ -124,33 +129,105 @@ public class PlayerMoveListener implements Listener {
         }
     }
 
-    // Fallback coordinate-based zone detection
+    private void checkAreaGateRestriction(Player player, PlayerMoveEvent event) {
+        PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
+        Location loc = event.getTo();
+
+        if (!worldGuardManager.isWorldGuardEnabled()) {
+            return;
+        }
+
+        List<String> regions = worldGuardManager.getRegionsAtLocation(loc);
+        if (regions.isEmpty()) {
+            return;
+        }
+
+        String matchingGate = null;
+        for (String region : regions) {
+            if (region.startsWith("area_gate_")) {
+                matchingGate = region;
+                break;
+            }
+        }
+
+        if (matchingGate == null) {
+            return;
+        }
+
+        boolean hasAccess = areaGateManager.checkGateAccess(player, matchingGate);
+
+        if (!hasAccess) {
+            UUID uuid = player.getUniqueId();
+            long pushDelay = areaGateManager.getPushDelay();
+            int maxPushes = areaGateManager.getMaxPushes();
+
+            String message = areaGateManager.getAccessDeniedMessage(player, matchingGate);
+            if (message != null && !gateLastWarning.getOrDefault(uuid, "").equals(matchingGate + "_msg")) {
+                player.sendMessage(message);
+                gateLastWarning.put(uuid, matchingGate + "_msg");
+            }
+
+            long now = System.currentTimeMillis();
+
+            if (!gateLastPushTime.containsKey(uuid) || now - gateLastPushTime.get(uuid) > pushDelay) {
+                gateLastPushTime.put(uuid, now);
+
+                Location safe = data.getLastSafeLocation();
+                if (safe != null) {
+                    Vector direction = safe.toVector().subtract(loc.toVector()).normalize();
+                    player.setVelocity(direction.multiply(1.0).setY(0.1));
+                }
+
+                int count = gatePushCount.getOrDefault(uuid, 0) + 1;
+                gatePushCount.put(uuid, count);
+
+                if (count >= maxPushes) {
+                    String teleportMsg = plugin.getConfig().getString("messages.area-gate.teleport-warning", 
+                            "§cYou were teleported to spawn after too many attempts in a restricted area!");
+                    player.sendMessage(teleportMsg);
+                    player.teleport(getSpawnLocation());
+                    gatePushCount.remove(uuid);
+                    gateLastWarning.remove(uuid);
+                }
+            }
+        } else {
+            data.setLastSafeLocation(loc);
+            gatePushCount.remove(player.getUniqueId());
+            gateLastWarning.remove(player.getUniqueId());
+        }
+    }
+
     private ZoneInfo getZoneFromCoordinates(Location loc) {
         int x = loc.getBlockX();
         int z = loc.getBlockZ();
 
-        // Define your zone boundaries here
-        // Example zones (customize these to match your server layout):
-
-        // Zone 2 (Level 5 required)
         if (x >= -50 && x <= -40 && z >= 5 && z <= 15) {
             return new ZoneInfo("zone_2", 5);
         }
 
-        // Zone 3 (Level 10 required)
         if (x >= -45 && x <= -35 && z >= -10 && z <= -5) {
             return new ZoneInfo("zone_3", 10);
         }
 
-        // Zone 4 (Level 26 required)
         if (x >= -40 && x <= -30 && z >= -25 && z <= -20) {
             return new ZoneInfo("zone_4", 26);
         }
 
-        // Add more zones as needed...
-        // Copy the pattern above for zones 5-18 with your actual coordinates
-
         return null;
+    }
+
+    private Location getSpawnLocation() {
+        double x = plugin.getConfig().getDouble("settings.spawn-location.x", -36.5);
+        double y = plugin.getConfig().getDouble("settings.spawn-location.y", 124);
+        double z = plugin.getConfig().getDouble("settings.spawn-location.z", 16.5);
+        String world = plugin.getConfig().getString("settings.world-name", "mining_tycoon");
+        
+        org.bukkit.World bukkitWorld = Bukkit.getWorld(world);
+        if (bukkitWorld == null) {
+            bukkitWorld = Bukkit.getWorld("mining_tycoon");
+        }
+        
+        return new Location(bukkitWorld, x, y, z);
     }
 
     private static class ZoneInfo {

@@ -33,6 +33,7 @@ public final class MiningTycoon extends JavaPlugin {
     private ItemManager itemManager;
     private EconomyManager economyManager;
     private PermissionCommand permissionCommand;
+    private AreaGateManager areaGateManager;
 
     // GUI
     private PrestigePortalGUI prestigePortalGUI;
@@ -72,6 +73,7 @@ public final class MiningTycoon extends JavaPlugin {
         zoneManager = new ZoneManager(this);
         mineManager = new MineManager(this);
         itemManager = new ItemManager(this);
+        areaGateManager = new AreaGateManager(this);
 
         // Initialize GUI
         prestigePortalGUI = new PrestigePortalGUI(this);
@@ -251,5 +253,9 @@ public final class MiningTycoon extends JavaPlugin {
 
     public PermissionCommand getPermissionCommand() {
         return permissionCommand;
+    }
+
+    public AreaGateManager getAreaGateManager() {
+        return areaGateManager;
     }
 }
