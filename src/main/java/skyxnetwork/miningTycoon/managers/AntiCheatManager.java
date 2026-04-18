@@ -7,6 +7,7 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 import skyxnetwork.miningTycoon.MiningTycoon;
 
@@ -228,11 +229,14 @@ public class AntiCheatManager {
     }
 
     private int getPlayerAirTicks(Player player) {
-        return player.getTicksLived() - player.getLastDamageTicks();
+        if (player.isOnGround()) {
+            return 0;
+        }
+        return player.getTicksLived();
     }
 
     private boolean hasJumpBoost(Player player) {
-        return player.getPotionEffect(org.bukkit.potion.PotionEffectType.JUMP) != null;
+        return player.getPotionEffect(org.bukkit.potion.PotionEffectType.JUMP_BOOST) != null;
     }
 
     private boolean hasExternalVelocity(Player player) {
