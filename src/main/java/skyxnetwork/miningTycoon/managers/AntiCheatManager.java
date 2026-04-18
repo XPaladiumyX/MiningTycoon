@@ -1,5 +1,6 @@
 package skyxnetwork.miningTycoon.managers;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -12,10 +13,7 @@ import org.bukkit.util.Vector;
 import skyxnetwork.miningTycoon.MiningTycoon;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class AntiCheatManager {
@@ -26,7 +24,6 @@ public class AntiCheatManager {
 
     private SpeedConfig speedConfig;
     private FlyConfig flyConfig;
-    private AirWalkConfig airWalkConfig;
     private RollbackConfig rollbackConfig;
     private ExclusionConfig exclusionConfig;
 
@@ -52,24 +49,17 @@ public class AntiCheatManager {
         var speedSec = anticheat.getConfigurationSection("speed");
         speedConfig = new SpeedConfig(
                 speedSec != null && speedSec.getBoolean("enabled", true),
-                speedSec != null ? speedSec.getDouble("max-horizontal-speed", 0.75) : 0.75,
-                speedSec != null ? speedSec.getInt("tolerance", 3) : 3,
-                speedSec != null ? speedSec.getInt("check-interval", 1) : 1
+                speedSec != null ? speedSec.getDouble("max-horizontal-speed", 0.8) : 0.8,
+                speedSec != null ? speedSec.getInt("tolerance", 20) : 20,
+                speedSec != null ? speedSec.getInt("check-interval", 2) : 2
         );
 
         var flySec = anticheat.getConfigurationSection("fly");
         flyConfig = new FlyConfig(
                 flySec != null && flySec.getBoolean("enabled", true),
-                flySec != null ? flySec.getInt("max-air-ticks", 25) : 25,
-                flySec != null ? flySec.getInt("tolerance", 3) : 3,
-                flySec != null ? flySec.getInt("check-interval", 1) : 1
-        );
-
-        var airWalkSec = anticheat.getConfigurationSection("air-walk");
-        airWalkConfig = new AirWalkConfig(
-                airWalkSec != null && airWalkSec.getBoolean("enabled", true),
-                airWalkSec != null ? airWalkSec.getInt("max-air-horizontal-ticks", 15) : 15,
-                airWalkSec != null ? airWalkSec.getInt("tolerance", 3) : 3
+                flySec != null ? flySec.getInt("max-air-ticks", 40) : 40,
+                flySec != null ? flySec.getInt("tolerance", 20) : 20,
+                flySec != null ? flySec.getInt("check-interval", 2) : 2
         );
 
         var rollbackSec = anticheat.getConfigurationSection("rollback");
@@ -82,10 +72,10 @@ public class AntiCheatManager {
         exclusionConfig = new ExclusionConfig(
                 exclusionsSec != null ? exclusionsSec.getString("bypass-permission", "miningtycoon.anticheat.bypass") : "miningtycoon.anticheat.bypass",
                 exclusionsSec != null ? exclusionsSec.getStringList("excluded-gamemodes") : Arrays.asList("creative", "spectator"),
-                exclusionsSec != null ? exclusionsSec.getStringList("allowed-effects") : Arrays.asList("speed", "slowness", "jump_boost", "levitation"),
-                exclusionsSec != null ? exclusionsSec.getStringList("safe-blocks") : Arrays.asList("WATER", "LAVA", "SLIME_BLOCK", "HONEY_BLOCK", "VINE", "LADDER", "SCAFFOLDING"),
+                exclusionsSec != null ? exclusionsSec.getStringList("allowed-effects") : Arrays.asList("speed", "slowness", "jump_boost", "levitation", "slow_falling"),
+                exclusionsSec != null ? exclusionsSec.getStringList("safe-blocks") : Arrays.asList("WATER", "LAVA", "SLIME_BLOCK", "HONEY_BLOCK", "VINE", "LADDER", "SCAFFOLDING", "SOUL_SAND", "SOIL"),
                 exclusionsSec != null && exclusionsSec.getBoolean("ignore-external-velocity", true),
-                exclusionsSec != null ? exclusionsSec.getDouble("external-velocity-threshold", 2.0) : 2.0
+                exclusionsSec != null ? exclusionsSec.getDouble("external-velocity-threshold", 3.0) : 3.0
         );
 
         if (enabled) {
@@ -123,59 +113,140 @@ public class AntiCheatManager {
             return true;
         }
 
-        boolean isOnGround = isPlayerOnGround(player);
+        boolean currentlyOnGround = player.isOnGround();
+        boolean isClimbing = isOnClimbable(player);
+        boolean isInWater = isInWater(player);
+        boolean isOnSlime = isOnSlimeBlock(player);
+
+        boolean wasOnGround = data.lastOnGround;
+        boolean justLeftGround = wasOnGround && !currentlyOnGround;
+
+        if (justLeftGround) {
+            data.jumpStartTick = data.currentTick;
+        }
+
+        data.lastOnGround = currentlyOnGround;
+        data.currentTick++;
+
+        int consecutiveAirTicks = currentlyOnGround ? 0 : (data.currentTick - data.jumpStartTick);
+        double verticalVelocity = velocity.getY();
         double horizontalSpeed = getHorizontalSpeed(from, to);
-        int airTicks = getPlayerAirTicks(player);
-        boolean hasExternalVel = hasExternalVelocity(player);
+
+        int speedLevel = getSpeedLevel(player);
+        int jumpLevel = getJumpBoostLevel(player);
+
+        double adjustedMaxSpeed = calculateMaxSpeed(speedLevel, jumpLevel, currentlyOnGround, horizontalSpeed > 0.3);
+        double adjustedMaxAirTicks = calculateMaxAirTicks(jumpLevel);
+
+        boolean hasExternalVelocity = hasExternalVelocity(player, velocity);
+        boolean isGliding = player.isGliding();
+        boolean isFlying = player.isFlying();
 
         boolean speedViolation = false;
         boolean flyViolation = false;
-        boolean airWalkViolation = false;
 
-        if (speedConfig.enabled && !isOnGround && !hasExternalVel && horizontalSpeed > speedConfig.maxHorizontalSpeed) {
-            data.speedViolations++;
-            if (data.speedViolations > speedConfig.tolerance) {
-                speedViolation = true;
+        if (speedConfig.enabled && !currentlyOnGround && !hasExternalVelocity && !isGliding && !isFlying) {
+            if (horizontalSpeed > adjustedMaxSpeed * 1.5) {
+                data.speedViolations++;
                 if (debug) {
-                    plugin.getLogger().info("[AntiCheat] Speed violation: " + player.getName() +
-                            " speed=" + horizontalSpeed + " max=" + speedConfig.maxHorizontalSpeed);
+                    plugin.getLogger().info("[AntiCheat] " + player.getName() + " speed=" + horizontalSpeed + 
+                            " max=" + adjustedMaxSpeed + " violations=" + data.speedViolations);
                 }
+                if (data.speedViolations > speedConfig.tolerance) {
+                    speedViolation = true;
+                }
+            } else if (data.speedViolations > 0) {
+                data.speedViolations = Math.max(0, data.speedViolations - 1);
             }
         }
 
-        if (flyConfig.enabled && !isOnGround && !hasJumpBoost(player) && !hasExternalVel && airTicks > flyConfig.maxAirTicks) {
-            data.flyViolations++;
-            if (data.flyViolations > flyConfig.tolerance) {
-                flyViolation = true;
+        if (flyConfig.enabled && !currentlyOnGround && !hasExternalVelocity && !isGliding && !isFlying && !isClimbing) {
+            if (consecutiveAirTicks > adjustedMaxAirTicks * 1.5 && Math.abs(verticalVelocity) < 0.1) {
+                data.flyViolations++;
                 if (debug) {
-                    plugin.getLogger().info("[AntiCheat] Fly violation: " + player.getName() +
-                            " airTicks=" + airTicks + " max=" + flyConfig.maxAirTicks);
+                    plugin.getLogger().info("[AntiCheat] " + player.getName() + " airTicks=" + consecutiveAirTicks + 
+                            " max=" + adjustedMaxAirTicks + " vertical=" + verticalVelocity + " violations=" + data.flyViolations);
                 }
+                if (data.flyViolations > flyConfig.tolerance) {
+                    flyViolation = true;
+                }
+            } else if (data.flyViolations > 0) {
+                data.flyViolations = Math.max(0, data.flyViolations - 1);
             }
         }
 
-        if (airWalkConfig.enabled && !isOnGround && !hasExternalVel && horizontalSpeed > 0.1 && airTicks > airWalkConfig.maxAirHorizontalTicks) {
-            data.airWalkViolations++;
-            if (data.airWalkViolations > airWalkConfig.tolerance) {
-                airWalkViolation = true;
-                if (debug) {
-                    plugin.getLogger().info("[AntiCheat] AirWalk violation: " + player.getName() +
-                            " airTicks=" + airTicks + " horizontal=" + horizontalSpeed);
-                }
+        if (speedViolation || flyViolation) {
+            if (debug) {
+                plugin.getLogger().info("[AntiCheat] ROLLBACK: " + player.getName() + 
+                        " speedViol=" + speedViolation + " flyViol=" + flyViolation);
             }
-        }
-
-        if (speedViolation || flyViolation || airWalkViolation) {
             rollbackPlayer(player, from);
             return false;
         }
 
-        if (isOnGround) {
-            data.resetViolations();
+        if (currentlyOnGround || isClimbing || isInWater) {
+            data.speedViolations = 0;
+            data.flyViolations = 0;
             data.setLastSafeLocation(to);
         }
 
         return true;
+    }
+
+    private double calculateMaxSpeed(int speedLevel, int jumpLevel, boolean onGround, boolean isMoving) {
+        double baseSpeed = 0.28;
+
+        double speedMultiplier = 1.0 + (speedLevel * 0.20);
+        double jumpBoostBonus = jumpLevel * 0.05;
+
+        double maxSpeed = baseSpeed * speedMultiplier;
+
+        if (!onGround && isMoving) {
+            maxSpeed *= 1.3;
+        }
+
+        maxSpeed += jumpBoostBonus;
+
+        maxSpeed *= 1.5;
+
+        return maxSpeed;
+    }
+
+    private int calculateMaxAirTicks(int jumpLevel) {
+        int baseTicks = 25;
+        return baseTicks + (jumpLevel * 8);
+    }
+
+    private int getSpeedLevel(Player player) {
+        org.bukkit.potion.PotionEffect speedEffect = player.getPotionEffect(PotionEffectType.SPEED);
+        return speedEffect != null ? speedEffect.getAmplifier() + 1 : 0;
+    }
+
+    private int getJumpBoostLevel(Player player) {
+        org.bukkit.potion.PotionEffect jumpEffect = player.getPotionEffect(PotionEffectType.JUMP);
+        return jumpEffect != null ? jumpEffect.getAmplifier() + 1 : 0;
+    }
+
+    private boolean isOnClimbable(Player player) {
+        Location loc = player.getLocation();
+        Block block = player.getWorld().getBlockAt(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
+        Material type = block.getType();
+        return type == Material.LADDER || type == Material.VINE || type == Material.SCAFFOLDING;
+    }
+
+    private boolean isInWater(Player player) {
+        Location loc = player.getLocation();
+        Block block = player.getWorld().getBlockAt(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
+        Material type = block.getType();
+        return type == Material.WATER || type == Material.LAVA;
+    }
+
+    private boolean isOnSlimeBlock(Player player) {
+        Location loc = player.getLocation();
+        Block block = player.getWorld().getBlockAt(loc.getBlockX(), loc.getBlockY() - 1, loc.getBlockZ());
+        if (block == null) return false;
+        Material type = block.getType();
+        return type == Material.SLIME_BLOCK || type == Material.HONEY_BLOCK;
     }
 
     private boolean isExcluded(Player player) {
@@ -188,6 +259,14 @@ public class AntiCheatManager {
             return true;
         }
 
+        if (player.isFlying()) {
+            return true;
+        }
+
+        if (player.getVehicle() != null) {
+            return true;
+        }
+
         for (org.bukkit.potion.PotionEffect effect : player.getActivePotionEffects()) {
             if (exclusionConfig.allowedEffects.contains(effect.getType().getName().toLowerCase())) {
                 return true;
@@ -195,26 +274,6 @@ public class AntiCheatManager {
         }
 
         return false;
-    }
-
-    private boolean isPlayerOnGround(Player player) {
-        Location loc = player.getLocation();
-        double y = loc.getY();
-
-        Block block = player.getWorld().getBlockAt(loc.getBlockX(), (int) y - 1, loc.getBlockZ());
-        if (isSafeBlock(block)) return true;
-
-        Block currentBlock = player.getWorld().getBlockAt(loc.getBlockX(), (int) y, loc.getBlockZ());
-        if (isSafeBlock(currentBlock)) return true;
-
-        return player.isOnGround();
-    }
-
-    private boolean isSafeBlock(Block block) {
-        if (block == null) return false;
-        Material type = block.getType();
-        String name = type.name();
-        return exclusionConfig.safeBlocks.contains(name);
     }
 
     private double getHorizontalSpeed(Location from, Location to) {
@@ -225,43 +284,56 @@ public class AntiCheatManager {
 
         if (!Double.isFinite(dx) || !Double.isFinite(dz)) return 0;
 
-        return Math.sqrt(dx * dx + dz * dz);
-    }
+        double distance = Math.sqrt(dx * dx + dz * dz);
 
-    private int getPlayerAirTicks(Player player) {
-        if (player.isOnGround()) {
+        if (distance < 0.001 || distance > 20) {
             return 0;
         }
-        return player.getTicksLived();
+
+        return distance;
     }
 
-    private boolean hasJumpBoost(Player player) {
-        return player.getPotionEffect(org.bukkit.potion.PotionEffectType.JUMP_BOOST) != null;
-    }
-
-    private boolean hasExternalVelocity(Player player) {
+    private boolean hasExternalVelocity(Player player, Vector velocity) {
         if (!exclusionConfig.ignoreExternalVelocity) return false;
 
-        Vector vel = player.getVelocity();
-        double magnitude = vel.length();
+        double magnitude = velocity.length();
 
-        return magnitude > exclusionConfig.externalVelocityThreshold;
+        if (magnitude > exclusionConfig.externalVelocityThreshold) {
+            return true;
+        }
+
+        if (Math.abs(velocity.getY()) > 0.5) {
+            return true;
+        }
+
+        return false;
     }
 
     private void rollbackPlayer(Player player, Location safeLocation) {
-        if (rollbackConfig.useLastSafePosition && safeLocation != null) {
-            Location rollbackLoc = safeLocation.clone();
-            rollbackLoc.setPitch(player.getLocation().getPitch());
-            rollbackLoc.setYaw(player.getLocation().getYaw());
-            rollbackLoc.add(0, rollbackConfig.verticalPush, 0);
+        Location rollbackLoc;
 
-            player.teleport(rollbackLoc);
+        if (rollbackConfig.useLastSafePosition && safeLocation != null) {
+            rollbackLoc = safeLocation.clone();
         } else {
-            player.setVelocity(new Vector(0, rollbackConfig.verticalPush, 0));
+            rollbackLoc = player.getLocation().clone();
         }
+
+        rollbackLoc.setPitch(player.getLocation().getPitch());
+        rollbackLoc.setYaw(player.getLocation().getYaw());
+
+        if (!Double.isFinite(rollbackLoc.getX()) || !Double.isFinite(rollbackLoc.getY()) || !Double.isFinite(rollbackLoc.getZ())) {
+            rollbackLoc = player.getWorld().getSpawnLocation();
+        }
+
+        player.teleport(rollbackLoc);
+        player.setVelocity(new Vector(0, rollbackConfig.verticalPush, 0));
 
         UUID uuid = player.getUniqueId();
         playerData.remove(uuid);
+
+        if (debug) {
+            plugin.getLogger().info("[AntiCheat] Rolled back " + player.getName());
+        }
     }
 
     public void setLastSafeLocation(UUID uuid, Location location) {
@@ -282,12 +354,14 @@ public class AntiCheatManager {
     }
 
     private static class PlayerAntiCheatData {
-        private int speedViolations = 0;
-        private int flyViolations = 0;
-        private int airWalkViolations = 0;
-        private long lastSpeedCheck = 0;
-        private long lastFlyCheck = 0;
-        private Location lastSafeLocation;
+        int speedViolations = 0;
+        int flyViolations = 0;
+        long lastSpeedCheck = 0;
+        long lastFlyCheck = 0;
+        Location lastSafeLocation;
+        boolean lastOnGround = true;
+        long currentTick = 0;
+        long jumpStartTick = 0;
 
         boolean shouldCheck(int flyInterval, int speedInterval) {
             long now = System.currentTimeMillis();
@@ -305,7 +379,6 @@ public class AntiCheatManager {
         void resetViolations() {
             speedViolations = 0;
             flyViolations = 0;
-            airWalkViolations = 0;
         }
 
         Location getLastSafeLocation() {
@@ -342,18 +415,6 @@ public class AntiCheatManager {
             this.maxAirTicks = maxAirTicks;
             this.tolerance = tolerance;
             this.checkInterval = checkInterval;
-        }
-    }
-
-    private static class AirWalkConfig {
-        boolean enabled;
-        int maxAirHorizontalTicks;
-        int tolerance;
-
-        AirWalkConfig(boolean enabled, int maxAirHorizontalTicks, int tolerance) {
-            this.enabled = enabled;
-            this.maxAirHorizontalTicks = maxAirHorizontalTicks;
-            this.tolerance = tolerance;
         }
     }
 
