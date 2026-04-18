@@ -30,7 +30,6 @@ public class PlayerMoveListener implements Listener {
 
     private final Map<UUID, Long> gateLastPushTime = new HashMap<>();
     private final Map<UUID, Integer> gatePushCount = new HashMap<>();
-    private final Map<UUID, String> gateLastWarning = new HashMap<>();
 
     public PlayerMoveListener(MiningTycoon plugin) {
         this.plugin = plugin;
@@ -137,22 +136,39 @@ public class PlayerMoveListener implements Listener {
     private void checkAreaGateRestriction(Player player, PlayerMoveEvent event) {
         PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
         Location loc = event.getTo();
+        Location fromLoc = event.getFrom();
 
         if (!worldGuardManager.isWorldGuardEnabled()) {
             return;
         }
 
-        List<String> regions = worldGuardManager.getRegionsAtLocation(loc);
-        if (regions.isEmpty()) {
-            return;
+        if (data.getLastSafeLocation() == null) {
+            data.setLastSafeLocation(fromLoc);
         }
 
+        List<String> regions = worldGuardManager.getRegionsAtLocation(loc);
+        List<String> fromRegions = worldGuardManager.getRegionsAtLocation(fromLoc);
+
+        boolean wasInGate = false;
+        for (String region : fromRegions) {
+            if (region.startsWith("area_gate_")) {
+                wasInGate = true;
+                break;
+            }
+        }
+
+        boolean isInGate = false;
         String matchingGate = null;
         for (String region : regions) {
             if (region.startsWith("area_gate_")) {
                 matchingGate = region;
+                isInGate = true;
                 break;
             }
+        }
+
+        if (!wasInGate && isInGate) {
+            data.setLastSafeLocation(fromLoc);
         }
 
         if (matchingGate == null) {
