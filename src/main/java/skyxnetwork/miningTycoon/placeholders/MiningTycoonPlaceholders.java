@@ -170,12 +170,7 @@ public class MiningTycoonPlaceholders extends PlaceholderExpansion {
         
         if (position <= topList.size()) {
             var entry = topList.get(position - 1);
-            var topPlayer = plugin.getServer().getPlayer(entry.getKey());
-            if (topPlayer == null) {
-                playerName = "§c-";
-            } else {
-                playerName = "§e" + topPlayer.getName();
-            }
+            playerName = "§e" + plugin.getAfkManager().getPlayerName(entry.getKey());
             seconds = entry.getValue();
         } else {
             playerName = "§c-";
@@ -191,6 +186,9 @@ public class MiningTycoonPlaceholders extends PlaceholderExpansion {
         if (hours > 0) timeStr.append(hours).append("h ");
         if (minutes > 0) timeStr.append(minutes).append("m ");
         if (secs > 0 || timeStr.length() == 0) timeStr.append(secs).append("s");
+
+        return "§7" + position + ". " + playerName + " " + timeStr.toString();
+    }
 
         return "§7" + position + ". " + playerName + " " + timeStr.toString();
     }

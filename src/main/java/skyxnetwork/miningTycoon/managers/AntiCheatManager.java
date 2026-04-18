@@ -148,11 +148,12 @@ public class AntiCheatManager {
         boolean flyViolation = false;
 
         if (speedConfig.enabled && !currentlyOnGround && !hasExternalVelocity && !isGliding && !isFlying) {
-            if (horizontalSpeed > adjustedMaxSpeed * 1.5) {
+            double threshold = adjustedMaxSpeed * 1.2;
+            if (horizontalSpeed > threshold) {
                 data.speedViolations++;
                 if (debug) {
                     plugin.getLogger().info("[AntiCheat] " + player.getName() + " speed=" + horizontalSpeed +
-                            " max=" + adjustedMaxSpeed + " violations=" + data.speedViolations);
+                            " max=" + threshold + " violations=" + data.speedViolations);
                 }
                 if (data.speedViolations > speedConfig.tolerance) {
                     speedViolation = true;
@@ -163,11 +164,12 @@ public class AntiCheatManager {
         }
 
         if (flyConfig.enabled && !currentlyOnGround && !hasExternalVelocity && !isGliding && !isFlying && !isClimbing) {
-            if (consecutiveAirTicks > adjustedMaxAirTicks * 1.5 && Math.abs(verticalVelocity) < 0.1) {
+            double threshold = adjustedMaxAirTicks * 1.2;
+            if (consecutiveAirTicks > threshold && Math.abs(verticalVelocity) < 0.05) {
                 data.flyViolations++;
                 if (debug) {
                     plugin.getLogger().info("[AntiCheat] " + player.getName() + " airTicks=" + consecutiveAirTicks +
-                            " max=" + adjustedMaxAirTicks + " vertical=" + verticalVelocity + " violations=" + data.flyViolations);
+                            " max=" + threshold + " vertical=" + verticalVelocity + " violations=" + data.flyViolations);
                 }
                 if (data.flyViolations > flyConfig.tolerance) {
                     flyViolation = true;
@@ -182,7 +184,7 @@ public class AntiCheatManager {
                 plugin.getLogger().info("[AntiCheat] ROLLBACK: " + player.getName() +
                         " speedViol=" + speedViolation + " flyViol=" + flyViolation);
             }
-            rollbackPlayer(player, from);
+            rollbackPlayer(player, data.getLastSafeLocation());
             return false;
         }
 

@@ -19,18 +19,22 @@ public class AFKManager {
     private final Map<UUID, Long> afkStartTime = new ConcurrentHashMap<>();
     private final Map<UUID, Boolean> afkStatus = new ConcurrentHashMap<>();
     private final Map<UUID, Long> afkTimeCache = new ConcurrentHashMap<>();
+    private final Map<UUID, String> afkPlayerNames = new ConcurrentHashMap<>();
     private final Set<UUID> manualAfkTime = Collections.newSetFromMap(new ConcurrentHashMap<>());
     private final Map<UUID, Long> lastManualAfkAdd = new ConcurrentHashMap<>();
 
     private long afkThreshold;
     private final File afkDataFile;
     private FileConfiguration afkDataConfig;
+    private long lastSaveTime = 0;
+    private static final long AUTO_SAVE_INTERVAL = 60000; // 60 seconds
 
     public AFKManager(MiningTycoon plugin) {
         this.plugin = plugin;
         this.afkDataFile = new File(plugin.getDataFolder(), "afk_data.yml");
         loadAfkData();
         loadAfkThreshold();
+        startAutoSave();
     }
 
     private void loadAfkThreshold() {
@@ -46,6 +50,17 @@ public class AFKManager {
         if (afkDataFile.exists()) {
             try {
                 afkDataConfig.load(afkDataFile);
+                for (String key : afkDataConfig.getKeys(false)) {
+                    try {
+                        UUID uuid = UUID.fromString(key);
+                        long time = afkDataConfig.getLong(key + ".time", 0);
+                        String name = afkDataConfig.getString(key + ".name", "Unknown");
+                        afkTimeCache.put(uuid, time);
+                        afkPlayerNames.put(uuid, name);
+                    } catch (IllegalArgumentException e) {
+                        // Skip invalid UUIDs
+                    }
+                }
             } catch (Exception e) {
                 plugin.getLogger().severe("Failed to load AFK data file!");
                 e.printStackTrace();
@@ -53,11 +68,23 @@ public class AFKManager {
         }
     }
 
+    private void startAutoSave() {
+        Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            saveAfkData();
+            plugin.getLogger().info("AFK data auto-saved");
+        }, AUTO_SAVE_INTERVAL / 20, AUTO_SAVE_INTERVAL / 20);
+    }
+
     public void saveAfkData() {
         if (afkDataConfig == null) return;
 
-        for (UUID uuid : afkTimeCache.keySet()) {
-            afkDataConfig.set(uuid.toString(), afkTimeCache.get(uuid));
+        for (Map.Entry<UUID, Long> entry : afkTimeCache.entrySet()) {
+            UUID uuid = entry.getKey();
+            long time = entry.getValue();
+            String name = afkPlayerNames.getOrDefault(uuid, "Unknown");
+            
+            afkDataConfig.set(uuid.toString() + ".time", time);
+            afkDataConfig.set(uuid.toString() + ".name", name);
         }
 
         try {
@@ -150,6 +177,7 @@ public class AFKManager {
     public void updateLastActivity(Player player) {
         UUID uuid = player.getUniqueId();
         lastActivityTime.put(uuid, System.currentTimeMillis());
+        afkPlayerNames.put(uuid, player.getName());
 
         if (Boolean.TRUE.equals(afkStatus.get(uuid))) {
             if (manualAfkTime.contains(uuid)) {
@@ -183,6 +211,7 @@ public class AFKManager {
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             UUID uuid = player.getUniqueId();
+            afkPlayerNames.put(uuid, player.getName());
 
             if (!lastActivityTime.containsKey(uuid)) {
                 lastActivityTime.put(uuid, now);
@@ -201,8 +230,17 @@ public class AFKManager {
     }
 
     public void onPlayerJoin(UUID uuid) {
-        if (afkDataConfig.contains(uuid.toString())) {
-            long storedTime = afkDataConfig.getLong(uuid.toString(), 0);
+        String playerName = "Unknown";
+        Player player = Bukkit.getPlayer(uuid);
+        if (player != null) {
+            playerName = player.getName();
+        } else if (afkDataConfig.contains(uuid.toString())) {
+            playerName = afkDataConfig.getString(uuid.toString() + ".name", "Unknown");
+        }
+        afkPlayerNames.put(uuid, playerName);
+
+        if (afkDataConfig.contains(uuid.toString() + ".time")) {
+            long storedTime = afkDataConfig.getLong(uuid.toString() + ".time", 0);
             afkTimeCache.put(uuid, storedTime);
         } else {
             PlayerData data = plugin.getPlayerDataManager().getPlayerData(uuid);
@@ -223,7 +261,10 @@ public class AFKManager {
         }
 
         long savedTime = afkTimeCache.getOrDefault(uuid, 0L);
-        afkDataConfig.set(uuid.toString(), savedTime);
+        String playerName = afkPlayerNames.getOrDefault(uuid, "Unknown");
+        
+        afkDataConfig.set(uuid.toString() + ".time", savedTime);
+        afkDataConfig.set(uuid.toString() + ".name", playerName);
         saveAfkData();
 
         lastActivityTime.remove(uuid);
@@ -236,6 +277,10 @@ public class AFKManager {
         sorted.sort((a, b) -> Long.compare(b.getValue(), a.getValue()));
 
         return sorted.subList(0, Math.min(limit, sorted.size()));
+    }
+
+    public String getPlayerName(UUID uuid) {
+        return afkPlayerNames.getOrDefault(uuid, "Unknown");
     }
 
     public int getPlayerRank(UUID uuid) {

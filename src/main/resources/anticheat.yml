@@ -29,17 +29,13 @@ speed:
   enabled: true
   
   # Maximum horizontal speed threshold (blocks per tick)
-  # Normal sprint-jump: ~0.35-0.4 blocks/tick
-  # With Speed V: ~0.6-0.8 blocks/tick
-  # This threshold includes 1.5x multiplier for safety
   max-horizontal-speed: 0.8
   
-  # Tolerance: how many violations before rollback
-  # Higher = more tolerant (20 = ~40 ticks of suspicious movement)
-  tolerance: 20
+  # Tolerance: how many violations before rollback (lower = more strict)
+  tolerance: 8
   
   # Check interval in ticks (higher = less CPU, more lenient)
-  check-interval: 2
+  check-interval: 1
 
 # ═══════════════════════════════════════════════════════════════════════════════
 #  FLY HACK DETECTION  
@@ -48,18 +44,13 @@ fly:
   enabled: true
   
   # Maximum ticks a player can stay in air without jumping
-  # Normal jump (no jump boost): ~12-15 ticks
-  # Jump Boost I: ~16-20 ticks
-  # Jump Boost II: ~22-26 ticks
-  # Jump Boost III+: even longer
-  # This threshold includes 1.5x multiplier + jump boost bonus
   max-air-ticks: 40
   
-  # Tolerance: how many violations before rollback
-  tolerance: 20
+  # Tolerance: how many violations before rollback (lower = more strict)
+  tolerance: 8
   
   # Check interval in ticks
-  check-interval: 2
+  check-interval: 1
 
 # ═══════════════════════════════════════════════════════════════════════════════
 #  ROLLBACK SETTINGS
