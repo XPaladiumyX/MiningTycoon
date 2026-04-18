@@ -27,6 +27,8 @@ public final class MiningTycoon extends JavaPlugin {
     private PrestigeManager prestigeManager;
     private PrestigePortalManager prestigePortalManager;
     private ZoneManager zoneManager;
+    private MineManager mineManager;
+    private WorldGuardManager worldGuardManager;
     private DataStorage dataStorage;
     private ItemManager itemManager;
     private EconomyManager economyManager;
@@ -61,12 +63,14 @@ public final class MiningTycoon extends JavaPlugin {
         // Initialize managers
         dataStorage = new DataStorage(this);
         playerDataManager = new PlayerDataManager(this);
-        economyManager = new EconomyManager(this); // Initialize economy first
+        economyManager = new EconomyManager(this);
         boostManager = new BoostManager(this);
         afkManager = new AFKManager(this);
+        worldGuardManager = new WorldGuardManager(this);
         prestigeManager = new PrestigeManager(this);
-        prestigePortalManager = new PrestigePortalManager(this); // Loads portals with delay
+        prestigePortalManager = new PrestigePortalManager(this);
         zoneManager = new ZoneManager(this);
+        mineManager = new MineManager(this);
         itemManager = new ItemManager(this);
 
         // Initialize GUI
@@ -154,6 +158,7 @@ public final class MiningTycoon extends JavaPlugin {
         getCommand("mode").setExecutor(new ModeCommand(this));
         getCommand("index").setExecutor(new IndexCommand(this));
         getCommand("lobby").setExecutor(new LobbyCommand(this));
+        getCommand("multiplier").setExecutor(new MultiplierCommand(this));
 
         // Admin commands
         getCommand("admin").setExecutor(new AdminCommand(this));
@@ -222,6 +227,14 @@ public final class MiningTycoon extends JavaPlugin {
 
     public ZoneManager getZoneManager() {
         return zoneManager;
+    }
+
+    public MineManager getMineManager() {
+        return mineManager;
+    }
+
+    public WorldGuardManager getWorldGuardManager() {
+        return worldGuardManager;
     }
 
     public DataStorage getDataStorage() {

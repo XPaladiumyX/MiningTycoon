@@ -28,9 +28,7 @@ public class BlockPlaceListener implements Listener {
         Player player = event.getPlayer();
         Material blockType = event.getBlock().getType();
 
-        // Check if block is protected
-        if (!BlockBreakListener.blockRewards.containsKey(blockType)) {
-            // Allow only if player has bypass permission or is OP in creative
+        if (!plugin.getMineManager().isValidMineBlock(blockType)) {
             if (!player.hasPermission("antiblock.bypass") &&
                     !(player.isOp() && player.getGameMode() == GameMode.CREATIVE)) {
                 event.setCancelled(true);

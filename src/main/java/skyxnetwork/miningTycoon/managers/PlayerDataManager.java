@@ -3,6 +3,7 @@ package skyxnetwork.miningTycoon.managers;
 import org.bukkit.entity.Player;
 import skyxnetwork.miningTycoon.MiningTycoon;
 import skyxnetwork.miningTycoon.data.PlayerData;
+import skyxnetwork.miningTycoon.utils.ConfigUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,9 +43,12 @@ public class PlayerDataManager {
 
     public void checkLevelUp(Player player) {
         PlayerData data = getPlayerData(player);
-        while (data.canLevelUp()) {
+        int maxLevel = ConfigUtil.getMaxLevel(plugin);
+        
+        while (data.canLevelUp() && data.getLevel() < maxLevel) {
             data.levelUp();
-            player.sendMessage("§6§lLEVEL UP! §eYou are now level §6" + data.getLevel());
+            String message = plugin.getConfig().getString("messages.level-up", "§6§lLEVEL UP! §eYou are now level §6%level%");
+            player.sendMessage(message.replace("%level%", String.valueOf(data.getLevel())));
             player.playSound(player.getLocation(), "entity.player.levelup", 1.0f, 1.0f);
         }
     }

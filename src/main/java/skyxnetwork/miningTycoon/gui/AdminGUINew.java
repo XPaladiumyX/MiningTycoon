@@ -55,6 +55,11 @@ public class AdminGUINew implements Listener {
 
         player.openInventory(inv);
     }
+                .setName("&cClose")
+                .build());
+
+        player.openInventory(inv);
+    }
 
     // Item Management Menu
     public static void openItemManagement(Player player) {

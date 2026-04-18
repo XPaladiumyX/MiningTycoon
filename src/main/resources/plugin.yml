@@ -85,6 +85,10 @@ commands:
     description: Return to lobby
     usage: /lobby
 
+  multiplier:
+    description: Display your EXP multiplier
+    usage: /multiplier
+
   permconfig:
     description: Configure permissions
     usage: /permconfig <add/remove/check> <player> <perm>

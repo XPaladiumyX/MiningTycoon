@@ -11,6 +11,8 @@ public class PlayerData {
     private double experience;
     private double experienceNeeded;
     private int prestige;
+    private int rebirthPoints;
+    private double expMultiplierBonus; // Cumulative from rebirths (e.g., 0.36 = 36%)
     private boolean dropMessagesEnabled;
     private String playerMode; // "player" or "staff"
     private Location lastSafeLocation;
@@ -23,6 +25,8 @@ public class PlayerData {
         this.experience = 0;
         this.experienceNeeded = 100;
         this.prestige = 0;
+        this.rebirthPoints = 0;
+        this.expMultiplierBonus = 0.0;
         this.dropMessagesEnabled = true;
         this.playerMode = "player";
         this.inAFKZone = false;
@@ -74,6 +78,18 @@ public class PlayerData {
         this.prestige += amount;
     }
 
+    public int getRebirthPoints() {
+        return rebirthPoints;
+    }
+
+    public void setRebirthPoints(int rebirthPoints) {
+        this.rebirthPoints = rebirthPoints;
+    }
+
+    public void addRebirthPoints(int amount) {
+        this.rebirthPoints += amount;
+    }
+
     public boolean isDropMessagesEnabled() {
         return dropMessagesEnabled;
     }
@@ -116,6 +132,28 @@ public class PlayerData {
 
     public void addAfkTime(long time) {
         this.afkTime += time;
+    }
+
+    // EXP Multiplier from rebirths
+    public double getExpMultiplierBonus() {
+        return expMultiplierBonus;
+    }
+
+    public void setExpMultiplierBonus(double expMultiplierBonus) {
+        this.expMultiplierBonus = expMultiplierBonus;
+    }
+
+    public void addExpMultiplierBonus(double bonus) {
+        this.expMultiplierBonus += bonus;
+    }
+
+    public double getTotalExpMultiplier() {
+        return 1.0 + expMultiplierBonus;
+    }
+
+    public String getExpMultiplierDisplay() {
+        int percent = (int) (expMultiplierBonus * 100);
+        return "+" + percent + "%";
     }
 
     // Level up logic

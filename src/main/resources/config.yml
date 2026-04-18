@@ -56,24 +56,24 @@ zones:
   requirements:
 
     # ── ZONE 1  (Coal Ore → Diamond Ore) ────────────────────────────────────
-    2: 15   # Iron Ore
-    3: 33   # Raw Iron Ore
+    2: 10   # Iron Ore
+    3: 30   # Raw Iron Ore
     4: 55   # Copper Ore
-    5: 82   # Raw Copper Ore
-    6: 113   # Gold Ore
-    7: 148   # Raw Gold Ore
-    8: 188   # Lapis Ore
-    9: 232   # Diamond Ore
+    5: 75   # Raw Copper Ore
+    6: 90   # Gold Ore
+    7: 101   # Raw Gold Ore
+    8: 110   # Lapis Ore
+    9: 130   # Diamond Ore
 
     # ── ZONE 2  (Emerald → Deepslate Diamond) ───────────────────────────────
-    10: 255   # Emerald
-    11: 290   # Amethyst Block
-    12: 328   # Deepslate Coal Ore
-    13: 369   # Deepslate Iron Ore
-    14: 413   # Deepslate Copper Ore
-    15: 460   # Deepslate Gold Ore
-    16: 510   # Deepslate Lapis Ore
-    17: 563   # Deepslate Diamond Ore
+    10: 150   # Emerald
+    11: 170   # Amethyst Block
+    12: 199   # Deepslate Coal Ore
+    13: 250   # Deepslate Iron Ore
+    14: 280   # Deepslate Copper Ore
+    15: 300   # Deepslate Gold Ore
+    16: 350   # Deepslate Lapis Ore
+    17: 380   # Deepslate Diamond Ore
 
     # ── ZONE 3  (Nether) ────────────────────────────────────────────────────
     18: 625   # Deepslate Emerald Ore
@@ -111,6 +111,12 @@ zones:
 # ═══════════════════════════════════════════════════════════════════════════════
 mines:
 
+  default:
+    stone:
+      block: STONE
+      exp: 1
+      money: 1
+
   zone1:
     coal_ore:
       block: COAL_ORE
@@ -120,85 +126,85 @@ mines:
     iron_ore:
       block: IRON_ORE
       zone: 2
-      exp: 7
-      money: 4
+      exp: 15
+      money: 10
     raw_iron_ore:
-      block: RAW_IRON_ORE
+      block: RAW_IRON_BLOCK
       zone: 3
-      exp: 10
-      money: 6
+      exp: 18
+      money: 30
     copper_ore:
       block: COPPER_ORE
       zone: 4
-      exp: 14
-      money: 9
+      exp: 23
+      money: 20
     raw_copper_ore:
-      block: RAW_COPPER_ORE
+      block: RAW_COPPER_BLOCK
       zone: 5
-      exp: 19
-      money: 12
+      exp: 30
+      money: 25
     gold_ore:
       block: GOLD_ORE
       zone: 6
-      exp: 25
-      money: 17
+      exp: 37
+      money: 30
     raw_gold_ore:
-      block: RAW_GOLD_ORE
+      block: RAW_GOLD_BLOCK
       zone: 7
-      exp: 33
-      money: 22
+      exp: 39
+      money: 33
     lapis_ore:
       block: LAPIS_ORE
       zone: 8
-      exp: 42
-      money: 29
+      exp: 43
+      money: 38
     diamond_ore:
       block: DIAMOND_ORE
       zone: 9
-      exp: 54
-      money: 38
+      exp: 48
+      money: 44
 
   zone2:
     emerald:
       block: EMERALD_ORE
       zone: 10
-      exp: 75
-      money: 55
+      exp: 55
+      money: 50
     amethyst_block:
       block: AMETHYST_BLOCK
       zone: 11
-      exp: 100
-      money: 74
+      exp: 62
+      money: 60
     deepslate_coal_ore:
       block: DEEPSLATE_COAL_ORE
       zone: 12
-      exp: 132
-      money: 98
+      exp: 68
+      money: 67
     deepslate_iron_ore:
       block: DEEPSLATE_IRON_ORE
       zone: 13
-      exp: 172
-      money: 128
+      exp: 78
+      money: 75
     deepslate_copper_ore:
       block: DEEPSLATE_COPPER_ORE
       zone: 14
-      exp: 220
-      money: 165
+      exp: 80
+      money: 80
     deepslate_gold_ore:
       block: DEEPSLATE_GOLD_ORE
       zone: 15
-      exp: 278
-      money: 210
+      exp: 88
+      money: 83
     deepslate_lapis_ore:
       block: DEEPSLATE_LAPIS_ORE
       zone: 16
-      exp: 348
-      money: 265
+      exp: 110
+      money: 99
     deepslate_diamond_ore:
       block: DEEPSLATE_DIAMOND_ORE
       zone: 17
-      exp: 430
-      money: 330
+      exp: 115
+      money: 105
 
   zone3:
     deepslate_emerald_ore:
@@ -343,9 +349,9 @@ prestige:
     rebirth_portal_1:
       world: "mining_tycoon"
       region:
-        min: { x: 30, y: 127, z: 20 }
-        max: { x: 32, y: 130, z: 20 }
-      level-requirement: 240
+        min: { x: 30, y: 130, z: 20 }
+        max: { x: 32, y: 127, z: 20 }
+      level-requirement: 140
       type: "rebirth_1"
 
     # ── Rebirth 2 — Fin Zone 2 — Level 600 ──────────────────────────────────
@@ -353,7 +359,7 @@ prestige:
       world: "mining_tycoon"
       region:
         min: { x: 45, y: 100, z: 45 }
-        max: { x: 48, y: 103, z: 45 }
+        max: { x: 50, y: 105, z: 50 }
       level-requirement: 600
       type: "rebirth_2"
 

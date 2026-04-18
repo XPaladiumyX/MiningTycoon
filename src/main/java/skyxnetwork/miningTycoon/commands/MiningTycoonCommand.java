@@ -32,16 +32,27 @@ public class MiningTycoonCommand implements CommandExecutor {
                 // Reload config
                 plugin.reloadConfig();
 
+                // Reload zone requirements
+                plugin.getZoneManager().reload();
+
+                // Reload mines (blocks)
+                plugin.getMineManager().reload();
+
                 // Reload all items
                 plugin.getItemManager().loadAllItems();
 
-                // Reload prestige portals
+                // Reload prestige portals and rebirth configs
                 plugin.getPrestigePortalManager().reload();
+                plugin.getPrestigeManager().reload();
 
                 // Save all player data
                 plugin.getDataStorage().saveAllData();
 
                 sender.sendMessage("§7[§6MiningTycoon§7] §aPlugin reloaded successfully!");
+                sender.sendMessage("§7[§6MiningTycoon§7] §aLoaded " +
+                        plugin.getZoneManager().getZoneCount() + " zones");
+                sender.sendMessage("§7[§6MiningTycoon§7] §aLoaded " +
+                        plugin.getMineManager().getTotalBlockCount() + " mine blocks");
                 sender.sendMessage("§7[§6MiningTycoon§7] §aLoaded " +
                         plugin.getItemManager().getAllPickaxeIds().size() + " pickaxes, " +
                         plugin.getItemManager().getAllArmorIds().size() + " armor pieces, and " +
