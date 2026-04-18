@@ -106,9 +106,15 @@ public class PlayerMoveListener implements Listener {
                 lastPushTime.put(uuid, now);
 
                 Location safe = data.getLastSafeLocation();
-                if (safe != null) {
+                if (safe != null && isValidLocation(safe) && isValidLocation(loc)) {
                     Vector direction = safe.toVector().subtract(loc.toVector()).normalize();
-                    player.setVelocity(direction.multiply(1.0).setY(0.1));
+                    if (isValidVector(direction)) {
+                        player.setVelocity(direction.multiply(1.0).setY(0.1));
+                    } else {
+                        player.setVelocity(new Vector(0, 0.1, 0));
+                    }
+                } else {
+                    player.setVelocity(new Vector(0, 0.1, 0));
                 }
 
                 int count = pushCount.getOrDefault(uuid, 0) + 1;
@@ -116,8 +122,7 @@ public class PlayerMoveListener implements Listener {
 
                 if (count >= MAX_PUSHES) {
                     player.sendMessage("§cYou were teleported to spawn after too many attempts in a restricted area!");
-                    Location spawn = new Location(Bukkit.getWorld("mining_tycoon"), -36.5, 124, 16.5);
-                    player.teleport(spawn);
+                    player.teleport(getSpawnLocation());
                     pushCount.remove(uuid);
                     lastWarning.remove(uuid);
                 }
@@ -173,9 +178,15 @@ public class PlayerMoveListener implements Listener {
                 gateLastPushTime.put(uuid, now);
 
                 Location safe = data.getLastSafeLocation();
-                if (safe != null) {
+                if (safe != null && isValidLocation(safe) && isValidLocation(loc)) {
                     Vector direction = safe.toVector().subtract(loc.toVector()).normalize();
-                    player.setVelocity(direction.multiply(1.0).setY(0.1));
+                    if (isValidVector(direction)) {
+                        player.setVelocity(direction.multiply(1.0).setY(0.1));
+                    } else {
+                        player.setVelocity(new Vector(0, 0.1, 0));
+                    }
+                } else {
+                    player.setVelocity(new Vector(0, 0.1, 0));
                 }
 
                 int count = gatePushCount.getOrDefault(uuid, 0) + 1;
@@ -228,6 +239,25 @@ public class PlayerMoveListener implements Listener {
         }
         
         return new Location(bukkitWorld, x, y, z);
+    }
+
+    private boolean isValidLocation(Location loc) {
+        if (loc == null) return false;
+        double x = loc.getX();
+        double y = loc.getY();
+        double z = loc.getZ();
+        return Double.isFinite(x) && Double.isFinite(y) && Double.isFinite(z) 
+                && !Double.isNaN(x) && !Double.isNaN(y) && !Double.isNaN(z);
+    }
+
+    private boolean isValidVector(Vector vec) {
+        if (vec == null) return false;
+        double x = vec.getX();
+        double y = vec.getY();
+        double z = vec.getZ();
+        return Double.isFinite(x) && Double.isFinite(y) && Double.isFinite(z)
+                && !Double.isNaN(x) && !Double.isNaN(y) && !Double.isNaN(z)
+                && vec.length() > 0 && vec.length() < 1000;
     }
 
     private static class ZoneInfo {
