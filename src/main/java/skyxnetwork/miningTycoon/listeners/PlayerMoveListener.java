@@ -167,9 +167,8 @@ public class PlayerMoveListener implements Listener {
             int maxPushes = areaGateManager.getMaxPushes();
 
             String message = areaGateManager.getAccessDeniedMessage(player, matchingGate);
-            if (message != null && !gateLastWarning.getOrDefault(uuid, "").equals(matchingGate + "_msg")) {
+            if (message != null) {
                 player.sendMessage(message);
-                gateLastWarning.put(uuid, matchingGate + "_msg");
             }
 
             long now = System.currentTimeMillis();
@@ -198,13 +197,11 @@ public class PlayerMoveListener implements Listener {
                     player.sendMessage(teleportMsg);
                     player.teleport(getSpawnLocation());
                     gatePushCount.remove(uuid);
-                    gateLastWarning.remove(uuid);
                 }
             }
         } else {
             data.setLastSafeLocation(loc);
             gatePushCount.remove(player.getUniqueId());
-            gateLastWarning.remove(player.getUniqueId());
         }
     }
 
