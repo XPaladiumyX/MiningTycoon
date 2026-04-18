@@ -392,13 +392,13 @@ prestige:
 
   # ── Définitions et récompenses ─────────────────────────────────────────────
   rebirth_1:
-    level-requirement: 240
+    level-requirement: 140
     reset-level: true
     exp-multiplier-bonus: 0.06      # +6% EXP permanent
     rewards:
       diamonds: 3
-      coins: 50000
       zentium: 1
+      rebirth-points: 1
 
   rebirth_2:
     level-requirement: 600
@@ -406,8 +406,8 @@ prestige:
     exp-multiplier-bonus: 0.08      # +8% EXP permanent  (cumulé : +14%)
     rewards:
       diamonds: 6
-      coins: 180000
       zentium: 3
+      rebirth-points: 2
 
   rebirth_3:
     level-requirement: 1100
@@ -415,8 +415,8 @@ prestige:
     exp-multiplier-bonus: 0.10      # +10% EXP permanent (cumulé : +24%)
     rewards:
       diamonds: 12
-      coins: 500000
       zentium: 6
+      rebirth-points: 3
 
   rebirth_4:
     level-requirement: 1450
@@ -424,8 +424,8 @@ prestige:
     exp-multiplier-bonus: 0.12      # +12% EXP permanent (cumulé : +36%)
     rewards:
       diamonds: 20
-      coins: 1200000
       zentium: 10
+      rebirth-points: 4
 
   rebirth_5:
     level-requirement: 2100
@@ -433,8 +433,8 @@ prestige:
     exp-multiplier-bonus: 0.14      # +14% EXP permanent (cumulé : +50%)
     rewards:
       diamonds: 35
-      coins: 3000000
       zentium: 20
+      rebirth-points: 5
 
 # Community Generator Settings
 community-generator:
