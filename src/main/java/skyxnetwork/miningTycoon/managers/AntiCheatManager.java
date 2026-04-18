@@ -1,6 +1,5 @@
 package skyxnetwork.miningTycoon.managers;
 
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -8,12 +7,14 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 import skyxnetwork.miningTycoon.MiningTycoon;
 
 import java.io.File;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class AntiCheatManager {
@@ -37,7 +38,7 @@ public class AntiCheatManager {
 
     public void loadConfig() {
         ConfigurationSection anticheat = loadSeparateAnticheatFile();
-        
+
         if (anticheat == null) {
             plugin.getLogger().warning("No anticheat configuration found!");
             enabled = false;
@@ -96,7 +97,7 @@ public class AntiCheatManager {
         if (!anticheatFile.exists()) {
             plugin.saveResource("anticheat.yml", false);
         }
-        
+
         try {
             YamlConfiguration anticheatConfig = YamlConfiguration.loadConfiguration(anticheatFile);
             return anticheatConfig;
@@ -135,7 +136,7 @@ public class AntiCheatManager {
             if (data.speedViolations > speedConfig.tolerance) {
                 speedViolation = true;
                 if (debug) {
-                    plugin.getLogger().info("[AntiCheat] Speed violation: " + player.getName() + 
+                    plugin.getLogger().info("[AntiCheat] Speed violation: " + player.getName() +
                             " speed=" + horizontalSpeed + " max=" + speedConfig.maxHorizontalSpeed);
                 }
             }
@@ -146,7 +147,7 @@ public class AntiCheatManager {
             if (data.flyViolations > flyConfig.tolerance) {
                 flyViolation = true;
                 if (debug) {
-                    plugin.getLogger().info("[AntiCheat] Fly violation: " + player.getName() + 
+                    plugin.getLogger().info("[AntiCheat] Fly violation: " + player.getName() +
                             " airTicks=" + airTicks + " max=" + flyConfig.maxAirTicks);
                 }
             }
@@ -157,7 +158,7 @@ public class AntiCheatManager {
             if (data.airWalkViolations > airWalkConfig.tolerance) {
                 airWalkViolation = true;
                 if (debug) {
-                    plugin.getLogger().info("[AntiCheat] AirWalk violation: " + player.getName() + 
+                    plugin.getLogger().info("[AntiCheat] AirWalk violation: " + player.getName() +
                             " airTicks=" + airTicks + " horizontal=" + horizontalSpeed);
                 }
             }
@@ -186,8 +187,8 @@ public class AntiCheatManager {
             return true;
         }
 
-        for (PotionEffectType effect : player.getActivePotionEffects()) {
-            if (exclusionConfig.allowedEffects.contains(effect.getName().toLowerCase())) {
+        for (org.bukkit.potion.PotionEffect effect : player.getActivePotionEffects()) {
+            if (exclusionConfig.allowedEffects.contains(effect.getType().getName().toLowerCase())) {
                 return true;
             }
         }
@@ -198,13 +199,13 @@ public class AntiCheatManager {
     private boolean isPlayerOnGround(Player player) {
         Location loc = player.getLocation();
         double y = loc.getY();
-        
+
         Block block = player.getWorld().getBlockAt(loc.getBlockX(), (int) y - 1, loc.getBlockZ());
         if (isSafeBlock(block)) return true;
-        
+
         Block currentBlock = player.getWorld().getBlockAt(loc.getBlockX(), (int) y, loc.getBlockZ());
         if (isSafeBlock(currentBlock)) return true;
-        
+
         return player.isOnGround();
     }
 
@@ -217,12 +218,12 @@ public class AntiCheatManager {
 
     private double getHorizontalSpeed(Location from, Location to) {
         if (from == null || to == null) return 0;
-        
+
         double dx = to.getX() - from.getX();
         double dz = to.getZ() - from.getZ();
-        
+
         if (!Double.isFinite(dx) || !Double.isFinite(dz)) return 0;
-        
+
         return Math.sqrt(dx * dx + dz * dz);
     }
 
@@ -231,15 +232,15 @@ public class AntiCheatManager {
     }
 
     private boolean hasJumpBoost(Player player) {
-        return player.getPotionEffect(PotionEffectType.JUMP) != null;
+        return player.getPotionEffect(org.bukkit.potion.PotionEffectType.JUMP) != null;
     }
 
     private boolean hasExternalVelocity(Player player) {
         if (!exclusionConfig.ignoreExternalVelocity) return false;
-        
+
         Vector vel = player.getVelocity();
         double magnitude = vel.length();
-        
+
         return magnitude > exclusionConfig.externalVelocityThreshold;
     }
 
@@ -249,12 +250,12 @@ public class AntiCheatManager {
             rollbackLoc.setPitch(player.getLocation().getPitch());
             rollbackLoc.setYaw(player.getLocation().getYaw());
             rollbackLoc.add(0, rollbackConfig.verticalPush, 0);
-            
+
             player.teleport(rollbackLoc);
         } else {
             player.setVelocity(new Vector(0, rollbackConfig.verticalPush, 0));
         }
-        
+
         UUID uuid = player.getUniqueId();
         playerData.remove(uuid);
     }
@@ -371,8 +372,8 @@ public class AntiCheatManager {
         double externalVelocityThreshold;
 
         ExclusionConfig(String bypassPermission, List<String> excludedGamemodes,
-                       List<String> allowedEffects, List<String> safeBlocks,
-                       boolean ignoreExternalVelocity, double externalVelocityThreshold) {
+                        List<String> allowedEffects, List<String> safeBlocks,
+                        boolean ignoreExternalVelocity, double externalVelocityThreshold) {
             this.bypassPermission = bypassPermission;
             this.excludedGamemodes = excludedGamemodes;
             this.allowedEffects = allowedEffects;
