@@ -45,6 +45,12 @@ public class MiningTycoonCommand implements CommandExecutor {
                 plugin.getPrestigePortalManager().reload();
                 plugin.getPrestigeManager().reload();
 
+                // Reload anticheat
+                plugin.getAntiCheatManager().reload();
+
+                // Reload area gates
+                plugin.getAreaGateManager().reload();
+
                 // Save all player data
                 plugin.getDataStorage().saveAllData();
 
