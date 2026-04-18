@@ -1,6 +1,5 @@
 package skyxnetwork.miningTycoon.managers;
 
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -13,7 +12,10 @@ import org.bukkit.util.Vector;
 import skyxnetwork.miningTycoon.MiningTycoon;
 
 import java.io.File;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class AntiCheatManager {
@@ -128,7 +130,7 @@ public class AntiCheatManager {
         data.lastOnGround = currentlyOnGround;
         data.currentTick++;
 
-        int consecutiveAirTicks = currentlyOnGround ? 0 : (data.currentTick - data.jumpStartTick);
+        int consecutiveAirTicks = currentlyOnGround ? 0 : (int)(data.currentTick - data.jumpStartTick);
         double verticalVelocity = velocity.getY();
         double horizontalSpeed = getHorizontalSpeed(from, to);
 
@@ -149,7 +151,7 @@ public class AntiCheatManager {
             if (horizontalSpeed > adjustedMaxSpeed * 1.5) {
                 data.speedViolations++;
                 if (debug) {
-                    plugin.getLogger().info("[AntiCheat] " + player.getName() + " speed=" + horizontalSpeed + 
+                    plugin.getLogger().info("[AntiCheat] " + player.getName() + " speed=" + horizontalSpeed +
                             " max=" + adjustedMaxSpeed + " violations=" + data.speedViolations);
                 }
                 if (data.speedViolations > speedConfig.tolerance) {
@@ -164,7 +166,7 @@ public class AntiCheatManager {
             if (consecutiveAirTicks > adjustedMaxAirTicks * 1.5 && Math.abs(verticalVelocity) < 0.1) {
                 data.flyViolations++;
                 if (debug) {
-                    plugin.getLogger().info("[AntiCheat] " + player.getName() + " airTicks=" + consecutiveAirTicks + 
+                    plugin.getLogger().info("[AntiCheat] " + player.getName() + " airTicks=" + consecutiveAirTicks +
                             " max=" + adjustedMaxAirTicks + " vertical=" + verticalVelocity + " violations=" + data.flyViolations);
                 }
                 if (data.flyViolations > flyConfig.tolerance) {
@@ -177,7 +179,7 @@ public class AntiCheatManager {
 
         if (speedViolation || flyViolation) {
             if (debug) {
-                plugin.getLogger().info("[AntiCheat] ROLLBACK: " + player.getName() + 
+                plugin.getLogger().info("[AntiCheat] ROLLBACK: " + player.getName() +
                         " speedViol=" + speedViolation + " flyViol=" + flyViolation);
             }
             rollbackPlayer(player, from);
@@ -223,7 +225,7 @@ public class AntiCheatManager {
     }
 
     private int getJumpBoostLevel(Player player) {
-        org.bukkit.potion.PotionEffect jumpEffect = player.getPotionEffect(PotionEffectType.JUMP);
+        org.bukkit.potion.PotionEffect jumpEffect = player.getPotionEffect(PotionEffectType.JUMP_BOOST);
         return jumpEffect != null ? jumpEffect.getAmplifier() + 1 : 0;
     }
 
