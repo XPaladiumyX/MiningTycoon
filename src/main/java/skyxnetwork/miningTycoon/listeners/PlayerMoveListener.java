@@ -172,6 +172,7 @@ public class PlayerMoveListener implements Listener {
         }
 
         if (matchingGate == null) {
+            gatePushCount.remove(player.getUniqueId());
             return;
         }
 
@@ -217,7 +218,6 @@ public class PlayerMoveListener implements Listener {
             }
         } else {
             data.setLastSafeLocation(loc);
-            gatePushCount.remove(player.getUniqueId());
         }
     }
 
