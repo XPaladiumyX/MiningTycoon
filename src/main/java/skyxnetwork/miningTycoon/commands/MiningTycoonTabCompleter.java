@@ -85,6 +85,16 @@ public class MiningTycoonTabCompleter implements TabCompleter {
                 }
                 break;
 
+            case "multiplieradmin":
+                if (args.length == 1) {
+                    completions.addAll(Arrays.asList("see", "set", "reset"));
+                } else if (args.length == 2) {
+                    return getOnlinePlayerNames();
+                } else if (args.length == 3 && args[0].equalsIgnoreCase("set")) {
+                    completions.addAll(Arrays.asList("10", "25", "50", "75", "100"));
+                }
+                break;
+
             case "prestige":
                 if (args.length == 1) {
                     completions.add("confirm");
