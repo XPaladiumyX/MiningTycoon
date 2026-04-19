@@ -87,7 +87,8 @@ public class PrestigeManager {
             data.resetForPrestige();
         }
 
-        data.addPrestige(1);
+        int rebirthPoints = config.getRewards().getOrDefault("rebirth-points", rebirthNumber);
+        data.addPrestige(rebirthPoints);
         data.addExpMultiplierBonus(config.getExpMultiplierBonus());
 
         for (Map.Entry<String, Integer> reward : config.getRewards().entrySet()) {
