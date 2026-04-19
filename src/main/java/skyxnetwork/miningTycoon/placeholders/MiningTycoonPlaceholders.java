@@ -150,24 +150,45 @@ public class MiningTycoonPlaceholders extends PlaceholderExpansion {
     private String getAfkTopPlaceholder(String identifier) {
         int position;
         switch (identifier) {
-            case "afk_top_1": position = 1; break;
-            case "afk_top_2": position = 2; break;
-            case "afk_top_3": position = 3; break;
-            case "afk_top_4": position = 4; break;
-            case "afk_top_5": position = 5; break;
-            case "afk_top_6": position = 6; break;
-            case "afk_top_7": position = 7; break;
-            case "afk_top_8": position = 8; break;
-            case "afk_top_9": position = 9; break;
-            case "afk_top_10": position = 10; break;
-            default: return "";
+            case "afk_top_1":
+                position = 1;
+                break;
+            case "afk_top_2":
+                position = 2;
+                break;
+            case "afk_top_3":
+                position = 3;
+                break;
+            case "afk_top_4":
+                position = 4;
+                break;
+            case "afk_top_5":
+                position = 5;
+                break;
+            case "afk_top_6":
+                position = 6;
+                break;
+            case "afk_top_7":
+                position = 7;
+                break;
+            case "afk_top_8":
+                position = 8;
+                break;
+            case "afk_top_9":
+                position = 9;
+                break;
+            case "afk_top_10":
+                position = 10;
+                break;
+            default:
+                return "";
         }
 
         var topList = plugin.getAfkManager().getTopAfkPlayers(10);
-        
+
         String playerName;
         long seconds = 0;
-        
+
         if (position <= topList.size()) {
             var entry = topList.get(position - 1);
             playerName = "§e" + plugin.getAfkManager().getPlayerName(entry.getKey());
@@ -186,9 +207,6 @@ public class MiningTycoonPlaceholders extends PlaceholderExpansion {
         if (hours > 0) timeStr.append(hours).append("h ");
         if (minutes > 0) timeStr.append(minutes).append("m ");
         if (secs > 0 || timeStr.length() == 0) timeStr.append(secs).append("s");
-
-        return "§7" + position + ". " + playerName + " " + timeStr.toString();
-    }
 
         return "§7" + position + ". " + playerName + " " + timeStr.toString();
     }

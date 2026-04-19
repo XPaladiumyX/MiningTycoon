@@ -13,7 +13,7 @@
 settings:
   world-name: "mining_tycoon"
   max-level: 2100
-  level-up-multiplier: 1.08
+  level-up-multiplier: 1.06
   spawn-location:
     x: -36.5
     y: 124
@@ -362,9 +362,9 @@ prestige:
     rebirth_portal_2:
       world: "mining_tycoon"
       region:
-        min: { x: 45, y: 100, z: 45 }
-        max: { x: 50, y: 105, z: 50 }
-      level-requirement: 600
+        min: { x: 110, y: 133, z: 20 }
+        max: { x: 106, y: 137, z: 21 }
+      level-requirement: 390
       type: "rebirth_2"
 
     # ── Rebirth 3 — Fin Zone 3 — Level 1100 ─────────────────────────────────
@@ -405,12 +405,12 @@ prestige:
       rebirth-points: 1
 
   rebirth_2:
-    level-requirement: 600
+    level-requirement: 390
     reset-level: true
     exp-multiplier-bonus: 0.08      # +8% EXP permanent  (cumulé : +14%)
     rewards:
       diamonds: 6
-      zentium: 3
+      zentium: 4
       rebirth-points: 2
 
   rebirth_3:
@@ -505,7 +505,7 @@ area_gates:
   area_gate_3:
     region: "area_gate_3"
     required_prestige: 0
-    required_level: 50
+    required_level: 0
     required_zentium: 0
     push-back-location: "spawn"
 
@@ -513,14 +513,14 @@ area_gates:
   area_gate_4:
     region: "area_gate_4"
     required_prestige: 0
-    required_level: 100
-    required_zentium: 10
+    required_level: 0
+    required_zentium: 0
     push-back-location: "spawn"
 
-  # ── Area Gate 5 — Final Zone Entrance ──────────────────────────────────────
+  # ── Area Gate 5 — Royal Zone Entrance ──────────────────────────────────────
   area_gate_5:
     region: "area_gate_5"
     required_prestige: 0
-    required_level: 200
-    required_zentium: 50
+    required_level: 0
+    required_zentium: 0
     push-back-location: "spawn"
