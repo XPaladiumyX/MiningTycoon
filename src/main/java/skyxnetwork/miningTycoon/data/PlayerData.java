@@ -158,14 +158,26 @@ public class PlayerData {
 
     // Level up logic
     public boolean canLevelUp() {
-        return experience >= experienceNeeded && level < 500;
+        int maxLevel = 2100;
+        try {
+            maxLevel = skyxnetwork.miningTycoon.MiningTycoon.getInstance().getConfig().getInt("settings.max-level", 2100);
+        } catch (Exception e) {
+            // Use default
+        }
+        return experience >= experienceNeeded && level < maxLevel;
     }
 
     public void levelUp() {
         if (canLevelUp()) {
             experience -= experienceNeeded;
             level++;
-            experienceNeeded *= 1.1; // 10% increase each level
+            double multiplier = 1.08;
+            try {
+                multiplier = skyxnetwork.miningTycoon.MiningTycoon.getInstance().getConfig().getDouble("settings.level-up-multiplier", 1.08);
+            } catch (Exception e) {
+                // Use default
+            }
+            experienceNeeded *= multiplier;
         }
     }
 

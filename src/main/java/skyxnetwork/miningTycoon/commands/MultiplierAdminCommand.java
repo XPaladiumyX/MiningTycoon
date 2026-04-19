@@ -56,12 +56,12 @@ public class MultiplierAdminCommand implements CommandExecutor {
                 try {
                     multiplier = Integer.parseInt(args[2]);
                 } catch (NumberFormatException e) {
-                    sender.sendMessage("§cError: Multiplier must be a valid number (0-100).");
+                    sender.sendMessage("§cError: Multiplier must be a valid number.");
                     return true;
                 }
 
-                if (multiplier < 0 || multiplier > 100) {
-                    sender.sendMessage("§cError: Multiplier must be between 0 and 100.");
+                if (multiplier < 0) {
+                    sender.sendMessage("§cError: Multiplier cannot be negative.");
                     return true;
                 }
 

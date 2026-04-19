@@ -55,12 +55,15 @@ public class LevelAdminCommand implements CommandExecutor {
             data.setLevel(newLevel);
             data.setExperience(0);
 
-            // Recalculate exp needed
+            // Recalculate exp needed using configurable multiplier
             double expNeeded = 100;
+            double multiplier = plugin.getConfig().getDouble("settings.level-up-multiplier", 1.08);
             for (int i = 1; i < newLevel; i++) {
-                expNeeded *= 1.1;
+                expNeeded *= multiplier;
             }
             data.setExperienceNeeded(expNeeded);
+            
+            plugin.getDataStorage().savePlayerData(target.getUniqueId(), data);
 
             sender.sendMessage("§aThe level of §e" + target.getName() + " §ahas been set to §6" + newLevel + "§a.");
 
