@@ -25,6 +25,7 @@ public class IndexCommand implements CommandExecutor {
 
         player.sendMessage("§8§m------§r §6§lCommand Index §8§m------");
         player.sendMessage("§e/droptoggle §7- Toggle drop messages");
+        player.sendMessage("§e/levelsound §7- Toggle level up sound");
         player.sendMessage("§e/shop §7- Open the server shop");
         player.sendMessage("§e/pets §7- Open the server pets shop");
         player.sendMessage("§e/reward §7- Claim your daily reward");
