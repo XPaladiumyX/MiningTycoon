@@ -32,6 +32,7 @@ public class DataStorage {
         config.set("rebirthPoints", data.getRebirthPoints());
         config.set("expMultiplierBonus", data.getExpMultiplierBonus());
         config.set("dropMessagesEnabled", data.isDropMessagesEnabled());
+        config.set("levelUpSoundEnabled", data.isLevelUpSoundEnabled());
         config.set("playerMode", data.getPlayerMode());
         config.set("afkTime", data.getAfkTime());
 
@@ -59,6 +60,7 @@ public class DataStorage {
         data.setRebirthPoints(config.getInt("rebirthPoints", 0));
         data.setExpMultiplierBonus(config.getDouble("expMultiplierBonus", 0.0));
         data.setDropMessagesEnabled(config.getBoolean("dropMessagesEnabled", true));
+        data.setLevelUpSoundEnabled(config.getBoolean("levelUpSoundEnabled", true));
         data.setPlayerMode(config.getString("playerMode", "player"));
         data.setAfkTime(config.getLong("afkTime", 0));
 

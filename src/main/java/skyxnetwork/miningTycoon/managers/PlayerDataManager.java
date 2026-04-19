@@ -49,7 +49,9 @@ public class PlayerDataManager {
             data.levelUp();
             String message = plugin.getConfig().getString("messages.level-up", "§6§lLEVEL UP! §eYou are now level §6%level%");
             player.sendMessage(message.replace("%level%", String.valueOf(data.getLevel())));
-            player.playSound(player.getLocation(), "entity.player.levelup", 1.0f, 1.0f);
+            if (data.isLevelUpSoundEnabled()) {
+                player.playSound(player.getLocation(), "entity.player.levelup", 1.0f, 1.0f);
+            }
         }
     }
 }

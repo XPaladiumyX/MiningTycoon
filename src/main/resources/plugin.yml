@@ -68,6 +68,10 @@ commands:
     description: Toggle drop messages
     usage: /droptoggle
 
+  levelsound:
+    description: Toggle level up sound
+    usage: /levelsound
+
   booststatus:
     description: Check global boost status
     usage: /booststatus

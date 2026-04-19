@@ -14,6 +14,7 @@ public class PlayerData {
     private int rebirthPoints;
     private double expMultiplierBonus; // Cumulative from rebirths (e.g., 0.36 = 36%)
     private boolean dropMessagesEnabled;
+    private boolean levelUpSoundEnabled;
     private String playerMode; // "player" or "staff"
     private Location lastSafeLocation;
     private boolean inAFKZone;
@@ -28,6 +29,7 @@ public class PlayerData {
         this.rebirthPoints = 0;
         this.expMultiplierBonus = 0.0;
         this.dropMessagesEnabled = true;
+        this.levelUpSoundEnabled = true;
         this.playerMode = "player";
         this.inAFKZone = false;
         this.afkTime = 0;
@@ -96,6 +98,14 @@ public class PlayerData {
 
     public void setDropMessagesEnabled(boolean dropMessagesEnabled) {
         this.dropMessagesEnabled = dropMessagesEnabled;
+    }
+
+    public boolean isLevelUpSoundEnabled() {
+        return levelUpSoundEnabled;
+    }
+
+    public void setLevelUpSoundEnabled(boolean levelUpSoundEnabled) {
+        this.levelUpSoundEnabled = levelUpSoundEnabled;
     }
 
     public String getPlayerMode() {
