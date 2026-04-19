@@ -89,6 +89,11 @@ commands:
     description: Display your EXP multiplier
     usage: /multiplier
 
+  multiplieradmin:
+    description: Manage player EXP multipliers
+    usage: /multiplieradmin <see/set/reset> <player> [multiplier]
+    permission: miningtycoon.multiplier.admin
+
   permconfig:
     description: Configure permissions
     usage: /permconfig <add/remove/check> <player> <perm>
@@ -119,6 +124,10 @@ permissions:
 
   miningtycoon.level.admin:
     description: Level management
+    default: op
+
+  miningtycoon.multiplier.admin:
+    description: Multiplier management
     default: op
 
   antiblock.bypass:

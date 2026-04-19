@@ -172,6 +172,8 @@ public final class MiningTycoon extends JavaPlugin {
         getCommand("givepet").setTabCompleter(tabCompleter);
         getCommand("leveladmin").setExecutor(new LevelAdminCommand(this));
         getCommand("leveladmin").setTabCompleter(tabCompleter);
+        getCommand("multiplieradmin").setExecutor(new MultiplierAdminCommand(this));
+        getCommand("multiplieradmin").setTabCompleter(tabCompleter);
         getCommand("prestigeadmin").setExecutor(new PrestigeAdminCommand(this));
         getCommand("prestigeadmin").setTabCompleter(tabCompleter);
         getCommand("givemenu").setExecutor(new GiveMenuCommand(this));
