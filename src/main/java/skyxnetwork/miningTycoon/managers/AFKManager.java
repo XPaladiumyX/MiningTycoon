@@ -71,7 +71,6 @@ public class AFKManager {
     private void startAutoSave() {
         Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             saveAfkData();
-            plugin.getLogger().info("AFK data auto-saved");
         }, AUTO_SAVE_INTERVAL / 20, AUTO_SAVE_INTERVAL / 20);
     }
 
