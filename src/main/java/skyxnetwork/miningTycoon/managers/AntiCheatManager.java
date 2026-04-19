@@ -147,8 +147,9 @@ public class AntiCheatManager {
         boolean speedViolation = false;
         boolean flyViolation = false;
 
-        if (speedConfig.enabled && !currentlyOnGround && !hasExternalVelocity && !isGliding && !isFlying) {
+        if (speedConfig.enabled && !hasExternalVelocity && !isGliding && !isFlying) {
             double threshold = adjustedMaxSpeed * 1.2;
+            
             if (horizontalSpeed > threshold) {
                 data.speedViolations++;
                 if (debug) {
@@ -163,13 +164,29 @@ public class AntiCheatManager {
             }
         }
 
-        if (flyConfig.enabled && !currentlyOnGround && !hasExternalVelocity && !isGliding && !isFlying && !isClimbing) {
+        if (flyConfig.enabled && !currentlyOnGround && !hasExternalVelocity && !isGliding && !isFlying && !isClimbing && !isInWater) {
             double threshold = adjustedMaxAirTicks * 1.2;
-            if (consecutiveAirTicks > threshold && Math.abs(verticalVelocity) < 0.05) {
+            
+            boolean suspiciousAirTicks = consecutiveAirTicks > threshold;
+            
+            boolean suspiciousVerticalControl = Math.abs(verticalVelocity) < 0.15 && verticalVelocity > -0.5;
+            
+            boolean hovering = false;
+            if (!suspiciousAirTicks && verticalVelocity > -0.1 && verticalVelocity < 0.1) {
+                data.hoverTicks++;
+                if (data.hoverTicks > 20) {
+                    hovering = true;
+                }
+            } else {
+                data.hoverTicks = 0;
+            }
+            
+            if (suspiciousAirTicks || suspiciousVerticalControl || hovering) {
                 data.flyViolations++;
                 if (debug) {
                     plugin.getLogger().info("[AntiCheat] " + player.getName() + " airTicks=" + consecutiveAirTicks +
-                            " max=" + threshold + " vertical=" + verticalVelocity + " violations=" + data.flyViolations);
+                            " max=" + threshold + " vertical=" + verticalVelocity + " hover=" + data.hoverTicks +
+                            " violations=" + data.flyViolations);
                 }
                 if (data.flyViolations > flyConfig.tolerance) {
                     flyViolation = true;
@@ -372,6 +389,7 @@ public class AntiCheatManager {
     private static class PlayerAntiCheatData {
         int speedViolations = 0;
         int flyViolations = 0;
+        int hoverTicks = 0;
         long lastSpeedCheck = 0;
         long lastFlyCheck = 0;
         Location lastSafeLocation;

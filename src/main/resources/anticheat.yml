@@ -29,10 +29,10 @@ speed:
   enabled: true
   
   # Maximum horizontal speed threshold (blocks per tick)
-  max-horizontal-speed: 0.6
+  max-horizontal-speed: 0.5
   
   # Tolerance: how many violations before rollback (lower = more strict)
-  tolerance: 4
+  tolerance: 3
   
   # Check interval in ticks (higher = less CPU, more lenient)
   check-interval: 1
@@ -44,25 +44,10 @@ fly:
   enabled: true
   
   # Maximum ticks a player can stay in air without jumping
-  max-air-ticks: 30
+  max-air-ticks: 25
   
   # Tolerance: how many violations before rollback (lower = more strict)
-  tolerance: 4
-  
-  # Check interval in ticks
-  check-interval: 1
-
-# ═══════════════════════════════════════════════════════════════════════════════
-#  FLY HACK DETECTION  
-# ═══════════════════════════════════════════════════════════════════════════════
-fly:
-  enabled: true
-  
-  # Maximum ticks a player can stay in air without jumping
-  max-air-ticks: 30
-  
-  # Tolerance: how many violations before rollback (lower = more strict)
-  tolerance: 4
+  tolerance: 3
   
   # Check interval in ticks
   check-interval: 1
