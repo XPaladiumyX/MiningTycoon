@@ -10,7 +10,6 @@ import org.bukkit.util.Vector;
 import skyxnetwork.miningTycoon.MiningTycoon;
 import skyxnetwork.miningTycoon.data.PlayerData;
 import skyxnetwork.miningTycoon.managers.AreaGateManager;
-import skyxnetwork.miningTycoon.managers.AntiCheatManager;
 import skyxnetwork.miningTycoon.managers.WorldGuardManager;
 
 import java.util.HashMap;
@@ -50,10 +49,6 @@ public class PlayerMoveListener implements Listener {
         PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
 
         if (data.getPlayerMode().equals("staff")) {
-            return;
-        }
-
-        if (!plugin.getAntiCheatManager().checkMovement(player, event.getFrom(), event.getTo(), player.getVelocity())) {
             return;
         }
 
