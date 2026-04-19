@@ -50,19 +50,7 @@ public class BlockBreakListener implements Listener {
         int requiredZone = reward.getZone();
         boolean isDefaultBlock = plugin.getMineManager().isDefaultBlock(blockType);
 
-        if (isDefaultBlock) {
-            // Default blocks work in any zone - no zone restriction
-        } else {
-            int playerZone = plugin.getZoneManager().getPlayerZone(player);
-
-            if (playerZone < requiredZone) {
-                int requiredLevel = plugin.getZoneManager().getZoneRequirement(requiredZone);
-                player.sendMessage("§7[§e!§7] §cYou must be level §6" + requiredLevel + " §cto mine this block!");
-                plugin.getZoneManager().pushPlayerBack(player);
-                event.setCancelled(true);
-                return;
-            }
-
+        if (!isDefaultBlock) {
             if (!plugin.getZoneManager().hasZoneAccess(player, requiredZone)) {
                 int requiredLevel = plugin.getZoneManager().getZoneRequirement(requiredZone);
                 player.sendMessage("§7[§e!§7] §cYou must be level §6" + requiredLevel + " §cto mine this block!");
