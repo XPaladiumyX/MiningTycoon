@@ -148,7 +148,7 @@ public class AntiCheatManager {
         boolean flyViolation = false;
 
         if (speedConfig.enabled && !hasExternalVelocity && !isGliding && !isFlying) {
-            double threshold = adjustedMaxSpeed * 1.2;
+            double threshold = adjustedMaxSpeed;
             
             if (horizontalSpeed > threshold) {
                 data.speedViolations++;
@@ -156,7 +156,7 @@ public class AntiCheatManager {
                     plugin.getLogger().info("[AntiCheat] " + player.getName() + " speed=" + horizontalSpeed +
                             " max=" + threshold + " violations=" + data.speedViolations);
                 }
-                if (data.speedViolations > speedConfig.tolerance) {
+                if (data.speedViolations >= speedConfig.tolerance) {
                     speedViolation = true;
                 }
             } else if (data.speedViolations > 0) {
@@ -165,30 +165,32 @@ public class AntiCheatManager {
         }
 
         if (flyConfig.enabled && !currentlyOnGround && !hasExternalVelocity && !isGliding && !isFlying && !isClimbing && !isInWater) {
-            double threshold = adjustedMaxAirTicks * 1.2;
+            double threshold = adjustedMaxAirTicks;
             
             boolean suspiciousAirTicks = consecutiveAirTicks > threshold;
             
-            boolean suspiciousVerticalControl = Math.abs(verticalVelocity) < 0.15 && verticalVelocity > -0.5;
+            boolean suspiciousVerticalControl = verticalVelocity > -0.3 && verticalVelocity < 0.3;
             
             boolean hovering = false;
-            if (!suspiciousAirTicks && verticalVelocity > -0.1 && verticalVelocity < 0.1) {
+            if (!suspiciousAirTicks && Math.abs(verticalVelocity) < 0.1) {
                 data.hoverTicks++;
-                if (data.hoverTicks > 20) {
+                if (data.hoverTicks > 15) {
                     hovering = true;
                 }
             } else {
                 data.hoverTicks = 0;
             }
             
-            if (suspiciousAirTicks || suspiciousVerticalControl || hovering) {
+            boolean sustainedHorizontalMovement = horizontalSpeed > 0.2 && consecutiveAirTicks > 10;
+            
+            if (suspiciousAirTicks || suspiciousVerticalControl || hovering || sustainedHorizontalMovement) {
                 data.flyViolations++;
                 if (debug) {
                     plugin.getLogger().info("[AntiCheat] " + player.getName() + " airTicks=" + consecutiveAirTicks +
                             " max=" + threshold + " vertical=" + verticalVelocity + " hover=" + data.hoverTicks +
-                            " violations=" + data.flyViolations);
+                            " horizontal=" + horizontalSpeed + " violations=" + data.flyViolations);
                 }
-                if (data.flyViolations > flyConfig.tolerance) {
+                if (data.flyViolations >= flyConfig.tolerance) {
                     flyViolation = true;
                 }
             } else if (data.flyViolations > 0) {
