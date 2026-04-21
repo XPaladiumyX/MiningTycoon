@@ -6,13 +6,14 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.block.BlockBreakEvent;
 import skyxnetwork.miningTycoon.MiningTycoon;
 import skyxnetwork.miningTycoon.config.CommunityGeneratorConfig;
 import skyxnetwork.miningTycoon.models.CommunityGeneratorZone;
 import skyxnetwork.miningTycoon.models.CommunityReward;
+import skyxnetwork.miningTycoon.data.PlayerData;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,21 +33,13 @@ public class CommunityGeneratorListener implements Listener {
         this.cooldowns = new HashMap<>();
     }
 
-    @EventHandler
-    public void onPlayerInteract(PlayerInteractEvent event) {
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onBlockBreak(BlockBreakEvent event) {
         if (!config.isEnabled()) {
             return;
         }
 
-        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
-            return;
-        }
-
-        Block block = event.getClickedBlock();
-        if (block == null) {
-            return;
-        }
-
+        Block block = event.getBlock();
         Material blockType = block.getType();
         CommunityGeneratorZone zone = config.getZoneByMaterial(blockType);
 
@@ -55,20 +48,30 @@ public class CommunityGeneratorListener implements Listener {
         }
 
         Player player = event.getPlayer();
-        String zoneName = zone.getZoneName();
-        String regionName = "community_generator_" + zoneName;
+
+        PlayerData data = plugin.getPlayerDataManager().getPlayerData(player.getUniqueId());
+        if (data != null && data.getPlayerMode().equals("staff")) {
+            return;
+        }
+
+        int zoneNumber = getZoneNumber(zone.getZoneName());
+        String regionName = "zone" + zoneNumber + "_mid";
 
         if (!plugin.getWorldGuardManager().isInRegion(player, regionName)) {
             return;
         }
 
-        if (checkCooldown(player.getUniqueId(), zoneName, zone.getCooldown())) {
-            long remaining = getRemainingCooldown(player.getUniqueId(), zoneName);
-            player.sendMessage(ChatColor.RED + "You must wait " + remaining + " seconds before using this generator again.");
+        event.setCancelled(true);
+
+        player.sendMessage(ChatColor.LIGHT_PURPLE + "⚒ " + ChatColor.GRAY + "Mining the " + ChatColor.RED + "Community Generator" + ChatColor.GRAY + "...");
+
+        if (checkCooldown(player.getUniqueId(), zone.getZoneName(), zone.getCooldown())) {
+            long remaining = getRemainingCooldown(player.getUniqueId(), zone.getZoneName());
+            player.sendMessage(ChatColor.RED + "You must wait " + remaining + " seconds before mining this generator again.");
             return;
         }
 
-        updateCooldown(player.getUniqueId(), zoneName);
+        updateCooldown(player.getUniqueId(), zone.getZoneName());
 
         List<CommunityReward> rewards = zone.getRewards();
         List<String> receivedRewards = new java.util.ArrayList<>();
@@ -109,8 +112,14 @@ public class CommunityGeneratorListener implements Listener {
             message += String.join("\n", receivedRewards);
             player.sendMessage(message);
         }
+    }
 
-        event.setCancelled(true);
+    private int getZoneNumber(String zoneName) {
+        try {
+            return Integer.parseInt(zoneName.replace("zone", ""));
+        } catch (NumberFormatException e) {
+            return 1;
+        }
     }
 
     private boolean rollReward(double chance) {
