@@ -11,7 +11,10 @@ public class PlayerData {
     private double experience;
     private double experienceNeeded;
     private int prestige;
+    private int rebirthPoints;
+    private double expMultiplierBonus; // Cumulative from rebirths (e.g., 0.36 = 36%)
     private boolean dropMessagesEnabled;
+    private boolean levelUpSoundEnabled;
     private String playerMode; // "player" or "staff"
     private Location lastSafeLocation;
     private boolean inAFKZone;
@@ -23,7 +26,10 @@ public class PlayerData {
         this.experience = 0;
         this.experienceNeeded = 100;
         this.prestige = 0;
+        this.rebirthPoints = 0;
+        this.expMultiplierBonus = 0.0;
         this.dropMessagesEnabled = true;
+        this.levelUpSoundEnabled = true;
         this.playerMode = "player";
         this.inAFKZone = false;
         this.afkTime = 0;
@@ -74,12 +80,32 @@ public class PlayerData {
         this.prestige += amount;
     }
 
+    public int getRebirthPoints() {
+        return rebirthPoints;
+    }
+
+    public void setRebirthPoints(int rebirthPoints) {
+        this.rebirthPoints = rebirthPoints;
+    }
+
+    public void addRebirthPoints(int amount) {
+        this.rebirthPoints += amount;
+    }
+
     public boolean isDropMessagesEnabled() {
         return dropMessagesEnabled;
     }
 
     public void setDropMessagesEnabled(boolean dropMessagesEnabled) {
         this.dropMessagesEnabled = dropMessagesEnabled;
+    }
+
+    public boolean isLevelUpSoundEnabled() {
+        return levelUpSoundEnabled;
+    }
+
+    public void setLevelUpSoundEnabled(boolean levelUpSoundEnabled) {
+        this.levelUpSoundEnabled = levelUpSoundEnabled;
     }
 
     public String getPlayerMode() {
@@ -118,16 +144,50 @@ public class PlayerData {
         this.afkTime += time;
     }
 
+    // EXP Multiplier from rebirths
+    public double getExpMultiplierBonus() {
+        return expMultiplierBonus;
+    }
+
+    public void setExpMultiplierBonus(double expMultiplierBonus) {
+        this.expMultiplierBonus = expMultiplierBonus;
+    }
+
+    public void addExpMultiplierBonus(double bonus) {
+        this.expMultiplierBonus += bonus;
+    }
+
+    public double getTotalExpMultiplier() {
+        return 1.0 + expMultiplierBonus;
+    }
+
+    public String getExpMultiplierDisplay() {
+        int percent = (int) (expMultiplierBonus * 100);
+        return "+" + percent + "%";
+    }
+
     // Level up logic
     public boolean canLevelUp() {
-        return experience >= experienceNeeded && level < 500;
+        int maxLevel = 2100;
+        try {
+            maxLevel = skyxnetwork.miningTycoon.MiningTycoon.getInstance().getConfig().getInt("settings.max-level", 2100);
+        } catch (Exception e) {
+            // Use default
+        }
+        return experience >= experienceNeeded && level < maxLevel;
     }
 
     public void levelUp() {
         if (canLevelUp()) {
             experience -= experienceNeeded;
             level++;
-            experienceNeeded *= 1.1; // 10% increase each level
+            double multiplier = 1.08;
+            try {
+                multiplier = skyxnetwork.miningTycoon.MiningTycoon.getInstance().getConfig().getDouble("settings.level-up-multiplier", 1.08);
+            } catch (Exception e) {
+                // Use default
+            }
+            experienceNeeded *= multiplier;
         }
     }
 

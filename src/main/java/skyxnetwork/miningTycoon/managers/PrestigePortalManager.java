@@ -81,18 +81,30 @@ public class PrestigePortalManager {
         int levelRequirement = portalConfig.getInt("level-requirement");
         String type = portalConfig.getString("type", "basic");
 
+        int rebirthNumber = parseRebirthNumber(type);
+
         PrestigePortal portal = new PrestigePortal(
                 portalId,
                 world,
                 minX, minY, minZ,
                 maxX, maxY, maxZ,
                 levelRequirement,
-                type
+                type,
+                rebirthNumber
         );
 
         portals.put(portalId, portal);
         plugin.getLogger().info("Loaded prestige portal: " + portalId +
                 " (Type: " + type + ", Level: " + levelRequirement + ")");
+    }
+
+    private int parseRebirthNumber(String type) {
+        if (type == null) return 1;
+        try {
+            return Integer.parseInt(type.replace("rebirth_", ""));
+        } catch (NumberFormatException e) {
+            return 1;
+        }
     }
 
     /**
@@ -156,62 +168,67 @@ public class PrestigePortalManager {
      * Execute prestige for player
      */
     public void executePrestige(Player player, String portalType) {
-        // Find portal of this type
-        PrestigePortal portal = null;
-        for (PrestigePortal p : portals.values()) {
-            if (p.getType().equalsIgnoreCase(portalType)) {
-                portal = p;
-                break;
-            }
-        }
+        PrestigePortal portal = findPortalByType(portalType);
 
         if (portal == null) {
             player.sendMessage("§c⛔ Invalid prestige type!");
             return;
         }
 
-        // Verify player is still in the portal
         if (!portal.contains(player.getLocation())) {
             player.sendMessage("§c⛔ You must be inside the prestige portal to confirm!");
             return;
         }
 
-        // Verify level requirement again
         if (!canPrestige(player, portal)) {
             player.sendMessage("§c⛔ You no longer meet the level requirement!");
             return;
         }
 
-        // Execute prestige through PrestigeManager
-        plugin.getPrestigeManager().performPrestige(player, portalType);
+        int rebirthNumber = portal.getRebirthNumber();
+        if (rebirthNumber > 0) {
+            plugin.getPrestigeManager().performPrestige(player, rebirthNumber);
+        } else {
+            player.sendMessage("§c⛔ Rebirth system not properly configured!");
+            return;
+        }
 
-        // Play effects
         player.playSound(player.getLocation(), "entity.player.levelup", 1.0f, 0.5f);
         player.playSound(player.getLocation(), "entity.ender_dragon.growl", 0.5f, 1.5f);
 
-        // Teleport to spawn after 2 seconds
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            ConfigurationSection spawnConfig = plugin.getConfig().getConfigurationSection("prestige.spawn");
-            if (spawnConfig != null) {
-                String worldName = spawnConfig.getString("world");
-                World world = Bukkit.getWorld(worldName);
-
-                if (world != null) {
-                    Location spawn = new Location(
-                            world,
-                            spawnConfig.getDouble("x"),
-                            spawnConfig.getDouble("y"),
-                            spawnConfig.getDouble("z")
-                    );
-
-                    spawn.setYaw((float) spawnConfig.getDouble("yaw", 0));
-                    spawn.setPitch((float) spawnConfig.getDouble("pitch", 0));
-
-                    player.teleport(spawn);
-                    player.sendMessage("§aYou have been teleported to spawn!");
-                }
-            }
+            teleportToSpawn(player);
         }, 40L);
+    }
+
+    private PrestigePortal findPortalByType(String type) {
+        for (PrestigePortal p : portals.values()) {
+            if (p.getType().equalsIgnoreCase(type)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    private void teleportToSpawn(Player player) {
+        ConfigurationSection spawnConfig = plugin.getConfig().getConfigurationSection("prestige.spawn");
+        if (spawnConfig == null) return;
+
+        String worldName = spawnConfig.getString("world");
+        World world = Bukkit.getWorld(worldName);
+        if (world == null) return;
+
+        Location spawn = new Location(
+                world,
+                spawnConfig.getDouble("x"),
+                spawnConfig.getDouble("y"),
+                spawnConfig.getDouble("z")
+        );
+        spawn.setYaw((float) spawnConfig.getDouble("yaw", 0));
+        spawn.setPitch((float) spawnConfig.getDouble("pitch", 0));
+
+        player.teleport(spawn);
+        player.sendMessage("§aYou have been teleported to spawn!");
     }
 
     /**
@@ -279,9 +296,9 @@ public class PrestigePortalManager {
         return createPortal(id, worldName, minX, minY, minZ, maxX, maxY, maxZ, levelRequirement, type);
     }
 
-    /**
-     * Represents a prestige portal region
-     */
+/**
+      * Represents a prestige portal region
+      */
     public static class PrestigePortal {
         private final String id;
         private final World world;
@@ -289,9 +306,10 @@ public class PrestigePortalManager {
         private final int maxX, maxY, maxZ;
         private final int levelRequirement;
         private final String type;
+        private final int rebirthNumber;
 
         public PrestigePortal(String id, World world, int minX, int minY, int minZ,
-                              int maxX, int maxY, int maxZ, int levelRequirement, String type) {
+                              int maxX, int maxY, int maxZ, int levelRequirement, String type, int rebirthNumber) {
             this.id = id;
             this.world = world;
             this.minX = Math.min(minX, maxX);
@@ -302,6 +320,7 @@ public class PrestigePortalManager {
             this.maxZ = Math.max(minZ, maxZ);
             this.levelRequirement = levelRequirement;
             this.type = type;
+            this.rebirthNumber = rebirthNumber;
         }
 
         public boolean contains(Location location) {
@@ -358,6 +377,10 @@ public class PrestigePortalManager {
             return type;
         }
 
+        public int getRebirthNumber() {
+            return rebirthNumber;
+        }
+
         @Override
         public String toString() {
             return "PrestigePortal{" +
@@ -366,6 +389,7 @@ public class PrestigePortalManager {
                     ", region=[" + minX + "," + minY + "," + minZ + " to " + maxX + "," + maxY + "," + maxZ + "]" +
                     ", level=" + levelRequirement +
                     ", type='" + type + '\'' +
+                    ", rebirth=" + rebirthNumber +
                     '}';
         }
     }

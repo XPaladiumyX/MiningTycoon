@@ -85,6 +85,16 @@ public class MiningTycoonTabCompleter implements TabCompleter {
                 }
                 break;
 
+            case "multiplieradmin":
+                if (args.length == 1) {
+                    completions.addAll(Arrays.asList("see", "set", "reset"));
+                } else if (args.length == 2) {
+                    return getOnlinePlayerNames();
+                } else if (args.length == 3 && args[0].equalsIgnoreCase("set")) {
+                    completions.addAll(Arrays.asList("10", "25", "50", "75", "100"));
+                }
+                break;
+
             case "prestige":
                 if (args.length == 1) {
                     completions.add("confirm");
@@ -109,7 +119,13 @@ public class MiningTycoonTabCompleter implements TabCompleter {
 
             case "miningtycoon":
                 if (args.length == 1) {
-                    completions.addAll(Arrays.asList("reload", "save", "help", "version"));
+                    completions.addAll(Arrays.asList("reload", "save", "help", "version", "enchant"));
+                } else if (args.length == 2 && args[0].equalsIgnoreCase("enchant")) {
+                    completions.add("tempo");
+                } else if (args.length == 3 && args[0].equalsIgnoreCase("enchant")) {
+                    completions.addAll(Arrays.asList("1", "2", "3", "4", "5"));
+                } else if (args.length == 4 && args[0].equalsIgnoreCase("enchant")) {
+                    return getOnlinePlayerNames();
                 }
                 break;
         }

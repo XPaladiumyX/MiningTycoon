@@ -1,31 +1,29 @@
 # MiningTycoon Configuration File
+# ═══════════════════════════════════════════════════════════════════════════════
+#  5 ZONES  |  40 MINES  |  MAX LEVEL 2100  |  5 PORTAILS REBIRTH
+# ───────────────────────────────────────────────────────────────────────────────
+#  ZONE 1  │ Mines  1– 9 │ Levels    0 –  232 │ Coal → Diamond Ore
+#  ZONE 2  │ Mines 10–17 │ Levels  255 –  563 │ Emerald → Deepslate Diamond
+#  ZONE 3  │ Mines 18–26 │ Levels  625 – 1080 │ Nether (Emerald DS → Crying Obsidian)
+#  ZONE 4  │ Mines 27–31 │ Levels 1125 – 1395 │ End (Endstone → Obsidian)
+#  ZONE 5  │ Mines 32–40 │ Levels 1480 – 2058 │ Mineral Blocks (Coal → Netherite)
+# ── Portails Rebirth : Lv 240 / 600 / 1100 / 1450 / 2100 ────────────────────
+# ═══════════════════════════════════════════════════════════════════════════════
 
-# General Settings
 settings:
   world-name: "mining_tycoon"
-  max-level: 500
-  level-up-multiplier: 1.1
+  max-level: 2100
+  level-up-multiplier: 1.06
+  spawn-location:
+    x: -36.5
+    y: 124
+    z: 16.5
 
-# Economy Settings
 economy:
-  # Economy system to use:
-  # - If you have Vault installed, it will automatically use it
-  # - Otherwise, it will use the command system below
   use-commands: true
-
-  # Command to give money to players
-  # %player% = player name
-  # %amount% = amount of money (will be rounded to integer)
-  # Examples:
-  #   - "coins give %player% %amount%" (for custom coin plugins)
-  #   - "eco give %player% %amount%" (for Essentials)
-  #   - "money give %player% %amount%" (for other economy plugins)
   command: "coins give %player% %amount%"
-
-  # Currency symbol used in messages (if not using Vault)
   currency-symbol: "⛁"
 
-# AFK Zone Settings
 afk:
   enabled: true
   location:
@@ -36,12 +34,9 @@ afk:
     exp-per-tick: 1
     money-per-tick: 1
 
-# AFK Tracking Settings
 afk-settings:
-  # Time in seconds before player is marked as AFK (default: 300 = 5 minutes)
   idle-threshold: 300
 
-# Global Boost Settings
 boosts:
   exp:
     min-multiplier: 1.0
@@ -51,38 +46,303 @@ boosts:
     super-rare-chance: 200
     super-rare-multiplier: 3.5
     super-rare-duration: 3600
-
   coins:
     multiplier: 2.0
     min-duration: 60
     max-duration: 300
 
-# Zone Settings
+# ═══════════════════════════════════════════════════════════════════════════════
+#  ZONE REQUIREMENTS — level minimum pour débloquer chaque mine
+# ═══════════════════════════════════════════════════════════════════════════════
 zones:
   push-delay: 5
   max-pushes: 3
   requirements:
-    2: 5
-    3: 10
-    4: 26
-    5: 42
-    6: 58
-    7: 74
-    8: 90
-    9: 100
-    10: 150
-    11: 212
-    12: 289
-    13: 325
-    14: 395
-    15: 420
-    16: 447
-    17: 486
-    18: 500
 
-# Prestige Settings
+    # ── ZONE 1  (Coal Ore → Diamond Ore) ────────────────────────────────────
+    2: 10   # Iron Ore
+    3: 30   # Raw Iron Ore
+    4: 55   # Copper Ore
+    5: 75   # Raw Copper Ore
+    6: 90   # Gold Ore
+    7: 101   # Raw Gold Ore
+    8: 110   # Lapis Ore
+    9: 130   # Diamond Ore
+
+    # ── ZONE 2  (Emerald → Deepslate Diamond) ───────────────────────────────
+    10: 150   # Emerald
+    11: 170   # Amethyst Block
+    12: 199   # Deepslate Coal Ore
+    13: 250   # Deepslate Iron Ore
+    14: 280   # Deepslate Copper Ore
+    15: 300   # Deepslate Gold Ore
+    16: 350   # Deepslate Lapis Ore
+    17: 380   # Deepslate Diamond Ore
+
+    # ── ZONE 3  (Nether) ────────────────────────────────────────────────────
+    18: 625   # Deepslate Emerald Ore
+    19: 668   # Nether Gold Ore
+    20: 715   # Quartz Ore
+    21: 766   # Gilded Blackstone
+    22: 821   # Blackstone
+    23: 880   # Glowstone
+    24: 943   # Quartz Block
+    25: 1010  # Ancient Debris
+    26: 1080  # Crying Obsidian
+
+    # ── ZONE 4  (End) ───────────────────────────────────────────────────────
+    27: 1125  # Endstone
+    28: 1185  # End Stone Bricks
+    29: 1250  # Purpur Block
+    30: 1320  # Chorus Plants
+    31: 1395  # Obsidian (End)
+
+    # ── ZONE 5  (Mineral Blocks — FINAL) ────────────────────────────────────
+    32: 1480  # Coal Block
+    33: 1558  # Iron Block
+    34: 1641  # Lodestone
+    35: 1729  # Copper Block
+    36: 1822  # Gold Block
+    37: 1920  # Lapis Block
+    38: 2023  # Diamond Block
+    39: 2040  # Emerald Block
+    40: 2058  # Netherite Block
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  BLOCK REWARDS — EXP et coins par bloc miné
+#  Chaque zone scale de façon exponentielle pour rester challengeant
+#  face aux bonus croissants de pickaxe / armor / pet.
+# ═══════════════════════════════════════════════════════════════════════════════
+mines:
+
+  default:
+    stone:
+      block: STONE
+      exp: 1
+      money: 1
+    deepslate:
+      block: DEEPSLATE
+      exp: 15
+      money: 15
+
+  zone1:
+    coal_ore:
+      block: COAL_ORE
+      zone: 1
+      exp: 4
+      money: 2
+    iron_ore:
+      block: IRON_ORE
+      zone: 2
+      exp: 15
+      money: 10
+    raw_iron_ore:
+      block: RAW_IRON_BLOCK
+      zone: 3
+      exp: 18
+      money: 30
+    copper_ore:
+      block: COPPER_ORE
+      zone: 4
+      exp: 23
+      money: 20
+    raw_copper_ore:
+      block: RAW_COPPER_BLOCK
+      zone: 5
+      exp: 30
+      money: 25
+    gold_ore:
+      block: GOLD_ORE
+      zone: 6
+      exp: 37
+      money: 30
+    raw_gold_ore:
+      block: RAW_GOLD_BLOCK
+      zone: 7
+      exp: 39
+      money: 33
+    lapis_ore:
+      block: LAPIS_ORE
+      zone: 8
+      exp: 43
+      money: 38
+    diamond_ore:
+      block: DIAMOND_ORE
+      zone: 9
+      exp: 48
+      money: 44
+
+  zone2:
+    emerald:
+      block: EMERALD_ORE
+      zone: 10
+      exp: 55
+      money: 50
+    amethyst_block:
+      block: AMETHYST_BLOCK
+      zone: 11
+      exp: 62
+      money: 60
+    deepslate_coal_ore:
+      block: DEEPSLATE_COAL_ORE
+      zone: 12
+      exp: 68
+      money: 67
+    deepslate_iron_ore:
+      block: DEEPSLATE_IRON_ORE
+      zone: 13
+      exp: 78
+      money: 75
+    deepslate_copper_ore:
+      block: DEEPSLATE_COPPER_ORE
+      zone: 14
+      exp: 80
+      money: 80
+    deepslate_gold_ore:
+      block: DEEPSLATE_GOLD_ORE
+      zone: 15
+      exp: 88
+      money: 83
+    deepslate_lapis_ore:
+      block: DEEPSLATE_LAPIS_ORE
+      zone: 16
+      exp: 110
+      money: 99
+    deepslate_diamond_ore:
+      block: DEEPSLATE_DIAMOND_ORE
+      zone: 17
+      exp: 115
+      money: 105
+
+  zone3:
+    deepslate_emerald_ore:
+      block: DEEPSLATE_EMERALD_ORE
+      zone: 18
+      exp: 560
+      money: 430
+    nether_gold_ore:
+      block: NETHER_GOLD_ORE
+      zone: 19
+      exp: 680
+      money: 525
+    quartz_ore:
+      block: NETHER_QUARTZ_ORE
+      zone: 20
+      exp: 820
+      money: 635
+    gilded_blackstone:
+      block: GILDED_BLACKSTONE
+      zone: 21
+      exp: 980
+      money: 760
+    blackstone:
+      block: BLACKSTONE
+      zone: 22
+      exp: 1160
+      money: 900
+    glowstone:
+      block: GLOWSTONE
+      zone: 23
+      exp: 1360
+      money: 1060
+    quartz_block:
+      block: QUARTZ_BLOCK
+      zone: 24
+      exp: 1580
+      money: 1235
+    ancient_debris:
+      block: ANCIENT_DEBRIS
+      zone: 25
+      exp: 1820
+      money: 1430
+    crying_obsidian:
+      block: CRYING_OBSIDIAN
+      zone: 26
+      exp: 2080
+      money: 1640
+
+  zone4:
+    endstone:
+      block: END_STONE
+      zone: 27
+      exp: 2450
+      money: 1930
+    end_stone_bricks:
+      block: END_STONE_BRICKS
+      zone: 28
+      exp: 2870
+      money: 2270
+    purpur_block:
+      block: PURPUR_BLOCK
+      zone: 29
+      exp: 3350
+      money: 2660
+    chorus_plant:
+      block: CHORUS_PLANT
+      zone: 30
+      exp: 3890
+      money: 3100
+    obsidian_end:
+      block: OBSIDIAN
+      zone: 31
+      exp: 4500
+      money: 3600
+
+  zone5:
+    coal_block:
+      block: COAL_BLOCK
+      zone: 32
+      exp: 5400
+      money: 4350
+    iron_block:
+      block: IRON_BLOCK
+      zone: 33
+      exp: 6400
+      money: 5150
+    lodestone:
+      block: LODESTONE
+      zone: 34
+      exp: 7500
+      money: 6050
+    copper_block:
+      block: COPPER_BLOCK
+      zone: 35
+      exp: 8700
+      money: 7050
+    gold_block:
+      block: GOLD_BLOCK
+      zone: 36
+      exp: 10000
+      money: 8100
+    lapis_block:
+      block: LAPIS_BLOCK
+      zone: 37
+      exp: 11400
+      money: 9250
+    diamond_block:
+      block: DIAMOND_BLOCK
+      zone: 38
+      exp: 12900
+      money: 10500
+    emerald_block:
+      block: EMERALD_BLOCK
+      zone: 39
+      exp: 14500
+      money: 11850
+    netherite_block:
+      block: NETHERITE_BLOCK
+      zone: 40
+      exp: 16200
+      money: 13300
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  PRESTIGE / REBIRTH
+#  Chaque zone se termine par un portail Rebirth.
+#  → Level reset à 1 après chaque Rebirth
+#  → Bonus EXP permanent cumulable (+6 / +8 / +10 / +12 / +14% = +50% total)
+#  → Récompenses croissantes
+# ═══════════════════════════════════════════════════════════════════════════════
 prestige:
-  # Spawn location after prestige
   spawn:
     world: "mining_tycoon"
     x: -5
@@ -91,76 +351,217 @@ prestige:
     yaw: -180
     pitch: 0.5
 
-  # Prestige Portals
-  # You can define multiple portals with different requirements
   portals:
-    # Basic Prestige Portal
-    basic_portal:
-      # World name
-      world: "mining_tycoon"
 
-      # Portal region (cuboid area)
-      # Players must be within this region to prestige
-      region:
-        min:
-          x: 30
-          y: 130
-          z: 20
-        max:
-          x: 32
-          y: 127
-          z: 20
-
-      # Minimum level required to use this portal
-      level-requirement: 120
-
-      # Type of prestige (must match rewards below)
-      type: "basic"
-
-    # Elite Prestige Portal
-    elite_portal:
+    # ── Rebirth 1 — Fin Zone 1 — Level 240 ──────────────────────────────────
+    rebirth_portal_1:
       world: "mining_tycoon"
       region:
-        min:
-          x: 45
-          y: 100
-          z: 45
-        max:
-          x: 50
-          y: 105
-          z: 50
-      level-requirement: 150
-      type: "elite"
+        min: { x: 30, y: 130, z: 20 }
+        max: { x: 32, y: 127, z: 20 }
+      level-requirement: 140
+      type: "rebirth_1"
 
-  # Prestige Rewards by Type
-  basic:
-    level-requirement: 120
+    # ── Rebirth 2 — Fin Zone 2 — Level 600 ──────────────────────────────────
+    rebirth_portal_2:
+      world: "mining_tycoon"
+      region:
+        min: { x: 110, y: 133, z: 20 }
+        max: { x: 106, y: 137, z: 21 }
+      level-requirement: 390
+      type: "rebirth_2"
+
+    # ── Rebirth 3 — Fin Zone 3 — Level 1100 ─────────────────────────────────
+    rebirth_portal_3:
+      world: "mining_tycoon"
+      region:
+        min: { x: 60, y: 90, z: 60 }
+        max: { x: 63, y: 93, z: 60 }
+      level-requirement: 1100
+      type: "rebirth_3"
+
+    # ── Rebirth 4 — Fin Zone 4 — Level 1450 ─────────────────────────────────
+    rebirth_portal_4:
+      world: "mining_tycoon"
+      region:
+        min: { x: 80, y: 85, z: 80 }
+        max: { x: 83, y: 88, z: 80 }
+      level-requirement: 1450
+      type: "rebirth_4"
+
+    # ── Rebirth 5 — Fin Zone 5 — Level 2100 — FINAL ──────────────────────────
+    rebirth_portal_5:
+      world: "mining_tycoon"
+      region:
+        min: { x: 100, y: 80, z: 100 }
+        max: { x: 103, y: 83, z: 100 }
+      level-requirement: 2100
+      type: "rebirth_5"
+
+  # ── Définitions et récompenses ─────────────────────────────────────────────
+  rebirth_1:
+    level-requirement: 140
+    reset-level: true
+    exp-multiplier-bonus: 0.06      # +6% EXP permanent
     rewards:
-      diamonds: 1
-      coins: 10000
+      diamonds: 3
       zentium: 1
+      rebirth-points: 1
 
-  elite:
-    level-requirement: 150
+  rebirth_2:
+    level-requirement: 390
+    reset-level: true
+    exp-multiplier-bonus: 0.08      # +8% EXP permanent  (cumulé : +14%)
     rewards:
-      diamonds: 1
-      coins: 10000
+      diamonds: 6
+      zentium: 4
+      rebirth-points: 2
 
-# Community Generator Settings
+  rebirth_3:
+    level-requirement: 1100
+    reset-level: true
+    exp-multiplier-bonus: 0.10      # +10% EXP permanent (cumulé : +24%)
+    rewards:
+      diamonds: 12
+      zentium: 6
+      rebirth-points: 3
+
+  rebirth_4:
+    level-requirement: 1450
+    reset-level: true
+    exp-multiplier-bonus: 0.12      # +12% EXP permanent (cumulé : +36%)
+    rewards:
+      diamonds: 20
+      zentium: 10
+      rebirth-points: 4
+
+  rebirth_5:
+    level-requirement: 2100
+    reset-level: true
+    exp-multiplier-bonus: 0.14      # +14% EXP permanent (cumulé : +50%)
+    rewards:
+      diamonds: 35
+      zentium: 20
+      rebirth-points: 5
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  COMMUNITY GENERATORS — Une mine communautaire par zone
+#  Chaque zone a son propre bloc, ses propres rewards et ses propres drop chances.
+#  Les chances sont en pourcentage (total conseillé : ≤ 100%).
+#  Types de rewards supportés : money, exp, zentium, commands
+#  Tu peux ajouter/supprimer des entrées dans la liste "rewards" librement.
+# ═══════════════════════════════════════════════════════════════════════════════
 community-generator:
   enabled: true
-  drop-chances:
-    redstone-reward: 500
-    zentium: 666
-    armor: 1250
-    boost: 1500
-  rewards:
-    exp:
-      min: 150
-      max: 400
-    coins:
-      min: 500
-      max: 2000
+
+  zones:
+
+    # ── Zone 1 — Normal ───────────────────────────────────────────────────────
+    zone1:
+      block: REDSTONE_ORE
+      cooldown: 60
+      rewards:
+        - type: money
+          chance: 40.0       # 40% de chance
+          min: 500
+          max: 2000
+        - type: exp
+          chance: 30.0       # 30% de chance
+          min: 150
+          max: 400
+        - type: zentium
+          chance: 5.0        # 5% de chance
+          amount: 1
+        - type: command
+          chance: 5.0        # 5% de chance
+          commands:
+            - "give %player% diamond 1"
+
+    # ── Zone 2 — Deep ─────────────────────────────────────────────────────────
+    zone2:
+      block: CALCITE
+      cooldown: 60
+      rewards:
+        - type: money
+          chance: 35.0
+          min: 1500
+          max: 5000
+        - type: exp
+          chance: 25.0
+          min: 500
+          max: 1200
+        - type: zentium
+          chance: 8.0
+          amount: 2
+        - type: command
+          chance: 5.0
+          commands:
+            - "give %player% emerald 1"
+            - "say %player% found something rare!"
+
+    # ── Zone 3 — Nether ───────────────────────────────────────────────────────
+    zone3:
+      block: NETHER_QUARTZ_ORE
+      cooldown: 60
+      rewards:
+        - type: money
+          chance: 30.0
+          min: 5000
+          max: 15000
+        - type: exp
+          chance: 22.0
+          min: 1200
+          max: 3000
+        - type: zentium
+          chance: 10.0
+          amount: 3
+        - type: command
+          chance: 6.0
+          commands:
+            - "give %player% netherite_scrap 1"
+
+    # ── Zone 4 — End ──────────────────────────────────────────────────────────
+    zone4:
+      block: END_STONE
+      cooldown: 60
+      rewards:
+        - type: money
+          chance: 28.0
+          min: 15000
+          max: 40000
+        - type: exp
+          chance: 20.0
+          min: 3000
+          max: 7000
+        - type: zentium
+          chance: 12.0
+          amount: 5
+        - type: command
+          chance: 7.0
+          commands:
+            - "give %player% dragon_breath 2"
+
+    # ── Zone 5 — Royal ────────────────────────────────────────────────────────
+    zone5:
+      block: NETHERITE_BLOCK
+      cooldown: 60
+      rewards:
+        - type: money
+          chance: 25.0
+          min: 40000
+          max: 120000
+        - type: exp
+          chance: 18.0
+          min: 7000
+          max: 20000
+        - type: zentium
+          chance: 15.0
+          amount: 10
+        - type: command
+          chance: 10.0
+          commands:
+            - "give %player% netherite_ingot 1"
+            - "coins give %player% 50000"
 
 # Database Settings
 database:
@@ -185,3 +586,48 @@ messages:
     enter-portal: "§d⚡ §eEntered prestige portal! Type §a/prestige confirm §eto proceed"
     requirements-not-met: "§c⛔ You need to be level §6%level% §cto use this portal!"
     cancelled: "§7Prestige cancelled"
+
+  area-gate:
+    access-denied: "§7[§e!§7] §cYou need %requirement% %type% to enter this area!"
+    teleport-warning: "§cYou were teleported to spawn after too many attempts in a restricted area!"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  AREA GATES — Zone access control using WorldGuard regions
+#  Each gate region controls access to a specific zone.
+#  Requirements: Prestige, Level, and/or Zentium
+# ═══════════════════════════════════════════════════════════════════════════════
+area_gates:
+  push-delay: 100
+  max-pushes: 3
+
+  # ── Area Gate 2 — Deep Zone Entrance ────────────────────────────────────────
+  area_gate_2:
+    region: "area_gate_2"
+    required_prestige: 1
+    required_level: 0
+    required_zentium: 0
+    push-back-location: "spawn"
+
+  # ── Area Gate 3 — Nether Zone Entrance ─────────────────────────────────────
+  area_gate_3:
+    region: "area_gate_3"
+    required_prestige: 0
+    required_level: 0
+    required_zentium: 0
+    push-back-location: "spawn"
+
+  # ── Area Gate 4 — End Zone Entrance ────────────────────────────────────────
+  area_gate_4:
+    region: "area_gate_4"
+    required_prestige: 0
+    required_level: 0
+    required_zentium: 0
+    push-back-location: "spawn"
+
+  # ── Area Gate 5 — Royal Zone Entrance ──────────────────────────────────────
+  area_gate_5:
+    region: "area_gate_5"
+    required_prestige: 0
+    required_level: 0
+    required_zentium: 0
+    push-back-location: "spawn"

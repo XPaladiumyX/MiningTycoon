@@ -12,7 +12,7 @@ public class BoostManager {
 
     private final MiningTycoon plugin;
     private boolean boostActive;
-    private String boostType; // "exp", "coins", or "both"
+    private String boostType;
     private double expMultiplier;
     private double coinsMultiplier;
     private int boostDuration;
@@ -20,11 +20,76 @@ public class BoostManager {
     private BossBar bossBar;
     private BukkitTask boostTask;
 
+    private double expMinMultiplier;
+    private double expMaxMultiplier;
+    private int expMinDuration;
+    private int expMaxDuration;
+    private int superRareChance;
+    private double superRareMultiplier;
+    private int superRareDuration;
+
+    private double coinsMultiplierValue;
+    private int coinsMinDuration;
+    private int coinsMaxDuration;
+
     public BoostManager(MiningTycoon plugin) {
         this.plugin = plugin;
         this.boostActive = false;
         this.expMultiplier = 1.0;
         this.coinsMultiplier = 1.0;
+        loadBoostConfig();
+    }
+
+    private void loadBoostConfig() {
+        var boostsSection = plugin.getConfig().getConfigurationSection("boosts");
+        if (boostsSection == null) {
+            plugin.getLogger().warning("No boosts section in config, using defaults");
+            setDefaults();
+            return;
+        }
+
+        var expSection = boostsSection.getConfigurationSection("exp");
+        if (expSection != null) {
+            expMinMultiplier = expSection.getDouble("min-multiplier", 1.0);
+            expMaxMultiplier = expSection.getDouble("max-multiplier", 3.0);
+            expMinDuration = expSection.getInt("min-duration", 60);
+            expMaxDuration = expSection.getInt("max-duration", 300);
+            superRareChance = expSection.getInt("super-rare-chance", 200);
+            superRareMultiplier = expSection.getDouble("super-rare-multiplier", 3.5);
+            superRareDuration = expSection.getInt("super-rare-duration", 3600);
+        } else {
+            expMinMultiplier = 1.0;
+            expMaxMultiplier = 3.0;
+            expMinDuration = 60;
+            expMaxDuration = 300;
+            superRareChance = 200;
+            superRareMultiplier = 3.5;
+            superRareDuration = 3600;
+        }
+
+        var coinsSection = boostsSection.getConfigurationSection("coins");
+        if (coinsSection != null) {
+            coinsMultiplierValue = coinsSection.getDouble("multiplier", 2.0);
+            coinsMinDuration = coinsSection.getInt("min-duration", 60);
+            coinsMaxDuration = coinsSection.getInt("max-duration", 300);
+        } else {
+            coinsMultiplierValue = 2.0;
+            coinsMinDuration = 60;
+            coinsMaxDuration = 300;
+        }
+    }
+
+    private void setDefaults() {
+        expMinMultiplier = 1.0;
+        expMaxMultiplier = 3.0;
+        expMinDuration = 60;
+        expMaxDuration = 300;
+        superRareChance = 200;
+        superRareMultiplier = 3.5;
+        superRareDuration = 3600;
+        coinsMultiplierValue = 2.0;
+        coinsMinDuration = 60;
+        coinsMaxDuration = 300;
     }
 
     public void startBoost(String type, Player triggeredBy) {
@@ -39,13 +104,13 @@ public class BoostManager {
 
         switch (type) {
             case "exp":
-                int superRoll = (int) (Math.random() * 200) + 1;
+                int superRoll = (int) (Math.random() * superRareChance) + 1;
                 if (superRoll == 1) {
-                    expMultiplier = 3.5;
-                    boostDuration = 3600;
+                    expMultiplier = superRareMultiplier;
+                    boostDuration = superRareDuration;
                 } else {
-                    expMultiplier = ((int) (Math.random() * 21) + 10) / 10.0;
-                    boostDuration = (int) (Math.random() * 241) + 60;
+                    expMultiplier = ((int) (Math.random() * (expMaxMultiplier * 10 - expMinMultiplier * 10)) + (int) (expMinMultiplier * 10)) / 10.0;
+                    boostDuration = (int) (Math.random() * (expMaxDuration - expMinDuration)) + expMinDuration;
                 }
                 coinsMultiplier = 1.0;
                 Bukkit.broadcastMessage("§b☄ §dA Global EXP Boost is now active! §7(x" + expMultiplier + " EXP for " + boostDuration + " seconds)");
@@ -53,17 +118,17 @@ public class BoostManager {
                 break;
 
             case "coins":
-                coinsMultiplier = 2.0;
+                coinsMultiplier = coinsMultiplierValue;
                 expMultiplier = 1.0;
-                boostDuration = (int) (Math.random() * 241) + 60;
+                boostDuration = (int) (Math.random() * (coinsMaxDuration - coinsMinDuration)) + coinsMinDuration;
                 Bukkit.broadcastMessage("§b☄ §6A Global Coins Boost is now active! §7(x" + coinsMultiplier + " Coins for " + boostDuration + " seconds)");
                 createBossBar("§6☄ Global Coins Boost Active! §7(x" + coinsMultiplier + ")", BarColor.YELLOW);
                 break;
 
             case "both":
                 expMultiplier = 1.5;
-                coinsMultiplier = 2.0;
-                boostDuration = (int) (Math.random() * 241) + 60;
+                coinsMultiplier = coinsMultiplierValue;
+                boostDuration = (int) (Math.random() * (coinsMaxDuration - coinsMinDuration)) + coinsMinDuration;
                 Bukkit.broadcastMessage("§b☄ §dA Global EXP & Coins Boost is now active! §7(x" + expMultiplier + " EXP, x" + coinsMultiplier + " Coins for " + boostDuration + " seconds)");
                 createBossBar("§b☄ Global EXP & Coins Boost Active! §7(x" + expMultiplier + ", x" + coinsMultiplier + ")", BarColor.BLUE);
                 break;

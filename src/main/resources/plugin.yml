@@ -68,6 +68,10 @@ commands:
     description: Toggle drop messages
     usage: /droptoggle
 
+  levelsound:
+    description: Toggle level up sound
+    usage: /levelsound
+
   booststatus:
     description: Check global boost status
     usage: /booststatus
@@ -84,6 +88,15 @@ commands:
   lobby:
     description: Return to lobby
     usage: /lobby
+
+  multiplier:
+    description: Display your EXP multiplier
+    usage: /multiplier
+
+  multiplieradmin:
+    description: Manage player EXP multipliers
+    usage: /multiplieradmin <see/set/reset> <player> [multiplier]
+    permission: miningtycoon.multiplier.admin
 
   permconfig:
     description: Configure permissions
@@ -115,6 +128,10 @@ permissions:
 
   miningtycoon.level.admin:
     description: Level management
+    default: op
+
+  miningtycoon.multiplier.admin:
+    description: Multiplier management
     default: op
 
   antiblock.bypass:

@@ -47,4 +47,8 @@ public class ActionBarUtil {
 
         player.sendActionBar(Component.text(message));
     }
+
+    public static void sendActionBar(Player player, String message) {
+        player.sendActionBar(Component.text(message));
+    }
 }

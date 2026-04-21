@@ -1,9 +1,19 @@
 package skyxnetwork.miningTycoon.commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import skyxnetwork.miningTycoon.MiningTycoon;
+import skyxnetwork.miningTycoon.managers.ItemManager;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MiningTycoonCommand implements CommandExecutor {
 
@@ -32,16 +42,30 @@ public class MiningTycoonCommand implements CommandExecutor {
                 // Reload config
                 plugin.reloadConfig();
 
+                // Reload zone requirements
+                plugin.getZoneManager().reload();
+
+                // Reload mines (blocks)
+                plugin.getMineManager().reload();
+
                 // Reload all items
                 plugin.getItemManager().loadAllItems();
 
-                // Reload prestige portals
+                // Reload prestige portals and rebirth configs
                 plugin.getPrestigePortalManager().reload();
+                plugin.getPrestigeManager().reload();
+
+                // Reload area gates
+                plugin.getAreaGateManager().reload();
 
                 // Save all player data
                 plugin.getDataStorage().saveAllData();
 
                 sender.sendMessage("§7[§6MiningTycoon§7] §aPlugin reloaded successfully!");
+                sender.sendMessage("§7[§6MiningTycoon§7] §aLoaded " +
+                        plugin.getZoneManager().getZoneCount() + " zones");
+                sender.sendMessage("§7[§6MiningTycoon§7] §aLoaded " +
+                        plugin.getMineManager().getTotalBlockCount() + " mine blocks");
                 sender.sendMessage("§7[§6MiningTycoon§7] §aLoaded " +
                         plugin.getItemManager().getAllPickaxeIds().size() + " pickaxes, " +
                         plugin.getItemManager().getAllArmorIds().size() + " armor pieces, and " +
@@ -62,6 +86,9 @@ public class MiningTycoonCommand implements CommandExecutor {
                 sender.sendMessage("§7[§6MiningTycoon§7] §eAPI: §a" + plugin.getDescription().getAPIVersion());
                 break;
 
+            case "enchant":
+                return handleEnchant(sender, args);
+
             case "help":
             default:
                 sendHelp(sender);
@@ -78,7 +105,68 @@ public class MiningTycoonCommand implements CommandExecutor {
         sender.sendMessage("§e/miningtycoon reload §7- Reload the plugin");
         sender.sendMessage("§e/miningtycoon save §7- Save all data");
         sender.sendMessage("§e/miningtycoon version §7- Show version info");
+        sender.sendMessage("§e/miningtycoon enchant §7<enchant> <level> <player>");
         sender.sendMessage("§e/miningtycoon help §7- Show this help");
         sender.sendMessage("§8§m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+    }
+
+    private boolean handleEnchant(CommandSender sender, String[] args) {
+        if (args.length < 3) {
+            sender.sendMessage(ChatColor.RED + "Usage: /miningtycoon enchant <enchant> <level> <player>");
+            sender.sendMessage(ChatColor.GRAY + "Enchants: Tempo");
+            sender.sendMessage(ChatColor.GRAY + "Example: /miningtycoon enchant Tempo 3 Notch");
+            return true;
+        }
+
+        String enchantName = args[1].toLowerCase();
+        int level;
+        Player target;
+
+        try {
+            level = Integer.parseInt(args[2]);
+        } catch (NumberFormatException e) {
+            sender.sendMessage(ChatColor.RED + "Invalid level: " + args[2]);
+            return true;
+        }
+
+        target = plugin.getServer().getPlayer(args[3]);
+        if (target == null) {
+            sender.sendMessage(ChatColor.RED + "Player '" + args[3] + "' not found.");
+            return true;
+        }
+
+        ItemStack item = target.getInventory().getItemInMainHand();
+        if (item == null || item.getType().isAir()) {
+            sender.sendMessage(ChatColor.RED + "Player must be holding an item.");
+            return true;
+        }
+
+        ItemManager manager = plugin.getItemManager();
+        String pickaxeId = manager.getPickaxeId(item);
+
+        switch (enchantName) {
+            case "tempo":
+                if (level < 1 || level > 5) {
+                    sender.sendMessage(ChatColor.RED + "Tempo level must be 1-5.");
+                    return true;
+                }
+                if (pickaxeId != null && !manager.canHaveTempo(pickaxeId)) {
+                    sender.sendMessage(ChatColor.RED + "This pickaxe cannot have Tempo (set tempoEnabled: true).");
+                    return true;
+                }
+                manager.applyTempoEnchant(item, level);
+                StringBuilder tempoRoman = new StringBuilder();
+                for (int i = 0; i < level; i++) {
+                    tempoRoman.append("I");
+                    if (i < level - 1) tempoRoman.append(" ");
+                }
+                target.sendMessage(ChatColor.GREEN + "Applied Tempo " + tempoRoman + "!");
+                sender.sendMessage(ChatColor.GREEN + "Applied Tempo " + tempoRoman + " to " + target.getName());
+                break;
+            default:
+                sender.sendMessage(ChatColor.RED + "Unknown enchant: " + enchantName);
+                break;
+        }
+        return true;
     }
 }

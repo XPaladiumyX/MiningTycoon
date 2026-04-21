@@ -29,7 +29,10 @@ public class DataStorage {
         config.set("experience", data.getExperience());
         config.set("experienceNeeded", data.getExperienceNeeded());
         config.set("prestige", data.getPrestige());
+        config.set("rebirthPoints", data.getRebirthPoints());
+        config.set("expMultiplierBonus", data.getExpMultiplierBonus());
         config.set("dropMessagesEnabled", data.isDropMessagesEnabled());
+        config.set("levelUpSoundEnabled", data.isLevelUpSoundEnabled());
         config.set("playerMode", data.getPlayerMode());
         config.set("afkTime", data.getAfkTime());
 
@@ -54,7 +57,10 @@ public class DataStorage {
         data.setExperience(config.getDouble("experience", 0));
         data.setExperienceNeeded(config.getDouble("experienceNeeded", 100));
         data.setPrestige(config.getInt("prestige", 0));
+        data.setRebirthPoints(config.getInt("rebirthPoints", 0));
+        data.setExpMultiplierBonus(config.getDouble("expMultiplierBonus", 0.0));
         data.setDropMessagesEnabled(config.getBoolean("dropMessagesEnabled", true));
+        data.setLevelUpSoundEnabled(config.getBoolean("levelUpSoundEnabled", true));
         data.setPlayerMode(config.getString("playerMode", "player"));
         data.setAfkTime(config.getLong("afkTime", 0));
 

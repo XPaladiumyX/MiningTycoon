@@ -87,6 +87,18 @@ public class PrestigePortalGUI implements Listener {
                         )
                         .build());
             }
+
+            // Prestige points reward
+            if (rewards.contains("rebirth-points")) {
+                int points = rewards.getInt("rebirth-points");
+                inv.setItem(15, new ItemBuilder(Material.ECHO_SHARD)
+                        .setName("§5§l✪ Prestige Points")
+                        .setLore(
+                                "§7You will receive:",
+                                "§f  " + points + " Prestige Point(s)"
+                        )
+                        .build());
+            }
         }
 
         // Warning
@@ -96,6 +108,7 @@ public class PrestigePortalGUI implements Listener {
                         "§7You will be reset to:",
                         "§f  • §6Level 1",
                         "§f  • §30 EXP",
+                        "§f  • §6All Coins",
                         "",
                         "§7You will keep:",
                         "§f  • §dAll your items",
@@ -134,6 +147,9 @@ public class PrestigePortalGUI implements Listener {
     private void openFinalConfirmation(Player player, String portalType) {
         PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
 
+        int rebirthPoints = plugin.getConfig()
+                .getInt("prestige." + portalType + ".rewards.rebirth-points", 1);
+
         Inventory inv = Bukkit.createInventory(null, 27, "§c§l⚠ FINAL CONFIRMATION ⚠");
 
         // Warning icon
@@ -145,7 +161,8 @@ public class PrestigePortalGUI implements Listener {
                         "§7You are about to:",
                         "§f  • §6Reset to Level 1",
                         "§f  • §3Lose all your EXP",
-                        "§f  • §dGain +1 Prestige",
+                        "§f  • §6Lose all your Coins",
+                        "§f  • §dGain +" + rebirthPoints + " Prestige",
                         "",
                         "§7Current Stats:",
                         "§f  Level: §6" + data.getLevel(),
@@ -153,7 +170,7 @@ public class PrestigePortalGUI implements Listener {
                         "",
                         "§7After Prestige:",
                         "§f  Level: §61",
-                        "§f  Prestige: §d" + (data.getPrestige() + 1)
+                        "§f  Prestige: §d" + (data.getPrestige() + rebirthPoints)
                 )
                 .build());
 

@@ -172,6 +172,33 @@ public class EconomyManager {
     }
 
     /**
+     * Set player's money to a specific amount (Vault only)
+     */
+    public boolean setMoney(Player player, double amount) {
+        if (economyType == EconomyType.VAULT && vaultEnabled && vaultEconomy != null) {
+            try {
+                double current = vaultEconomy.getBalance(player);
+                if (current > amount) {
+                    vaultEconomy.withdrawPlayer(player, current - amount);
+                } else if (current < amount) {
+                    vaultEconomy.depositPlayer(player, amount - current);
+                }
+                return true;
+            } catch (Exception e) {
+                plugin.getLogger().warning("Failed to set money: " + e.getMessage());
+            }
+        } else if (economyType == EconomyType.COMMAND) {
+            // For command-based, set to 0 by taking all
+            double current = getBalance(player);
+            if (current > 0) {
+                takeMoney(player, current);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Check if economy is enabled
      */
     public boolean isEnabled() {

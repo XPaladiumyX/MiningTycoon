@@ -13,7 +13,8 @@ import skyxnetwork.miningTycoon.placeholders.MiningTycoonPlaceholders;
 import skyxnetwork.miningTycoon.tasks.AFKRewardTask;
 import skyxnetwork.miningTycoon.tasks.AFKCheckTask;
 import skyxnetwork.miningTycoon.tasks.LevelCheckTask;
-import skyxnetwork.miningTycoon.tasks.NightVisionTask;
+import skyxnetwork.miningTycoon.tasks.RegionTimeTask;
+import skyxnetwork.miningTycoon.config.CommunityGeneratorConfig;
 import skyxnetwork.miningTycoon.utils.ConfigUtil;
 
 public final class MiningTycoon extends JavaPlugin {
@@ -27,10 +28,14 @@ public final class MiningTycoon extends JavaPlugin {
     private PrestigeManager prestigeManager;
     private PrestigePortalManager prestigePortalManager;
     private ZoneManager zoneManager;
+    private MineManager mineManager;
+    private WorldGuardManager worldGuardManager;
     private DataStorage dataStorage;
     private ItemManager itemManager;
     private EconomyManager economyManager;
     private PermissionCommand permissionCommand;
+    private AreaGateManager areaGateManager;
+    private CommunityGeneratorConfig communityGeneratorConfig;
 
     // GUI
     private PrestigePortalGUI prestigePortalGUI;
@@ -61,13 +66,17 @@ public final class MiningTycoon extends JavaPlugin {
         // Initialize managers
         dataStorage = new DataStorage(this);
         playerDataManager = new PlayerDataManager(this);
-        economyManager = new EconomyManager(this); // Initialize economy first
+        economyManager = new EconomyManager(this);
         boostManager = new BoostManager(this);
         afkManager = new AFKManager(this);
+        worldGuardManager = new WorldGuardManager(this);
         prestigeManager = new PrestigeManager(this);
-        prestigePortalManager = new PrestigePortalManager(this); // Loads portals with delay
+        prestigePortalManager = new PrestigePortalManager(this);
         zoneManager = new ZoneManager(this);
+        mineManager = new MineManager(this);
         itemManager = new ItemManager(this);
+        areaGateManager = new AreaGateManager(this);
+        communityGeneratorConfig = new CommunityGeneratorConfig(this);
 
         // Initialize GUI
         prestigePortalGUI = new PrestigePortalGUI(this);
@@ -135,6 +144,9 @@ public final class MiningTycoon extends JavaPlugin {
         pm.registerEvents(new AdminGUINew(this), this);
         pm.registerEvents(new PortalListener(this), this); // END PORTAL LISTENER DONT REMOVE
 
+        // Community Generator
+        pm.registerEvents(new CommunityGeneratorListener(this, communityGeneratorConfig), this);
+
         getLogger().info("Registered all event listeners");
     }
 
@@ -150,14 +162,18 @@ public final class MiningTycoon extends JavaPlugin {
         getCommand("fasttp").setExecutor(new FastTeleportCommand(this));
         getCommand("fasttp").setTabCompleter(tabCompleter);
         getCommand("droptoggle").setExecutor(new DropToggleCommand(this));
+        getCommand("levelsound").setExecutor(new LevelSoundCommand(this));
         getCommand("booststatus").setExecutor(new BoostStatusCommand(this));
         getCommand("mode").setExecutor(new ModeCommand(this));
         getCommand("index").setExecutor(new IndexCommand(this));
         getCommand("lobby").setExecutor(new LobbyCommand(this));
+        getCommand("multiplier").setExecutor(new MultiplierCommand(this));
 
         // Admin commands
         getCommand("admin").setExecutor(new AdminCommand(this));
         getCommand("giveitem").setExecutor(new GiveItemCommand(this));
+
+        
         getCommand("giveitem").setTabCompleter(tabCompleter);
         getCommand("givearmor").setExecutor(new GiveArmorCommand(this));
         getCommand("givearmor").setTabCompleter(tabCompleter);
@@ -165,6 +181,8 @@ public final class MiningTycoon extends JavaPlugin {
         getCommand("givepet").setTabCompleter(tabCompleter);
         getCommand("leveladmin").setExecutor(new LevelAdminCommand(this));
         getCommand("leveladmin").setTabCompleter(tabCompleter);
+        getCommand("multiplieradmin").setExecutor(new MultiplierAdminCommand(this));
+        getCommand("multiplieradmin").setTabCompleter(tabCompleter);
         getCommand("prestigeadmin").setExecutor(new PrestigeAdminCommand(this));
         getCommand("prestigeadmin").setTabCompleter(tabCompleter);
         getCommand("givemenu").setExecutor(new GiveMenuCommand(this));
@@ -184,7 +202,7 @@ public final class MiningTycoon extends JavaPlugin {
 
     private void startTasks() {
         new LevelCheckTask(this).runTaskTimer(this, 20L, 20L);
-        new NightVisionTask(this).runTaskTimer(this, 100L, 100L);
+        new RegionTimeTask(this).runTaskTimer(this, 100L, 100L);
         new AFKRewardTask(this).runTaskTimer(this, 1L, 1L);
         new AFKCheckTask(this).runTaskTimer(this, 20L, 20L);
 
@@ -224,6 +242,14 @@ public final class MiningTycoon extends JavaPlugin {
         return zoneManager;
     }
 
+    public MineManager getMineManager() {
+        return mineManager;
+    }
+
+    public WorldGuardManager getWorldGuardManager() {
+        return worldGuardManager;
+    }
+
     public DataStorage getDataStorage() {
         return dataStorage;
     }
@@ -238,5 +264,13 @@ public final class MiningTycoon extends JavaPlugin {
 
     public PermissionCommand getPermissionCommand() {
         return permissionCommand;
+    }
+
+    public AreaGateManager getAreaGateManager() {
+        return areaGateManager;
+    }
+
+    public CommunityGeneratorConfig getCommunityGeneratorConfig() {
+        return communityGeneratorConfig;
     }
 }
