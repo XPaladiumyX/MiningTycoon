@@ -119,7 +119,13 @@ public class MiningTycoonTabCompleter implements TabCompleter {
 
             case "miningtycoon":
                 if (args.length == 1) {
-                    completions.addAll(Arrays.asList("reload", "save", "help", "version"));
+                    completions.addAll(Arrays.asList("reload", "save", "help", "version", "enchant"));
+                } else if (args.length == 2 && args[0].equalsIgnoreCase("enchant")) {
+                    completions.add("tempo");
+                } else if (args.length == 3 && args[0].equalsIgnoreCase("enchant")) {
+                    completions.addAll(Arrays.asList("1", "2", "3", "4", "5"));
+                } else if (args.length == 4 && args[0].equalsIgnoreCase("enchant")) {
+                    return getOnlinePlayerNames();
                 }
                 break;
         }

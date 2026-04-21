@@ -98,11 +98,6 @@ commands:
     usage: /multiplieradmin <see/set/reset> <player> [multiplier]
     permission: miningtycoon.multiplier.admin
 
-  enchant:
-    description: Apply custom enchantments to items
-    usage: /enchant <enchant> <level> <player>
-    permission: miningtycoon.admin
-
   permconfig:
     description: Configure permissions
     usage: /permconfig <add/remove/check> <player> <perm>

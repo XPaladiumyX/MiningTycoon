@@ -173,9 +173,7 @@ public final class MiningTycoon extends JavaPlugin {
         getCommand("admin").setExecutor(new AdminCommand(this));
         getCommand("giveitem").setExecutor(new GiveItemCommand(this));
 
-        // Enchant command
-        getCommand("enchant").setExecutor(new EnchantCommand(this));
-        getCommand("enchant").setTabCompleter(new EnchantCommand(this));
+        
         getCommand("giveitem").setTabCompleter(tabCompleter);
         getCommand("givearmor").setExecutor(new GiveArmorCommand(this));
         getCommand("givearmor").setTabCompleter(tabCompleter);
