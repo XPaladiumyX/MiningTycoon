@@ -84,7 +84,7 @@ zones:
     19: 668   # Nether Gold Ore
     20: 715   # Quartz Ore
     21: 766   # Gilded Blackstone
-    22: 821   # Obsidian
+    22: 821   # Blackstone
     23: 880   # Glowstone
     24: 943   # Quartz Block
     25: 1010  # Ancient Debris
@@ -120,6 +120,10 @@ mines:
       block: STONE
       exp: 1
       money: 1
+    deepslate:
+      block: DEEPSLATE
+      exp: 15
+      money: 15
 
   zone1:
     coal_ore:
@@ -231,8 +235,8 @@ mines:
       zone: 21
       exp: 980
       money: 760
-    obsidian:
-      block: OBSIDIAN
+    blackstone:
+      block: BLACKSTONE
       zone: 22
       exp: 1160
       money: 900
@@ -440,21 +444,124 @@ prestige:
       zentium: 20
       rebirth-points: 5
 
-# Community Generator Settings
+# ═══════════════════════════════════════════════════════════════════════════════
+#  COMMUNITY GENERATORS — Une mine communautaire par zone
+#  Chaque zone a son propre bloc, ses propres rewards et ses propres drop chances.
+#  Les chances sont en pourcentage (total conseillé : ≤ 100%).
+#  Types de rewards supportés : money, exp, zentium, commands
+#  Tu peux ajouter/supprimer des entrées dans la liste "rewards" librement.
+# ═══════════════════════════════════════════════════════════════════════════════
 community-generator:
   enabled: true
-  drop-chances:
-    redstone-reward: 500
-    zentium: 666
-    armor: 1250
-    boost: 1500
-  rewards:
-    exp:
-      min: 150
-      max: 400
-    coins:
-      min: 500
-      max: 2000
+
+  zones:
+
+    # ── Zone 1 — Normal ───────────────────────────────────────────────────────
+    zone1:
+      block: REDSTONE_ORE
+      cooldown: 60
+      rewards:
+        - type: money
+          chance: 40.0       # 40% de chance
+          min: 500
+          max: 2000
+        - type: exp
+          chance: 30.0       # 30% de chance
+          min: 150
+          max: 400
+        - type: zentium
+          chance: 5.0        # 5% de chance
+          amount: 1
+        - type: command
+          chance: 5.0        # 5% de chance
+          commands:
+            - "give %player% diamond 1"
+
+    # ── Zone 2 — Deep ─────────────────────────────────────────────────────────
+    zone2:
+      block: CALCITE
+      cooldown: 60
+      rewards:
+        - type: money
+          chance: 35.0
+          min: 1500
+          max: 5000
+        - type: exp
+          chance: 25.0
+          min: 500
+          max: 1200
+        - type: zentium
+          chance: 8.0
+          amount: 2
+        - type: command
+          chance: 5.0
+          commands:
+            - "give %player% emerald 1"
+            - "say %player% found something rare!"
+
+    # ── Zone 3 — Nether ───────────────────────────────────────────────────────
+    zone3:
+      block: NETHER_QUARTZ_ORE
+      cooldown: 60
+      rewards:
+        - type: money
+          chance: 30.0
+          min: 5000
+          max: 15000
+        - type: exp
+          chance: 22.0
+          min: 1200
+          max: 3000
+        - type: zentium
+          chance: 10.0
+          amount: 3
+        - type: command
+          chance: 6.0
+          commands:
+            - "give %player% netherite_scrap 1"
+
+    # ── Zone 4 — End ──────────────────────────────────────────────────────────
+    zone4:
+      block: END_STONE
+      cooldown: 60
+      rewards:
+        - type: money
+          chance: 28.0
+          min: 15000
+          max: 40000
+        - type: exp
+          chance: 20.0
+          min: 3000
+          max: 7000
+        - type: zentium
+          chance: 12.0
+          amount: 5
+        - type: command
+          chance: 7.0
+          commands:
+            - "give %player% dragon_breath 2"
+
+    # ── Zone 5 — Royal ────────────────────────────────────────────────────────
+    zone5:
+      block: NETHERITE_BLOCK
+      cooldown: 60
+      rewards:
+        - type: money
+          chance: 25.0
+          min: 40000
+          max: 120000
+        - type: exp
+          chance: 18.0
+          min: 7000
+          max: 20000
+        - type: zentium
+          chance: 15.0
+          amount: 10
+        - type: command
+          chance: 10.0
+          commands:
+            - "give %player% netherite_ingot 1"
+            - "coins give %player% 50000"
 
 # Database Settings
 database:

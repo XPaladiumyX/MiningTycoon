@@ -14,6 +14,7 @@ import skyxnetwork.miningTycoon.tasks.AFKRewardTask;
 import skyxnetwork.miningTycoon.tasks.AFKCheckTask;
 import skyxnetwork.miningTycoon.tasks.LevelCheckTask;
 import skyxnetwork.miningTycoon.tasks.NightVisionTask;
+import skyxnetwork.miningTycoon.config.CommunityGeneratorConfig;
 import skyxnetwork.miningTycoon.utils.ConfigUtil;
 
 public final class MiningTycoon extends JavaPlugin {
@@ -34,6 +35,7 @@ public final class MiningTycoon extends JavaPlugin {
     private EconomyManager economyManager;
     private PermissionCommand permissionCommand;
     private AreaGateManager areaGateManager;
+    private CommunityGeneratorConfig communityGeneratorConfig;
 
     // GUI
     private PrestigePortalGUI prestigePortalGUI;
@@ -74,6 +76,7 @@ public final class MiningTycoon extends JavaPlugin {
         mineManager = new MineManager(this);
         itemManager = new ItemManager(this);
         areaGateManager = new AreaGateManager(this);
+        communityGeneratorConfig = new CommunityGeneratorConfig(this);
 
         // Initialize GUI
         prestigePortalGUI = new PrestigePortalGUI(this);
@@ -140,6 +143,9 @@ public final class MiningTycoon extends JavaPlugin {
         pm.registerEvents(new BlockPlaceListener(this), this);
         pm.registerEvents(new AdminGUINew(this), this);
         pm.registerEvents(new PortalListener(this), this); // END PORTAL LISTENER DONT REMOVE
+
+        // Community Generator
+        pm.registerEvents(new CommunityGeneratorListener(this, communityGeneratorConfig), this);
 
         getLogger().info("Registered all event listeners");
     }
@@ -260,5 +266,9 @@ public final class MiningTycoon extends JavaPlugin {
 
     public AreaGateManager getAreaGateManager() {
         return areaGateManager;
+    }
+
+    public CommunityGeneratorConfig getCommunityGeneratorConfig() {
+        return communityGeneratorConfig;
     }
 }
