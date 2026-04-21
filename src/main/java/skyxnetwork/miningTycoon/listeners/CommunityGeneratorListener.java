@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -14,6 +15,7 @@ import skyxnetwork.miningTycoon.config.CommunityGeneratorConfig;
 import skyxnetwork.miningTycoon.models.CommunityGeneratorZone;
 import skyxnetwork.miningTycoon.models.CommunityReward;
 import skyxnetwork.miningTycoon.data.PlayerData;
+import skyxnetwork.miningTycoon.utils.ActionBarUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -61,13 +63,16 @@ public class CommunityGeneratorListener implements Listener {
             return;
         }
 
+        int effectiveCooldown = getEffectiveCooldown(player, zone);
+        double reductionPercent = getCooldownReduction(player);
+
         event.setCancelled(true);
 
-        player.sendMessage(ChatColor.LIGHT_PURPLE + "⚒ " + ChatColor.GRAY + "Mining the " + ChatColor.RED + "Community Generator" + ChatColor.GRAY + "...");
+        ActionBarUtil.sendActionBar(player, ChatColor.LIGHT_PURPLE + "⚒ " + ChatColor.GRAY + "Mining the " + ChatColor.RED + "Community Generator" + ChatColor.GRAY + "...");
 
-        if (checkCooldown(player.getUniqueId(), zone.getZoneName(), zone.getCooldown())) {
-            long remaining = getRemainingCooldown(player.getUniqueId(), zone.getZoneName());
-            player.sendMessage(ChatColor.RED + "You must wait " + remaining + " seconds before mining this generator again.");
+        if (checkCooldown(player.getUniqueId(), zone.getZoneName(), effectiveCooldown)) {
+            long remaining = getRemainingCooldown(player.getUniqueId(), zone.getZoneName(), effectiveCooldown);
+            ActionBarUtil.sendActionBar(player, ChatColor.RED + "Wait " + remaining + "s... " + ChatColor.GRAY + "(-" + (int)(reductionPercent * 100) + "%% cooldown reduction)");
             return;
         }
 
@@ -138,41 +143,55 @@ public class CommunityGeneratorListener implements Listener {
         }
     }
 
-    private boolean checkCooldown(UUID playerId, String zoneName, int cooldownSeconds) {
-        Map<String, Long> playerCooldowns = cooldowns.get(playerId);
-        if (playerCooldowns == null) {
-            return false;
-        }
-
-        Long lastUse = playerCooldowns.get(zoneName);
-        if (lastUse == null) {
-            return false;
-        }
-
-        return System.currentTimeMillis() - lastUse < cooldownSeconds * 1000L;
-    }
-
-    private long getRemainingCooldown(UUID playerId, String zoneName) {
-        Map<String, Long> playerCooldowns = cooldowns.get(playerId);
-        if (playerCooldowns == null) {
-            return 0;
-        }
-
-        Long lastUse = playerCooldowns.get(zoneName);
-        if (lastUse == null) {
-            return 0;
-        }
-
-        CommunityGeneratorZone zone = config.getZoneByName(zoneName);
-        if (zone == null) {
-            return 0;
-        }
-
-        long remaining = (zone.getCooldown() * 1000L) - (System.currentTimeMillis() - lastUse);
-        return Math.max(0, remaining / 1000L);
-    }
-
     private void updateCooldown(UUID playerId, String zoneName) {
         cooldowns.computeIfAbsent(playerId, k -> new HashMap<>()).put(zoneName, System.currentTimeMillis());
+    }
+
+    private double getCooldownReduction(Player player) {
+        ItemStack tool = player.getInventory().getItemInMainHand();
+        String pickaxeId = plugin.getItemManager().getPickaxeId(tool);
+        if (pickaxeId == null) {
+            return 0.0;
+        }
+        if (!plugin.getItemManager().canHaveCooldownReduction(pickaxeId)) {
+            return 0.0;
+        }
+        return plugin.getItemManager().getCooldownReductionFromPickaxe(tool);
+    }
+
+    private int getEffectiveCooldown(Player player, CommunityGeneratorZone zone) {
+        int baseCooldown = zone.getCooldown();
+        double reduction = getCooldownReduction(player);
+        int reducedCooldown = (int) (baseCooldown * (1 - reduction));
+        return Math.max(1, reducedCooldown);
+    }
+
+    private boolean checkCooldown(UUID playerId, String zoneName, int effectiveCooldown) {
+        Map<String, Long> playerCooldowns = cooldowns.get(playerId);
+        if (playerCooldowns == null) {
+            return false;
+        }
+
+        Long lastUse = playerCooldowns.get(zoneName);
+        if (lastUse == null) {
+            return false;
+        }
+
+        return System.currentTimeMillis() - lastUse < effectiveCooldown * 1000L;
+    }
+
+    private long getRemainingCooldown(UUID playerId, String zoneName, int effectiveCooldown) {
+        Map<String, Long> playerCooldowns = cooldowns.get(playerId);
+        if (playerCooldowns == null) {
+            return 0;
+        }
+
+        Long lastUse = playerCooldowns.get(zoneName);
+        if (lastUse == null) {
+            return 0;
+        }
+
+        long remaining = (effectiveCooldown * 1000L) - (System.currentTimeMillis() - lastUse);
+        return Math.max(0, remaining / 1000L);
     }
 }

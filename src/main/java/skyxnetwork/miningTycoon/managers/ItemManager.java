@@ -225,6 +225,46 @@ public class ItemManager {
         return pickaxesConfig.getInt(id + ".haste", 0);
     }
 
+    public boolean canHaveCooldownReduction(String id) {
+        return pickaxesConfig.getBoolean(id + ".cooldownReduction", false);
+    }
+
+    public int getPickaxeCooldownReductionLevel(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) {
+            return 0;
+        }
+        List<String> lore = item.getItemMeta().getLore();
+        if (lore == null) {
+            return 0;
+        }
+        for (String line : lore) {
+            if (line.contains("§6Haste")) {
+                if (line.contains("V")) return 5;
+                if (line.contains("IV")) return 4;
+                if (line.contains("III")) return 3;
+                if (line.contains("II")) return 2;
+                if (line.contains("I")) return 1;
+            }
+        }
+        return 0;
+    }
+
+    public double getCooldownReductionPercent(int level) {
+        switch (level) {
+            case 1: return 0.15;
+            case 2: return 0.30;
+            case 3: return 0.50;
+            case 4: return 0.75;
+            case 5: return 1.00;
+            default: return 0.0;
+        }
+    }
+
+    public double getCooldownReductionFromPickaxe(ItemStack pickaxe) {
+        int level = getPickaxeCooldownReductionLevel(pickaxe);
+        return getCooldownReductionPercent(level);
+    }
+
     public double getArmorExpBonus(String id) {
         return armorConfig.getDouble(id + ".expBonus", 0);
     }

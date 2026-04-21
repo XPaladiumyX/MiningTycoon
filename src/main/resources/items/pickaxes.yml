@@ -12,6 +12,7 @@
 #   efficiency: LEVEL (0 for none)
 #   luckyMiner: LEVEL (0 for none)
 #   haste: LEVEL (0 for none)
+#   cooldownReduction: true (if pickaxe can receive cooldown reduction enchant, defaults to false)
 
 wooden_pickaxe:
   material: WOODEN_PICKAXE
@@ -63,6 +64,7 @@ reinforced_pickaxe:
   efficiency: 1
   luckyMiner: 0
   haste: 0
+  cooldownReduction: true
 
 rockshredder_pickaxe:
   material: STONE_PICKAXE
