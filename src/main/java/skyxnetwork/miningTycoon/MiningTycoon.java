@@ -13,7 +13,7 @@ import skyxnetwork.miningTycoon.placeholders.MiningTycoonPlaceholders;
 import skyxnetwork.miningTycoon.tasks.AFKRewardTask;
 import skyxnetwork.miningTycoon.tasks.AFKCheckTask;
 import skyxnetwork.miningTycoon.tasks.LevelCheckTask;
-import skyxnetwork.miningTycoon.tasks.NightVisionTask;
+import skyxnetwork.miningTycoon.tasks.RegionTimeTask;
 import skyxnetwork.miningTycoon.config.CommunityGeneratorConfig;
 import skyxnetwork.miningTycoon.utils.ConfigUtil;
 
@@ -200,7 +200,7 @@ public final class MiningTycoon extends JavaPlugin {
 
     private void startTasks() {
         new LevelCheckTask(this).runTaskTimer(this, 20L, 20L);
-        new NightVisionTask(this).runTaskTimer(this, 100L, 100L);
+        new RegionTimeTask(this).runTaskTimer(this, 100L, 100L);
         new AFKRewardTask(this).runTaskTimer(this, 1L, 1L);
         new AFKCheckTask(this).runTaskTimer(this, 20L, 20L);
 

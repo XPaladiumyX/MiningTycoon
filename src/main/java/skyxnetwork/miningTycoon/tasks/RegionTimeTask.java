@@ -4,14 +4,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
 import skyxnetwork.miningTycoon.MiningTycoon;
 
-public class NightVisionTask extends BukkitRunnable {
+public class RegionTimeTask extends BukkitRunnable {
 
     private final MiningTycoon plugin;
 
-    public NightVisionTask(MiningTycoon plugin) {
+    public RegionTimeTask(MiningTycoon plugin) {
         this.plugin = plugin;
     }
 
@@ -19,8 +20,14 @@ public class NightVisionTask extends BukkitRunnable {
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (player.getWorld().getName().equals("mining_tycoon")) {
-                player.addPotionEffect(new PotionEffect(
-                        PotionEffectType.NIGHT_VISION, 2400, 0, false, false));
+                PotionEffect effect = new PotionEffect(PotionEffectType.NIGHT_VISION, 100, 0, false, false);
+
+                if (player.getLocation().getX() <= 40){
+                    player.addPotionEffect(effect);
+                    player.setPlayerTime(1000, false);
+                } else{
+                    player.setPlayerTime(20000, false);
+                }
             }
         }
     }
