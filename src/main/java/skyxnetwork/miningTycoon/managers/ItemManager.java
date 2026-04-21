@@ -226,7 +226,75 @@ public class ItemManager {
     }
 
     public boolean canHaveCooldownReduction(String id) {
-        return pickaxesConfig.getBoolean(id + ".cooldownReduction", false);
+        return pickaxesConfig.getBoolean(id + ".tempoEnabled", false);
+    }
+
+    public boolean canHaveTempo(String id) {
+        return pickaxesConfig.getBoolean(id + ".tempoEnabled", false);
+    }
+
+    public int getPickaxeTempoLevelFromConfig(String id) {
+        return pickaxesConfig.getInt(id + ".enchants.tempo", 0);
+    }
+
+    public boolean canApplyTempoEnchant(String pickaxeId) {
+        return pickaxesConfig.getBoolean(pickaxeId + ".tempoEnabled", false);
+    }
+
+    public boolean applyTempoEnchant(ItemStack item, int level) {
+        if (item == null || level < 1 || level > 5) {
+            return false;
+        }
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) {
+            return false;
+        }
+        List<String> lore = meta.getLore();
+        if (lore == null) {
+            lore = new ArrayList<>();
+        }
+
+        String enchantLore = getTempoLore(level);
+        lore.add(enchantLore);
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        return true;
+    }
+
+    public static String getTempoLore(int level) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("§5Tempo ");
+        for (int i = 0; i < level; i++) {
+            sb.append("I");
+            if (i < level - 1) sb.append(" ");
+        }
+        sb.append("\n§7Reduces §6Community Generator §7cooldown by §a");
+        sb.append((int)(getCooldownReductionPercentStatic(level) * 100));
+        sb.append("%%");
+        return sb.toString();
+    }
+
+    private static double getCooldownReductionPercentStatic(int level) {
+        switch (level) {
+            case 1: return 0.15;
+            case 2: return 0.30;
+            case 3: return 0.50;
+            case 4: return 0.75;
+            case 5: return 1.00;
+            default: return 0.0;
+        }
+    }
+
+    public static int parseTempoLevelFromLore(String lore) {
+        if (lore == null || !lore.contains("§5Tempo")) {
+            return 0;
+        }
+        if (lore.contains("V")) return 5;
+        if (lore.contains("IV")) return 4;
+        if (lore.contains("III")) return 3;
+        if (lore.contains("II")) return 2;
+        if (lore.contains(" I")) return 1;
+        return 0;
     }
 
     public int getPickaxeCooldownReductionLevel(ItemStack item) {
@@ -238,15 +306,20 @@ public class ItemManager {
             return 0;
         }
         for (String line : lore) {
-            if (line.contains("§6Haste")) {
+            if (line.contains("§5Tempo")) {
                 if (line.contains("V")) return 5;
                 if (line.contains("IV")) return 4;
                 if (line.contains("III")) return 3;
                 if (line.contains("II")) return 2;
-                if (line.contains("I")) return 1;
+                if (line.contains(" I")) return 1;
             }
         }
-        return 0;
+return 0;
+    }
+
+    public double getCooldownReductionFromPickaxe(ItemStack pickaxe) {
+        int level = getPickaxeCooldownReductionLevel(pickaxe);
+        return getCooldownReductionPercent(level);
     }
 
     public double getCooldownReductionPercent(int level) {
@@ -258,11 +331,6 @@ public class ItemManager {
             case 5: return 1.00;
             default: return 0.0;
         }
-    }
-
-    public double getCooldownReductionFromPickaxe(ItemStack pickaxe) {
-        int level = getPickaxeCooldownReductionLevel(pickaxe);
-        return getCooldownReductionPercent(level);
     }
 
     public double getArmorExpBonus(String id) {
