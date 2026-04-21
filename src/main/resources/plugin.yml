@@ -98,9 +98,9 @@ commands:
     usage: /multiplieradmin <see/set/reset> <player> [multiplier]
     permission: miningtycoon.multiplier.admin
 
-  tempo:
-    description: Apply Tempo enchant to pickaxe
-    usage: /tempo <player> <level> [1-5]
+  enchant:
+    description: Apply custom enchantments to items
+    usage: /enchant <enchant> <level> <player>
     permission: miningtycoon.admin
 
   permconfig:
