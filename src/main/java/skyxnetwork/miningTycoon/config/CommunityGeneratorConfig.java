@@ -88,7 +88,12 @@ public class CommunityGeneratorConfig {
             }
             
             Map<?, ?> rewardMap = (Map<?, ?>) obj;
-            String typeStr = ((String) rewardMap.getOrDefault("type", "")).toUpperCase();
+            
+            Object typeObj = rewardMap.get("type");
+            if (typeObj == null) {
+                continue;
+            }
+            String typeStr = typeObj.toString().toUpperCase();
             
             CommunityReward.RewardType type;
             try {
@@ -98,23 +103,43 @@ public class CommunityGeneratorConfig {
                 continue;
             }
 
-            double chance = ((Number) rewardMap.getOrDefault("chance", 0.0)).doubleValue();
-            int min = ((Number) rewardMap.getOrDefault("min", 0)).intValue();
-            int max = ((Number) rewardMap.getOrDefault("max", 0)).intValue();
-            int amount = ((Number) rewardMap.getOrDefault("amount", 1)).intValue();
+            double chance = 0.0;
+            Object chanceObj = rewardMap.get("chance");
+            if (chanceObj instanceof Number) {
+                chance = ((Number) chanceObj).doubleValue();
+            }
+
+            int min = 0;
+            Object minObj = rewardMap.get("min");
+            if (minObj instanceof Number) {
+                min = ((Number) minObj).intValue();
+            }
+
+            int max = 0;
+            Object maxObj = rewardMap.get("max");
+            if (maxObj instanceof Number) {
+                max = ((Number) maxObj).intValue();
+            }
+
+            int amount = 1;
+            Object amountObj = rewardMap.get("amount");
+            if (amountObj instanceof Number) {
+                amount = ((Number) amountObj).intValue();
+            }
             
             List<String> commands = new ArrayList<>();
             Object commandsObj = rewardMap.get("commands");
             if (commandsObj instanceof List) {
                 for (Object cmd : (List<?>) commandsObj) {
-                    commands.add(cmd.toString());
+                    if (cmd != null) {
+                        commands.add(cmd.toString());
+                    }
                 }
             }
 
             rewards.add(new CommunityReward(type, chance, min, max, amount, commands));
         }
 
-        plugin.getLogger().info("Loaded " + rewards.size() + " rewards for zone");
         return rewards;
     }
 
