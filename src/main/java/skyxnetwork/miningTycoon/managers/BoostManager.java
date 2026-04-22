@@ -12,7 +12,7 @@ import org.bukkit.scheduler.BukkitTask;
 import skyxnetwork.miningTycoon.MiningTycoon;
 import skyxnetwork.miningTycoon.utils.ItemBuilder;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BoostManager {
@@ -95,11 +95,12 @@ public class BoostManager {
         
         List<String> lore = meta.getLore();
         for (String line : lore) {
-            if (line.contains("EXP Boost") && line.contains("Coins")) {
+            String lowerLine = line.toLowerCase();
+            if (lowerLine.contains("exp boost") && lowerLine.contains("coins")) {
                 return BoostItemType.BOTH;
-            } else if (line.contains("EXP Boost")) {
+            } else if (lowerLine.contains("exp boost")) {
                 return BoostItemType.EXP;
-            } else if (line.contains("Coins Boost")) {
+            } else if (lowerLine.contains("coins boost")) {
                 return BoostItemType.COINS;
             }
         }
@@ -278,22 +279,11 @@ public int getTimeRemaining() {
         }
     }
 
-    public ItemStack giveFallbackItem(Player player, BoostItemType type) {
+public ItemStack giveFallbackItem(Player player, BoostItemType type) {
         ItemStack item = createBoostItem(type);
         player.getInventory().addItem(item);
         player.sendMessage("§7§l\u00bb §dA boost item dropped! §7(No boost active, so you got an item instead)");
         return item;
-    }
-}
-
-    public String getBoostType() {
-        return boostType;
-    }
-
-    public void addPlayerToBossBar(Player player) {
-        if (bossBar != null && boostActive) {
-            bossBar.addPlayer(player);
-        }
     }
 
     public void startGlobalBoost(String type, Player triggeredBy) {

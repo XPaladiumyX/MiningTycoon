@@ -13,6 +13,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import skyxnetwork.miningTycoon.MiningTycoon;
 import skyxnetwork.miningTycoon.config.CommunityGeneratorConfig;
 import skyxnetwork.miningTycoon.data.PlayerData;
+import skyxnetwork.miningTycoon.managers.BoostManager;
 import skyxnetwork.miningTycoon.models.CommunityGeneratorZone;
 import skyxnetwork.miningTycoon.models.CommunityReward;
 import skyxnetwork.miningTycoon.utils.ActionBarUtil;
