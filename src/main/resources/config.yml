@@ -464,20 +464,32 @@ community-generator:
       block: REDSTONE_ORE
       rewards:
         - type: money
-          chance: 40.0       # 40% de chance
+          chance: 40.0
           min: 500
           max: 2000
         - type: exp
-          chance: 30.0       # 30% de chance
+          chance: 30.0
           min: 150
           max: 400
         - type: zentium
-          chance: 5.0        # 5% de chance
+          chance: 5.0
           amount: 1
         - type: command
-          chance: 5.0        # 5% de chance
+          chance: 5.0
           commands:
             - "give %player% diamond 1"
+        - type: global_exp_boost
+          chance: 3.0
+          min: 100
+          max: 300
+        - type: global_coins_boost
+          chance: 3.0
+          min: 200
+          max: 800
+        - type: global_both_boost
+          chance: 1.0
+          min: 50
+          amount: 200
 
     # ── Zone 2 — Deep ─────────────────────────────────────────────────────────
     zone2:
@@ -498,7 +510,18 @@ community-generator:
           chance: 5.0
           commands:
             - "give %player% emerald 1"
-            - "say %player% found something rare!"
+        - type: global_exp_boost
+          chance: 4.0
+          min: 200
+          max: 600
+        - type: global_coins_boost
+          chance: 4.0
+          min: 500
+          max: 1500
+        - type: global_both_boost
+          chance: 1.5
+          min: 100
+          amount: 500
 
     # ── Zone 3 — Nether ───────────────────────────────────────────────────────
     zone3:
@@ -519,6 +542,18 @@ community-generator:
           chance: 6.0
           commands:
             - "give %player% netherite_scrap 1"
+        - type: global_exp_boost
+          chance: 5.0
+          min: 500
+          max: 1500
+        - type: global_coins_boost
+          chance: 5.0
+          min: 1500
+          max: 5000
+        - type: global_both_boost
+          chance: 2.0
+          min: 250
+          amount: 1000
 
     # ── Zone 4 — End ──────────────────────────────────────────────────────────
     zone4:
@@ -539,6 +574,18 @@ community-generator:
           chance: 7.0
           commands:
             - "give %player% dragon_breath 2"
+        - type: global_exp_boost
+          chance: 6.0
+          min: 1000
+          max: 3000
+        - type: global_coins_boost
+          chance: 6.0
+          min: 5000
+          max: 15000
+        - type: global_both_boost
+          chance: 2.5
+          min: 500
+          amount: 3000
 
     # ── Zone 5 — Royal ────────────────────────────────────────────────────────
     zone5:
@@ -560,6 +607,18 @@ community-generator:
           commands:
             - "give %player% netherite_ingot 1"
             - "coins give %player% 50000"
+        - type: global_exp_boost
+          chance: 8.0
+          min: 2000
+          max: 8000
+        - type: global_coins_boost
+          chance: 8.0
+          min: 10000
+          max: 30000
+        - type: global_both_boost
+          chance: 3.0
+          min: 1000
+          amount: 5000
 
 # Database Settings
 database:
