@@ -12,13 +12,7 @@
 #   efficiency: LEVEL (0 for none)
 #   luckyMiner: LEVEL (0 for none)
 #   haste: LEVEL (0 for none)
-#   cooldownReduction: true (if pickaxe can receive cooldown reduction enchant, defaults to false)
-#   enchants: (NEW - list of custom enchants that can be applied via command)
-#     - tempo: 1 (Tempo I, level 1-5)
-#     - efficiency: 1 (Efficiency I, level 1-5)
-#     - unbreaking: 1 (Unbreaking I, level 1-3)
-#     - mending: true (Mending)
-#   tempoEnabled: true (if pickaxe can receive Tempo enchant, defaults to false)
+#   tempo: LEVEL (0 for none, 1-5) - enables Tempo enchant on this pickaxe
 
 wooden_pickaxe:
   material: WOODEN_PICKAXE
@@ -70,10 +64,7 @@ reinforced_pickaxe:
   efficiency: 1
   luckyMiner: 0
   haste: 0
-  tempoEnabled: true
-  enchants:
-    tempo: 1
-    efficiency: 1
+  tempo: 1
 
 rockshredder_pickaxe:
   material: STONE_PICKAXE
@@ -235,6 +226,7 @@ diamond_pickaxe:
   efficiency: 1
   luckyMiner: 3
   haste: 3
+  tempo: 2
 
 crystal_cutter:
   material: DIAMOND_PICKAXE

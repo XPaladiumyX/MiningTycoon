@@ -68,21 +68,23 @@ public class CommunityGeneratorListener implements Listener {
 
         event.setCancelled(true);
 
-        ActionBarUtil.sendActionBar(player, ChatColor.LIGHT_PURPLE + "⚒ " + ChatColor.GRAY + "Mining the " + ChatColor.RED + "Community Generator" + ChatColor.GRAY + "...");
-
         if (checkCooldown(player.getUniqueId(), zone.getZoneName(), effectiveCooldown)) {
             long remaining = getRemainingCooldown(player.getUniqueId(), zone.getZoneName(), effectiveCooldown);
-            ActionBarUtil.sendActionBar(player, ChatColor.RED + "Wait " + remaining + "s... " + ChatColor.GRAY + "(-" + (int)(reductionPercent * 100) + "%% cooldown reduction)");
+            ActionBarUtil.sendActionBar(player, ChatColor.RED + "Wait " + remaining + "s... " + ChatColor.GRAY + "(-" + (int)(reductionPercent * 100) + "% cooldown reduction)");
             return;
         }
+
+        ActionBarUtil.sendActionBar(player, ChatColor.LIGHT_PURPLE + "⚒ " + ChatColor.GRAY + "Mining the " + ChatColor.RED + "Community Generator" + ChatColor.GRAY + "...");
 
         updateCooldown(player.getUniqueId(), zone.getZoneName());
 
         List<CommunityReward> rewards = zone.getRewards();
         List<String> receivedRewards = new java.util.ArrayList<>();
 
+        boolean atLeastOneReward = false;
         for (CommunityReward reward : rewards) {
             if (rollReward(reward.getChance())) {
+                atLeastOneReward = true;
                 switch (reward.getType()) {
                     case MONEY:
                         int moneyAmount = reward.getRandomAmount();
@@ -149,14 +151,11 @@ public class CommunityGeneratorListener implements Listener {
 
     private double getCooldownReduction(Player player) {
         ItemStack tool = player.getInventory().getItemInMainHand();
-        String pickaxeId = plugin.getItemManager().getPickaxeId(tool);
-        if (pickaxeId == null) {
+        int tempoLevel = plugin.getItemManager().getPickaxeCooldownReductionLevel(tool);
+        if (tempoLevel == 0) {
             return 0.0;
         }
-        if (!plugin.getItemManager().canHaveCooldownReduction(pickaxeId)) {
-            return 0.0;
-        }
-        return plugin.getItemManager().getCooldownReductionFromPickaxe(tool);
+        return plugin.getItemManager().getCooldownReductionPercent(tempoLevel);
     }
 
     private int getEffectiveCooldown(Player player, CommunityGeneratorZone zone) {

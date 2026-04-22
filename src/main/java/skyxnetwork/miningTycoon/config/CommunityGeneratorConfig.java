@@ -69,6 +69,12 @@ public class CommunityGeneratorConfig {
 
     private List<CommunityReward> loadRewards(ConfigurationSection zoneSection) {
         List<CommunityReward> rewards = new ArrayList<>();
+        
+        if (!zoneSection.isList("rewards")) {
+            plugin.getLogger().warning("Rewards is not a list for zone: " + zoneSection.getName());
+            return rewards;
+        }
+        
         List<?> rewardsList = zoneSection.getList("rewards");
 
         if (rewardsList == null) {
@@ -76,11 +82,14 @@ public class CommunityGeneratorConfig {
         }
 
         for (Object obj : rewardsList) {
-            if (!(obj instanceof ConfigurationSection rewardSection)) {
+            if (!(obj instanceof Map)) {
+                plugin.getLogger().warning("Reward is not a Map: " + obj);
                 continue;
             }
-
-            String typeStr = rewardSection.getString("type", "").toUpperCase();
+            
+            Map<?, ?> rewardMap = (Map<?, ?>) obj;
+            String typeStr = ((String) rewardMap.getOrDefault("type", "")).toUpperCase();
+            
             CommunityReward.RewardType type;
             try {
                 type = CommunityReward.RewardType.valueOf(typeStr);
@@ -89,15 +98,23 @@ public class CommunityGeneratorConfig {
                 continue;
             }
 
-            double chance = rewardSection.getDouble("chance", 0.0);
-            int min = rewardSection.getInt("min", 0);
-            int max = rewardSection.getInt("max", 0);
-            int amount = rewardSection.getInt("amount", 1);
-            List<String> commands = rewardSection.getStringList("commands");
+            double chance = ((Number) rewardMap.getOrDefault("chance", 0.0)).doubleValue();
+            int min = ((Number) rewardMap.getOrDefault("min", 0)).intValue();
+            int max = ((Number) rewardMap.getOrDefault("max", 0)).intValue();
+            int amount = ((Number) rewardMap.getOrDefault("amount", 1)).intValue();
+            
+            List<String> commands = new ArrayList<>();
+            Object commandsObj = rewardMap.get("commands");
+            if (commandsObj instanceof List) {
+                for (Object cmd : (List<?>) commandsObj) {
+                    commands.add(cmd.toString());
+                }
+            }
 
             rewards.add(new CommunityReward(type, chance, min, max, amount, commands));
         }
 
+        plugin.getLogger().info("Loaded " + rewards.size() + " rewards for zone");
         return rewards;
     }
 

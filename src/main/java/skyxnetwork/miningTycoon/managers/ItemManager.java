@@ -225,20 +225,12 @@ public class ItemManager {
         return pickaxesConfig.getInt(id + ".haste", 0);
     }
 
-    public boolean canHaveCooldownReduction(String id) {
-        return pickaxesConfig.getBoolean(id + ".tempoEnabled", false);
-    }
-
-    public boolean canHaveTempo(String id) {
-        return pickaxesConfig.getBoolean(id + ".tempoEnabled", false);
-    }
-
-    public int getPickaxeTempoLevelFromConfig(String id) {
-        return pickaxesConfig.getInt(id + ".enchants.tempo", 0);
+    public int getPickaxeTempoLevel(String id) {
+        return pickaxesConfig.getInt(id + ".tempo", 0);
     }
 
     public boolean canApplyTempoEnchant(String pickaxeId) {
-        return pickaxesConfig.getBoolean(pickaxeId + ".tempoEnabled", false);
+        return getPickaxeTempoLevel(pickaxeId) > 0;
     }
 
     public boolean applyTempoEnchant(ItemStack item, int level) {
@@ -254,23 +246,47 @@ public class ItemManager {
             lore = new ArrayList<>();
         }
 
+        lore.removeIf(line -> line.contains("§5Tempo"));
         String enchantLore = getTempoLore(level);
+        String descLore = getTempoDescriptionLore(level);
         lore.add(enchantLore);
+        lore.add(descLore);
         meta.setLore(lore);
         item.setItemMeta(meta);
         return true;
     }
 
-    public static String getTempoLore(int level) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("§5Tempo ");
-        for (int i = 0; i < level; i++) {
-            sb.append("I");
-            if (i < level - 1) sb.append(" ");
+    public boolean removeTempoEnchant(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) {
+            return false;
         }
-        sb.append("\n§7Reduces §6Community Generator §7cooldown by §a");
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) {
+            return false;
+        }
+        List<String> lore = meta.getLore();
+        if (lore == null) {
+            return false;
+        }
+        boolean removedTempo = lore.removeIf(line -> line.contains("§5Tempo"));
+        boolean removedDesc = lore.removeIf(line -> line.contains("Community Generator"));
+        if (removedTempo || removedDesc) {
+            meta.setLore(lore);
+            item.setItemMeta(meta);
+        }
+        return removedTempo;
+    }
+
+    public static String getTempoLore(int level) {
+        String[] roman = {"", "I", "II", "III", "IV", "V"};
+        return "§5Tempo " + roman[level];
+    }
+
+    public static String getTempoDescriptionLore(int level) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("§7Reduces §6Community Generator §7cooldown by §a");
         sb.append((int)(getCooldownReductionPercentStatic(level) * 100));
-        sb.append("%%");
+        sb.append("%");
         return sb.toString();
     }
 
@@ -289,11 +305,11 @@ public class ItemManager {
         if (lore == null || !lore.contains("§5Tempo")) {
             return 0;
         }
-        if (lore.contains("V")) return 5;
-        if (lore.contains("IV")) return 4;
-        if (lore.contains("III")) return 3;
-        if (lore.contains("II")) return 2;
-        if (lore.contains(" I")) return 1;
+        if (lore.contains("Tempo V")) return 5;
+        if (lore.contains("Tempo IV")) return 4;
+        if (lore.contains("Tempo III")) return 3;
+        if (lore.contains("Tempo II")) return 2;
+        if (lore.contains("Tempo I")) return 1;
         return 0;
     }
 
@@ -301,20 +317,22 @@ public class ItemManager {
         if (item == null || !item.hasItemMeta()) {
             return 0;
         }
-        List<String> lore = item.getItemMeta().getLore();
-        if (lore == null) {
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null || !meta.hasLore()) {
             return 0;
         }
+        List<String> lore = meta.getLore();
         for (String line : lore) {
-            if (line.contains("§5Tempo")) {
-                if (line.contains("V")) return 5;
-                if (line.contains("IV")) return 4;
-                if (line.contains("III")) return 3;
-                if (line.contains("II")) return 2;
-                if (line.contains(" I")) return 1;
+            String lower = line.toLowerCase();
+            if (lower.contains("tempo")) {
+                if (lower.contains("tempo v")) return 5;
+                if (lower.contains("tempo iv")) return 4;
+                if (lower.contains("tempo iii")) return 3;
+                if (lower.contains("tempo ii")) return 2;
+                if (lower.contains("tempo i")) return 1;
             }
         }
-return 0;
+        return 0;
     }
 
     public double getCooldownReductionFromPickaxe(ItemStack pickaxe) {
