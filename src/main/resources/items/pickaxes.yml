@@ -64,7 +64,7 @@ reinforced_pickaxe:
   efficiency: 1
   luckyMiner: 0
   haste: 0
-  tempo: 1
+  tempo: 0
 
 rockshredder_pickaxe:
   material: STONE_PICKAXE
@@ -226,7 +226,6 @@ diamond_pickaxe:
   efficiency: 1
   luckyMiner: 3
   haste: 3
-  tempo: 2
 
 crystal_cutter:
   material: DIAMOND_PICKAXE

@@ -212,7 +212,7 @@ public class BoostManager {
         }
     }
 
-    public void startGlobalBoost(String type) {
+    public void startGlobalBoost(String type, Player triggeredBy) {
         boostActive = true;
         boostType = type;
         
@@ -243,15 +243,15 @@ public class BoostManager {
         
         switch (type) {
             case "exp":
-                Bukkit.broadcastMessage("§b☄ §dA Global EXP Boost is now active! §7(x" + expMultiplier + " EXP for " + boostDuration + " seconds)");
+                Bukkit.broadcastMessage("§b☄ §d" + triggeredBy.getName() + " §dtriggered a Global EXP Boost! §7(x" + expMultiplier + " EXP for " + boostDuration + " seconds)");
                 createBossBar("§d☄ Global EXP Boost Active! §7(x" + expMultiplier + ")", BarColor.PURPLE);
                 break;
             case "coins":
-                Bukkit.broadcastMessage("§b☄ §6A Global Coins Boost is now active! §7(x" + coinsMultiplier + " Coins for " + boostDuration + " seconds)");
+                Bukkit.broadcastMessage("§b☄ §6" + triggeredBy.getName() + " §6triggered a Global Coins Boost! §7(x" + coinsMultiplier + " Coins for " + boostDuration + " seconds)");
                 createBossBar("§6☄ Global Coins Boost Active! §7(x" + coinsMultiplier + ")", BarColor.YELLOW);
                 break;
             case "both":
-                Bukkit.broadcastMessage("§b☄ §dA Global EXP & Coins Boost is now active! §7(x" + expMultiplier + " EXP, x" + coinsMultiplier + " Coins for " + boostDuration + " seconds)");
+                Bukkit.broadcastMessage("§b☄ §d" + triggeredBy.getName() + " §dtriggered a Global EXP & Coins Boost! §7(x" + expMultiplier + " EXP, x" + coinsMultiplier + " Coins for " + boostDuration + " seconds)");
                 createBossBar("§b☄ Global EXP & Coins Boost Active! §7(x" + expMultiplier + ", x" + coinsMultiplier + ")", BarColor.BLUE);
                 break;
         }

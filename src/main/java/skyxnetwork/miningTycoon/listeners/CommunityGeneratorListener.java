@@ -112,7 +112,7 @@ public class CommunityGeneratorListener implements Listener {
 
                     case GLOBAL_EXP_BOOST:
                         if (!plugin.getBoostManager().isBoostActive()) {
-                            plugin.getBoostManager().startGlobalBoost("exp");
+                            plugin.getBoostManager().startGlobalBoost("exp", player);
                             receivedRewards.add(ChatColor.LIGHT_PURPLE + "☄ Global EXP Boost!");
                         } else {
                             int bonus = reward.getRandomAmount();
@@ -123,7 +123,7 @@ public class CommunityGeneratorListener implements Listener {
 
                     case GLOBAL_COINS_BOOST:
                         if (!plugin.getBoostManager().isBoostActive()) {
-                            plugin.getBoostManager().startGlobalBoost("coins");
+                            plugin.getBoostManager().startGlobalBoost("coins", player);
                             receivedRewards.add(ChatColor.GOLD + "☄ Global Coins Boost!");
                         } else {
                             int bonus = reward.getRandomAmount();
@@ -134,7 +134,7 @@ public class CommunityGeneratorListener implements Listener {
 
                     case GLOBAL_BOTH_BOOST:
                         if (!plugin.getBoostManager().isBoostActive()) {
-                            plugin.getBoostManager().startGlobalBoost("both");
+                            plugin.getBoostManager().startGlobalBoost("both", player);
                             receivedRewards.add(ChatColor.DARK_PURPLE + "☄ Global EXP & Coins Boost!");
                         } else {
                             int expBonus = reward.getRandomAmount();

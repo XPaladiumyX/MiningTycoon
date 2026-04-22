@@ -378,7 +378,7 @@ void_harvester:
 
 chrono_mole:
   name: "&c&lChrono &6&lMole"
-  texture: "hdb-15006"
+  texture: "hdb-56834"
   lore:
     - "§8Pet"
     - ""
