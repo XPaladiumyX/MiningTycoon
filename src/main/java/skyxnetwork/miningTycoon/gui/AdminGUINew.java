@@ -737,7 +737,14 @@ public class AdminGUINew implements Listener {
                 break;
             case 11:
                 plugin.reloadConfig();
+                plugin.getZoneManager().reload();
+                plugin.getMineManager().reload();
                 plugin.getItemManager().loadAllItems();
+                plugin.getPrestigePortalManager().reload();
+                plugin.getPrestigeManager().reload();
+                plugin.getAreaGateManager().reload();
+                plugin.getCommunityGeneratorConfig().reload();
+                plugin.getDataStorage().saveAllData();
                 player.sendMessage("§aPlugin reloaded successfully!");
                 player.closeInventory();
                 break;

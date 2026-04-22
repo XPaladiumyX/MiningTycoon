@@ -58,6 +58,9 @@ public class MiningTycoonCommand implements CommandExecutor {
                 // Reload area gates
                 plugin.getAreaGateManager().reload();
 
+                // Reload community generator
+                plugin.getCommunityGeneratorConfig().reload();
+
                 // Save all player data
                 plugin.getDataStorage().saveAllData();
 

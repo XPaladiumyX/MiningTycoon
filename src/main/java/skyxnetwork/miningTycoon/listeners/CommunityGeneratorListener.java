@@ -94,7 +94,10 @@ public class CommunityGeneratorListener implements Listener {
 
                     case EXP:
                         int expAmount = reward.getRandomAmount();
-                        player.giveExp(expAmount);
+                        PlayerData data = plugin.getPlayerDataManager().getPlayerData(player.getUniqueId());
+                        if (data != null) {
+                            data.addExperience(expAmount);
+                        }
                         receivedRewards.add(ChatColor.AQUA + "+" + expAmount + " XP");
                         break;
 
@@ -106,7 +109,6 @@ public class CommunityGeneratorListener implements Listener {
 
                     case COMMAND:
                         executeCommands(player, reward.getCommands());
-                        receivedRewards.add(ChatColor.YELLOW + "Command executed!");
                         break;
                 }
             }

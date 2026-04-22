@@ -26,6 +26,10 @@ public class CommunityGeneratorConfig {
         load();
     }
 
+    public void reload() {
+        load();
+    }
+
     public void load() {
         zones.clear();
         materialToZone.clear();
