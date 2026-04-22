@@ -445,11 +445,14 @@ prestige:
       rebirth-points: 5
 
 # ═══════════════════════════════════════════════════════════════════════════════
-#  COMMUNITY GENERATORS — Une mine communautaire par zone
-#  Chaque zone a son propre bloc, ses propres rewards et ses propres drop chances.
-#  Les chances sont en pourcentage (total conseillé : ≤ 100%).
-#  Types de rewards supportés : money, exp, zentium, commands
-#  Tu peux ajouter/supprimer des entrées dans la liste "rewards" librement.
+# COMMUNITY GENERATORS — One community mine per zone
+# Each zone has its own block, its own rewards, and its own drop chances.
+# Chances are expressed as a percentage (recommended total: ≤ 100%).
+# Supported reward types: money, exp, zentium, command, global_exp_boost, global_coins_boost, global_both_boost
+# global_exp_boost: Activates global EXP boost (uses boosts.exp config). Falls back to exp reward if boost is active.
+# global_coins_boost: Activates global coins boost (uses boosts.coins config). Falls back to money reward if boost is active.
+# global_both_boost: Activates global both boost. Falls back to exp+coins rewards if boost is active.
+# You can freely add/remove entries from the "rewards" list.
 # ═══════════════════════════════════════════════════════════════════════════════
 community-generator:
   enabled: true
@@ -459,7 +462,6 @@ community-generator:
     # ── Zone 1 — Normal ───────────────────────────────────────────────────────
     zone1:
       block: REDSTONE_ORE
-      cooldown: 60
       rewards:
         - type: money
           chance: 40.0       # 40% de chance
@@ -480,7 +482,6 @@ community-generator:
     # ── Zone 2 — Deep ─────────────────────────────────────────────────────────
     zone2:
       block: CALCITE
-      cooldown: 60
       rewards:
         - type: money
           chance: 35.0
@@ -502,7 +503,6 @@ community-generator:
     # ── Zone 3 — Nether ───────────────────────────────────────────────────────
     zone3:
       block: NETHER_QUARTZ_ORE
-      cooldown: 60
       rewards:
         - type: money
           chance: 30.0
@@ -523,7 +523,6 @@ community-generator:
     # ── Zone 4 — End ──────────────────────────────────────────────────────────
     zone4:
       block: END_STONE
-      cooldown: 60
       rewards:
         - type: money
           chance: 28.0
@@ -544,7 +543,6 @@ community-generator:
     # ── Zone 5 — Royal ────────────────────────────────────────────────────────
     zone5:
       block: NETHERITE_BLOCK
-      cooldown: 60
       rewards:
         - type: money
           chance: 25.0

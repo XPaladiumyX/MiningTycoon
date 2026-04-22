@@ -109,6 +109,43 @@ public class CommunityGeneratorListener implements Listener {
                     case COMMAND:
                         executeCommands(player, reward.getCommands());
                         break;
+
+                    case GLOBAL_EXP_BOOST:
+                        if (!plugin.getBoostManager().isBoostActive()) {
+                            plugin.getBoostManager().startGlobalBoost("exp");
+                            receivedRewards.add(ChatColor.LIGHT_PURPLE + "☄ Global EXP Boost!");
+                        } else {
+                            int bonus = reward.getRandomAmount();
+                            playerData.addExperience(bonus);
+                            receivedRewards.add(ChatColor.AQUA + "+" + bonus + " XP");
+                        }
+                        break;
+
+                    case GLOBAL_COINS_BOOST:
+                        if (!plugin.getBoostManager().isBoostActive()) {
+                            plugin.getBoostManager().startGlobalBoost("coins");
+                            receivedRewards.add(ChatColor.GOLD + "☄ Global Coins Boost!");
+                        } else {
+                            int bonus = reward.getRandomAmount();
+                            plugin.getEconomyManager().giveMoney(player, bonus);
+                            receivedRewards.add(ChatColor.GOLD + "+" + bonus + " coins");
+                        }
+                        break;
+
+                    case GLOBAL_BOTH_BOOST:
+                        if (!plugin.getBoostManager().isBoostActive()) {
+                            plugin.getBoostManager().startGlobalBoost("both");
+                            receivedRewards.add(ChatColor.DARK_PURPLE + "☄ Global EXP & Coins Boost!");
+                        } else {
+                            int expBonus = reward.getRandomAmount();
+                            int coinBonus = reward.getAmount();
+                            if (playerData != null) {
+                                playerData.addExperience(expBonus);
+                            }
+                            plugin.getEconomyManager().giveMoney(player, coinBonus);
+                            receivedRewards.add(ChatColor.AQUA + "+" + expBonus + " XP" + ChatColor.WHITE + " & " + ChatColor.GOLD + "+" + coinBonus + " coins");
+                        }
+                        break;
                 }
             }
         }

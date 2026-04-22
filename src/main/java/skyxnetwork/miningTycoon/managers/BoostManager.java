@@ -211,4 +211,51 @@ public class BoostManager {
             bossBar.addPlayer(player);
         }
     }
+
+    public void startGlobalBoost(String type) {
+        boostActive = true;
+        boostType = type;
+        
+        switch (type) {
+            case "exp":
+                expMultiplier = ((int) (Math.random() * (expMaxMultiplier * 10 - expMinMultiplier * 10)) + (int) (expMinMultiplier * 10)) / 10.0;
+                if (expMultiplier < expMinMultiplier) expMultiplier = expMinMultiplier;
+                coinsMultiplier = 1.0;
+                boostDuration = (int) (Math.random() * (expMaxDuration - expMinDuration)) + expMinDuration;
+                break;
+            case "coins":
+                coinsMultiplier = coinsMultiplierValue;
+                expMultiplier = 1.0;
+                boostDuration = (int) (Math.random() * (coinsMaxDuration - coinsMinDuration)) + coinsMinDuration;
+                break;
+            case "both":
+                expMultiplier = ((int) (Math.random() * (expMaxMultiplier * 10 - expMinMultiplier * 10)) + (int) (expMinMultiplier * 10)) / 10.0;
+                if (expMultiplier < expMinMultiplier) expMultiplier = expMinMultiplier;
+                coinsMultiplier = coinsMultiplierValue;
+                boostDuration = (int) (Math.random() * (coinsMaxDuration - coinsMinDuration)) + coinsMinDuration;
+                break;
+            default:
+                boostActive = false;
+                return;
+        }
+        
+        timeRemaining = boostDuration;
+        
+        switch (type) {
+            case "exp":
+                Bukkit.broadcastMessage("§b☄ §dA Global EXP Boost is now active! §7(x" + expMultiplier + " EXP for " + boostDuration + " seconds)");
+                createBossBar("§d☄ Global EXP Boost Active! §7(x" + expMultiplier + ")", BarColor.PURPLE);
+                break;
+            case "coins":
+                Bukkit.broadcastMessage("§b☄ §6A Global Coins Boost is now active! §7(x" + coinsMultiplier + " Coins for " + boostDuration + " seconds)");
+                createBossBar("§6☄ Global Coins Boost Active! §7(x" + coinsMultiplier + ")", BarColor.YELLOW);
+                break;
+            case "both":
+                Bukkit.broadcastMessage("§b☄ §dA Global EXP & Coins Boost is now active! §7(x" + expMultiplier + " EXP, x" + coinsMultiplier + " Coins for " + boostDuration + " seconds)");
+                createBossBar("§b☄ Global EXP & Coins Boost Active! §7(x" + expMultiplier + ", x" + coinsMultiplier + ")", BarColor.BLUE);
+                break;
+        }
+        
+        startBoostTask();
+    }
 }
