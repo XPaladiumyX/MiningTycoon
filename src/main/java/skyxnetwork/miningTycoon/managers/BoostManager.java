@@ -1,14 +1,48 @@
 package skyxnetwork.miningTycoon.managers;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitTask;
 import skyxnetwork.miningTycoon.MiningTycoon;
+import skyxnetwork.miningTycoon.utils.ItemBuilder;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class BoostManager {
+
+    public enum BoostItemType {
+        EXP("exp", "§dEXP Boost", "§7Activates a Global §dEXP Boost§7!"),
+        COINS("coins", "§6Coins Boost", "§7Activates a Global §6Coins Boost§7!"),
+        BOTH("both", "§dEXP & Coins Boost", "§7Activates a Global §dEXP & Coins Boost§7!");
+
+        private final String id;
+        private final String name;
+        private final String lore;
+
+        BoostItemType(String id, String name, String lore) {
+            this.id = id;
+            this.name = name;
+            this.lore = lore;
+        }
+
+        public String getId() { return id; }
+        public String getName() { return name; }
+        public String getLore() { return lore; }
+
+        public static BoostItemType fromId(String id) {
+            for (BoostItemType type : values()) {
+                if (type.id.equals(id)) return type;
+            }
+            return null;
+        }
+    }
 
     private final MiningTycoon plugin;
     private boolean boostActive;
@@ -38,6 +72,38 @@ public class BoostManager {
         this.expMultiplier = 1.0;
         this.coinsMultiplier = 1.0;
         loadBoostConfig();
+    }
+
+    public ItemStack createBoostItem(BoostItemType type) {
+        return new ItemBuilder(Material.NETHER_STAR)
+                .setName(type.getName())
+                .setLore(
+                        "",
+                        type.getLore(),
+                        "",
+                        "§8\u00bb §7Click to activate",
+                        "§8\u00bb §7Cooldown: " + (coinsMaxDuration / 60) + " min max"
+                )
+                .addEnchantGlint()
+                .build();
+    }
+
+    public static BoostItemType getBoostItemType(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) return null;
+        ItemMeta meta = item.getItemMeta();
+        if (!meta.hasLore()) return null;
+        
+        List<String> lore = meta.getLore();
+        for (String line : lore) {
+            if (line.contains("EXP Boost") && line.contains("Coins")) {
+                return BoostItemType.BOTH;
+            } else if (line.contains("EXP Boost")) {
+                return BoostItemType.EXP;
+            } else if (line.contains("Coins Boost")) {
+                return BoostItemType.COINS;
+            }
+        }
+        return null;
     }
 
     private void loadBoostConfig() {
@@ -198,9 +264,27 @@ public class BoostManager {
         return coinsMultiplier;
     }
 
-    public int getTimeRemaining() {
+public int getTimeRemaining() {
         return timeRemaining;
     }
+
+    public String getBoostType() {
+        return boostType;
+    }
+
+    public void addPlayerToBossBar(Player player) {
+        if (bossBar != null && boostActive) {
+            bossBar.addPlayer(player);
+        }
+    }
+
+    public ItemStack giveFallbackItem(Player player, BoostItemType type) {
+        ItemStack item = createBoostItem(type);
+        player.getInventory().addItem(item);
+        player.sendMessage("§7§l\u00bb §dA boost item dropped! §7(No boost active, so you got an item instead)");
+        return item;
+    }
+}
 
     public String getBoostType() {
         return boostType;

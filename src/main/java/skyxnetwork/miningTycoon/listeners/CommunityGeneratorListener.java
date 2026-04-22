@@ -115,9 +115,8 @@ public class CommunityGeneratorListener implements Listener {
                             plugin.getBoostManager().startGlobalBoost("exp", player);
                             receivedRewards.add(ChatColor.LIGHT_PURPLE + "☄ Global EXP Boost!");
                         } else {
-                            int bonus = reward.getRandomAmount();
-                            playerData.addExperience(bonus);
-                            receivedRewards.add(ChatColor.AQUA + "+" + bonus + " XP");
+                            plugin.getBoostManager().giveFallbackItem(player, BoostManager.BoostItemType.EXP);
+                            receivedRewards.add(ChatColor.LIGHT_PURPLE + "☄ Boost item dropped!");
                         }
                         break;
 
@@ -126,9 +125,8 @@ public class CommunityGeneratorListener implements Listener {
                             plugin.getBoostManager().startGlobalBoost("coins", player);
                             receivedRewards.add(ChatColor.GOLD + "☄ Global Coins Boost!");
                         } else {
-                            int bonus = reward.getRandomAmount();
-                            plugin.getEconomyManager().giveMoney(player, bonus);
-                            receivedRewards.add(ChatColor.GOLD + "+" + bonus + " coins");
+                            plugin.getBoostManager().giveFallbackItem(player, BoostManager.BoostItemType.COINS);
+                            receivedRewards.add(ChatColor.GOLD + "☄ Boost item dropped!");
                         }
                         break;
 
@@ -137,13 +135,8 @@ public class CommunityGeneratorListener implements Listener {
                             plugin.getBoostManager().startGlobalBoost("both", player);
                             receivedRewards.add(ChatColor.DARK_PURPLE + "☄ Global EXP & Coins Boost!");
                         } else {
-                            int expBonus = reward.getRandomAmount();
-                            int coinBonus = reward.getAmount();
-                            if (playerData != null) {
-                                playerData.addExperience(expBonus);
-                            }
-                            plugin.getEconomyManager().giveMoney(player, coinBonus);
-                            receivedRewards.add(ChatColor.AQUA + "+" + expBonus + " XP" + ChatColor.WHITE + " & " + ChatColor.GOLD + "+" + coinBonus + " coins");
+                            plugin.getBoostManager().giveFallbackItem(player, BoostManager.BoostItemType.BOTH);
+                            receivedRewards.add(ChatColor.DARK_PURPLE + "☄ Boost item dropped!");
                         }
                         break;
                 }

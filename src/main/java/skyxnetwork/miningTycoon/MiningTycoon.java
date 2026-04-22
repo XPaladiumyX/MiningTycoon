@@ -147,6 +147,9 @@ public final class MiningTycoon extends JavaPlugin {
         // Community Generator
         pm.registerEvents(new CommunityGeneratorListener(this, communityGeneratorConfig), this);
 
+        // Boost Items
+        pm.registerEvents(new BoostItemListener(this), this);
+
         getLogger().info("Registered all event listeners");
     }
 
