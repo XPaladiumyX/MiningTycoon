@@ -12,9 +12,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import skyxnetwork.miningTycoon.MiningTycoon;
 import skyxnetwork.miningTycoon.config.CommunityGeneratorConfig;
+import skyxnetwork.miningTycoon.data.PlayerData;
 import skyxnetwork.miningTycoon.models.CommunityGeneratorZone;
 import skyxnetwork.miningTycoon.models.CommunityReward;
-import skyxnetwork.miningTycoon.data.PlayerData;
 import skyxnetwork.miningTycoon.utils.ActionBarUtil;
 
 import java.util.HashMap;
@@ -51,8 +51,8 @@ public class CommunityGeneratorListener implements Listener {
 
         Player player = event.getPlayer();
 
-        PlayerData data = plugin.getPlayerDataManager().getPlayerData(player.getUniqueId());
-        if (data != null && data.getPlayerMode().equals("staff")) {
+        PlayerData playerData = plugin.getPlayerDataManager().getPlayerData(player.getUniqueId());
+        if (playerData != null && playerData.getPlayerMode().equals("staff")) {
             return;
         }
 
@@ -94,9 +94,8 @@ public class CommunityGeneratorListener implements Listener {
 
                     case EXP:
                         int expAmount = reward.getRandomAmount();
-                        PlayerData data = plugin.getPlayerDataManager().getPlayerData(player.getUniqueId());
-                        if (data != null) {
-                            data.addExperience(expAmount);
+                        if (playerData != null) {
+                            playerData.addExperience(expAmount);
                         }
                         receivedRewards.add(ChatColor.AQUA + "+" + expAmount + " XP");
                         break;
