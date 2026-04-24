@@ -19,5 +19,337 @@ items:
     lore:
       - "&7Click to change page"
     left_click_commands:
-      - '[player] shop3'
+      - '[player] shop2'
     sweet: true
+
+  # === IRON TIER ===
+  'IronPickaxe':
+    material: iron_pickaxe
+    slot: 10
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§7Iron Pickaxe"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+92✦ §8| §6+53⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §65000⛁"
+      - "§7- §6Stone Crusher"
+      - ""
+      - "§e§lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 50000
+        has_item:
+          type: has item
+          material: "STONE_PICKAXE"
+          modeldata: 1238
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 50000'
+      - '[console] giveitem iron_pickaxe %player_name%'
+      - '[console] clear %player_name% minecraft:stone_pickaxe[minecraft:custom_model_data={floats:[1238]}] 1'
+      - '[message] &aUpgraded &eStone Crusher &ato §7Iron Pickaxe'
+
+  'TemperedEdge':
+    material: iron_pickaxe
+    slot: 11
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§7Tempered Edge"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+128✦ §8| §6+86⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §6100000⛁"
+      - "§7- §6Iron Pickaxe"
+      - ""
+      - "§e§lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1000000
+        has_item:
+          type: has item
+          material: "IRON_PICKAXE"
+          modeldata: 1239
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 1000000'
+      - '[console] giveitem tempered_edge %player_name%'
+      - '[console] clear %player_name% minecraft:iron_pickaxe[minecraft:custom_model_data={floats:[1239]}] 1'
+      - '[message] &aUpgraded §7Iron Pickaxe &ato §7Tempered Edge'
+
+  'OreSplitter':
+    material: iron_pickaxe
+    slot: 12
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§7Ore Splitter"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+376✦ §8| §6+191⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §6250000⛁"
+      - "§7- §6Tempered Edge"
+      - ""
+      - "§e§lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 2500000
+        has_item:
+          type: has item
+          material: "IRON_PICKAXE"
+          modeldata: 1240
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 2500000'
+      - '[console] giveitem ore_splitter %player_name%'
+      - '[console] clear %player_name% minecraft:iron_pickaxe[minecraft:custom_model_data={floats:[1240]}] 1'
+      - '[message] &aUpgraded §7Tempered Edge &ato §7Ore Splitter'
+
+  'IronStorm':
+    material: iron_pickaxe
+    slot: 13
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§7Iron Storm"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+720✦ §8| §6+346⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §6500000⛁"
+      - "§7- §6Ore Splitter"
+      - ""
+      - "§e§lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 6000000
+        has_item:
+          type: has item
+          material: "IRON_PICKAXE"
+          modeldata: 1241
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 6000000'
+      - '[console] giveitem iron_storm %player_name%'
+      - '[console] clear %player_name% minecraft:iron_pickaxe[minecraft:custom_model_data={floats:[1241]}] 1'
+      - '[message] &aUpgraded §7Ore Splitter &ato §7Iron Storm'
+
+  # === DIAMOND TIER ===
+  'DiamondPickaxe':
+    material: diamond_pickaxe
+    slot: 19
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§bDiamond Pickaxe"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+1656✦ §8| §6+742⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §61200000⛁"
+      - "§7- §6Iron Storm"
+      - ""
+      - "§9§lEPIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 12000000
+        has_item:
+          type: has item
+          material: "IRON_PICKAXE"
+          modeldata: 1242
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 12000000'
+      - '[console] giveitem diamond_pickaxe %player_name%'
+      - '[console] clear %player_name% minecraft:iron_pickaxe[minecraft:custom_model_data={floats:[1242]}] 1'
+      - '[message] &aUpgraded §7Iron Storm &ato §bDiamond Pickaxe'
+
+  'CrystalCutter':
+    material: diamond_pickaxe
+    slot: 20
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§bCrystal Cutter"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+3704✦ §8| §6+1506⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §62500000⛁"
+      - "§7- §6Diamond Pickaxe"
+      - ""
+      - "§9§lEPIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 25000000
+        has_item:
+          type: has item
+          material: "DIAMOND_PICKAXE"
+          modeldata: 1243
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 25000000'
+      - '[console] giveitem crystal_cutter %player_name%'
+      - '[console] clear %player_name% minecraft:diamond_pickaxe[minecraft:custom_model_data={floats:[1243]}] 1'
+      - '[message] &aUpgraded §bDiamond Pickaxe &ato §bCrystal Cutter'
+
+  'Shardpiercer':
+    material: diamond_pickaxe
+    slot: 21
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§bShardpiercer"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+7159✦ §8| §6+3458⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §64500000⛁"
+      - "§7- §6Crystal Cutter"
+      - ""
+      - "§9§lEPIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 45000000
+        has_item:
+          type: has item
+          material: "DIAMOND_PICKAXE"
+          modeldata: 1244
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 45000000'
+      - '[console] giveitem shardpiercer %player_name%'
+      - '[console] clear %player_name% minecraft:diamond_pickaxe[minecraft:custom_model_data={floats:[1244]}] 1'
+      - '[message] &aUpgraded §bCrystal Cutter &ato §bShardpiercer'
+
+  'GemReaper':
+    material: diamond_pickaxe
+    slot: 22
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§bGemReaper"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+12406✦ §8| §6+5846⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §68000000⛁"
+      - "§7- §6Shardpiercer"
+      - ""
+      - "§9§lEPIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 80000000
+        has_item:
+          type: has item
+          material: "DIAMOND_PICKAXE"
+          modeldata: 1245
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 80000000'
+      - '[console] giveitem gemreaper %player_name%'
+      - '[console] clear %player_name% minecraft:diamond_pickaxe[minecraft:custom_model_data={floats:[1245]}] 1'
+      - '[message] &aUpgraded §bShardpiercer &ato §bGemReaper'
+
+  'AetherPick':
+    material: diamond_pickaxe
+    slot: 28
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§f§lAetherPick"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+19750✦ §8| §6+14987⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §620000000⛁"
+      - "§7- §6GemReaper"
+      - ""
+      - "§9§lEPIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 200000000
+        has_item:
+          type: has item
+          material: "DIAMOND_PICKAXE"
+          modeldata: 1246
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 200000000'
+      - '[console] giveitem aetherpick %player_name%'
+      - '[console] clear %player_name% minecraft:diamond_pickaxe[minecraft:custom_model_data={floats:[1246]}] 1'
+      - '[message] &aUpgraded §bGemReaper &ato §fAetherPick'
+
+  'CelestialPick':
+    material: diamond_pickaxe
+    slot: 29
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§b§lCelestial Pick"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+28500✦ §8| §6+22000⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §635000000⛁"
+      - "§7- §6AetherPick"
+      - ""
+      - "§b§lLEGENDARY"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 350000000
+        has_item:
+          type: has item
+          material: "DIAMOND_PICKAXE"
+          modeldata: 1247
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 350000000'
+      - '[console] giveitem celestial_pick %player_name%'
+      - '[console] clear %player_name% minecraft:diamond_pickaxe[minecraft:custom_model_data={floats:[1247]}] 1'
+      - '[message] &aUpgraded §fAetherPick &ato §bCelestial Pick'
