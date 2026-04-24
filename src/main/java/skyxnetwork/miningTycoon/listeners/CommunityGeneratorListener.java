@@ -60,14 +60,17 @@ public class CommunityGeneratorListener implements Listener {
         int zoneNumber = getZoneNumber(zone.getZoneName());
         String regionName = "zone" + zoneNumber + "_mid";
 
-        if (!plugin.getWorldGuardManager().isInRegion(player, regionName)) {
-            return;
-        }
+        boolean inRegion = plugin.getWorldGuardManager().isInRegion(player, regionName);
 
         int effectiveCooldown = getEffectiveCooldown(player, zone);
         double reductionPercent = getCooldownReduction(player);
 
         event.setCancelled(true);
+
+        if (!inRegion) {
+            ActionBarUtil.sendActionBar(player, ChatColor.RED + "You must be in the " + regionName + " region!");
+            return;
+        }
 
         if (checkCooldown(player.getUniqueId(), zone.getZoneName(), effectiveCooldown)) {
             long remaining = getRemainingCooldown(player.getUniqueId(), zone.getZoneName(), effectiveCooldown);
