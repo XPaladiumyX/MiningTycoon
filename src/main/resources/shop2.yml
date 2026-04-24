@@ -1,0 +1,523 @@
+open_command: shop2
+size: 54
+menu_title: '&8Shop - Page 2'
+items:
+  'pageshop':
+    material: paper
+    slot: 46
+    display_name: "&f&l<- Previous Page"
+    lore:
+      - "&7Click to change page"
+    left_click_commands:
+      - '[player] shop1'
+    sweet: true
+
+  'page3':
+    material: paper
+    slot: 52
+    display_name: "&f&lNext Page ->"
+    lore:
+      - "&7Click to change page"
+    left_click_commands:
+      - '[player] shop3'
+    sweet: true
+
+  # === AETHER TIER ===
+  'AetherPick':
+    material: diamond_pickaxe
+    slot: 10
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§f§lAetherPick"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+19750✦ §8| §6+14987⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §6200000⛁"
+      - "§7- §6Gem Reaper"
+      - ""
+      - "§9§lEPIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 2000000
+        has_item:
+          type: has item
+          material: "DIAMOND_PICKAXE"
+          modeldata: 1246
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 2000000'
+      - '[console] giveitem aetherpick %player_name%'
+      - '[console] clear %player_name% minecraft:diamond_pickaxe[minecraft:custom_model_data={floats:[1246]}] 1'
+      - '[message] &aUpgraded &6Gem Reaper &ato &fAetherPick'
+
+  'CelestialPick':
+    material: diamond_pickaxe
+    slot: 11
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§b§lCelestial Pick"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+28500✦ §8| §6+22000⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §6350000⛁"
+      - "§7- §6AetherPick"
+      - ""
+      - "§b§lLEGENDARY"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 3500000
+        has_item:
+          type: has item
+          material: "DIAMOND_PICKAXE"
+          modeldata: 1247
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 3500000'
+      - '[console] giveitem celestial_pick %player_name%'
+      - '[console] clear %player_name% minecraft:diamond_pickaxe[minecraft:custom_model_data={floats:[1247]}] 1'
+      - '[message] &aUpgraded &fAetherPick &ato &bCelestial Pick'
+
+  # === NETHERITE TIER ===
+  'NetheritePickaxe':
+    material: netherite_pickaxe
+    slot: 19
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§4§lNetherite Pickaxe"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+42000✦ §8| §6+32000⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §65000000⛁"
+      - "§7- §6Celestial Pick"
+      - ""
+      - "§5§lMYTHIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 50000000
+        has_item:
+          type: has item
+          material: "DIAMOND_PICKAXE"
+          modeldata: 1248
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 50000000'
+      - '[console] giveitem netherite_pickaxe %player_name%'
+      - '[console] clear %player_name% minecraft:diamond_pickaxe[minecraft:custom_model_data={floats:[1248]}] 1'
+      - '[message] &aUpgraded &bCelestial Pick &ato §4Netherite Pickaxe'
+
+  'InfernalHammer':
+    material: netherite_pickaxe
+    slot: 20
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§4§lInfernal Hammer"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+58000✦ §8| §6+45000⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §68000000⛁"
+      - "§7- §6Netherite Pickaxe"
+      - ""
+      - "§5§lMYTHIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 80000000
+        has_item:
+          type: has item
+          material: "NETHERITE_PICKAXE"
+          modeldata: 1249
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 80000000'
+      - '[console] giveitem infernal_hammer %player_name%'
+      - '[console] clear %player_name% minecraft:netherite_pickaxe[minecraft:custom_model_data={floats:[1249]}] 1'
+      - '[message] &aUpgraded §4Netherite Pickaxe &ato §4Infernal Hammer'
+
+  'VoidDriller':
+    material: netherite_pickaxe
+    slot: 21
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§4§lVoid Driller"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+78000✦ §8| §6+62000⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §612000000⛁"
+      - "§7- §6Infernal Hammer"
+      - ""
+      - "§5§lMYTHIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 120000000
+        has_item:
+          type: has item
+          material: "NETHERITE_PICKAXE"
+          modeldata: 1250
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 120000000'
+      - '[console] giveitem void_driller %player_name%'
+      - '[console] clear %player_name% minecraft:netherite_pickaxe[minecraft:custom_model_data={floats:[1250]}] 1'
+      - '[message] &aUpgraded §4Infernal Hammer &ato §4Void Driller'
+
+  'Soulreaver':
+    material: netherite_pickaxe
+    slot: 22
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§4§lSoulreaver"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+105000✦ §8| §6+85000⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §617500000⛁"
+      - "§7- §6Void Driller"
+      - ""
+      - "§5§lMYTHIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 175000000
+        has_item:
+          type: has item
+          material: "NETHERITE_PICKAXE"
+          modeldata: 1251
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 175000000'
+      - '[console] giveitem soulreaver %player_name%'
+      - '[console] clear %player_name% minecraft:netherite_pickaxe[minecraft:custom_model_data={floats:[1251]}] 1'
+      - '[message] &aUpgraded §4Void Driller &ato §4Soulreaver'
+
+  # === CELESTIAL TIER ===
+  'CelestialPickaxe':
+    material: netherite_pickaxe
+    slot: 28
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§e§lCelestial Pickaxe"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+140000✦ §8| §6+115000⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §625000000⛁"
+      - "§7- §6Soulreaver"
+      - ""
+      - "§e§lLEGENDARY"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 250000000
+        has_item:
+          type: has item
+          material: "NETHERITE_PICKAXE"
+          modeldata: 1252
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 250000000'
+      - '[console] giveitem celestial_pickaxe %player_name%'
+      - '[console] clear %player_name% minecraft:netherite_pickaxe[minecraft:custom_model_data={floats:[1252]}] 1'
+      - '[message] &aUpgraded §4Soulreaver &ato §eCelestial Pickaxe'
+
+  'StellarBreaker':
+    material: netherite_pickaxe
+    slot: 29
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§e§lStellar Breaker"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+185000✦ §8| §6+150000⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §735000000⛁"
+      - "§7- §6Celestial Pickaxe"
+      - ""
+      - "§e§lLEGENDARY"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 350000000
+        has_item:
+          type: has item
+          material: "NETHERITE_PICKAXE"
+          modeldata: 1253
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 350000000'
+      - '[console] giveitem stellar_breaker %player_name%'
+      - '[console] clear %player_name% minecraft:netherite_pickaxe[minecraft:custom_model_data={floats:[1253]}] 1'
+      - '[message] &aUpgraded §eCelestial Pickaxe &ato §eStellar Breaker'
+
+  'GalacticHammer':
+    material: netherite_pickaxe
+    slot: 30
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§e§lGalactic Hammer"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+240000✦ §8| §6+195000⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §650000000⛁"
+      - "§7- §6Stellar Breaker"
+      - ""
+      - "§e§lLEGENDARY"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 500000000
+        has_item:
+          type: has item
+          material: "NETHERITE_PICKAXE"
+          modeldata: 1254
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 500000000'
+      - '[console] giveitem galactic_hammer %player_name%'
+      - '[console] clear %player_name% minecraft:netherite_pickaxe[minecraft:custom_model_data={floats:[1254]}] 1'
+      - '[message] &aUpgraded §eStellar Breaker &ato §eGalactic Hammer'
+
+  'CosmicDriller':
+    material: netherite_pickaxe
+    slot: 31
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§e§lCosmic Driller"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+310000✦ §8| §6+255000⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §575000000⛁"
+      - "§7- §6Galactic Hammer"
+      - ""
+      - "§e§lLEGENDARY"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 750000000
+        has_item:
+          type: has item
+          material: "NETHERITE_PICKAXE"
+          modeldata: 1255
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 750000000'
+      - '[console] giveitem cosmic_driller %player_name%'
+      - '[console] clear %player_name% minecraft:netherite_pickaxe[minecraft:custom_model_data={floats:[1255]}] 1'
+      - '[message] &aUpgraded §eGalactic Hammer &ato §eCosmic Driller'
+
+  # === DIVINE TIER ===
+  'DivinePickaxe':
+    material: netherite_pickaxe
+    slot: 37
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§6§lDivine Pickaxe"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+400000✦ §8| §6+330000⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §6100000000⛁"
+      - "§7- §6Cosmic Driller"
+      - ""
+      - "§6§lDIVINE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1000000000
+        has_item:
+          type: has item
+          material: "NETHERITE_PICKAXE"
+          modeldata: 1256
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 1000000000'
+      - '[console] giveitem divine_pickaxe %player_name%'
+      - '[console] clear %player_name% minecraft:netherite_pickaxe[minecraft:custom_model_data={floats:[1256]}] 1'
+      - '[message] &aUpgraded §eCosmic Driller &ato §6Divine Pickaxe'
+
+  'EternalSpire':
+    material: netherite_pickaxe
+    slot: 38
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§6§lEternal Spire"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+520000✦ §8| §6+430000⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §6150000000⛁"
+      - "§7- §6Divine Pickaxe"
+      - ""
+      - "§6§lDIVINE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1500000000
+        has_item:
+          type: has item
+          material: "NETHERITE_PICKAXE"
+          modeldata: 1257
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 1500000000'
+      - '[console] giveitem eternal_spire %player_name%'
+      - '[console] clear %player_name% minecraft:netherite_pickaxe[minecraft:custom_model_data={floats:[1257]}] 1'
+      - '[message] &aUpgraded §6Divine Pickaxe &ato §6Eternal Spire'
+
+  'InfinityEdge':
+    material: netherite_pickaxe
+    slot: 39
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§6§lInfinity Edge"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+680000✦ §8| §6+560000⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §6200000000⛁"
+      - "§7- §6Eternal Spire"
+      - ""
+      - "§6§lDIVINE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 2000000000
+        has_item:
+          type: has item
+          material: "NETHERITE_PICKAXE"
+          modeldata: 1258
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 2000000000'
+      - '[console] giveitem infinity_edge %player_name%'
+      - '[console] clear %player_name% minecraft:netherite_pickaxe[minecraft:custom_model_data={floats:[1258]}] 1'
+      - '[message] &aUpgraded §6Eternal Spire &ato §6Infinity Edge'
+
+  'OmniPick':
+    material: netherite_pickaxe
+    slot: 40
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§6§lOmni Pick"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+880000✦ §8| §6+720000⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §6300000000⛁"
+      - "§7- §6Infinity Edge"
+      - ""
+      - "§6§lDIVINE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 3000000000
+        has_item:
+          type: has item
+          material: "NETHERITE_PICKAXE"
+          modeldata: 1259
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 3000000000'
+      - '[console] giveitem omni_pick %player_name%'
+      - '[console] clear %player_name% minecraft:netherite_pickaxe[minecraft:custom_model_data={floats:[1259]}] 1'
+      - '[message] &aUpgraded §6Infinity Edge &ato §6Omni Pick'
+
+  # === ULTIMATE TIER ===
+  'UltimatePickaxe':
+    material: netherite_pickaxe
+    slot: 49
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "§c§lUltimate Pickaxe"
+    lore:
+      - "§8Pickaxe"
+      - ""
+      - "§d§lBonus:"
+      - "§8« §3+1150000✦ §8| §6+950000⛁ §8»"
+      - ""
+      - "§c&lRequired:"
+      - "§7- §65000000000⛁"
+      - "§7- §6Omni Pick"
+      - ""
+      - "§c§lULTIMATE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 5000000000
+        has_item:
+          type: has item
+          material: "NETHERITE_PICKAXE"
+          modeldata: 1260
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 5000000000'
+      - '[console] giveitem ultimate_pickaxe %player_name%'
+      - '[console] clear %player_name% minecraft:netherite_pickaxe[minecraft:custom_model_data={floats:[1260]}] 1'
+      - '[message] &aUpgraded §6Omni Pick &ato §cUltimate Pickaxe'

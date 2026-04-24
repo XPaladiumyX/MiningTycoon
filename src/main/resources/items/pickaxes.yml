@@ -14,6 +14,7 @@
 #   haste: LEVEL (0 for none)
 #   tempo: LEVEL (0 for none, 1-5) - enables Tempo enchant on this pickaxe
 
+# === WOODEN TIER ===
 wooden_pickaxe:
   material: WOODEN_PICKAXE
   customModelData: 1235
@@ -27,7 +28,9 @@ wooden_pickaxe:
   efficiency: 0
   luckyMiner: 0
   haste: 0
+  tempo: 0
 
+# === STONE TIER ===
 stone_pickaxe:
   material: STONE_PICKAXE
   customModelData: 1234
@@ -44,6 +47,7 @@ stone_pickaxe:
   efficiency: 0
   luckyMiner: 0
   haste: 0
+  tempo: 0
 
 reinforced_pickaxe:
   material: STONE_PICKAXE
@@ -85,6 +89,7 @@ rockshredder_pickaxe:
   efficiency: 2
   luckyMiner: 0
   haste: 0
+  tempo: 0
 
 stone_crusher:
   material: STONE_PICKAXE
@@ -108,7 +113,9 @@ stone_crusher:
   efficiency: 3
   luckyMiner: 1
   haste: 0
+  tempo: 0
 
+# === IRON TIER ===
 iron_pickaxe:
   material: IRON_PICKAXE
   customModelData: 1239
@@ -128,6 +135,7 @@ iron_pickaxe:
   efficiency: 0
   luckyMiner: 2
   haste: 0
+  tempo: 0
 
 tempered_edge:
   material: IRON_PICKAXE
@@ -151,6 +159,7 @@ tempered_edge:
   efficiency: 1
   luckyMiner: 2
   haste: 0
+  tempo: 0
 
 ore_splitter:
   material: IRON_PICKAXE
@@ -174,6 +183,7 @@ ore_splitter:
   efficiency: 2
   luckyMiner: 2
   haste: 0
+  tempo: 0
 
 iron_storm:
   material: IRON_PICKAXE
@@ -200,7 +210,9 @@ iron_storm:
   efficiency: 3
   luckyMiner: 2
   haste: 2
+  tempo: 0
 
+# === DIAMOND TIER ===
 diamond_pickaxe:
   material: DIAMOND_PICKAXE
   customModelData: 1243
@@ -226,6 +238,7 @@ diamond_pickaxe:
   efficiency: 1
   luckyMiner: 3
   haste: 3
+  tempo: 0
 
 crystal_cutter:
   material: DIAMOND_PICKAXE
@@ -252,6 +265,7 @@ crystal_cutter:
   efficiency: 2
   luckyMiner: 3
   haste: 3
+  tempo: 0
 
 shardpiercer:
   material: DIAMOND_PICKAXE
@@ -278,6 +292,7 @@ shardpiercer:
   efficiency: 3
   luckyMiner: 3
   haste: 3
+  tempo: 0
 
 gemreaper:
   material: DIAMOND_PICKAXE
@@ -304,7 +319,9 @@ gemreaper:
   efficiency: 4
   luckyMiner: 3
   haste: 3
+  tempo: 1
 
+# === AETHER TIER ===
 aetherpick:
   material: DIAMOND_PICKAXE
   customModelData: 1247
@@ -330,3 +347,416 @@ aetherpick:
   efficiency: 4
   luckyMiner: 3
   haste: 3
+  tempo: 1
+
+celestial_pick:
+  material: DIAMOND_PICKAXE
+  customModelData: 1248
+  name: "§b§lCelestial Pick"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+28500✦ §8| §6+22000⛁ §8»"
+    - ""
+    - "§1Efficiency V"
+    - "§7Increases §6Mining Speed §7by §a200%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner III"
+    - "§a50%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§b§lLEGENDARY"
+  expBonus: 28500
+  moneyBonus: 22000
+  efficiency: 5
+  luckyMiner: 3
+  haste: 3
+  tempo: 1
+
+# === NETHERITE TIER ===
+netherite_pickaxe:
+  material: NETHERITE_PICKAXE
+  customModelData: 1249
+  name: "§4§lNetherite Pickaxe"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+42000✦ §8| §6+32000⛁ §8»"
+    - ""
+    - "§1Efficiency V"
+    - "§7Increases §6Mining Speed §7by §a200%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner IV"
+    - "§a65%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§5§lMYTHIC"
+  expBonus: 42000
+  moneyBonus: 32000
+  efficiency: 5
+  luckyMiner: 4
+  haste: 3
+  tempo: 2
+
+infernal_hammer:
+  material: NETHERITE_PICKAXE
+  customModelData: 1250
+  name: "§4§lInfernal Hammer"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+58000✦ §8| §6+45000⛁ §8»"
+    - ""
+    - "§1Efficiency V"
+    - "§7Increases §6Mining Speed §7by §a200%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner IV"
+    - "§a65%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§5§lMYTHIC"
+  expBonus: 58000
+  moneyBonus: 45000
+  efficiency: 5
+  luckyMiner: 4
+  haste: 3
+  tempo: 2
+
+void_driller:
+  material: NETHERITE_PICKAXE
+  customModelData: 1251
+  name: "§4§lVoid Driller"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+78000✦ §8| §6+62000⛁ §8»"
+    - ""
+    - "§1Efficiency V"
+    - "§7Increases §6Mining Speed §7by §a200%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner IV"
+    - "§a65%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§5§lMYTHIC"
+  expBonus: 78000
+  moneyBonus: 62000
+  efficiency: 5
+  luckyMiner: 4
+  haste: 3
+  tempo: 2
+
+soulreaver:
+  material: NETHERITE_PICKAXE
+  customModelData: 1252
+  name: "§4§lSoulreaver"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+105000✦ §8| §6+85000⛁ §8»"
+    - ""
+    - "§9Tempo I"
+    - "§7Reduces §6Community Generator §7cooldown by §a15%%"
+    - ""
+    - "§1Efficiency V"
+    - "§7Increases §6Mining Speed §7by §a200%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner IV"
+    - "§a65%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§5§lMYTHIC"
+  expBonus: 105000
+  moneyBonus: 85000
+  efficiency: 5
+  luckyMiner: 4
+  haste: 3
+  tempo: 1
+
+# === CELESTIAL TIER ===
+celestial_pickaxe:
+  material: NETHERITE_PICKAXE
+  customModelData: 1253
+  name: "§e§lCelestial Pickaxe"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+140000✦ §8| §6+115000⛁ §8»"
+    - ""
+    - "§9Tempo II"
+    - "§7Reduces §6Community Generator §7cooldown by §a30%%"
+    - ""
+    - "§1Efficiency V"
+    - "§7Increases §6Mining Speed §7by §a200%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner V"
+    - "§a80%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 140000
+  moneyBonus: 115000
+  efficiency: 5
+  luckyMiner: 5
+  haste: 3
+  tempo: 2
+
+stellar_breaker:
+  material: NETHERITE_PICKAXE
+  customModelData: 1254
+  name: "§e§lStellar Breaker"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+185000✦ §8| §6+150000⛁ §8»"
+    - ""
+    - "§9Tempo III"
+    - "§7Reduces §6Community Generator §7cooldown by §a50%%"
+    - ""
+    - "§1Efficiency V"
+    - "§7Increases §6Mining Speed §7by §a200%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner V"
+    - "§a80%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 185000
+  moneyBonus: 150000
+  efficiency: 5
+  luckyMiner: 5
+  haste: 3
+  tempo: 3
+
+galactic_hammer:
+  material: NETHERITE_PICKAXE
+  customModelData: 1255
+  name: "§e§lGalactic Hammer"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+240000✦ §8| §6+195000⛁ §8»"
+    - ""
+    - "§9Tempo III"
+    - "§7Reduces §6Community Generator §7cooldown by §a50%%"
+    - ""
+    - "§1Efficiency V"
+    - "§7Increases §6Mining Speed §7by §a200%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner V"
+    - "§a80%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 240000
+  moneyBonus: 195000
+  efficiency: 5
+  luckyMiner: 5
+  haste: 3
+  tempo: 3
+
+cosmic_driller:
+  material: NETHERITE_PICKAXE
+  customModelData: 1256
+  name: "§e§lCosmic Driller"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+310000✦ §8| §6+255000⛁ §8»"
+    - ""
+    - "§9Tempo IV"
+    - "§7Reduces §6Community Generator §7cooldown by §a75%%"
+    - ""
+    - "§1Efficiency V"
+    - "§7Increases §6Mining Speed §7by §a200%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner V"
+    - "§a80%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§e§lLEGENDARY"
+  expBonus: 310000
+  moneyBonus: 255000
+  efficiency: 5
+  luckyMiner: 5
+  haste: 3
+  tempo: 4
+
+# === DIVINE TIER ===
+divine_pickaxe:
+  material: NETHERITE_PICKAXE
+  customModelData: 1257
+  name: "§6§lDivine Pickaxe"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+400000✦ §8| §6+330000⛁ §8»"
+    - ""
+    - "§9Tempo V"
+    - "§7Reduces §6Community Generator §7cooldown by §a100%%"
+    - ""
+    - "§1Efficiency V"
+    - "§7Increases §6Mining Speed §7by §a200%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner V"
+    - "§a80%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§6§lDIVINE"
+  expBonus: 400000
+  moneyBonus: 330000
+  efficiency: 5
+  luckyMiner: 5
+  haste: 3
+  tempo: 5
+
+eternal_spire:
+  material: NETHERITE_PICKAXE
+  customModelData: 1258
+  name: "§6§lEternal Spire"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+520000✦ §8| §6+430000⛁ §8»"
+    - ""
+    - "§9Tempo V"
+    - "§7Reduces §6Community Generator §7cooldown by §a100%%"
+    - ""
+    - "§1Efficiency V"
+    - "§7Increases §6Mining Speed §7by §a200%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner V"
+    - "§a80%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§6§lDIVINE"
+  expBonus: 520000
+  moneyBonus: 430000
+  efficiency: 5
+  luckyMiner: 5
+  haste: 3
+  tempo: 5
+
+infinity_edge:
+  material: NETHERITE_PICKAXE
+  customModelData: 1259
+  name: "§6§lInfinity Edge"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+680000✦ §8| §6+560000⛁ §8»"
+    - ""
+    - "§9Tempo V"
+    - "§7Reduces §6Community Generator §7cooldown by §a100%%"
+    - ""
+    - "§1Efficiency V"
+    - "§7Increases §6Mining Speed §7by §a200%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner V"
+    - "§a80%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§6§lDIVINE"
+  expBonus: 680000
+  moneyBonus: 560000
+  efficiency: 5
+  luckyMiner: 5
+  haste: 3
+  tempo: 5
+
+omni_pick:
+  material: NETHERITE_PICKAXE
+  customModelData: 1260
+  name: "§6§lOmni Pick"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+880000✦ §8| §6+720000⛁ §8»"
+    - ""
+    - "§9Tempo V"
+    - "§7Reduces §6Community Generator §7cooldown by §a100%%"
+    - ""
+    - "§1Efficiency V"
+    - "§7Increases §6Mining Speed §7by §a200%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner V"
+    - "§a80%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§6§lDIVINE"
+  expBonus: 880000
+  moneyBonus: 720000
+  efficiency: 5
+  luckyMiner: 5
+  haste: 3
+  tempo: 5
+
+# === ULTIMATE TIER ===
+ultimate_pickaxe:
+  material: NETHERITE_PICKAXE
+  customModelData: 1261
+  name: "§c§lUltimate Pickaxe"
+  lore:
+    - "§8Pickaxe"
+    - ""
+    - "§d§lBonus:"
+    - "§8« §3+1150000✦ §8| §6+950000⛁ §8»"
+    - ""
+    - "§9Tempo V"
+    - "§7Reduces §6Community Generator §7cooldown by §a100%%"
+    - ""
+    - "§1Efficiency V"
+    - "§7Increases §6Mining Speed §7by §a200%%"
+    - ""
+    - "§bHaste III"
+    - "§a50%% §7Chance to apply §eHaste 2 (10s) §7while mining"
+    - ""
+    - "§eLucky Miner V"
+    - "§a80%% §7Chance to earn double XP & money while mining"
+    - ""
+    - "§c§lULTIMATE"
+  expBonus: 1150000
+  moneyBonus: 950000
+  efficiency: 5
+  luckyMiner: 5
+  haste: 3
+  tempo: 5

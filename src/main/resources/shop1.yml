@@ -1,0 +1,23 @@
+open_command: shop1
+size: 54
+menu_title: '&8Shop - Page 1'
+items:
+  'pageshop':
+    material: paper
+    slot: 46
+    display_name: "&f&l<- Previous Page"
+    lore:
+      - "&7Click to change page"
+    left_click_commands:
+      - '[player] shop'
+    sweet: true
+
+  'page3':
+    material: paper
+    slot: 52
+    display_name: "&f&lNext Page ->"
+    lore:
+      - "&7Click to change page"
+    left_click_commands:
+      - '[player] shop3'
+    sweet: true
