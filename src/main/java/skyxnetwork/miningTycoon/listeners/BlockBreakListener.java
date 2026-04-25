@@ -105,16 +105,14 @@ public class BlockBreakListener implements Listener {
             if (random.nextInt(100) < chance) {
                 Set<Block> nearbyBlocks = getNearbyBlocks(event.getBlock(), player);
                 if (!nearbyBlocks.isEmpty()) {
-                    // Store original block data BEFORE hiding blocks
-                    Map<Block, Material> originalMaterials = new HashMap<>();
-                    Map<Block, Byte> originalData = new HashMap<>();
+                    // Store original block data BEFORE hiding blocks using BlockData for full state
+                    Map<Block, org.bukkit.block.BlockData> originalBlockData = new HashMap<>();
                     for (Block block : nearbyBlocks) {
-                        originalMaterials.put(block, block.getType());
-                        originalData.put(block, block.getData());
+                        originalBlockData.put(block, block.getBlockData());
                     }
                     // Now hide blocks and start respawn process
                     sendFakeBlockBreak(player, nearbyBlocks);
-                    processVeinMinerBlocks(nearbyBlocks, originalMaterials, originalData, player, totalExp, totalMoney);
+                    processVeinMinerBlocks(nearbyBlocks, originalBlockData, player, totalExp, totalMoney);
                 }
             }
         }
@@ -171,8 +169,9 @@ public class BlockBreakListener implements Listener {
 
     private void sendFakeBlockBreak(Player player, Set<Block> blocks) {
         try {
+            org.bukkit.block.BlockData airData = Material.AIR.createBlockData();
             for (Block block : blocks) {
-                player.sendBlockChange(block.getLocation(), Material.AIR, (byte) 0);
+                player.sendBlockChange(block.getLocation(), airData);
             }
         } catch (Exception e) {
             plugin.getLogger().warning("Failed to send fake block break: " + e.getMessage());
@@ -181,13 +180,13 @@ public class BlockBreakListener implements Listener {
 
     private void sendBlockRespawn(Player player, Block block) {
         try {
-            player.sendBlockChange(block.getLocation(), block.getType(), block.getData());
+            player.sendBlockChange(block.getLocation(), block.getBlockData());
         } catch (Exception e) {
             plugin.getLogger().warning("Failed to send block respawn: " + e.getMessage());
         }
     }
 
-    private void processVeinMinerBlocks(Set<Block> blocks, Map<Block, Material> originalMaterials, Map<Block, Byte> originalData, Player player, double baseExp, double baseMoney) {
+    private void processVeinMinerBlocks(Set<Block> blocks, Map<Block, org.bukkit.block.BlockData> originalBlockData, Player player, double baseExp, double baseMoney) {
         new BukkitRunnable() {
             int index = 0;
             @Override
@@ -195,10 +194,9 @@ public class BlockBreakListener implements Listener {
                 if (index >= blocks.size()) {
                     // Final cleanup - respawn all remaining blocks
                     for (Block block : blocks) {
-                        Material originalMat = originalMaterials.get(block);
-                        Byte originalDat = originalData.get(block);
-                        if (originalMat != null && originalMat != Material.AIR) {
-                            player.sendBlockChange(block.getLocation(), originalMat, originalDat);
+                        org.bukkit.block.BlockData bd = originalBlockData.get(block);
+                        if (bd != null && bd.getMaterial() != Material.AIR) {
+                            player.sendBlockChange(block.getLocation(), bd);
                         }
                     }
                     cancel();
@@ -207,15 +205,14 @@ public class BlockBreakListener implements Listener {
 
                 Block block = (Block) blocks.toArray()[index];
                 
-                Material originalMat = originalMaterials.get(block);
-                Byte originalDat = originalData.get(block);
+                org.bukkit.block.BlockData bd = originalBlockData.get(block);
                 
-                // Respawn block with original data
-                if (originalMat != null && originalMat != Material.AIR) {
-                    player.sendBlockChange(block.getLocation(), originalMat, originalDat);
+                // Respawn block with original data using BlockData
+                if (bd != null && bd.getMaterial() != Material.AIR) {
+                    player.sendBlockChange(block.getLocation(), bd);
                     
                     // Give rewards for valid blocks
-                    MineManager.BlockRewardConfig reward = plugin.getMineManager().getBlockReward(originalMat);
+                    MineManager.BlockRewardConfig reward = plugin.getMineManager().getBlockReward(bd.getMaterial());
                     if (reward != null) {
                         double exp = reward.getExp();
                         double money = reward.getMoney();
