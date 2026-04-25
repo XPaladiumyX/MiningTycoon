@@ -1,0 +1,863 @@
+open_command: armor2
+
+size: 36
+
+menu_title: '&2&lArmor'
+
+items:
+  'pageshop':
+    material: paper
+    slot: 28
+    display_name: "&f&l<- Previous Page"
+    lore:
+      - "&7Click to change page"
+    left_click_commands:
+      - '[player] armor'
+
+  'pageshop1':
+    material: paper
+    slot: 34
+    display_name: "&f&lPage 2 ->"
+    lore:
+      - "&7Click to change page"
+    left_click_commands:
+      - '[player] armor3'
+
+  'saltstone_scraper_chestplate':
+    material: LEATHER_CHESTPLATE
+    rgb: 102, 76, 51
+    slot: 0
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&aSaltstone Scraper Chestplate"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+8044✦ &8| &6+8027⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &6803,550⛁"
+      - ""
+      - "&a&lCOMMON"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 803550
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 803550'
+      - '[console] givearmor saltstone_scraper_chestplate %player_name%'
+      - '[message] &aReceived &aSaltstone Scraper Chestplate'
+  'saltstone_scraper_leggings':
+    material: LEATHER_LEGGINGS
+    rgb: 102, 76, 51
+    slot: 9
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&aSaltstone Scraper Leggings"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+8034✦ &8| &6+8017⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &6802,550⛁"
+      - ""
+      - "&a&lCOMMON"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 802550
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 802550'
+      - '[console] givearmor saltstone_scraper_leggings %player_name%'
+      - '[message] &aReceived &aSaltstone Scraper Leggings'
+  'saltstone_scraper_boots':
+    material: LEATHER_BOOTS
+    rgb: 102, 76, 51
+    slot: 18
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&aSaltstone Scraper Boots"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+8027✦ &8| &6+8009⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &6801,800⛁"
+      - ""
+      - "&a&lCOMMON"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 801800
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 801800'
+      - '[console] givearmor saltstone_scraper_boots %player_name%'
+      - '[message] &aReceived &aSaltstone Scraper Boots'
+  'gold_hunter_chestplate':
+    material: LEATHER_CHESTPLATE
+    rgb: 229, 229, 51
+    slot: 1
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&bGold Hunter Chestplate"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+9375✦ &8| &6+9359⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &6936,700⛁"
+      - ""
+      - "&b&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 936700
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 936700'
+      - '[console] givearmor gold_hunter_chestplate %player_name%'
+      - '[message] &aReceived &bGold Hunter Chestplate'
+  'gold_hunter_leggings':
+    material: LEATHER_LEGGINGS
+    rgb: 229, 229, 51
+    slot: 10
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&bGold Hunter Leggings"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+9365✦ &8| &6+9349⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &6935,700⛁"
+      - ""
+      - "&b&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 935700
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 935700'
+      - '[console] givearmor gold_hunter_leggings %player_name%'
+      - '[message] &aReceived &bGold Hunter Leggings'
+  'gold_hunter_boots':
+    material: LEATHER_BOOTS
+    rgb: 229, 229, 51
+    slot: 19
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&bGold Hunter Boots"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+9359✦ &8| &6+9342⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &6935,050⛁"
+      - ""
+      - "&b&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 935050
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 935050'
+      - '[console] givearmor gold_hunter_boots %player_name%'
+      - '[message] &aReceived &bGold Hunter Boots'
+  'lapis_technician_chestplate':
+    material: LEATHER_CHESTPLATE
+    rgb: 51, 76, 178
+    slot: 2
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&bLapis Technician Chestplate"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+10706✦ &8| &6+10691⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,069,850⛁"
+      - ""
+      - "&b&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1069850
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1069850'
+      - '[console] givearmor lapis_technician_chestplate %player_name%'
+      - '[message] &aReceived &bLapis Technician Chestplate'
+  'lapis_technician_leggings':
+    material: LEATHER_LEGGINGS
+    rgb: 51, 76, 178
+    slot: 11
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&bLapis Technician Leggings"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+10697✦ &8| &6+10682⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,068,950⛁"
+      - ""
+      - "&b&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1068950
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1068950'
+      - '[console] givearmor lapis_technician_leggings %player_name%'
+      - '[message] &aReceived &bLapis Technician Leggings'
+  'lapis_technician_boots':
+    material: LEATHER_BOOTS
+    rgb: 51, 76, 178
+    slot: 20
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&bLapis Technician Boots"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+10691✦ &8| &6+10675⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,068,300⛁"
+      - ""
+      - "&b&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1068300
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1068300'
+      - '[console] givearmor lapis_technician_boots %player_name%'
+      - '[message] &aReceived &bLapis Technician Boots'
+  'topaz_artisan_chestplate':
+    material: LEATHER_CHESTPLATE
+    rgb: 216, 127, 51
+    slot: 3
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&bTopaz Artisan Chestplate"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+12037✦ &8| &6+12022⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,202,950⛁"
+      - ""
+      - "&b&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1202950
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1202950'
+      - '[console] givearmor topaz_artisan_chestplate %player_name%'
+      - '[message] &aReceived &bTopaz Artisan Chestplate'
+  'topaz_artisan_leggings':
+    material: LEATHER_LEGGINGS
+    rgb: 216, 127, 51
+    slot: 12
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&bTopaz Artisan Leggings"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+12028✦ &8| &6+12014⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,202,100⛁"
+      - ""
+      - "&b&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1202100
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1202100'
+      - '[console] givearmor topaz_artisan_leggings %player_name%'
+      - '[message] &aReceived &bTopaz Artisan Leggings'
+  'topaz_artisan_boots':
+    material: LEATHER_BOOTS
+    rgb: 216, 127, 51
+    slot: 21
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&bTopaz Artisan Boots"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+12022✦ &8| &6+12008⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,201,500⛁"
+      - ""
+      - "&b&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1201500
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1201500'
+      - '[console] givearmor topaz_artisan_boots %player_name%'
+      - '[message] &aReceived &bTopaz Artisan Boots'
+  'cobalt_excavator_chestplate':
+    material: LEATHER_CHESTPLATE
+    rgb: 51, 76, 178
+    slot: 4
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&bCobalt Excavator Chestplate"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+13368✦ &8| &6+13354⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,336,100⛁"
+      - ""
+      - "&b&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1336100
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1336100'
+      - '[console] givearmor cobalt_excavator_chestplate %player_name%'
+      - '[message] &aReceived &bCobalt Excavator Chestplate'
+  'cobalt_excavator_leggings':
+    material: LEATHER_LEGGINGS
+    rgb: 51, 76, 178
+    slot: 13
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&bCobalt Excavator Leggings"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+13360✦ &8| &6+13347⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,335,350⛁"
+      - ""
+      - "&b&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1335350
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1335350'
+      - '[console] givearmor cobalt_excavator_leggings %player_name%'
+      - '[message] &aReceived &bCobalt Excavator Leggings'
+  'cobalt_excavator_boots':
+    material: LEATHER_BOOTS
+    rgb: 51, 76, 178
+    slot: 22
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&bCobalt Excavator Boots"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+13354✦ &8| &6+13341⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,334,750⛁"
+      - ""
+      - "&b&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1334750
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1334750'
+      - '[console] givearmor cobalt_excavator_boots %player_name%'
+      - '[message] &aReceived &bCobalt Excavator Boots'
+  'granite_breaker_chestplate':
+    material: LEATHER_CHESTPLATE
+    rgb: 76, 76, 76
+    slot: 5
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&bGranite Breaker Chestplate"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+14699✦ &8| &6+14686⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,469,250⛁"
+      - ""
+      - "&b&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1469250
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1469250'
+      - '[console] givearmor granite_breaker_chestplate %player_name%'
+      - '[message] &aReceived &bGranite Breaker Chestplate'
+  'granite_breaker_leggings':
+    material: LEATHER_LEGGINGS
+    rgb: 76, 76, 76
+    slot: 14
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&bGranite Breaker Leggings"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+14691✦ &8| &6+14679⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,468,500⛁"
+      - ""
+      - "&b&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1468500
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1468500'
+      - '[console] givearmor granite_breaker_leggings %player_name%'
+      - '[message] &aReceived &bGranite Breaker Leggings'
+  'granite_breaker_boots':
+    material: LEATHER_BOOTS
+    rgb: 76, 76, 76
+    slot: 23
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&bGranite Breaker Boots"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+14686✦ &8| &6+14673⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,467,950⛁"
+      - ""
+      - "&b&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1467950
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1467950'
+      - '[console] givearmor granite_breaker_boots %player_name%'
+      - '[message] &aReceived &bGranite Breaker Boots'
+  'onyx_surveyor_chestplate':
+    material: LEATHER_CHESTPLATE
+    rgb: 25, 25, 25
+    slot: 6
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&bOnyx Surveyor Chestplate"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+16030✦ &8| &6+16018⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,602,400⛁"
+      - ""
+      - "&b&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1602400
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1602400'
+      - '[console] givearmor onyx_surveyor_chestplate %player_name%'
+      - '[message] &aReceived &bOnyx Surveyor Chestplate'
+  'onyx_surveyor_leggings':
+    material: LEATHER_LEGGINGS
+    slot: 15
+    rgb: 25, 25, 25
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&bOnyx Surveyor Leggings"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+16023✦ &8| &6+16011⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,601,700⛁"
+      - ""
+      - "&b&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1601700
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1601700'
+      - '[console] givearmor onyx_surveyor_leggings %player_name%'
+      - '[message] &aReceived &bOnyx Surveyor Leggings'
+  'onyx_surveyor_boots':
+    material: LEATHER_BOOTS
+    slot: 24
+    rgb: 25, 25, 25
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&bOnyx Surveyor Boots"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+16018✦ &8| &6+16006⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,601,200⛁"
+      - ""
+      - "&b&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1601200
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1601200'
+      - '[console] givearmor onyx_surveyor_boots %player_name%'
+      - '[message] &aReceived &bOnyx Surveyor Boots'
+  'ruby_prospector_chestplate':
+    material: LEATHER_CHESTPLATE
+    slot: 7
+    rgb: 153, 51, 51
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&5Ruby Prospector Chestplate"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+17361✦ &8| &6+17350⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,735,550⛁"
+      - ""
+      - "&5&lEPIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1735550
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1735550'
+      - '[console] givearmor ruby_prospector_chestplate %player_name%'
+      - '[message] &aReceived &5Ruby Prospector Chestplate'
+  'ruby_prospector_leggings':
+    material: LEATHER_LEGGINGS
+    slot: 16
+    rgb: 153, 51, 51
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&5Ruby Prospector Leggings"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+17354✦ &8| &6+17344⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,734,900⛁"
+      - ""
+      - "&5&lEPIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1734900
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1734900'
+      - '[console] givearmor ruby_prospector_leggings %player_name%'
+      - '[message] &aReceived &5Ruby Prospector Leggings'
+  'ruby_prospector_boots':
+    material: LEATHER_BOOTS
+    slot: 25
+    rgb: 153, 51, 51
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&5Ruby Prospector Boots"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+17350✦ &8| &6+17339⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,734,450⛁"
+      - ""
+      - "&5&lEPIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1734450
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1734450'
+      - '[console] givearmor ruby_prospector_boots %player_name%'
+      - '[message] &aReceived &5Ruby Prospector Boots'
+  'emerald_harvester_chestplate':
+    material: LEATHER_CHESTPLATE
+    slot: 8
+    rgb: 102, 127, 51
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&5Emerald Harvester Chestplate"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+18692✦ &8| &6+18682⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,868,700⛁"
+      - ""
+      - "&5&lEPIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1868700
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1868700'
+      - '[console] givearmor emerald_harvester_chestplate %player_name%'
+      - '[message] &aReceived &5Emerald Harvester Chestplate'
+  'emerald_harvester_leggings':
+    material: LEATHER_LEGGINGS
+    slot: 17
+    rgb: 102, 127, 51
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&5Emerald Harvester Leggings"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+18686✦ &8| &6+18676⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,868,100⛁"
+      - ""
+      - "&5&lEPIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1868100
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1868100'
+      - '[console] givearmor emerald_harvester_leggings %player_name%'
+      - '[message] &aReceived &5Emerald Harvester Leggings'
+  'emerald_harvester_boots':
+    material: LEATHER_BOOTS
+    slot: 26
+    rgb: 102, 127, 51
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&5Emerald Harvester Boots"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+18682✦ &8| &6+18672⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,867,700⛁"
+      - ""
+      - "&5&lEPIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1867700
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 1867700'
+      - '[console] givearmor emerald_harvester_boots %player_name%'
+      - '[message] &aReceived &5Emerald Harvester Boots'
+sweet: true

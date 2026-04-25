@@ -1,0 +1,127 @@
+open_command: menu
+size: 54
+menu_title: '&8Menu'
+items:
+  'exit':
+    material: barrier
+    slot: 0
+    display_name: "&cExit"
+    left_click_commands:
+      - '[close]'
+  'void0':
+    material: gray_stained_glass_pane
+    slot: 1
+    display_name: "&7"
+  'void1':
+    material: gray_stained_glass_pane
+    slot: 9
+    display_name: "&7"
+  'void2':
+    material: gray_stained_glass_pane
+    slot: 10
+    display_name: "&7"
+  'void3':
+    material: gray_stained_glass_pane
+    slot: 11
+    display_name: "&7"
+  'void4':
+    material: gray_stained_glass_pane
+    slot: 12
+    display_name: "&7"
+  'void5':
+    material: gray_stained_glass_pane
+    slot: 13
+    display_name: "&7"
+  'void6':
+    material: gray_stained_glass_pane
+    slot: 14
+    display_name: "&7"
+  'void7':
+    material: gray_stained_glass_pane
+    slot: 15
+    display_name: "&7"
+  'void8':
+    material: gray_stained_glass_pane
+    slot: 16
+    display_name: "&7"
+  'void9':
+    material: gray_stained_glass_pane
+    slot: 17
+    display_name: "&7"
+  'void10':
+    material: gray_stained_glass_pane
+    slot: 19
+    display_name: "&7"
+  'void11':
+    material: gray_stained_glass_pane
+    slot: 28
+    display_name: "&7"
+  'void12':
+    material: gray_stained_glass_pane
+    slot: 37
+    display_name: "&7"
+  'void13':
+    material: gray_stained_glass_pane
+    slot: 46
+    display_name: "&7"
+  'teleport':
+    material: ender_eye
+    slot: 2
+    display_name: "&e&lClick &7- &fFast travel"
+    lore:
+    - "&7An easy way to move faster between islands"
+    left_click_commands:
+      - '[player] ftp'
+  'shop':
+    material: chest
+    slot: 3
+    display_name: "&e&lClick &7- &fOpen Shop"
+    left_click_commands:
+      - '[player] shop'
+  'pets':
+    material: hdb-26905
+    slot: 20
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "&5Pet Shop"
+    lore:
+    - "&8Menu Item"
+    - ""
+    - "&eOpen Pet Shop"
+    - ""
+    - "&e&lCLICK TO OPEN IT"
+    left_click_commands:
+      - '[player] pets'
+  'armor':
+    material: LEATHER_CHESTPLATE
+    slot: 21
+    rgb: 127, 204, 25
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "&aArmor Shop"
+    lore:
+    - "&8Menu Item"
+    - ""
+    - "&eOpen Armor Shop"
+    - ""
+    - "&e&lCLICK TO OPEN IT"
+    left_click_commands:
+      - '[player] armor'
+  'lobby':
+    material: compass
+    slot: 45
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "&e&lClick &7- &fLobby"
+    lore:
+    - "&7Send you to the lobby"
+    left_click_commands:
+      - '[player] lobby'
+      - '[close]'
+  'visiblity':
+    material: purple_dye
+    slot: 8
+    item_flags: [HIDE_ATTRIBUTES]
+    display_name: "&e&lClick &7- &fPlayer Visibility &7(&aOn&7/&cOff&7)"
+    lore:
+    - "&7Toggle player visiblity"
+    left_click_commands:
+      - '[player] playerhide'
+sweet: true

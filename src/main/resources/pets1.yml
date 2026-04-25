@@ -1,0 +1,493 @@
+open_command: pets1
+
+size: 36
+
+menu_title: '&8Pets'
+
+items:
+  'pageshop':
+    material: paper
+    slot: 28
+    display_name: "&f&l<- Previous Page"
+    lore:
+      - "&7Click to change page"
+    left_click_commands:
+      - '[player] pets'
+
+  'pageshop1':
+    material: paper
+    slot: 34
+    display_name: "&f&lPage 2 ->"
+    lore:
+      - "&7Click to change page"
+    left_click_commands:
+      - '[player] pets2'
+
+  'MagnetCrawler':
+    material: hdb-45690
+    slot: 10
+    item_flags: [ HIDE_ATTRIBUTES ]
+    display_name: "&e&lMagnet Crawler"
+    lore:
+      - "&8Pet"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+5300✦ &8| &6+4890⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &6300,000⛁"
+      - "&7- &7x2 &cZentium✧"
+      - ""
+      - "&9&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 300000
+        has_zentium:
+          type: javascript
+          expression: '%coinsengine_balance_raw_zentium% >= 2'
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 300000'
+      - '[console] zentium remove %player_name% 2'
+      - '[console] hdb give 45690 1 %player_name%'
+      - '[message] &aReceived &e&lMagnet Crawler'
+
+  'SmeltSpirit':
+    material: hdb-68848
+    slot: 11
+    item_flags: [ HIDE_ATTRIBUTES ]
+    display_name: "&e&lSmelt Spirit"
+    lore:
+      - "&8Pet"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+5800✦ &8| &6+5000⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &6400,000⛁"
+      - "&7- &7x2 &cZentium✧"
+      - ""
+      - "&9&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 400000
+        has_zentium:
+          type: javascript
+          expression: '%coinsengine_balance_raw_zentium% >= 2'
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 400000'
+      - '[console] zentium remove %player_name% 2'
+      - '[console] hdb give 68848 1 %player_name%'
+      - '[message] &aReceived &e&lSmelt Spirit'
+
+  'ShimmerBeetle':
+    material: hdb-59564
+    slot: 12
+    item_flags: [ HIDE_ATTRIBUTES ]
+    display_name: "&e&lShimmer Beetle"
+    lore:
+      - "&8Pet"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+5565✦ &8| &6+5498⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &6500,000⛁"
+      - "&7- &7x3 &cZentium✧"
+      - ""
+      - "&9&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 500000
+        has_zentium:
+          type: javascript
+          expression: '%coinsengine_balance_raw_zentium% >= 3'
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 500000'
+      - '[console] zentium remove %player_name% 3'
+      - '[console] hdb give 59564 1 %player_name%'
+      - '[message] &aReceived &e&lShimmer Beetle'
+
+  'EmeraldFox':
+    material: hdb-29628
+    slot: 13
+    item_flags: [ HIDE_ATTRIBUTES ]
+    display_name: "&e&lEmerald Fox"
+    lore:
+      - "&8Pet"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+6000✦ &8| &6+5880⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &6650,000⛁"
+      - "&7- &7x3 &cZentium✧"
+      - ""
+      - "&9&lRARE"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 650000
+        has_zentium:
+          type: javascript
+          expression: '%coinsengine_balance_raw_zentium% >= 3'
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 650000'
+      - '[console] zentium remove %player_name% 3'
+      - '[console] hdb give 29628 1 %player_name%'
+      - '[message] &aReceived &e&lEmerald Fox'
+
+  'DrillCore':
+    material: hdb-103283
+    slot: 14
+    item_flags: [ HIDE_ATTRIBUTES ]
+    display_name: "&5&lDrill Core"
+    lore:
+      - "&8Pet"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+8700✦ &8| &6+7400⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &6800,000⛁"
+      - "&7- &7x4 &cZentium✧"
+      - "&7- &7x1 &dPrestige✾"
+      - ""
+      - "&5&lEPIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 800000
+        has_zentium:
+          type: javascript
+          expression: '%coinsengine_balance_raw_zentium% >= 4'
+        has_required_prestige:
+          type: javascript
+          expression: '%miningtycoon_prestige% >= 1'
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 800000'
+      - '[console] zentium remove %player_name% 4'
+      - '[console] hdb give 103283 1 %player_name%'
+      - '[message] &aReceived &5&lDrill Core'
+
+  'Crystallion':
+    material: hdb-31951
+    slot: 15
+    item_flags: [ HIDE_ATTRIBUTES ]
+    display_name: "&5&lCrystallion"
+    lore:
+      - "&8Pet"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+9300✦ &8| &6+7800⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,000,000⛁"
+      - "&7- &7x5 &cZentium✧"
+      - "&7- &7x2 &dPrestige✾"
+      - ""
+      - "&5&lEPIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1000000
+        has_zentium:
+          type: javascript
+          expression: '%coinsengine_balance_raw_zentium% >= 5'
+        has_required_prestige:
+          type: javascript
+          expression: '%miningtycoon_prestige% >= 2'
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 1000000'
+      - '[console] zentium remove %player_name% 5'
+      - '[console] hdb give 31951 1 %player_name%'
+      - '[message] &aReceived &5&lCrystallion'
+
+  'ObsidianBeast':
+    material: hdb-112393
+    slot: 16
+    item_flags: [ HIDE_ATTRIBUTES ]
+    display_name: "&5&lObsidian Beast"
+    lore:
+      - "&8Pet"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+9900✦ &8| &6+8200⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,200,000⛁"
+      - "&7- &7x6 &cZentium✧"
+      - "&7- &7x3 &dPrestige✾"
+      - ""
+      - "&5&lEPIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1200000
+        has_zentium:
+          type: javascript
+          expression: '%coinsengine_balance_raw_zentium% >= 6'
+        has_required_prestige:
+          type: javascript
+          expression: '%miningtycoon_prestige% >= 3'
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 1200000'
+      - '[console] zentium remove %player_name% 6'
+      - '[console] hdb give 112393 1 %player_name%'
+      - '[message] &aReceived &5&lObsidian Beast'
+
+  'SparklingPhoenix':
+    material: hdb-683
+    slot: 19
+    item_flags: [ HIDE_ATTRIBUTES ]
+    display_name: "&5&lSparkling Phoenix"
+    lore:
+      - "&8Pet"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+10500✦ &8| &6+8800⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,500,000⛁"
+      - "&7- &7x7 &cZentium✧"
+      - "&7- &7x4 &dPrestige✾"
+      - ""
+      - "&5&lEPIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1500000
+        has_zentium:
+          type: javascript
+          expression: '%coinsengine_balance_raw_zentium% >= 7'
+        has_required_prestige:
+          type: javascript
+          expression: '%miningtycoon_prestige% >= 4'
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 1500000'
+      - '[console] zentium remove %player_name% 7'
+      - '[console] hdb give 683 1 %player_name%'
+      - '[message] &aReceived &5&lSparkling Phoenix'
+
+  'AncientDigger':
+    material: hdb-51069
+    slot: 20
+    item_flags: [ HIDE_ATTRIBUTES ]
+    display_name: "&5&lAncient Digger"
+    lore:
+      - "&8Pet"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+10200✦ &8| &6+9600⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &61,800,000⛁"
+      - "&7- &7x8 &cZentium✧"
+      - "&7- &7x5 &dPrestige✾"
+      - ""
+      - "&5&lEPIC"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 1800000
+        has_zentium:
+          type: javascript
+          expression: '%coinsengine_balance_raw_zentium% >= 8'
+        has_required_prestige:
+          type: javascript
+          expression: '%miningtycoon_prestige% >= 5'
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 1800000'
+      - '[console] zentium remove %player_name% 8'
+      - '[console] hdb give 51069 1 %player_name%'
+      - '[message] &aReceived &5&lAncient Digger'
+
+  'LavaSerpent':
+    material: hdb-110061
+    slot: 21
+    item_flags: [ HIDE_ATTRIBUTES ]
+    display_name: "&5&lLava Serpent"
+    lore:
+      - "&8Pet"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+10700✦ &8| &6+10650⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &62,000,000⛁"
+      - "&7- &7x10 &cZentium✧"
+      - ""
+      - "&5&lLEGENDARY"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 2000000
+        has_zentium:
+          type: javascript
+          expression: '%coinsengine_balance_raw_zentium% >= 10'
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 2000000'
+      - '[console] zentium remove %player_name% 10'
+      - '[console] hdb give 110061 1 %player_name%'
+      - '[message] &aReceived &5&lLava Serpent'
+
+  'TitaniumDragon':
+    material: hdb-24607
+    slot: 22
+    item_flags: [ HIDE_ATTRIBUTES ]
+    display_name: "&c&lTitanium &6&lDragon"
+    lore:
+      - "&8Pet"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+15500✦ &8| &6+12400⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &62,500,000⛁"
+      - "&7- &7x12 &cZentium✧"
+      - ""
+      - "&6&lLEGENDARY"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 2500000
+        has_zentium:
+          type: javascript
+          expression: '%coinsengine_balance_raw_zentium% >= 12'
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 2500000'
+      - '[console] zentium remove %player_name% 12'
+      - '[console] hdb give 24607 1 %player_name%'
+      - '[message] &aReceived &c&lTitanium &6&lDragon'
+
+  'MythicCentipede':
+    material: hdb-115613
+    slot: 23
+    item_flags: [ HIDE_ATTRIBUTES ]
+    display_name: "&c&lMythic &6&lCentipede"
+    lore:
+      - "&8Pet"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+16200✦ &8| &6+13100⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &63,000,000⛁"
+      - "&7- &7x15 &cZentium✧"
+      - ""
+      - "&6&lLEGENDARY"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 3000000
+        has_zentium:
+          type: javascript
+          expression: '%coinsengine_balance_raw_zentium% >= 15'
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 3000000'
+      - '[console] zentium remove %player_name% 15'
+      - '[console] hdb give 115613 1 %player_name%'
+      - '[message] &aReceived &c&lMythic &6&lCentipede'
+
+  'QuantumGhost':
+    material: hdb-52051
+    slot: 24
+    item_flags: [ HIDE_ATTRIBUTES ]
+    display_name: "&c&lQuantum &6&lGhost"
+    lore:
+      - "&8Pet"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+17000✦ &8| &6+13800⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &63,500,000⛁"
+      - "&7- &7x18 &cZentium✧"
+      - ""
+      - "&6&lLEGENDARY"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 3500000
+        has_zentium:
+          type: javascript
+          expression: '%coinsengine_balance_raw_zentium% >= 18'
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 3500000'
+      - '[console] zentium remove %player_name% 18'
+      - '[console] hdb give 52051 1 %player_name%'
+      - '[message] &aReceived &c&lQuantum &6&lGhost'
+
+  'VoidHarvester':
+    material: hdb-56128
+    slot: 25
+    item_flags: [ HIDE_ATTRIBUTES ]
+    display_name: "&c&lVoid &6&lHarvester"
+    lore:
+      - "&8Pet"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+17500✦ &8| &6+14300⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &64,000,000⛁"
+      - "&7- &7x20 &cZentium✧"
+      - ""
+      - "&6&lLEGENDARY"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 4000000
+        has_zentium:
+          type: javascript
+          expression: '%coinsengine_balance_raw_zentium% >= 20'
+      deny_commands:
+        - '[message] &cYou don''t meet the requirements!'
+    left_click_commands:
+      - '[takemoney] 4000000'
+      - '[console] zentium remove %player_name% 20'
+      - '[console] hdb give 56128 1 %player_name%'
+      - '[message] &aReceived &c&lVoid &6&lHarvester'
+sweet: true
