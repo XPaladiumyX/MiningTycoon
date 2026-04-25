@@ -192,6 +192,49 @@ public class MiningTycoonCommand implements CommandExecutor {
                     sender.sendMessage(ChatColor.GREEN + "Removed Tempo enchant from " + target.getName());
                 }
                 break;
+            case "veinminer":
+                if (action.equals("add")) {
+                    if (level < 1 || level > 6) {
+                        sender.sendMessage(ChatColor.RED + "VeinMiner level must be 1-6.");
+                        return true;
+                    }
+                    if (manager.getPickaxeVeinMinerLevelFromItem(item) > 0) {
+                        sender.sendMessage(ChatColor.RED + "This item already has VeinMiner enchant. Use /mt enchant remove veinminer first.");
+                        return true;
+                    }
+                    manager.applyVeinMinerEnchant(item, level);
+                    String[] roman = {"", "I", "II", "III", "IV", "V", "VI"};
+                    target.sendMessage(ChatColor.GREEN + "Applied VeinMiner " + roman[level] + "!");
+                    sender.sendMessage(ChatColor.GREEN + "Applied VeinMiner " + roman[level] + " to " + target.getName());
+                } else {
+                    if (manager.getPickaxeVeinMinerLevelFromItem(item) == 0) {
+                        sender.sendMessage(ChatColor.RED + "This item doesn't have VeinMiner enchant.");
+                        return true;
+                    }
+                    manager.removeVeinMinerEnchant(item);
+                    target.sendMessage(ChatColor.GREEN + "VeinMiner enchant removed!");
+                    sender.sendMessage(ChatColor.GREEN + "Removed VeinMiner enchant from " + target.getName());
+                }
+                break;
+            case "godpick":
+                if (action.equals("add")) {
+                    if (manager.hasGodPickEnchant(item)) {
+                        sender.sendMessage(ChatColor.RED + "This item already has GodPick enchant. Use /mt enchant remove godpick first.");
+                        return true;
+                    }
+                    manager.applyGodPickEnchant(item);
+                    target.sendMessage(ChatColor.GREEN + "Applied GodPick!");
+                    sender.sendMessage(ChatColor.GREEN + "Applied GodPick to " + target.getName());
+                } else {
+                    if (!manager.hasGodPickEnchant(item)) {
+                        sender.sendMessage(ChatColor.RED + "This item doesn't have GodPick enchant.");
+                        return true;
+                    }
+                    manager.removeGodPickEnchant(item);
+                    target.sendMessage(ChatColor.GREEN + "GodPick enchant removed!");
+                    sender.sendMessage(ChatColor.GREEN + "Removed GodPick enchant from " + target.getName());
+                }
+                break;
             default:
                 sender.sendMessage(ChatColor.RED + "Unknown enchant: " + enchantName);
                 break;

@@ -2,6 +2,7 @@ package skyxnetwork.miningTycoon.listeners;
 
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -16,7 +17,9 @@ import skyxnetwork.miningTycoon.managers.MineManager;
 import skyxnetwork.miningTycoon.utils.ActionBarUtil;
 import skyxnetwork.miningTycoon.utils.NumberFormatter;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class BlockBreakListener implements Listener {
 
@@ -85,6 +88,24 @@ public class BlockBreakListener implements Listener {
             }
         }
 
+        boolean hasGodPick = hasGodPick(player.getInventory().getItemInMainHand());
+        boolean godPickDrop = false;
+        if (hasGodPick) {
+            godPickDrop = true;
+            totalExp *= 3;
+            totalMoney *= 3;
+        }
+
+        int veinMinerLevel = getVeinMinerLevel(player.getInventory().getItemInMainHand());
+        boolean veinMinerTriggered = false;
+        if (veinMinerLevel > 0) {
+            int chance = getVeinMinerChance(veinMinerLevel);
+            if (random.nextInt(100) < chance) {
+                veinMinerTriggered = true;
+                breakVeinMinerBlocks(event.getBlock(), player, event.isAsynchronous());
+            }
+        }
+
         if (plugin.getBoostManager().isBoostActive()) {
             String boostType = plugin.getBoostManager().getBoostType();
             if (boostType.equals("exp") || boostType.equals("both")) {
@@ -112,11 +133,18 @@ public class BlockBreakListener implements Listener {
             player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1.0f);
         }
 
+        if (godPickDrop && data.isDropMessagesEnabled()) {
+            player.sendMessage("§c[GOD] §3+" + NumberFormatter.format(totalExp / 3) + "✦ §6+" +
+                    NumberFormatter.format(totalMoney / 3) + "⛁ §7(§cTriple§7)");
+            player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1.5f);
+        }
+
         int hasteLevel = getHasteLevel(player.getInventory().getItemInMainHand());
+        int hasteDuration = getHasteDuration(player.getInventory().getItemInMainHand());
         if (hasteLevel > 0) {
             int chance = hasteLevel == 1 ? 15 : hasteLevel == 2 ? 35 : 50;
             if (random.nextInt(100) < chance) {
-                int duration = hasteLevel == 2 ? 600 : 200;
+                int duration = hasteDuration > 0 ? hasteDuration * 20 : (hasteLevel == 2 ? 600 : 200);
                 int amplifier = hasteLevel == 3 ? 1 : 0;
                 player.addPotionEffect(new PotionEffect(
                         PotionEffectType.HASTE, duration, amplifier, false, false));
@@ -183,5 +211,111 @@ public class BlockBreakListener implements Listener {
         if (toolId == null) return 0;
 
         return plugin.getItemManager().getPickaxeHasteLevel(toolId);
+    }
+
+    private int getHasteDuration(ItemStack tool) {
+        if (tool == null) return 0;
+
+        String toolId = plugin.getItemManager().getPickaxeId(tool);
+        if (toolId == null) return 0;
+
+        return plugin.getItemManager().getPickaxeHasteDuration(toolId);
+    }
+
+    private int getVeinMinerLevel(ItemStack tool) {
+        if (tool == null) return 0;
+        
+        String toolId = plugin.getItemManager().getPickaxeId(tool);
+        if (toolId != null) {
+            int configLevel = plugin.getItemManager().getPickaxeVeinMinerLevel(toolId);
+            if (configLevel > 0) {
+                return configLevel;
+            }
+        }
+        
+        return plugin.getItemManager().getPickaxeVeinMinerLevelFromItem(tool);
+    }
+
+    private boolean hasGodPick(ItemStack tool) {
+        if (tool == null) return false;
+        
+        String toolId = plugin.getItemManager().getPickaxeId(tool);
+        if (toolId != null) {
+            int configLevel = plugin.getItemManager().getPickaxeGodPickLevel(toolId);
+            if (configLevel > 0) {
+                return true;
+            }
+        }
+        
+        return plugin.getItemManager().hasGodPickEnchant(tool);
+    }
+
+    private int getVeinMinerChance(int level) {
+        switch (level) {
+            case 1: return 10;
+            case 2: return 25;
+            case 3: return 50;
+            case 4: return 65;
+            case 5: return 80;
+            case 6: return 100;
+            default: return 0;
+        }
+    }
+
+    private void breakVeinMinerBlocks(Block centerBlock, Player player, boolean async) {
+        Set<Block> visited = new HashSet<>();
+        Set<Block> toBreak = new HashSet<>();
+        
+        int cx = centerBlock.getX();
+        int cy = centerBlock.getY();
+        int cz = centerBlock.getZ();
+        
+        for (int x = cx - 1; x <= cx + 1; x++) {
+            for (int y = cy - 1; y <= cy + 1; y++) {
+                for (int z = cz - 1; z <= cz + 1; z++) {
+                    Block block = centerBlock.getWorld().getBlockAt(x, y, z);
+                    if (!visited.contains(block) && block.getType() != Material.AIR) {
+                        MineManager.BlockRewardConfig reward = plugin.getMineManager().getBlockReward(block.getType());
+                        if (reward != null) {
+                            int requiredZone = reward.getZone();
+                            boolean isDefaultBlock = plugin.getMineManager().isDefaultBlock(block.getType());
+                            if (isDefaultBlock || plugin.getZoneManager().hasZoneAccess(player, requiredZone)) {
+                                toBreak.add(block);
+                            }
+                        }
+                        visited.add(block);
+                    }
+                }
+            }
+        }
+        
+        toBreak.remove(centerBlock);
+        
+        for (Block block : toBreak) {
+            Material blockType = block.getType();
+            MineManager.BlockRewardConfig reward = plugin.getMineManager().getBlockReward(blockType);
+            if (reward == null) continue;
+            
+            double exp = reward.getExp();
+            double money = reward.getMoney();
+            
+            exp += getToolBonus(player.getInventory().getItemInMainHand(), true);
+            money += getToolBonus(player.getInventory().getItemInMainHand(), false);
+            
+            exp += getPetBonus(player, true);
+            money += getPetBonus(player, false);
+            
+            exp += getArmorBonus(player, true);
+            money += getArmorBonus(player, false);
+            
+            PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
+            data.addExperience(exp);
+            
+            if (plugin.getEconomyManager().isEnabled()) {
+                plugin.getEconomyManager().giveMoney(player, money);
+            }
+            
+            block.setType(Material.AIR);
+        }
     }
 }
