@@ -1,8 +1,10 @@
 package skyxnetwork.miningTycoon.listeners;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,11 +20,7 @@ import skyxnetwork.miningTycoon.managers.MineManager;
 import skyxnetwork.miningTycoon.utils.ActionBarUtil;
 import skyxnetwork.miningTycoon.utils.NumberFormatter;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class BlockBreakListener implements Listener {
 
@@ -105,12 +103,10 @@ public class BlockBreakListener implements Listener {
             if (random.nextInt(100) < chance) {
                 Set<Block> nearbyBlocks = getNearbyBlocks(event.getBlock(), player);
                 if (!nearbyBlocks.isEmpty()) {
-                    // Store original block data BEFORE hiding blocks using BlockData for full state
-                    Map<Block, org.bukkit.block.BlockData> originalBlockData = new HashMap<>();
+                    Map<Location, BlockData> originalBlockData = new HashMap<>();
                     for (Block block : nearbyBlocks) {
-                        originalBlockData.put(block, block.getBlockData());
+                        originalBlockData.put(block.getLocation(), block.getBlockData());
                     }
-                    // Now hide blocks and start respawn process
                     sendFakeBlockBreak(player, nearbyBlocks);
                     processVeinMinerBlocks(nearbyBlocks, originalBlockData, player, totalExp, totalMoney);
                 }
@@ -169,7 +165,7 @@ public class BlockBreakListener implements Listener {
 
     private void sendFakeBlockBreak(Player player, Set<Block> blocks) {
         try {
-            org.bukkit.block.BlockData airData = Material.AIR.createBlockData();
+            BlockData airData = Material.AIR.createBlockData();
             for (Block block : blocks) {
                 player.sendBlockChange(block.getLocation(), airData);
             }
@@ -186,15 +182,17 @@ public class BlockBreakListener implements Listener {
         }
     }
 
-    private void processVeinMinerBlocks(Set<Block> blocks, Map<Block, org.bukkit.block.BlockData> originalBlockData, Player player, double baseExp, double baseMoney) {
+    private void processVeinMinerBlocks(Set<Block> blocks, Map<Location, BlockData> originalBlockData, Player player, double baseExp, double baseMoney) {
+        List<Block> blockList = new ArrayList<>(blocks);
+
         new BukkitRunnable() {
             int index = 0;
+
             @Override
             public void run() {
-                if (index >= blocks.size()) {
-                    // Final cleanup - respawn all remaining blocks
-                    for (Block block : blocks) {
-                        org.bukkit.block.BlockData bd = originalBlockData.get(block);
+                if (index >= blockList.size()) {
+                    for (Block block : blockList) {
+                        BlockData bd = originalBlockData.get(block.getLocation());
                         if (bd != null && bd.getMaterial() != Material.AIR) {
                             player.sendBlockChange(block.getLocation(), bd);
                         }
@@ -203,14 +201,13 @@ public class BlockBreakListener implements Listener {
                     return;
                 }
 
-                Block block = (Block) blocks.toArray()[index];
-                
-                org.bukkit.block.BlockData bd = originalBlockData.get(block);
-                
+                Block block = blockList.get(index);
+                BlockData bd = originalBlockData.get(block.getLocation());
+
                 // Respawn block with original data using BlockData
                 if (bd != null && bd.getMaterial() != Material.AIR) {
                     player.sendBlockChange(block.getLocation(), bd);
-                    
+
                     // Give rewards for valid blocks
                     MineManager.BlockRewardConfig reward = plugin.getMineManager().getBlockReward(bd.getMaterial());
                     if (reward != null) {
@@ -234,7 +231,7 @@ public class BlockBreakListener implements Listener {
                         }
                     }
                 }
-                
+
                 index++;
             }
         }.runTaskTimer(plugin, 2L, 2L);
@@ -242,19 +239,19 @@ public class BlockBreakListener implements Listener {
 
     private Set<Block> getNearbyBlocks(Block centerBlock, Player player) {
         Set<Block> blocks = new HashSet<>();
-        
+
         int cx = centerBlock.getX();
         int cy = centerBlock.getY();
         int cz = centerBlock.getZ();
-        
+
         for (int x = cx - 1; x <= cx + 1; x++) {
             for (int y = cy - 1; y <= cy + 1; y++) {
                 for (int z = cz - 1; z <= cz + 1; z++) {
                     if (x == cx && y == cy && z == cz) continue;
-                    
+
                     Block block = centerBlock.getWorld().getBlockAt(x, y, z);
                     if (block.getType() == Material.AIR) continue;
-                    
+
                     MineManager.BlockRewardConfig reward = plugin.getMineManager().getBlockReward(block.getType());
                     if (reward != null) {
                         int requiredZone = reward.getZone();
@@ -266,7 +263,7 @@ public class BlockBreakListener implements Listener {
                 }
             }
         }
-        
+
         return blocks;
     }
 
@@ -338,7 +335,7 @@ public class BlockBreakListener implements Listener {
 
     private int getVeinMinerLevel(ItemStack tool) {
         if (tool == null) return 0;
-        
+
         String toolId = plugin.getItemManager().getPickaxeId(tool);
         if (toolId != null) {
             int configLevel = plugin.getItemManager().getPickaxeVeinMinerLevel(toolId);
@@ -346,13 +343,13 @@ public class BlockBreakListener implements Listener {
                 return configLevel;
             }
         }
-        
+
         return plugin.getItemManager().getPickaxeVeinMinerLevelFromItem(tool);
     }
 
     private boolean hasGodPickFromConfig(ItemStack tool) {
         if (tool == null) return false;
-        
+
         String toolId = plugin.getItemManager().getPickaxeId(tool);
         if (toolId != null) {
             int configLevel = plugin.getItemManager().getPickaxeGodPickLevel(toolId);
@@ -360,19 +357,26 @@ public class BlockBreakListener implements Listener {
                 return true;
             }
         }
-        
+
         return plugin.getItemManager().hasGodPickEnchant(tool);
     }
 
     private int getVeinMinerChance(int level) {
         switch (level) {
-            case 1: return 10;
-            case 2: return 25;
-            case 3: return 50;
-            case 4: return 65;
-            case 5: return 80;
-            case 6: return 100;
-            default: return 0;
+            case 1:
+                return 10;
+            case 2:
+                return 25;
+            case 3:
+                return 50;
+            case 4:
+                return 65;
+            case 5:
+                return 80;
+            case 6:
+                return 100;
+            default:
+                return 0;
         }
     }
 }
