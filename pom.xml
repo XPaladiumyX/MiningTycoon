@@ -64,8 +64,8 @@
             <url>https://maven.enginehub.org/repo/</url>
         </repository>
         <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
+            <id>codemc</id>
+            <url>https://repo.codemc.io/repository/nms/</url>
         </repository>
     </repositories>
 

@@ -1,23 +1,33 @@
 package skyxnetwork.miningTycoon.listeners;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolManager;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.EnumWrappers;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 import skyxnetwork.miningTycoon.MiningTycoon;
 import skyxnetwork.miningTycoon.data.PlayerData;
 import skyxnetwork.miningTycoon.managers.MineManager;
 import skyxnetwork.miningTycoon.utils.ActionBarUtil;
 import skyxnetwork.miningTycoon.utils.NumberFormatter;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -25,6 +35,7 @@ public class BlockBreakListener implements Listener {
 
     private final MiningTycoon plugin;
     private final Random random = new Random();
+    private final Map<Player, Set<Block>> pendingVeinMinerBlocks = new HashMap<>();
 
     public BlockBreakListener(MiningTycoon plugin) {
         this.plugin = plugin;
@@ -88,7 +99,7 @@ public class BlockBreakListener implements Listener {
             }
         }
 
-        boolean hasGodPick = hasGodPick(player.getInventory().getItemInMainHand());
+        boolean hasGodPick = hasGodPickFromConfig(player.getInventory().getItemInMainHand());
         boolean godPickDrop = false;
         if (hasGodPick) {
             godPickDrop = true;
@@ -97,12 +108,14 @@ public class BlockBreakListener implements Listener {
         }
 
         int veinMinerLevel = getVeinMinerLevel(player.getInventory().getItemInMainHand());
-        boolean veinMinerTriggered = false;
         if (veinMinerLevel > 0) {
             int chance = getVeinMinerChance(veinMinerLevel);
             if (random.nextInt(100) < chance) {
-                veinMinerTriggered = true;
-                breakVeinMinerBlocks(event.getBlock(), player, event.isAsynchronous());
+                Set<Block> nearbyBlocks = getNearbyBlocks(event.getBlock(), player);
+                if (!nearbyBlocks.isEmpty()) {
+                    sendFakeBlockBreak(player, nearbyBlocks);
+                    processVeinMinerBlocks(nearbyBlocks, player, totalExp, totalMoney);
+                }
             }
         }
 
@@ -154,6 +167,108 @@ public class BlockBreakListener implements Listener {
         ActionBarUtil.sendActionBar(player, totalExp, totalMoney, data);
 
         plugin.getPlayerDataManager().checkLevelUp(player);
+    }
+
+    private void sendFakeBlockBreak(Player player, Set<Block> blocks) {
+        ProtocolManager protocolManager = Bukkit.getServer().getServicesManager().getRegistration(ProtocolManager.class).getProvider();
+        if (protocolManager == null) return;
+
+        for (Block block : blocks) {
+            PacketContainer blockChange = new PacketContainer(PacketType.Play.Server.BLOCK_CHANGE);
+            blockChange.getBlockPositionModifier().write(0, 
+                new com.comphenix.protocol.wrappers.BlockPosition(block.getX(), block.getY(), block.getZ()));
+            blockChange.getBlocks().write(0, org.bukkit.block.Block.class.cast(Material.AIR));
+
+            protocolManager.sendServerPacket(player, blockChange);
+        }
+    }
+
+    private void sendBlockRespawn(Player player, Block block) {
+        ProtocolManager protocolManager = Bukkit.getServer().getServicesManager().getRegistration(ProtocolManager.class).getProvider();
+        if (protocolManager == null) return;
+
+        PacketContainer blockChange = new PacketContainer(PacketType.Play.Server.BLOCK_CHANGE);
+        blockChange.getBlockPositionModifier().write(0, 
+            new com.comphenix.protocol.wrappers.BlockPosition(block.getX(), block.getY(), block.getZ()));
+        blockChange.getBlockTypeModifier().write(0, block.getType());
+        blockChange.getBlockDataModifier().write(0, (byte) block.getData());
+
+        protocolManager.sendServerPacket(player, blockChange);
+    }
+
+    private void processVeinMinerBlocks(Set<Block> blocks, Player player, double baseExp, double baseMoney) {
+        new BukkitRunnable() {
+            int index = 0;
+            @Override
+            public void run() {
+                if (index >= blocks.size()) {
+                    cancel();
+                    return;
+                }
+
+                Block block = (Block) blocks.toArray()[index];
+                if (block.getType() == Material.AIR) {
+                    sendBlockRespawn(player, block);
+                    index++;
+                    return;
+                }
+
+                MineManager.BlockRewardConfig reward = plugin.getMineManager().getBlockReward(block.getType());
+                if (reward != null) {
+                    double exp = reward.getExp();
+                    double money = reward.getMoney();
+
+                    exp += getToolBonus(player.getInventory().getItemInMainHand(), true);
+                    money += getToolBonus(player.getInventory().getItemInMainHand(), false);
+
+                    exp += getPetBonus(player, true);
+                    money += getPetBonus(player, false);
+
+                    exp += getArmorBonus(player, true);
+                    money += getArmorBonus(player, false);
+
+                    PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
+                    data.addExperience(exp);
+
+                    if (plugin.getEconomyManager().isEnabled()) {
+                        plugin.getEconomyManager().giveMoney(player, money);
+                    }
+                }
+
+                sendBlockRespawn(player, block);
+                index++;
+            }
+        }.runTaskTimer(plugin, 2L, 2L);
+    }
+
+    private Set<Block> getNearbyBlocks(Block centerBlock, Player player) {
+        Set<Block> blocks = new HashSet<>();
+        
+        int cx = centerBlock.getX();
+        int cy = centerBlock.getY();
+        int cz = centerBlock.getZ();
+        
+        for (int x = cx - 1; x <= cx + 1; x++) {
+            for (int y = cy - 1; y <= cy + 1; y++) {
+                for (int z = cz - 1; z <= cz + 1; z++) {
+                    if (x == cx && y == cy && z == cz) continue;
+                    
+                    Block block = centerBlock.getWorld().getBlockAt(x, y, z);
+                    if (block.getType() == Material.AIR) continue;
+                    
+                    MineManager.BlockRewardConfig reward = plugin.getMineManager().getBlockReward(block.getType());
+                    if (reward != null) {
+                        int requiredZone = reward.getZone();
+                        boolean isDefaultBlock = plugin.getMineManager().isDefaultBlock(block.getType());
+                        if (isDefaultBlock || plugin.getZoneManager().hasZoneAccess(player, requiredZone)) {
+                            blocks.add(block);
+                        }
+                    }
+                }
+            }
+        }
+        
+        return blocks;
     }
 
     private double getToolBonus(ItemStack tool, boolean isExp) {
@@ -236,7 +351,7 @@ public class BlockBreakListener implements Listener {
         return plugin.getItemManager().getPickaxeVeinMinerLevelFromItem(tool);
     }
 
-    private boolean hasGodPick(ItemStack tool) {
+    private boolean hasGodPickFromConfig(ItemStack tool) {
         if (tool == null) return false;
         
         String toolId = plugin.getItemManager().getPickaxeId(tool);
@@ -259,63 +374,6 @@ public class BlockBreakListener implements Listener {
             case 5: return 80;
             case 6: return 100;
             default: return 0;
-        }
-    }
-
-    private void breakVeinMinerBlocks(Block centerBlock, Player player, boolean async) {
-        Set<Block> visited = new HashSet<>();
-        Set<Block> toBreak = new HashSet<>();
-        
-        int cx = centerBlock.getX();
-        int cy = centerBlock.getY();
-        int cz = centerBlock.getZ();
-        
-        for (int x = cx - 1; x <= cx + 1; x++) {
-            for (int y = cy - 1; y <= cy + 1; y++) {
-                for (int z = cz - 1; z <= cz + 1; z++) {
-                    Block block = centerBlock.getWorld().getBlockAt(x, y, z);
-                    if (!visited.contains(block) && block.getType() != Material.AIR) {
-                        MineManager.BlockRewardConfig reward = plugin.getMineManager().getBlockReward(block.getType());
-                        if (reward != null) {
-                            int requiredZone = reward.getZone();
-                            boolean isDefaultBlock = plugin.getMineManager().isDefaultBlock(block.getType());
-                            if (isDefaultBlock || plugin.getZoneManager().hasZoneAccess(player, requiredZone)) {
-                                toBreak.add(block);
-                            }
-                        }
-                        visited.add(block);
-                    }
-                }
-            }
-        }
-        
-        toBreak.remove(centerBlock);
-        
-        for (Block block : toBreak) {
-            Material blockType = block.getType();
-            MineManager.BlockRewardConfig reward = plugin.getMineManager().getBlockReward(blockType);
-            if (reward == null) continue;
-            
-            double exp = reward.getExp();
-            double money = reward.getMoney();
-            
-            exp += getToolBonus(player.getInventory().getItemInMainHand(), true);
-            money += getToolBonus(player.getInventory().getItemInMainHand(), false);
-            
-            exp += getPetBonus(player, true);
-            money += getPetBonus(player, false);
-            
-            exp += getArmorBonus(player, true);
-            money += getArmorBonus(player, false);
-            
-            PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
-            data.addExperience(exp);
-            
-            if (plugin.getEconomyManager().isEnabled()) {
-                plugin.getEconomyManager().giveMoney(player, money);
-            }
-            
-            block.setType(Material.AIR);
         }
     }
 }
