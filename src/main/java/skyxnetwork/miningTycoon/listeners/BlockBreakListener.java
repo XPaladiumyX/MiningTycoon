@@ -168,12 +168,16 @@ public class BlockBreakListener implements Listener {
             if (protocolManager == null) return;
 
             for (Block block : blocks) {
-                PacketContainer blockChange = new PacketContainer(PacketType.Play.Server.BLOCK_CHANGE);
-                blockChange.getBlockPositionModifier().write(0, 
+                PacketContainer packet = new PacketContainer(PacketType.Play.Server.BLOCK_CHANGE);
+                
+                // Set position - index 0
+                packet.getBlockPositionModifier().write(0, 
                     new com.comphenix.protocol.wrappers.BlockPosition(block.getX(), block.getY(), block.getZ()));
-                blockChange.getBlocks().write(0, Material.AIR);
+                
+                // Block state ID for AIR is 0 - index 1 in newer ProtocolLib
+                packet.getModifier().write(1, (short) 0);
 
-                protocolManager.sendServerPacket(player, blockChange);
+                protocolManager.sendServerPacket(player, packet);
             }
         } catch (Exception e) {
             plugin.getLogger().warning("Failed to send fake block break: " + e.getMessage());
@@ -185,14 +189,16 @@ public class BlockBreakListener implements Listener {
             ProtocolManager protocolManager = plugin.getProtocolManager();
             if (protocolManager == null) return;
 
-            PacketContainer blockChange = new PacketContainer(PacketType.Play.Server.BLOCK_CHANGE);
-            blockChange.getBlockPositionModifier().write(0, 
+            PacketContainer packet = new PacketContainer(PacketType.Play.Server.BLOCK_CHANGE);
+            
+            // Set position - index 0
+            packet.getBlockPositionModifier().write(0, 
                 new com.comphenix.protocol.wrappers.BlockPosition(block.getX(), block.getY(), block.getZ()));
             
-            // Use getBlocks for setting block material
-            blockChange.getBlocks().write(0, block.getType());
+            // Block state ID - index 1 in newer ProtocolLib
+            packet.getModifier().write(1, (short) block.getType().getId());
 
-            protocolManager.sendServerPacket(player, blockChange);
+            protocolManager.sendServerPacket(player, packet);
         } catch (Exception e) {
             plugin.getLogger().warning("Failed to send block respawn: " + e.getMessage());
         }
