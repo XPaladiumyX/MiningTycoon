@@ -18,7 +18,9 @@ import skyxnetwork.miningTycoon.managers.MineManager;
 import skyxnetwork.miningTycoon.utils.ActionBarUtil;
 import skyxnetwork.miningTycoon.utils.NumberFormatter;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -103,8 +105,16 @@ public class BlockBreakListener implements Listener {
             if (random.nextInt(100) < chance) {
                 Set<Block> nearbyBlocks = getNearbyBlocks(event.getBlock(), player);
                 if (!nearbyBlocks.isEmpty()) {
+                    // Store original block data BEFORE hiding blocks
+                    Map<Block, Material> originalMaterials = new HashMap<>();
+                    Map<Block, Byte> originalData = new HashMap<>();
+                    for (Block block : nearbyBlocks) {
+                        originalMaterials.put(block, block.getType());
+                        originalData.put(block, block.getData());
+                    }
+                    // Now hide blocks and start respawn process
                     sendFakeBlockBreak(player, nearbyBlocks);
-                    processVeinMinerBlocks(nearbyBlocks, player, totalExp, totalMoney);
+                    processVeinMinerBlocks(nearbyBlocks, originalMaterials, originalData, player, totalExp, totalMoney);
                 }
             }
         }
@@ -177,17 +187,18 @@ public class BlockBreakListener implements Listener {
         }
     }
 
-    private void processVeinMinerBlocks(Set<Block> blocks, Player player, double baseExp, double baseMoney) {
+    private void processVeinMinerBlocks(Set<Block> blocks, Map<Block, Material> originalMaterials, Map<Block, Byte> originalData, Player player, double baseExp, double baseMoney) {
         new BukkitRunnable() {
             int index = 0;
             @Override
             public void run() {
-                // If task was cancelled or completed, ensure all remaining blocks are respawned
                 if (index >= blocks.size()) {
-                    // Final cleanup - respawn any remaining blocks that weren't processed
+                    // Final cleanup - respawn all remaining blocks
                     for (Block block : blocks) {
-                        if (block.getType() != Material.AIR) {
-                            sendBlockRespawn(player, block);
+                        Material originalMat = originalMaterials.get(block);
+                        Byte originalDat = originalData.get(block);
+                        if (originalMat != null && originalMat != Material.AIR) {
+                            player.sendBlockChange(block.getLocation(), originalMat, originalDat);
                         }
                     }
                     cancel();
@@ -196,12 +207,15 @@ public class BlockBreakListener implements Listener {
 
                 Block block = (Block) blocks.toArray()[index];
                 
-                // Respawn block if it was mined or already AIR
-                sendBlockRespawn(player, block);
+                Material originalMat = originalMaterials.get(block);
+                Byte originalDat = originalData.get(block);
                 
-                // Only give rewards if block was valid (not already AIR)
-                if (block.getType() != Material.AIR) {
-                    MineManager.BlockRewardConfig reward = plugin.getMineManager().getBlockReward(block.getType());
+                // Respawn block with original data
+                if (originalMat != null && originalMat != Material.AIR) {
+                    player.sendBlockChange(block.getLocation(), originalMat, originalDat);
+                    
+                    // Give rewards for valid blocks
+                    MineManager.BlockRewardConfig reward = plugin.getMineManager().getBlockReward(originalMat);
                     if (reward != null) {
                         double exp = reward.getExp();
                         double money = reward.getMoney();
