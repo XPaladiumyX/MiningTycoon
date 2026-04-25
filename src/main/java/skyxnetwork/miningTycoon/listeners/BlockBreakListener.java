@@ -182,41 +182,48 @@ public class BlockBreakListener implements Listener {
             int index = 0;
             @Override
             public void run() {
+                // If task was cancelled or completed, ensure all remaining blocks are respawned
                 if (index >= blocks.size()) {
+                    // Final cleanup - respawn any remaining blocks that weren't processed
+                    for (Block block : blocks) {
+                        if (block.getType() != Material.AIR) {
+                            sendBlockRespawn(player, block);
+                        }
+                    }
                     cancel();
                     return;
                 }
 
                 Block block = (Block) blocks.toArray()[index];
-                if (block.getType() == Material.AIR) {
-                    sendBlockRespawn(player, block);
-                    index++;
-                    return;
-                }
+                
+                // Respawn block if it was mined or already AIR
+                sendBlockRespawn(player, block);
+                
+                // Only give rewards if block was valid (not already AIR)
+                if (block.getType() != Material.AIR) {
+                    MineManager.BlockRewardConfig reward = plugin.getMineManager().getBlockReward(block.getType());
+                    if (reward != null) {
+                        double exp = reward.getExp();
+                        double money = reward.getMoney();
 
-                MineManager.BlockRewardConfig reward = plugin.getMineManager().getBlockReward(block.getType());
-                if (reward != null) {
-                    double exp = reward.getExp();
-                    double money = reward.getMoney();
+                        exp += getToolBonus(player.getInventory().getItemInMainHand(), true);
+                        money += getToolBonus(player.getInventory().getItemInMainHand(), false);
 
-                    exp += getToolBonus(player.getInventory().getItemInMainHand(), true);
-                    money += getToolBonus(player.getInventory().getItemInMainHand(), false);
+                        exp += getPetBonus(player, true);
+                        money += getPetBonus(player, false);
 
-                    exp += getPetBonus(player, true);
-                    money += getPetBonus(player, false);
+                        exp += getArmorBonus(player, true);
+                        money += getArmorBonus(player, false);
 
-                    exp += getArmorBonus(player, true);
-                    money += getArmorBonus(player, false);
+                        PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
+                        data.addExperience(exp);
 
-                    PlayerData data = plugin.getPlayerDataManager().getPlayerData(player);
-                    data.addExperience(exp);
-
-                    if (plugin.getEconomyManager().isEnabled()) {
-                        plugin.getEconomyManager().giveMoney(player, money);
+                        if (plugin.getEconomyManager().isEnabled()) {
+                            plugin.getEconomyManager().giveMoney(player, money);
+                        }
                     }
                 }
-
-                sendBlockRespawn(player, block);
+                
                 index++;
             }
         }.runTaskTimer(plugin, 2L, 2L);
