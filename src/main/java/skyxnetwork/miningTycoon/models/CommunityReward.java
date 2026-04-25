@@ -8,7 +8,10 @@ public class CommunityReward {
         MONEY,
         EXP,
         ZENTIUM,
-        COMMAND
+        COMMAND,
+        GLOBAL_EXP_BOOST,
+        GLOBAL_COINS_BOOST,
+        GLOBAL_BOTH_BOOST
     }
 
     private final RewardType type;

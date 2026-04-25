@@ -26,6 +26,10 @@ public class CommunityGeneratorConfig {
         load();
     }
 
+    public void reload() {
+        load();
+    }
+
     public void load() {
         zones.clear();
         materialToZone.clear();
@@ -69,6 +73,12 @@ public class CommunityGeneratorConfig {
 
     private List<CommunityReward> loadRewards(ConfigurationSection zoneSection) {
         List<CommunityReward> rewards = new ArrayList<>();
+        
+        if (!zoneSection.isList("rewards")) {
+            plugin.getLogger().warning("Rewards is not a list for zone: " + zoneSection.getName());
+            return rewards;
+        }
+        
         List<?> rewardsList = zoneSection.getList("rewards");
 
         if (rewardsList == null) {
@@ -76,11 +86,19 @@ public class CommunityGeneratorConfig {
         }
 
         for (Object obj : rewardsList) {
-            if (!(obj instanceof ConfigurationSection rewardSection)) {
+            if (!(obj instanceof Map)) {
+                plugin.getLogger().warning("Reward is not a Map: " + obj);
                 continue;
             }
-
-            String typeStr = rewardSection.getString("type", "").toUpperCase();
+            
+            Map<?, ?> rewardMap = (Map<?, ?>) obj;
+            
+            Object typeObj = rewardMap.get("type");
+            if (typeObj == null) {
+                continue;
+            }
+            String typeStr = typeObj.toString().toUpperCase();
+            
             CommunityReward.RewardType type;
             try {
                 type = CommunityReward.RewardType.valueOf(typeStr);
@@ -89,11 +107,39 @@ public class CommunityGeneratorConfig {
                 continue;
             }
 
-            double chance = rewardSection.getDouble("chance", 0.0);
-            int min = rewardSection.getInt("min", 0);
-            int max = rewardSection.getInt("max", 0);
-            int amount = rewardSection.getInt("amount", 1);
-            List<String> commands = rewardSection.getStringList("commands");
+            double chance = 0.0;
+            Object chanceObj = rewardMap.get("chance");
+            if (chanceObj instanceof Number) {
+                chance = ((Number) chanceObj).doubleValue();
+            }
+
+            int min = 0;
+            Object minObj = rewardMap.get("min");
+            if (minObj instanceof Number) {
+                min = ((Number) minObj).intValue();
+            }
+
+            int max = 0;
+            Object maxObj = rewardMap.get("max");
+            if (maxObj instanceof Number) {
+                max = ((Number) maxObj).intValue();
+            }
+
+            int amount = 1;
+            Object amountObj = rewardMap.get("amount");
+            if (amountObj instanceof Number) {
+                amount = ((Number) amountObj).intValue();
+            }
+            
+            List<String> commands = new ArrayList<>();
+            Object commandsObj = rewardMap.get("commands");
+            if (commandsObj instanceof List) {
+                for (Object cmd : (List<?>) commandsObj) {
+                    if (cmd != null) {
+                        commands.add(cmd.toString());
+                    }
+                }
+            }
 
             rewards.add(new CommunityReward(type, chance, min, max, amount, commands));
         }

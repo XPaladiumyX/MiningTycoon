@@ -1,14 +1,48 @@
 package skyxnetwork.miningTycoon.managers;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitTask;
 import skyxnetwork.miningTycoon.MiningTycoon;
+import skyxnetwork.miningTycoon.utils.ItemBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BoostManager {
+
+    public enum BoostItemType {
+        EXP("exp", "§dEXP Boost", "§7Activates a Global §dEXP Boost§7!"),
+        COINS("coins", "§6Coins Boost", "§7Activates a Global §6Coins Boost§7!"),
+        BOTH("both", "§dEXP & Coins Boost", "§7Activates a Global §dEXP & Coins Boost§7!");
+
+        private final String id;
+        private final String name;
+        private final String lore;
+
+        BoostItemType(String id, String name, String lore) {
+            this.id = id;
+            this.name = name;
+            this.lore = lore;
+        }
+
+        public String getId() { return id; }
+        public String getName() { return name; }
+        public String getLore() { return lore; }
+
+        public static BoostItemType fromId(String id) {
+            for (BoostItemType type : values()) {
+                if (type.id.equals(id)) return type;
+            }
+            return null;
+        }
+    }
 
     private final MiningTycoon plugin;
     private boolean boostActive;
@@ -38,6 +72,39 @@ public class BoostManager {
         this.expMultiplier = 1.0;
         this.coinsMultiplier = 1.0;
         loadBoostConfig();
+    }
+
+    public ItemStack createBoostItem(BoostItemType type) {
+        return new ItemBuilder(Material.NETHER_STAR)
+                .setName(type.getName())
+                .setLore(
+                        "",
+                        type.getLore(),
+                        "",
+                        "§8\u00bb §7Click to activate",
+                        "§8\u00bb §7Cooldown: " + (coinsMaxDuration / 60) + " min max"
+                )
+                .addEnchantGlint()
+                .build();
+    }
+
+    public static BoostItemType getBoostItemType(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) return null;
+        ItemMeta meta = item.getItemMeta();
+        if (!meta.hasLore()) return null;
+        
+        List<String> lore = meta.getLore();
+        for (String line : lore) {
+            String lowerLine = line.toLowerCase();
+            if (lowerLine.contains("exp boost") && lowerLine.contains("coins")) {
+                return BoostItemType.BOTH;
+            } else if (lowerLine.contains("exp boost")) {
+                return BoostItemType.EXP;
+            } else if (lowerLine.contains("coins boost")) {
+                return BoostItemType.COINS;
+            }
+        }
+        return null;
     }
 
     private void loadBoostConfig() {
@@ -198,7 +265,7 @@ public class BoostManager {
         return coinsMultiplier;
     }
 
-    public int getTimeRemaining() {
+public int getTimeRemaining() {
         return timeRemaining;
     }
 
@@ -210,5 +277,59 @@ public class BoostManager {
         if (bossBar != null && boostActive) {
             bossBar.addPlayer(player);
         }
+    }
+
+public ItemStack giveFallbackItem(Player player, BoostItemType type) {
+        ItemStack item = createBoostItem(type);
+        player.getInventory().addItem(item);
+        player.sendMessage("§7§l\u00bb §dA boost item dropped! §7(No boost active, so you got an item instead)");
+        return item;
+    }
+
+    public void startGlobalBoost(String type, Player triggeredBy) {
+        boostActive = true;
+        boostType = type;
+        
+        switch (type) {
+            case "exp":
+                expMultiplier = ((int) (Math.random() * (expMaxMultiplier * 10 - expMinMultiplier * 10)) + (int) (expMinMultiplier * 10)) / 10.0;
+                if (expMultiplier < expMinMultiplier) expMultiplier = expMinMultiplier;
+                coinsMultiplier = 1.0;
+                boostDuration = (int) (Math.random() * (expMaxDuration - expMinDuration)) + expMinDuration;
+                break;
+            case "coins":
+                coinsMultiplier = coinsMultiplierValue;
+                expMultiplier = 1.0;
+                boostDuration = (int) (Math.random() * (coinsMaxDuration - coinsMinDuration)) + coinsMinDuration;
+                break;
+            case "both":
+                expMultiplier = ((int) (Math.random() * (expMaxMultiplier * 10 - expMinMultiplier * 10)) + (int) (expMinMultiplier * 10)) / 10.0;
+                if (expMultiplier < expMinMultiplier) expMultiplier = expMinMultiplier;
+                coinsMultiplier = coinsMultiplierValue;
+                boostDuration = (int) (Math.random() * (coinsMaxDuration - coinsMinDuration)) + coinsMinDuration;
+                break;
+            default:
+                boostActive = false;
+                return;
+        }
+        
+        timeRemaining = boostDuration;
+        
+        switch (type) {
+            case "exp":
+                Bukkit.broadcastMessage("§b☄ §d" + triggeredBy.getName() + " §dtriggered a Global EXP Boost! §7(x" + expMultiplier + " EXP for " + boostDuration + " seconds)");
+                createBossBar("§d☄ Global EXP Boost Active! §7(x" + expMultiplier + ")", BarColor.PURPLE);
+                break;
+            case "coins":
+                Bukkit.broadcastMessage("§b☄ §6" + triggeredBy.getName() + " §6triggered a Global Coins Boost! §7(x" + coinsMultiplier + " Coins for " + boostDuration + " seconds)");
+                createBossBar("§6☄ Global Coins Boost Active! §7(x" + coinsMultiplier + ")", BarColor.YELLOW);
+                break;
+            case "both":
+                Bukkit.broadcastMessage("§b☄ §d" + triggeredBy.getName() + " §dtriggered a Global EXP & Coins Boost! §7(x" + expMultiplier + " EXP, x" + coinsMultiplier + " Coins for " + boostDuration + " seconds)");
+                createBossBar("§b☄ Global EXP & Coins Boost Active! §7(x" + expMultiplier + ", x" + coinsMultiplier + ")", BarColor.BLUE);
+                break;
+        }
+        
+        startBoostTask();
     }
 }

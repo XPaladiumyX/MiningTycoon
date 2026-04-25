@@ -58,6 +58,9 @@ public class MiningTycoonCommand implements CommandExecutor {
                 // Reload area gates
                 plugin.getAreaGateManager().reload();
 
+                // Reload community generator
+                plugin.getCommunityGeneratorConfig().reload();
+
                 // Save all player data
                 plugin.getDataStorage().saveAllData();
 
@@ -105,34 +108,55 @@ public class MiningTycoonCommand implements CommandExecutor {
         sender.sendMessage("§e/miningtycoon reload §7- Reload the plugin");
         sender.sendMessage("§e/miningtycoon save §7- Save all data");
         sender.sendMessage("§e/miningtycoon version §7- Show version info");
-        sender.sendMessage("§e/miningtycoon enchant §7<enchant> <level> <player>");
+        sender.sendMessage("§e/miningtycoon enchant §7<add|remove> <enchant> <level> <player>");
         sender.sendMessage("§e/miningtycoon help §7- Show this help");
         sender.sendMessage("§8§m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
     }
 
     private boolean handleEnchant(CommandSender sender, String[] args) {
-        if (args.length < 3) {
-            sender.sendMessage(ChatColor.RED + "Usage: /miningtycoon enchant <enchant> <level> <player>");
-            sender.sendMessage(ChatColor.GRAY + "Enchants: Tempo");
-            sender.sendMessage(ChatColor.GRAY + "Example: /miningtycoon enchant Tempo 3 Notch");
+        String action = args[1].toLowerCase();
+        
+        if (action.equals("add")) {
+            if (args.length < 5) {
+                sender.sendMessage(ChatColor.RED + "Usage: /miningtycoon enchant add <enchant> <level> <player>");
+                sender.sendMessage(ChatColor.GRAY + "Example: /miningtycoon enchant add tempo 3 Notch");
+                return true;
+            }
+        } else if (action.equals("remove")) {
+            if (args.length < 4) {
+                sender.sendMessage(ChatColor.RED + "Usage: /miningtycoon enchant remove <enchant> <player>");
+                sender.sendMessage(ChatColor.GRAY + "Example: /miningtycoon enchant remove tempo Notch");
+                return true;
+            }
+        } else {
+            sender.sendMessage(ChatColor.RED + "Usage: /miningtycoon enchant <add|remove> ...");
             return true;
         }
 
-        String enchantName = args[1].toLowerCase();
+        String enchantName = args[2].toLowerCase();
         int level;
         Player target;
 
-        try {
-            level = Integer.parseInt(args[2]);
-        } catch (NumberFormatException e) {
-            sender.sendMessage(ChatColor.RED + "Invalid level: " + args[2]);
-            return true;
-        }
+        if (action.equals("add")) {
+            try {
+                level = Integer.parseInt(args[3]);
+            } catch (NumberFormatException e) {
+                sender.sendMessage(ChatColor.RED + "Invalid level: " + args[3]);
+                return true;
+            }
 
-        target = plugin.getServer().getPlayer(args[3]);
-        if (target == null) {
-            sender.sendMessage(ChatColor.RED + "Player '" + args[3] + "' not found.");
-            return true;
+            target = plugin.getServer().getPlayer(args[4]);
+            if (target == null) {
+                sender.sendMessage(ChatColor.RED + "Player '" + args[4] + "' not found.");
+                return true;
+            }
+        } else {
+            level = 0;
+            target = plugin.getServer().getPlayer(args[3]);
+            if (target == null) {
+                sender.sendMessage(ChatColor.RED + "Player '" + args[3] + "' not found.");
+                return true;
+            }
         }
 
         ItemStack item = target.getInventory().getItemInMainHand();
@@ -142,26 +166,74 @@ public class MiningTycoonCommand implements CommandExecutor {
         }
 
         ItemManager manager = plugin.getItemManager();
-        String pickaxeId = manager.getPickaxeId(item);
 
         switch (enchantName) {
             case "tempo":
-                if (level < 1 || level > 5) {
-                    sender.sendMessage(ChatColor.RED + "Tempo level must be 1-5.");
-                    return true;
+                if (action.equals("add")) {
+                    if (level < 1 || level > 5) {
+                        sender.sendMessage(ChatColor.RED + "Tempo level must be 1-5.");
+                        return true;
+                    }
+                    if (manager.getPickaxeCooldownReductionLevel(item) > 0) {
+                        sender.sendMessage(ChatColor.RED + "This item already has Tempo enchant. Use /mt enchant remove tempo first.");
+                        return true;
+                    }
+                    manager.applyTempoEnchant(item, level);
+                    String[] roman = {"", "I", "II", "III", "IV", "V"};
+                    target.sendMessage(ChatColor.GREEN + "Applied Tempo " + roman[level] + "!");
+                    sender.sendMessage(ChatColor.GREEN + "Applied Tempo " + roman[level] + " to " + target.getName());
+                } else {
+                    if (manager.getPickaxeCooldownReductionLevel(item) == 0) {
+                        sender.sendMessage(ChatColor.RED + "This item doesn't have Tempo enchant.");
+                        return true;
+                    }
+                    manager.removeTempoEnchant(item);
+                    target.sendMessage(ChatColor.GREEN + "Tempo enchant removed!");
+                    sender.sendMessage(ChatColor.GREEN + "Removed Tempo enchant from " + target.getName());
                 }
-                if (pickaxeId != null && !manager.canHaveTempo(pickaxeId)) {
-                    sender.sendMessage(ChatColor.RED + "This pickaxe cannot have Tempo (set tempoEnabled: true).");
-                    return true;
+                break;
+            case "veinminer":
+                if (action.equals("add")) {
+                    if (level < 1 || level > 6) {
+                        sender.sendMessage(ChatColor.RED + "VeinMiner level must be 1-6.");
+                        return true;
+                    }
+                    if (manager.getPickaxeVeinMinerLevelFromItem(item) > 0) {
+                        sender.sendMessage(ChatColor.RED + "This item already has VeinMiner enchant. Use /mt enchant remove veinminer first.");
+                        return true;
+                    }
+                    manager.applyVeinMinerEnchant(item, level);
+                    String[] roman = {"", "I", "II", "III", "IV", "V", "VI"};
+                    target.sendMessage(ChatColor.GREEN + "Applied VeinMiner " + roman[level] + "!");
+                    sender.sendMessage(ChatColor.GREEN + "Applied VeinMiner " + roman[level] + " to " + target.getName());
+                } else {
+                    if (manager.getPickaxeVeinMinerLevelFromItem(item) == 0) {
+                        sender.sendMessage(ChatColor.RED + "This item doesn't have VeinMiner enchant.");
+                        return true;
+                    }
+                    manager.removeVeinMinerEnchant(item);
+                    target.sendMessage(ChatColor.GREEN + "VeinMiner enchant removed!");
+                    sender.sendMessage(ChatColor.GREEN + "Removed VeinMiner enchant from " + target.getName());
                 }
-                manager.applyTempoEnchant(item, level);
-                StringBuilder tempoRoman = new StringBuilder();
-                for (int i = 0; i < level; i++) {
-                    tempoRoman.append("I");
-                    if (i < level - 1) tempoRoman.append(" ");
+                break;
+            case "godpick":
+                if (action.equals("add")) {
+                    if (manager.hasGodPickEnchant(item)) {
+                        sender.sendMessage(ChatColor.RED + "This item already has GodPick enchant. Use /mt enchant remove godpick first.");
+                        return true;
+                    }
+                    manager.applyGodPickEnchant(item);
+                    target.sendMessage(ChatColor.GREEN + "Applied GodPick!");
+                    sender.sendMessage(ChatColor.GREEN + "Applied GodPick to " + target.getName());
+                } else {
+                    if (!manager.hasGodPickEnchant(item)) {
+                        sender.sendMessage(ChatColor.RED + "This item doesn't have GodPick enchant.");
+                        return true;
+                    }
+                    manager.removeGodPickEnchant(item);
+                    target.sendMessage(ChatColor.GREEN + "GodPick enchant removed!");
+                    sender.sendMessage(ChatColor.GREEN + "Removed GodPick enchant from " + target.getName());
                 }
-                target.sendMessage(ChatColor.GREEN + "Applied Tempo " + tempoRoman + "!");
-                sender.sendMessage(ChatColor.GREEN + "Applied Tempo " + tempoRoman + " to " + target.getName());
                 break;
             default:
                 sender.sendMessage(ChatColor.RED + "Unknown enchant: " + enchantName);

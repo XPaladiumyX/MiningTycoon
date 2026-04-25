@@ -12,9 +12,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import skyxnetwork.miningTycoon.MiningTycoon;
 import skyxnetwork.miningTycoon.config.CommunityGeneratorConfig;
+import skyxnetwork.miningTycoon.data.PlayerData;
+import skyxnetwork.miningTycoon.managers.BoostManager;
 import skyxnetwork.miningTycoon.models.CommunityGeneratorZone;
 import skyxnetwork.miningTycoon.models.CommunityReward;
-import skyxnetwork.miningTycoon.data.PlayerData;
 import skyxnetwork.miningTycoon.utils.ActionBarUtil;
 
 import java.util.HashMap;
@@ -51,15 +52,8 @@ public class CommunityGeneratorListener implements Listener {
 
         Player player = event.getPlayer();
 
-        PlayerData data = plugin.getPlayerDataManager().getPlayerData(player.getUniqueId());
-        if (data != null && data.getPlayerMode().equals("staff")) {
-            return;
-        }
-
-        int zoneNumber = getZoneNumber(zone.getZoneName());
-        String regionName = "zone" + zoneNumber + "_mid";
-
-        if (!plugin.getWorldGuardManager().isInRegion(player, regionName)) {
+        PlayerData playerData = plugin.getPlayerDataManager().getPlayerData(player.getUniqueId());
+        if (playerData != null && playerData.getPlayerMode().equals("staff")) {
             return;
         }
 
@@ -68,21 +62,23 @@ public class CommunityGeneratorListener implements Listener {
 
         event.setCancelled(true);
 
-        ActionBarUtil.sendActionBar(player, ChatColor.LIGHT_PURPLE + "⚒ " + ChatColor.GRAY + "Mining the " + ChatColor.RED + "Community Generator" + ChatColor.GRAY + "...");
-
         if (checkCooldown(player.getUniqueId(), zone.getZoneName(), effectiveCooldown)) {
             long remaining = getRemainingCooldown(player.getUniqueId(), zone.getZoneName(), effectiveCooldown);
-            ActionBarUtil.sendActionBar(player, ChatColor.RED + "Wait " + remaining + "s... " + ChatColor.GRAY + "(-" + (int)(reductionPercent * 100) + "%% cooldown reduction)");
+            ActionBarUtil.sendActionBar(player, ChatColor.RED + "Wait " + remaining + "s... " + ChatColor.GRAY + "(-" + (int)(reductionPercent * 100) + "% cooldown reduction)");
             return;
         }
+
+        ActionBarUtil.sendActionBar(player, ChatColor.LIGHT_PURPLE + "⚒ " + ChatColor.GRAY + "Mining the " + ChatColor.RED + "Community Generator" + ChatColor.GRAY + "...");
 
         updateCooldown(player.getUniqueId(), zone.getZoneName());
 
         List<CommunityReward> rewards = zone.getRewards();
         List<String> receivedRewards = new java.util.ArrayList<>();
 
+        boolean atLeastOneReward = false;
         for (CommunityReward reward : rewards) {
             if (rollReward(reward.getChance())) {
+                atLeastOneReward = true;
                 switch (reward.getType()) {
                     case MONEY:
                         int moneyAmount = reward.getRandomAmount();
@@ -92,7 +88,9 @@ public class CommunityGeneratorListener implements Listener {
 
                     case EXP:
                         int expAmount = reward.getRandomAmount();
-                        player.giveExp(expAmount);
+                        if (playerData != null) {
+                            playerData.addExperience(expAmount);
+                        }
                         receivedRewards.add(ChatColor.AQUA + "+" + expAmount + " XP");
                         break;
 
@@ -104,7 +102,36 @@ public class CommunityGeneratorListener implements Listener {
 
                     case COMMAND:
                         executeCommands(player, reward.getCommands());
-                        receivedRewards.add(ChatColor.YELLOW + "Command executed!");
+                        break;
+
+                    case GLOBAL_EXP_BOOST:
+                        if (!plugin.getBoostManager().isBoostActive()) {
+                            plugin.getBoostManager().startGlobalBoost("exp", player);
+                            receivedRewards.add(ChatColor.LIGHT_PURPLE + "☄ Global EXP Boost!");
+                        } else {
+                            plugin.getBoostManager().giveFallbackItem(player, BoostManager.BoostItemType.EXP);
+                            receivedRewards.add(ChatColor.LIGHT_PURPLE + "☄ Boost item dropped!");
+                        }
+                        break;
+
+                    case GLOBAL_COINS_BOOST:
+                        if (!plugin.getBoostManager().isBoostActive()) {
+                            plugin.getBoostManager().startGlobalBoost("coins", player);
+                            receivedRewards.add(ChatColor.GOLD + "☄ Global Coins Boost!");
+                        } else {
+                            plugin.getBoostManager().giveFallbackItem(player, BoostManager.BoostItemType.COINS);
+                            receivedRewards.add(ChatColor.GOLD + "☄ Boost item dropped!");
+                        }
+                        break;
+
+                    case GLOBAL_BOTH_BOOST:
+                        if (!plugin.getBoostManager().isBoostActive()) {
+                            plugin.getBoostManager().startGlobalBoost("both", player);
+                            receivedRewards.add(ChatColor.DARK_PURPLE + "☄ Global EXP & Coins Boost!");
+                        } else {
+                            plugin.getBoostManager().giveFallbackItem(player, BoostManager.BoostItemType.BOTH);
+                            receivedRewards.add(ChatColor.DARK_PURPLE + "☄ Boost item dropped!");
+                        }
                         break;
                 }
             }
@@ -149,14 +176,11 @@ public class CommunityGeneratorListener implements Listener {
 
     private double getCooldownReduction(Player player) {
         ItemStack tool = player.getInventory().getItemInMainHand();
-        String pickaxeId = plugin.getItemManager().getPickaxeId(tool);
-        if (pickaxeId == null) {
+        int tempoLevel = plugin.getItemManager().getPickaxeCooldownReductionLevel(tool);
+        if (tempoLevel == 0) {
             return 0.0;
         }
-        if (!plugin.getItemManager().canHaveCooldownReduction(pickaxeId)) {
-            return 0.0;
-        }
-        return plugin.getItemManager().getCooldownReductionFromPickaxe(tool);
+        return plugin.getItemManager().getCooldownReductionPercent(tempoLevel);
     }
 
     private int getEffectiveCooldown(Player player, CommunityGeneratorZone zone) {

@@ -53,6 +53,12 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder addEnchantGlint() {
+        meta.addEnchant(Enchantment.UNBREAKING, 1, true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        return this;
+    }
+
     public ItemBuilder setUnbreakable(boolean unbreakable) {
         meta.setUnbreakable(unbreakable);
         return this;

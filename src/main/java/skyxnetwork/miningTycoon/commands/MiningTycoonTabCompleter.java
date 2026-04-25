@@ -121,10 +121,18 @@ public class MiningTycoonTabCompleter implements TabCompleter {
                 if (args.length == 1) {
                     completions.addAll(Arrays.asList("reload", "save", "help", "version", "enchant"));
                 } else if (args.length == 2 && args[0].equalsIgnoreCase("enchant")) {
-                    completions.add("tempo");
+                    completions.addAll(Arrays.asList("add", "remove"));
                 } else if (args.length == 3 && args[0].equalsIgnoreCase("enchant")) {
-                    completions.addAll(Arrays.asList("1", "2", "3", "4", "5"));
-                } else if (args.length == 4 && args[0].equalsIgnoreCase("enchant")) {
+                    completions.addAll(Arrays.asList("tempo", "veinminer", "godpick"));
+                } else if (args.length == 4 && args[0].equalsIgnoreCase("enchant") && args[1].equalsIgnoreCase("add")) {
+                    if (args[2].equalsIgnoreCase("veinminer")) {
+                        completions.addAll(Arrays.asList("1", "2", "3", "4", "5", "6"));
+                    } else if (args[2].equalsIgnoreCase("tempo")) {
+                        completions.addAll(Arrays.asList("1", "2", "3", "4", "5"));
+                    }
+                } else if (args.length == 4 && args[0].equalsIgnoreCase("enchant") && args[1].equalsIgnoreCase("remove")) {
+                    return getOnlinePlayerNames();
+                } else if (args.length == 5 && args[0].equalsIgnoreCase("enchant") && args[1].equalsIgnoreCase("add")) {
                     return getOnlinePlayerNames();
                 }
                 break;

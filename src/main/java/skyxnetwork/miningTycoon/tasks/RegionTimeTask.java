@@ -20,7 +20,7 @@ public class RegionTimeTask extends BukkitRunnable {
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (player.getWorld().getName().equals("mining_tycoon")) {
-                PotionEffect effect = new PotionEffect(PotionEffectType.NIGHT_VISION, 100, 0, false, false);
+                PotionEffect effect = new PotionEffect(PotionEffectType.NIGHT_VISION, 400, 0, false, false);
 
                 if (player.getLocation().getX() <= 40){
                     player.addPotionEffect(effect);

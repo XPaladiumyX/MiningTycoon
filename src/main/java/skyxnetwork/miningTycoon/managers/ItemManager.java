@@ -222,23 +222,29 @@ public class ItemManager {
     }
 
     public int getPickaxeHasteLevel(String id) {
+        String hasteValue = pickaxesConfig.getString(id + ".haste", "0");
+        if (hasteValue.contains(",")) {
+            String[] parts = hasteValue.split(",");
+            return Integer.parseInt(parts[0].trim());
+        }
         return pickaxesConfig.getInt(id + ".haste", 0);
     }
 
-    public boolean canHaveCooldownReduction(String id) {
-        return pickaxesConfig.getBoolean(id + ".tempoEnabled", false);
+    public int getPickaxeHasteDuration(String id) {
+        String hasteValue = pickaxesConfig.getString(id + ".haste", "0");
+        if (hasteValue.contains(",")) {
+            String[] parts = hasteValue.split(",");
+            return Integer.parseInt(parts[1].trim());
+        }
+        return 0;
     }
 
-    public boolean canHaveTempo(String id) {
-        return pickaxesConfig.getBoolean(id + ".tempoEnabled", false);
-    }
-
-    public int getPickaxeTempoLevelFromConfig(String id) {
-        return pickaxesConfig.getInt(id + ".enchants.tempo", 0);
+    public int getPickaxeTempoLevel(String id) {
+        return pickaxesConfig.getInt(id + ".tempo", 0);
     }
 
     public boolean canApplyTempoEnchant(String pickaxeId) {
-        return pickaxesConfig.getBoolean(pickaxeId + ".tempoEnabled", false);
+        return getPickaxeTempoLevel(pickaxeId) > 0;
     }
 
     public boolean applyTempoEnchant(ItemStack item, int level) {
@@ -254,23 +260,47 @@ public class ItemManager {
             lore = new ArrayList<>();
         }
 
+        lore.removeIf(line -> line.contains("§5Tempo"));
         String enchantLore = getTempoLore(level);
+        String descLore = getTempoDescriptionLore(level);
         lore.add(enchantLore);
+        lore.add(descLore);
         meta.setLore(lore);
         item.setItemMeta(meta);
         return true;
     }
 
-    public static String getTempoLore(int level) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("§5Tempo ");
-        for (int i = 0; i < level; i++) {
-            sb.append("I");
-            if (i < level - 1) sb.append(" ");
+    public boolean removeTempoEnchant(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) {
+            return false;
         }
-        sb.append("\n§7Reduces §6Community Generator §7cooldown by §a");
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) {
+            return false;
+        }
+        List<String> lore = meta.getLore();
+        if (lore == null) {
+            return false;
+        }
+        boolean removedTempo = lore.removeIf(line -> line.contains("§5Tempo"));
+        boolean removedDesc = lore.removeIf(line -> line.contains("Community Generator"));
+        if (removedTempo || removedDesc) {
+            meta.setLore(lore);
+            item.setItemMeta(meta);
+        }
+        return removedTempo;
+    }
+
+    public static String getTempoLore(int level) {
+        String[] roman = {"", "I", "II", "III", "IV", "V"};
+        return "§5Tempo " + roman[level];
+    }
+
+    public static String getTempoDescriptionLore(int level) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("§7Reduces §6Community Generator §7cooldown by §a");
         sb.append((int)(getCooldownReductionPercentStatic(level) * 100));
-        sb.append("%%");
+        sb.append("%");
         return sb.toString();
     }
 
@@ -289,11 +319,11 @@ public class ItemManager {
         if (lore == null || !lore.contains("§5Tempo")) {
             return 0;
         }
-        if (lore.contains("V")) return 5;
-        if (lore.contains("IV")) return 4;
-        if (lore.contains("III")) return 3;
-        if (lore.contains("II")) return 2;
-        if (lore.contains(" I")) return 1;
+        if (lore.contains("Tempo V")) return 5;
+        if (lore.contains("Tempo IV")) return 4;
+        if (lore.contains("Tempo III")) return 3;
+        if (lore.contains("Tempo II")) return 2;
+        if (lore.contains("Tempo I")) return 1;
         return 0;
     }
 
@@ -301,20 +331,22 @@ public class ItemManager {
         if (item == null || !item.hasItemMeta()) {
             return 0;
         }
-        List<String> lore = item.getItemMeta().getLore();
-        if (lore == null) {
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null || !meta.hasLore()) {
             return 0;
         }
+        List<String> lore = meta.getLore();
         for (String line : lore) {
-            if (line.contains("§5Tempo")) {
-                if (line.contains("V")) return 5;
-                if (line.contains("IV")) return 4;
-                if (line.contains("III")) return 3;
-                if (line.contains("II")) return 2;
-                if (line.contains(" I")) return 1;
+            String lower = line.toLowerCase();
+            if (lower.contains("tempo")) {
+                if (lower.contains("tempo v")) return 5;
+                if (lower.contains("tempo iv")) return 4;
+                if (lower.contains("tempo iii")) return 3;
+                if (lower.contains("tempo ii")) return 2;
+                if (lower.contains("tempo i")) return 1;
             }
         }
-return 0;
+        return 0;
     }
 
     public double getCooldownReductionFromPickaxe(ItemStack pickaxe) {
@@ -331,6 +363,180 @@ return 0;
             case 5: return 1.00;
             default: return 0.0;
         }
+    }
+
+    // ==================== VEINMINER ====================
+    public int getPickaxeVeinMinerLevel(String id) {
+        return pickaxesConfig.getInt(id + ".veinMiner", 0);
+    }
+
+    public boolean canApplyVeinMinerEnchant(String pickaxeId) {
+        return getPickaxeVeinMinerLevel(pickaxeId) > 0;
+    }
+
+    public boolean applyVeinMinerEnchant(ItemStack item, int level) {
+        if (item == null || level < 1 || level > 6) {
+            return false;
+        }
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) {
+            return false;
+        }
+        List<String> lore = meta.getLore();
+        if (lore == null) {
+            lore = new ArrayList<>();
+        }
+
+        lore.removeIf(line -> line.contains("§dVeinMiner"));
+        String enchantLore = getVeinMinerLore(level);
+        String descLore = getVeinMinerDescriptionLore(level);
+        lore.add(enchantLore);
+        lore.add(descLore);
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        return true;
+    }
+
+    public boolean removeVeinMinerEnchant(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) {
+            return false;
+        }
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) {
+            return false;
+        }
+        List<String> lore = meta.getLore();
+        if (lore == null) {
+            return false;
+        }
+        boolean removedVeinMiner = lore.removeIf(line -> line.contains("§dVeinMiner"));
+        boolean removedDesc = lore.removeIf(line -> line.contains("3x3"));
+        if (removedVeinMiner || removedDesc) {
+            meta.setLore(lore);
+            item.setItemMeta(meta);
+        }
+        return removedVeinMiner;
+    }
+
+    public static String getVeinMinerLore(int level) {
+        String[] roman = {"", "I", "II", "III", "IV", "V", "VI"};
+        return "§dVeinMiner " + roman[level];
+    }
+
+    public static String getVeinMinerDescriptionLore(int level) {
+        int chance = getVeinMinerChance(level);
+        return "§a" + chance + "% §7Chance to mine a §63x3 §7area";
+    }
+
+    public static int getVeinMinerChance(int level) {
+        switch (level) {
+            case 1: return 10;
+            case 2: return 25;
+            case 3: return 50;
+            case 4: return 65;
+            case 5: return 80;
+            case 6: return 100;
+            default: return 0;
+        }
+    }
+
+    public static int parseVeinMinerLevelFromLore(String lore) {
+        if (lore == null || !lore.contains("§dVeinMiner")) {
+            return 0;
+        }
+        if (lore.contains("VeinMiner VI")) return 6;
+        if (lore.contains("VeinMiner V")) return 5;
+        if (lore.contains("VeinMiner IV")) return 4;
+        if (lore.contains("VeinMiner III")) return 3;
+        if (lore.contains("VeinMiner II")) return 2;
+        if (lore.contains("VeinMiner I")) return 1;
+        return 0;
+    }
+
+    public int getPickaxeVeinMinerLevelFromItem(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) {
+            return 0;
+        }
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null || !meta.hasLore()) {
+            return 0;
+        }
+        List<String> lore = meta.getLore();
+        for (String line : lore) {
+            String lower = line.toLowerCase();
+            if (lower.contains("veinminer")) {
+                if (lower.contains("veinminer vi")) return 6;
+                if (lower.contains("veinminer v")) return 5;
+                if (lower.contains("veinminer iv")) return 4;
+                if (lower.contains("veinminer iii")) return 3;
+                if (lower.contains("veinminer ii")) return 2;
+                if (lower.contains("veinminer i")) return 1;
+            }
+        }
+        return 0;
+    }
+
+    // ==================== GODPICK ====================
+    public int getPickaxeGodPickLevel(String id) {
+        return pickaxesConfig.getInt(id + ".godPick", 0);
+    }
+
+    public boolean hasGodPickEnchant(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) {
+            return false;
+        }
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null || !meta.hasLore()) {
+            return false;
+        }
+        List<String> lore = meta.getLore();
+        for (String line : lore) {
+            if (line.contains("§cGodPick")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean applyGodPickEnchant(ItemStack item) {
+        if (item == null) {
+            return false;
+        }
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) {
+            return false;
+        }
+        List<String> lore = meta.getLore();
+        if (lore == null) {
+            lore = new ArrayList<>();
+        }
+
+        lore.removeIf(line -> line.contains("§cGodPick"));
+        lore.add("§cGodPick");
+        lore.add("§a100% §7Chance to earn §cTriple §7XP & money while mining");
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        return true;
+    }
+
+    public boolean removeGodPickEnchant(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) {
+            return false;
+        }
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) {
+            return false;
+        }
+        List<String> lore = meta.getLore();
+        if (lore == null) {
+            return false;
+        }
+        boolean removed = lore.removeIf(line -> line.contains("§cGodPick") || line.contains("Triple"));
+        if (removed) {
+            meta.setLore(lore);
+            item.setItemMeta(meta);
+        }
+        return removed;
     }
 
     public double getArmorExpBonus(String id) {
