@@ -1,8 +1,5 @@
 package skyxnetwork.miningTycoon.listeners;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolManager;
-import com.comphenix.protocol.events.PacketContainer;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -164,20 +161,8 @@ public class BlockBreakListener implements Listener {
 
     private void sendFakeBlockBreak(Player player, Set<Block> blocks) {
         try {
-            ProtocolManager protocolManager = plugin.getProtocolManager();
-            if (protocolManager == null) return;
-
             for (Block block : blocks) {
-                PacketContainer packet = new PacketContainer(PacketType.Play.Server.BLOCK_CHANGE);
-                
-                // Set position - index 0
-                packet.getBlockPositionModifier().write(0, 
-                    new com.comphenix.protocol.wrappers.BlockPosition(block.getX(), block.getY(), block.getZ()));
-                
-                // Block state ID for AIR is 0 - index 1 in newer ProtocolLib
-                packet.getModifier().write(1, (short) 0);
-
-                protocolManager.sendServerPacket(player, packet);
+                player.sendBlockChange(block.getLocation(), Material.AIR, (byte) 0);
             }
         } catch (Exception e) {
             plugin.getLogger().warning("Failed to send fake block break: " + e.getMessage());
@@ -186,19 +171,7 @@ public class BlockBreakListener implements Listener {
 
     private void sendBlockRespawn(Player player, Block block) {
         try {
-            ProtocolManager protocolManager = plugin.getProtocolManager();
-            if (protocolManager == null) return;
-
-            PacketContainer packet = new PacketContainer(PacketType.Play.Server.BLOCK_CHANGE);
-            
-            // Set position - index 0
-            packet.getBlockPositionModifier().write(0, 
-                new com.comphenix.protocol.wrappers.BlockPosition(block.getX(), block.getY(), block.getZ()));
-            
-            // Block state ID - index 1 in newer ProtocolLib
-            packet.getModifier().write(1, (short) block.getType().getId());
-
-            protocolManager.sendServerPacket(player, packet);
+            player.sendBlockChange(block.getLocation(), block.getType(), block.getData());
         } catch (Exception e) {
             plugin.getLogger().warning("Failed to send block respawn: " + e.getMessage());
         }
