@@ -170,30 +170,37 @@ public class BlockBreakListener implements Listener {
     }
 
     private void sendFakeBlockBreak(Player player, Set<Block> blocks) {
-        ProtocolManager protocolManager = Bukkit.getServer().getServicesManager().getRegistration(ProtocolManager.class).getProvider();
-        if (protocolManager == null) return;
+        try {
+            ProtocolManager protocolManager = plugin.getProtocolManager();
+            if (protocolManager == null) return;
 
-        for (Block block : blocks) {
-            PacketContainer blockChange = new PacketContainer(PacketType.Play.Server.BLOCK_CHANGE);
-            blockChange.getBlockPositionModifier().write(0, 
-                new com.comphenix.protocol.wrappers.BlockPosition(block.getX(), block.getY(), block.getZ()));
-            blockChange.getBlocks().write(0, org.bukkit.block.Block.class.cast(Material.AIR));
+            for (Block block : blocks) {
+                PacketContainer blockChange = new PacketContainer(PacketType.Play.Server.BLOCK_CHANGE);
+                blockChange.getBlockPositionModifier().write(0, 
+                    new com.comphenix.protocol.wrappers.BlockPosition(block.getX(), block.getY(), block.getZ()));
+                blockChange.getBlockTypeModifier().write(0, Material.AIR);
 
-            protocolManager.sendServerPacket(player, blockChange);
+                protocolManager.sendServerPacket(player, blockChange);
+            }
+        } catch (Exception e) {
+            plugin.getLogger().warning("Failed to send fake block break: " + e.getMessage());
         }
     }
 
     private void sendBlockRespawn(Player player, Block block) {
-        ProtocolManager protocolManager = Bukkit.getServer().getServicesManager().getRegistration(ProtocolManager.class).getProvider();
-        if (protocolManager == null) return;
+        try {
+            ProtocolManager protocolManager = plugin.getProtocolManager();
+            if (protocolManager == null) return;
 
-        PacketContainer blockChange = new PacketContainer(PacketType.Play.Server.BLOCK_CHANGE);
-        blockChange.getBlockPositionModifier().write(0, 
-            new com.comphenix.protocol.wrappers.BlockPosition(block.getX(), block.getY(), block.getZ()));
-        blockChange.getBlockTypeModifier().write(0, block.getType());
-        blockChange.getBlockDataModifier().write(0, (byte) block.getData());
+            PacketContainer blockChange = new PacketContainer(PacketType.Play.Server.BLOCK_CHANGE);
+            blockChange.getBlockPositionModifier().write(0, 
+                new com.comphenix.protocol.wrappers.BlockPosition(block.getX(), block.getY(), block.getZ()));
+            blockChange.getBlockTypeModifier().write(0, block.getType());
 
-        protocolManager.sendServerPacket(player, blockChange);
+            protocolManager.sendServerPacket(player, blockChange);
+        } catch (Exception e) {
+            plugin.getLogger().warning("Failed to send block respawn: " + e.getMessage());
+        }
     }
 
     private void processVeinMinerBlocks(Set<Block> blocks, Player player, double baseExp, double baseMoney) {

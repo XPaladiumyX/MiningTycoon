@@ -1,5 +1,6 @@
 package skyxnetwork.miningTycoon;
 
+import com.comphenix.protocol.ProtocolManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -43,6 +44,13 @@ public final class MiningTycoon extends JavaPlugin {
     // Tab Completer
     private MiningTycoonTabCompleter tabCompleter;
 
+    // ProtocolLib
+    private ProtocolManager protocolManager;
+
+    public ProtocolManager getProtocolManager() {
+        return protocolManager;
+    }
+
     @Override
     public void onEnable() {
         instance = this;
@@ -77,6 +85,14 @@ public final class MiningTycoon extends JavaPlugin {
         itemManager = new ItemManager(this);
         areaGateManager = new AreaGateManager(this);
         communityGeneratorConfig = new CommunityGeneratorConfig(this);
+
+        // Initialize ProtocolLib
+        if (Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
+            protocolManager = com.comphenix.protocol.ProtocolLibrary.getProtocolManager();
+            getLogger().info("ProtocolLib detected! VeinMiner visual effects enabled.");
+        } else {
+            getLogger().warning("ProtocolLib not found! VeinMiner will work without visual effects.");
+        }
 
         // Initialize GUI
         prestigePortalGUI = new PrestigePortalGUI(this);
