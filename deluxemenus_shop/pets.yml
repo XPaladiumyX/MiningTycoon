@@ -1,4 +1,4 @@
-open_command: pets
+﻿open_command: pets
 
 size: 36
 
@@ -45,7 +45,7 @@ items:
         - '[message] &cYou don''t have enough money for this!'
     left_click_commands:
       - '[takemoney] 300'
-      - '[console] hdb give 26905 1 %player_name%'
+      - '[console] givepet rocky_mole %player_name%'
       - '[message] &aReceived &7&lRocky Mole'
 
   'StoneCrab':
@@ -72,7 +72,7 @@ items:
         - '[message] &cYou don''t have enough money for this!'
     left_click_commands:
       - '[takemoney] 1000'
-      - '[console] hdb give 39749 1 %player_name%'
+      - '[console] givepet stone_crab %player_name%'
       - '[message] &aReceived &7&lStone Crab'
 
   'TinyGolem':
@@ -99,7 +99,7 @@ items:
         - '[message] &cYou don''t have enough money for this!'
     left_click_commands:
       - '[takemoney] 3500'
-      - '[console] hdb give 3410 1 %player_name%'
+      - '[console] givepet tiny_golem %player_name%'
       - '[message] &aReceived &7&lTiny Golem'
 
   'CaveBat':
@@ -126,7 +126,7 @@ items:
         - '[message] &cYou don''t have enough money for this!'
     left_click_commands:
       - '[takemoney] 7500'
-      - '[console] hdb give 6607 1 %player_name%'
+      - '[console] givepet cave_bat %player_name%'
       - '[message] &aReceived &7&lCave Bat'
 
   'DustyRat':
@@ -153,7 +153,7 @@ items:
         - '[message] &cYou don''t have enough money for this!'
     left_click_commands:
       - '[takemoney] 10000'
-      - '[console] hdb give 55567 1 %player_name%'
+      - '[console] givepet dusty_rat %player_name%'
       - '[message] &aReceived &7&lDusty Rat'
 
   'PebbleSlime':
@@ -180,7 +180,7 @@ items:
         - '[message] &cYou don''t have enough money for this!'
     left_click_commands:
       - '[takemoney] 15000'
-      - '[console] hdb give 98861 1 %player_name%'
+      - '[console] givepet pebble_slime %player_name%'
       - '[message] &aReceived &7&lPebble Slime'
 
   'IronSnail':
@@ -207,7 +207,7 @@ items:
         - '[message] &cYou don''t have enough money for this!'
     left_click_commands:
       - '[takemoney] 25000'
-      - '[console] hdb give 36841 1 %player_name%'
+      - '[console] givepet iron_snail %player_name%'
       - '[message] &aReceived &7&lIron Snail'
 
   'PickaxePuppy':
@@ -234,7 +234,7 @@ items:
         - '[message] &cYou don''t have enough money for this!'
     left_click_commands:
       - '[takemoney] 40000'
-      - '[console] hdb give 40312 1 %player_name%'
+      - '[console] givepet pickaxe_puppy %player_name%'
       - '[message] &aReceived &7&lPickaxe Puppy'
 
   'DrillBee':
@@ -261,7 +261,7 @@ items:
         - '[message] &cYou don''t have enough money for this!'
     left_click_commands:
       - '[takemoney] 55000'
-      - '[console] hdb give 100711 1 %player_name%'
+      - '[console] givepet drill_bee %player_name%'
       - '[message] &aReceived &7&lDrill Bee'
 
   'MineCat':
@@ -288,7 +288,7 @@ items:
         - '[message] &cYou don''t have enough money for this!'
     left_click_commands:
       - '[takemoney] 70000'
-      - '[console] hdb give 48466 1 %player_name%'
+      - '[console] givepet mine_cat %player_name%'
       - '[message] &aReceived &7&lMine Cat'
 
   'RustyGuardian':
@@ -315,7 +315,7 @@ items:
         - '[message] &cYou don''t have enough money for this!'
     left_click_commands:
       - '[takemoney] 85000'
-      - '[console] hdb give 57679 1 %player_name%'
+      - '[console] givepet rusty_guardian %player_name%'
       - '[message] &aReceived &7&lRusty Guardian'
 
   'GlowWorm':
@@ -342,7 +342,7 @@ items:
         - '[message] &cYou don''t have enough money for this!'
     left_click_commands:
       - '[takemoney] 100000'
-      - '[console] hdb give 64053 1 %player_name%'
+      - '[console] givepet glow_worm %player_name%'
       - '[message] &aReceived &7&lGlow Worm'
 
   'SilverGriffin':
@@ -374,7 +374,7 @@ items:
     left_click_commands:
       - '[takemoney] 150000'
       - '[console] zentium remove %player_name% 1'
-      - '[console] hdb give 3936 1 %player_name%'
+      - '[console] givepet silver_griffin %player_name%'
       - '[message] &aReceived &e&lSilver Griffin'
 
   'OreHound':
@@ -406,6 +406,6 @@ items:
     left_click_commands:
       - '[takemoney] 200000'
       - '[console] zentium remove %player_name% 1'
-      - '[console] hdb give 103807 1 %player_name%'
+      - '[console] givepet ore_hound %player_name%'
       - '[message] &aReceived &e&lOre Hound'
 sweet: true

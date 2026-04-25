@@ -1,4 +1,4 @@
-open_command: pets1
+﻿open_command: pets1
 
 size: 36
 
@@ -52,7 +52,7 @@ items:
     left_click_commands:
       - '[takemoney] 300000'
       - '[console] zentium remove %player_name% 2'
-      - '[console] hdb give 45690 1 %player_name%'
+      - '[console] givepet magnet_crawler %player_name%'
       - '[message] &aReceived &e&lMagnet Crawler'
 
   'SmeltSpirit':
@@ -84,7 +84,7 @@ items:
     left_click_commands:
       - '[takemoney] 400000'
       - '[console] zentium remove %player_name% 2'
-      - '[console] hdb give 68848 1 %player_name%'
+      - '[console] givepet smelt_spirit %player_name%'
       - '[message] &aReceived &e&lSmelt Spirit'
 
   'ShimmerBeetle':
@@ -116,7 +116,7 @@ items:
     left_click_commands:
       - '[takemoney] 500000'
       - '[console] zentium remove %player_name% 3'
-      - '[console] hdb give 59564 1 %player_name%'
+      - '[console] givepet shimmer_beetle %player_name%'
       - '[message] &aReceived &e&lShimmer Beetle'
 
   'EmeraldFox':
@@ -148,7 +148,7 @@ items:
     left_click_commands:
       - '[takemoney] 650000'
       - '[console] zentium remove %player_name% 3'
-      - '[console] hdb give 29628 1 %player_name%'
+      - '[console] givepet emerald_fox %player_name%'
       - '[message] &aReceived &e&lEmerald Fox'
 
   'DrillCore':
@@ -184,7 +184,7 @@ items:
     left_click_commands:
       - '[takemoney] 800000'
       - '[console] zentium remove %player_name% 4'
-      - '[console] hdb give 103283 1 %player_name%'
+      - '[console] givepet drill_core %player_name%'
       - '[message] &aReceived &5&lDrill Core'
 
   'Crystallion':
@@ -220,7 +220,7 @@ items:
     left_click_commands:
       - '[takemoney] 1000000'
       - '[console] zentium remove %player_name% 5'
-      - '[console] hdb give 31951 1 %player_name%'
+      - '[console] givepet crystallion %player_name%'
       - '[message] &aReceived &5&lCrystallion'
 
   'ObsidianBeast':
@@ -256,7 +256,7 @@ items:
     left_click_commands:
       - '[takemoney] 1200000'
       - '[console] zentium remove %player_name% 6'
-      - '[console] hdb give 112393 1 %player_name%'
+      - '[console] givepet obsidian_beast %player_name%'
       - '[message] &aReceived &5&lObsidian Beast'
 
   'SparklingPhoenix':
@@ -292,7 +292,7 @@ items:
     left_click_commands:
       - '[takemoney] 1500000'
       - '[console] zentium remove %player_name% 7'
-      - '[console] hdb give 683 1 %player_name%'
+      - '[console] givepet sparkling_phoenix %player_name%'
       - '[message] &aReceived &5&lSparkling Phoenix'
 
   'AncientDigger':
@@ -328,7 +328,7 @@ items:
     left_click_commands:
       - '[takemoney] 1800000'
       - '[console] zentium remove %player_name% 8'
-      - '[console] hdb give 51069 1 %player_name%'
+      - '[console] givepet ancient_digger %player_name%'
       - '[message] &aReceived &5&lAncient Digger'
 
   'LavaSerpent':
@@ -360,7 +360,7 @@ items:
     left_click_commands:
       - '[takemoney] 2000000'
       - '[console] zentium remove %player_name% 10'
-      - '[console] hdb give 110061 1 %player_name%'
+      - '[console] givepet lava_serpent %player_name%'
       - '[message] &aReceived &5&lLava Serpent'
 
   'TitaniumDragon':
@@ -392,7 +392,7 @@ items:
     left_click_commands:
       - '[takemoney] 2500000'
       - '[console] zentium remove %player_name% 12'
-      - '[console] hdb give 24607 1 %player_name%'
+      - '[console] givepet titanium_dragon %player_name%'
       - '[message] &aReceived &c&lTitanium &6&lDragon'
 
   'MythicCentipede':
@@ -424,7 +424,7 @@ items:
     left_click_commands:
       - '[takemoney] 3000000'
       - '[console] zentium remove %player_name% 15'
-      - '[console] hdb give 115613 1 %player_name%'
+      - '[console] givepet mythic_centipede %player_name%'
       - '[message] &aReceived &c&lMythic &6&lCentipede'
 
   'QuantumGhost':
@@ -456,7 +456,7 @@ items:
     left_click_commands:
       - '[takemoney] 3500000'
       - '[console] zentium remove %player_name% 18'
-      - '[console] hdb give 52051 1 %player_name%'
+      - '[console] givepet quantum_ghost %player_name%'
       - '[message] &aReceived &c&lQuantum &6&lGhost'
 
   'VoidHarvester':
@@ -488,6 +488,6 @@ items:
     left_click_commands:
       - '[takemoney] 4000000'
       - '[console] zentium remove %player_name% 20'
-      - '[console] hdb give 56128 1 %player_name%'
+      - '[console] givepet void_harvester %player_name%'
       - '[message] &aReceived &c&lVoid &6&lHarvester'
 sweet: true

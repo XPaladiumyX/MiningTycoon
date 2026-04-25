@@ -1,4 +1,4 @@
-open_command: pets2
+﻿open_command: pets2
 
 size: 36
 
@@ -43,7 +43,7 @@ items:
     left_click_commands:
       - '[takemoney] 5000000'
       - '[console] zentium remove %player_name% 25'
-      - '[console] hdb give 56834 1 %player_name%'
+      - '[console] givepet chrono_mole %player_name%'
       - '[message] &aReceived &c&lChrono &6&lMole'
 
   'NuclearWyrm':
@@ -75,7 +75,7 @@ items:
     left_click_commands:
       - '[takemoney] 6000000'
       - '[console] zentium remove %player_name% 30'
-      - '[console] hdb give 33091 1 %player_name%'
+      - '[console] givepet nuclear_wyrm %player_name%'
       - '[message] &aReceived &c&lNuclear &6&lWyrm'
 
   'GalacticGolem':
@@ -107,7 +107,7 @@ items:
     left_click_commands:
       - '[takemoney] 7500000'
       - '[console] zentium remove %player_name% 35'
-      - '[console] hdb give 16184 1 %player_name%'
+      - '[console] givepet galactic_golem %player_name%'
       - '[message] &aReceived &c&lGalactic &6&lGolem'
 
   'Barrier':
