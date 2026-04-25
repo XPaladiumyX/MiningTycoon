@@ -3,19 +3,15 @@ package skyxnetwork.miningTycoon.listeners;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.EnumWrappers;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -25,9 +21,7 @@ import skyxnetwork.miningTycoon.managers.MineManager;
 import skyxnetwork.miningTycoon.utils.ActionBarUtil;
 import skyxnetwork.miningTycoon.utils.NumberFormatter;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -35,7 +29,6 @@ public class BlockBreakListener implements Listener {
 
     private final MiningTycoon plugin;
     private final Random random = new Random();
-    private final Map<Player, Set<Block>> pendingVeinMinerBlocks = new HashMap<>();
 
     public BlockBreakListener(MiningTycoon plugin) {
         this.plugin = plugin;
@@ -178,7 +171,7 @@ public class BlockBreakListener implements Listener {
                 PacketContainer blockChange = new PacketContainer(PacketType.Play.Server.BLOCK_CHANGE);
                 blockChange.getBlockPositionModifier().write(0, 
                     new com.comphenix.protocol.wrappers.BlockPosition(block.getX(), block.getY(), block.getZ()));
-                blockChange.getBlockTypeModifier().write(0, Material.AIR);
+                blockChange.getBlocks().write(0, Material.AIR);
 
                 protocolManager.sendServerPacket(player, blockChange);
             }
@@ -195,7 +188,9 @@ public class BlockBreakListener implements Listener {
             PacketContainer blockChange = new PacketContainer(PacketType.Play.Server.BLOCK_CHANGE);
             blockChange.getBlockPositionModifier().write(0, 
                 new com.comphenix.protocol.wrappers.BlockPosition(block.getX(), block.getY(), block.getZ()));
-            blockChange.getBlockTypeModifier().write(0, block.getType());
+            
+            // Use getBlocks for setting block material
+            blockChange.getBlocks().write(0, block.getType());
 
             protocolManager.sendServerPacket(player, blockChange);
         } catch (Exception e) {
