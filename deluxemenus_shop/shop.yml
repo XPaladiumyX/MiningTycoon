@@ -13,7 +13,7 @@ items:
   'StarterPickaxe':
     material: wooden_pickaxe
     slot: 10
-    item_flags: [HIDE_ATTRIBUTES]
+    item_flags: [ HIDE_ATTRIBUTES ]
     display_name: "&6Starter Pickaxe"
     lore:
       - "&8Pickaxe"
@@ -37,7 +37,7 @@ items:
   'StonePickaxe':
     material: stone_pickaxe
     slot: 11
-    item_flags: [HIDE_ATTRIBUTES]
+    item_flags: [ HIDE_ATTRIBUTES ]
     display_name: "&7Stone Pickaxe"
     lore:
       - "&8Pickaxe"
@@ -70,7 +70,7 @@ items:
   'ReinforcedPickaxe':
     material: stone_pickaxe
     slot: 12
-    item_flags: [HIDE_ATTRIBUTES]
+    item_flags: [ HIDE_ATTRIBUTES ]
     display_name: "&7Reinforced Pickaxe"
     lore:
       - "&8Pickaxe"
@@ -106,7 +106,7 @@ items:
   'Rockshredder':
     material: stone_pickaxe
     slot: 13
-    item_flags: [HIDE_ATTRIBUTES]
+    item_flags: [ HIDE_ATTRIBUTES ]
     display_name: "&7Rockshredder"
     lore:
       - "&8Pickaxe"
@@ -142,7 +142,7 @@ items:
   'StoneCrusher':
     material: stone_pickaxe
     slot: 14
-    item_flags: [HIDE_ATTRIBUTES]
+    item_flags: [ HIDE_ATTRIBUTES ]
     display_name: "&eStone Crusher"
     lore:
       - "&8Pickaxe"
@@ -181,7 +181,7 @@ items:
   'IronPickaxe':
     material: iron_pickaxe
     slot: 15
-    item_flags: [HIDE_ATTRIBUTES]
+    item_flags: [ HIDE_ATTRIBUTES ]
     display_name: "&7Iron Pickaxe"
     lore:
       - "&8Pickaxe"
@@ -217,7 +217,7 @@ items:
   'TemperedEdge':
     material: iron_pickaxe
     slot: 16
-    item_flags: [HIDE_ATTRIBUTES]
+    item_flags: [ HIDE_ATTRIBUTES ]
     display_name: "&7Tempered Edge"
     lore:
       - "&8Pickaxe"
@@ -259,7 +259,7 @@ items:
   'OreSplitter':
     material: iron_pickaxe
     slot: 19
-    item_flags: [HIDE_ATTRIBUTES]
+    item_flags: [ HIDE_ATTRIBUTES ]
     display_name: "&7Ore Splitter"
     lore:
       - "&8Pickaxe"
@@ -301,7 +301,7 @@ items:
   'IronStorm':
     material: iron_pickaxe
     slot: 20
-    item_flags: [HIDE_ATTRIBUTES]
+    item_flags: [ HIDE_ATTRIBUTES ]
     display_name: "&eIronStorm"
     lore:
       - "&8Pickaxe"
@@ -343,7 +343,7 @@ items:
   'DiamondPickaxe':
     material: diamond_pickaxe
     slot: 21
-    item_flags: [HIDE_ATTRIBUTES]
+    item_flags: [ HIDE_ATTRIBUTES ]
     display_name: "&bDiamond Pickaxe"
     lore:
       - "&8Pickaxe"
@@ -385,7 +385,7 @@ items:
   'CrystalCutter':
     material: diamond_pickaxe
     slot: 22
-    item_flags: [HIDE_ATTRIBUTES]
+    item_flags: [ HIDE_ATTRIBUTES ]
     display_name: "&d&lCrystal &b&lCutter"
     lore:
       - "&8Pickaxe"
@@ -427,7 +427,7 @@ items:
   'Shardpiercer':
     material: diamond_pickaxe
     slot: 23
-    item_flags: [HIDE_ATTRIBUTES]
+    item_flags: [ HIDE_ATTRIBUTES ]
     display_name: "&d&lShard&b&lpiercer"
     lore:
       - "&8Pickaxe"
@@ -469,7 +469,7 @@ items:
   'GemReaper':
     material: diamond_pickaxe
     slot: 24
-    item_flags: [HIDE_ATTRIBUTES]
+    item_flags: [ HIDE_ATTRIBUTES ]
     display_name: "&a&lGemReaper"
     lore:
       - "&8Pickaxe"
@@ -511,7 +511,7 @@ items:
   'AetherPick':
     material: diamond_pickaxe
     slot: 25
-    item_flags: [HIDE_ATTRIBUTES]
+    item_flags: [ HIDE_ATTRIBUTES ]
     display_name: "&f&lAetherPick"
     lore:
       - "&8Pickaxe"
@@ -543,9 +543,9 @@ items:
           type: has item
           material: "DIAMOND_PICKAXE"
           modeldata: 1246
-        has_zentium:  
+        has_zentium:
           type: javascript
-          expression: '%coinsengine_balance_raw_zentium% >= 1'
+          expression: '%excellenteconomy_balance_raw_zentium% >= 1'
       deny_commands:
         - '[message] &cYou don''t meet the requirements!'
     left_click_commands:

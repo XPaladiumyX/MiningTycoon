@@ -37,7 +37,7 @@ items:
           amount: 5000000
         has_zentium:
           type: javascript
-          expression: '%coinsengine_balance_raw_zentium% >= 25'
+          expression: '%excellenteconomy_balance_raw_zentium% >= 25'
       deny_commands:
         - '[message] &cYou don''t meet the requirements!'
     left_click_commands:
@@ -69,7 +69,7 @@ items:
           amount: 6000000
         has_zentium:
           type: javascript
-          expression: '%coinsengine_balance_raw_zentium% >= 30'
+          expression: '%excellenteconomy_balance_raw_zentium% >= 30'
       deny_commands:
         - '[message] &cYou don''t meet the requirements!'
     left_click_commands:
@@ -101,7 +101,7 @@ items:
           amount: 7500000
         has_zentium:
           type: javascript
-          expression: '%coinsengine_balance_raw_zentium% >= 35'
+          expression: '%excellenteconomy_balance_raw_zentium% >= 35'
       deny_commands:
         - '[message] &cYou don''t meet the requirements!'
     left_click_commands:
