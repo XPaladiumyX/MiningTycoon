@@ -53,7 +53,7 @@ items:
           modeldata: 1247
         has_zentium:
           type: javascript
-          expression: '%coinsengine_balance_raw_zentium% >= 1'
+          expression: '%excellenteconomy_balance_raw_zentium% >= 1'
       deny_commands:
         - '[message] &cYou don''t meet the requirements!'
     left_click_commands:
@@ -471,7 +471,7 @@ items:
           modeldata: 1256
         has_zentium:
           type: javascript
-          expression: '%coinsengine_balance_raw_zentium% >= 2'
+          expression: '%excellenteconomy_balance_raw_zentium% >= 2'
       deny_commands:
         - '[message] &cYou don''t meet the requirements!'
     left_click_commands:
@@ -669,7 +669,7 @@ items:
           modeldata: 1260
         has_zentium:
           type: javascript
-          expression: '%coinsengine_balance_raw_zentium% >= 5'
+          expression: '%excellenteconomy_balance_raw_zentium% >= 5'
       deny_commands:
         - '[message] &cYou don''t meet the requirements!'
     left_click_commands:

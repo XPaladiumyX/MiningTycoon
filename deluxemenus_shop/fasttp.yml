@@ -1,0 +1,93 @@
+open_command: ftp
+size: 36
+menu_title: '&8Fast Teleport'
+items:
+  'pageshop':
+    material: iron_ore
+    slot: 10
+    display_name: "&f&lIRON MINE"
+    lore:
+      - "&6+4⛁ &8| &3+15✦"
+      - ""
+      - "&cRequired &bLevel 5+"
+    left_click_commands:
+      - '[player] fasttp zone 2'
+  'pageshop1':
+    material: raw_iron_block
+    slot: 12
+    display_name: "&f&lRAW IRON MINE"
+    lore:
+      - "&6+8⛁ &8| &3+23✦"
+      - ""
+      - "&cRequired &bLevel 10+"
+    left_click_commands:
+      - '[player] fasttp zone 3'
+  'pageshop2':
+    material: copper_ore
+    slot: 14
+    display_name: "&f&lCOPPER MINE"
+    lore:
+      - "&6+13⛁ &8| &3+38✦"
+      - ""
+      - "&cRequired &bLevel 26+"
+    left_click_commands:
+      - '[player] fasttp zone 4'
+  'pageshop3':
+    material: raw_copper_block
+    slot: 16
+    display_name: "&f&lRAW COPPER MINE"
+    lore:
+      - "&6+21⛁ &8| &3+63✦"
+      - ""
+      - "&cRequired &bLevel 42+"
+    left_click_commands:
+      - '[player] fasttp zone 5'
+  'pageshop4':
+    material: gold_ore
+    slot: 19
+    display_name: "&f&lGOLD MINE"
+    lore:
+      - "&6+35⛁ &8| &3+105✦"
+      - ""
+      - "&cRequired &bLevel 58+"
+    left_click_commands:
+      - '[player] fasttp zone 6'
+  'pageshop5':
+    material: raw_gold_block
+    slot: 21
+    display_name: "&f&lRAW GOLD MINE"
+    lore:
+      - "&6+58⛁ &8| &3+175✦"
+      - ""
+      - "&cRequired &bLevel 74+"
+    left_click_commands:
+      - '[player] fasttp zone 7'
+  'pageshop6':
+    material: lapis_ore
+    slot: 23
+    display_name: "&f&lLAPIS MINE"
+    lore:
+      - "&6+96⛁ &8| &3+291✦"
+      - ""
+      - "&cRequired &bLevel 90+"
+    left_click_commands:
+      - '[player] fasttp zone 8'
+  'pageshop7':
+    material: diamond_ore
+    slot: 25
+    display_name: "&f&lDIAMOND MINE"
+    lore:
+      - "&6+160⛁ &8| &3+485✦"
+      - ""
+      - "&cRequired &bLevel 100+"
+    left_click_commands:
+      - '[player] fasttp zone 9'
+  'barrier':
+    material: barrier
+    slot: 28
+    display_name: "&c<- Back"
+    lore:
+      - "&7Click to change page"
+    left_click_commands:
+      - '[player] menu'
+sweet: true

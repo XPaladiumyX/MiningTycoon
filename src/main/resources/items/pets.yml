@@ -193,41 +193,41 @@ ore_hound:
   moneyBonus: 4320
 
 magnet_crawler:
-  name: "&e&lMagnet Crawler"
+  name: "§e§lMagnet Crawler"
   texture: "hdb-45690"
   lore:
-    - "&8Pet"
+    - "§8Pet"
     - ""
-    - "&d&lBonus:"
-    - "&8« &3+5300✦ &8| &6+4890⛁ &8»"
+    - "§d§lBonus:"
+    - "§8« §3+5300✦ §8| §6+4890⛁ §8»"
     - ""
-    - "&9&lRARE"
+    - "§e§lRARE"
   expBonus: 5300
   moneyBonus: 4890
 
 smelt_spirit:
-  name: "&e&lSmelt Spirit"
+  name: "§e§lSmelt Spirit"
   texture: "hdb-68848"
   lore:
-    - "&8Pet"
+    - "§8Pet"
     - ""
-    - "&d&lBonus:"
-    - "&8« &3+5800✦ &8| &6+5000⛁ &8»"
+    - "§d§lBonus:"
+    - "§8« §3+5800✦ §8| §6+5000⛁ §8»"
     - ""
-    - "&9&lRARE"
+    - "§e§lRARE"
   expBonus: 5800
   moneyBonus: 5000
 
 shimmer_beetle:
-  name: "&e&lShimmer Beetle"
+  name: "§e§lShimmer Beetle"
   texture: "hdb-59564"
   lore:
-    - "&8Pet"
+    - "§8Pet"
     - ""
-    - "&d&lBonus:"
-    - "&8« &3+5565✦ &8| &6+5498⛁ &8»"
+    - "§d§lBonus:"
+    - "§8« §3+5565✦ §8| §6+5498⛁ §8»"
     - ""
-    - "&9&lRARE"
+    - "§e§lRARE"
   expBonus: 5565
   moneyBonus: 5498
 
@@ -238,7 +238,7 @@ emerald_fox:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "&8« &3+6000✦ &8| &6+5880⛁ &8»"
+    - "§8« §3+6000✦ §8| §6+5880⛁ §8»"
     - ""
     - "§e§lRARE"
   expBonus: 6000
@@ -252,9 +252,9 @@ drill_core:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "&8« &3+8700✦ &8| &6+7400⛁ &8»"
+    - "§8« §3+8700✦ §8| §6+7400⛁ §8»"
     - ""
-    - "§9§lEPIC"
+    - "§5§lEPIC"
   expBonus: 8700
   moneyBonus: 7400
 
@@ -265,48 +265,48 @@ crystallion:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "&8« &3+9300✦ &8| &6+7800⛁ &8»"
+    - "§8« §3+9300✦ §8| §6+7800⛁ §8»"
     - ""
-    - "§9§lEPIC"
+    - "§5§lEPIC"
   expBonus: 9300
   moneyBonus: 7800
 
 obsidian_beast:
-  name: "&5&lObsidian Beast"
+  name: "§5§lObsidian Beast"
   texture: "hdb-112393"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "&8« &3+9900✦ &8| &6+8200⛁ &8»"
+    - "§8« §3+9900✦ §8| §6+8200⛁ §8»"
     - ""
-    - "§9§lEPIC"
+    - "§5§lEPIC"
   expBonus: 9900
   moneyBonus: 8200
 
 sparkling_phoenix:
-  name: "&5&lSparkling Phoenix"
+  name: "§5§lSparkling Phoenix"
   texture: "hdb-683"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "&8« &3+10500✦ &8| &6+8800⛁ &8»"
+    - "§8« §3+10500✦ §8| §6+8800⛁ §8»"
     - ""
-    - "§9§lEPIC"
+    - "§5§lEPIC"
   expBonus: 10500
   moneyBonus: 8800
 
 ancient_digger:
-  name: "&5&lAncient Digger"
+  name: "§5§lAncient Digger"
   texture: "hdb-51069"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "&8« &3+10200✦ &8| &6+9600⛁ &8»"
+    - "§8« §3+10200✦ §8| §6+9600⛁ §8»"
     - ""
-    - "§9§lEPIC"
+    - "§5§lEPIC"
   expBonus: 10200
   moneyBonus: 9600
 
@@ -317,9 +317,9 @@ lava_serpent:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "&8« &3+10700✦ &8| &6+10650⛁ &8»"
+    - "§8« §3+10700✦ §8| §6+10650⛁ §8»"
     - ""
-    - "§9§lEPIC"
+    - "§5§lEPIC"
   expBonus: 10700
   moneyBonus: 10650
 
@@ -331,7 +331,7 @@ titanium_dragon:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "&8« &3+15500✦ &8| &6+12400⛁ &8»"
+    - "§8« §3+15500✦ §8| §6+12400⛁ §8»"
     - ""
     - "§e§lLEGENDARY"
   expBonus: 15500
@@ -344,59 +344,59 @@ mythic_centipede:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "&8« &3+16200✦ &8| &6+13100⛁ &8»"
+    - "§8« §3+16200✦ §8| §6+13100⛁ §8»"
     - ""
     - "§e§lLEGENDARY"
   expBonus: 16200
   moneyBonus: 13100
 
 quantum_ghost:
-  name: "&c&lQuantum &6&lGhost"
+  name: "§c§lQuantum §6§lGhost"
   texture: "hdb-52051"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "&8« &3+17000✦ &8| &6+13800⛁ &8»"
+    - "§8« §3+17000✦ §8| §6+13800⛁ §8»"
     - ""
     - "§e§lLEGENDARY"
   expBonus: 17000
   moneyBonus: 13800
 
 void_harvester:
-  name: "&c&lVoid &6&lHarvester"
+  name: "§c§lVoid §6§lHarvester"
   texture: "hdb-56128"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "&8« &3+17500✦ &8| &6+14300⛁ &8»"
+    - "§8« §3+17500✦ §8| §6+14300⛁ §8»"
     - ""
     - "§e§lLEGENDARY"
   expBonus: 17500
   moneyBonus: 14300
 
 chrono_mole:
-  name: "&c&lChrono &6&lMole"
+  name: "§c§lChrono §6§lMole"
   texture: "hdb-56834"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "&8« &3+18000✦ &8| &6+14800⛁ &8»"
+    - "§8« §3+18000✦ §8| §6+14800⛁ §8»"
     - ""
     - "§e§lLEGENDARY"
   expBonus: 18000
   moneyBonus: 14800
 
 nuclear_wyrm:
-  name: "&c&lNuclear &6&lWyrm"
+  name: "§c§lNuclear §6§lWyrm"
   texture: "hdb-33091"
   lore:
     - "§8Pet"
     - ""
     - "§d§lBonus:"
-    - "&8« &3+18500✦ &8| &6+15400⛁ &8»"
+    - "§8« §3+18500✦ §8| §6+15400⛁ §8»"
     - ""
     - "§e§lLEGENDARY"
   expBonus: 18500

@@ -1,0 +1,240 @@
+open_command: armor4
+
+size: 36
+
+menu_title: '&2&lArmor'
+
+items:
+  'pageshop':
+    material: paper
+    slot: 28
+    display_name: "&f&l<- Previous Page"
+    lore:
+      - "&7Click to change page"
+    left_click_commands:
+      - '[player] armor3'
+  'galactic_annihilator_chestplate':
+    material: LEATHER_CHESTPLATE
+    slot: 0
+    rgb: 127, 63, 178
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&6&lGalactic Annihilator Chestplate"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+32002✦ &8| &6+32001⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &63,200,150⛁"
+      - ""
+      - "&e&lLEGENDARY"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 3200150
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 3200150'
+      - '[console] givearmor galactic_annihilator_chestplate %player_name%'
+      - '[message] &aReceived &6&lGalactic Annihilator Chestplate'
+
+  'galactic_annihilator_leggings':
+    material: LEATHER_LEGGINGS
+    slot: 9
+    rgb: 127, 63, 178
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&6&lGalactic Annihilator Leggings"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+32001✦ &8| &6+32000⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &63,200,050⛁"
+      - ""
+      - "&e&lLEGENDARY"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 3200050
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 3200050'
+      - '[console] givearmor galactic_annihilator_leggings %player_name%'
+      - '[message] &aReceived &6&lGalactic Annihilator Leggings'
+
+  'galactic_annihilator_boots':
+    material: LEATHER_BOOTS
+    slot: 18
+    rgb: 127, 63, 178
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&6&lGalactic Annihilator Boots"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+32001✦ &8| &6+32000⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &63,200,050⛁"
+      - ""
+      - "&e&lLEGENDARY"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 3200050
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 3200050'
+      - '[console] givearmor galactic_annihilator_boots %player_name%'
+      - '[message] &aReceived &6&lGalactic Annihilator Boots'
+
+  'eternal_warden_chestplate':
+    material: LEATHER_CHESTPLATE
+    slot: 1
+    rgb: 51, 76, 178
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&b&lE&1&lt&b&le&1&lr&b&ln&1&la&b&ll &1&lW&b&la&1&lr&b&ld&1&le&b&ln &f&lChestplate"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+33333✦ &8| &6+33333⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &63,333,300⛁"
+      - ""
+      - "&e&lLEGENDARY"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 3333300
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 3333300'
+      - '[console] givearmor eternal_warden_chestplate %player_name%'
+      - '[message] &aReceived &b&lE&1&lt&b&le&1&lr&b&ln&1&la&b&ll &1&lW&b&la&1&lr&b&ld&1&le&b&ln &f&lChestplate'
+
+  'eternal_warden_leggings':
+    material: LEATHER_LEGGINGS
+    slot: 10
+    rgb: 102, 153, 216
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&b&lE&1&lt&b&le&1&lr&b&ln&1&la&b&ll &1&lW&b&la&1&lr&b&ld&1&le&b&ln &f&lLeggings"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+33333✦ &8| &6+33333⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &63,333,300⛁"
+      - ""
+      - "&e&lLEGENDARY"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 3333300
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 3333300'
+      - '[console] givearmor eternal_warden_leggings %player_name%'
+      - '[message] &aReceived &b&lE&1&lt&b&le&1&lr&b&ln&1&la&b&ll &1&lW&b&la&1&lr&b&ld&1&le&b&ln &f&lLeggings'
+
+  'eternal_warden_boots':
+    material: LEATHER_BOOTS
+    slot: 19
+    rgb: 51, 76, 178
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&b&lE&1&lt&b&le&1&lr&b&ln&1&la&b&ll &1&lW&b&la&1&lr&b&ld&1&le&b&ln &f&lBoots"
+    lore:
+      - "&8Armor"
+      - ""
+      - "&d&lBonus:"
+      - "&8« &3+33333✦ &8| &6+33333⛁ &8»"
+      - ""
+      - "&c&lRequired:"
+      - "&7- &63,333,300⛁"
+      - ""
+      - "&e&lLEGENDARY"
+    left_click_requirement:
+      requirements:
+        has_money:
+          type: has money
+          amount: 3333300
+      deny_commands:
+        - '[message] &cYou don''t have enough money for this!'
+    left_click_commands:
+      - '[takemoney] 3333300'
+      - '[console] givearmor eternal_warden_boots %player_name%'
+      - '[message] &aReceived &b&lE&1&lt&b&le&1&lr&b&ln&1&la&b&ll &1&lW&b&la&1&lr&b&ld&1&le&b&ln &f&lBoots'
+  'Barrier':
+    material: barrier
+    slot: 2
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&c&lComming Soon..."
+    lore:
+      - "&cMore Armor Sets will be added during the developement of the game."
+  'Barrier2':
+    material: barrier
+    slot: 11
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&c&lComming Soon..."
+    lore:
+      - "&cMore Armor Sets will be added during the developement of the game."
+  'Barrier3':
+    material: barrier
+    slot: 20
+    item_flags:
+      - HIDE_ATTRIBUTES
+      - HIDE_ENCHANTS
+    enchantments:
+      - 'DURABILITY;1'
+    display_name: "&c&lComming Soon..."
+    lore:
+      - "&cMore Armor Sets will be added during the developement of the game."
+sweet: true

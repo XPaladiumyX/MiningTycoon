@@ -1,0 +1,47 @@
+menu_title: '&d&l<< Prestige Confirmation >>'
+open_command: prestige_confirmation
+menu_name: prestige_confirmation
+size: 27
+items:
+
+  background_gray:
+    material: gray_stained_glass_pane
+    display_name: " "
+    slots:
+      - 0-10
+      - 12-14
+      - 16-26
+
+  info:
+    material: experience_bottle
+    display_name: "&d&lPrestige Menu"
+    slot: 13
+    lore:
+      - "&7You're about to reset your level and EXP."
+      - "&7You'll be rewarded and promoted."
+      - ""
+      - "&eAre you sure you want to continue?"
+
+  confirm:
+    material: emerald
+    display_name: "&a&l✔ Confirm Prestige"
+    slot: 11
+    lore:
+      - "&7Click to confirm your prestige."
+      - "&aYou will be reset to Level 1"
+      - "&aAnd receive rewards!"
+    left_click_commands:
+      - '[close]'
+      - '[player] prestige confirm'
+      - '[player] hub'
+
+  cancel:
+    material: barrier
+    display_name: "&c&l✖ Cancel"
+    slot: 15
+    lore:
+      - "&7Click to cancel this prestige."
+    left_click_commands:
+      - '[close]'
+      - '[console] tellraw %player_name% {"text":"✖ Prestige cancelled.","color":"red"}'
+      - '[console] set_prestige_cancel_delay %player_name%'
